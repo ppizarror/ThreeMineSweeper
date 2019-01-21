@@ -6,7 +6,7 @@ Application source code directory.
 
 | Folder name | Description |
 | :-- | :-- |
-| __version__ | Version app info |
+| about | Version app info |
 | config/ | Configuration |
 | core/ | Core function |
 | i18n/ | Localization |
