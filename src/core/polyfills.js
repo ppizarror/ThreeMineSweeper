@@ -1,9 +1,9 @@
 /**
  POLYFILLS
- Extiende funciones y comportamientos básicos a la aplicación.
+ Extend basic functions.
 
  @author Pablo Pizarro R. @ppizarror.com
- @license Copyright 2018-2019, no copiar o distribuír sin permiso directo del autor
+ @license MIT
  */
 "use strict";
 
@@ -14,7 +14,7 @@
  */
 
 /**
- * Extiende number epsilon
+ * Extends epsilon
  */
 if (Number.EPSILON === undefined) {
     Number.EPSILON = Math.pow(2, -52);
@@ -31,7 +31,7 @@ if (Number.isInteger === undefined) {
 }
 
 /**
- * Signo
+ * Sign
  * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/sign
  */
 if (Math.sign === undefined) {
@@ -51,7 +51,7 @@ if (Math.sign === undefined) {
  */
 
 /**
- * Name en prototipe
+ * Name prototype
  * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/name
  */
 if ('name' in Function.prototype === false) {
@@ -95,7 +95,7 @@ if (Object.assign === undefined) {
 
 /**
  * ----------------------------------------------------------------------------
- * Extiende String
+ * String
  * ----------------------------------------------------------------------------
  */
 
@@ -113,7 +113,7 @@ if (!String.prototype.format) {
 }
 
 /**
- * Reemplazar un string.
+ * Replace.
  *
  * @function
  * @returns {string}
@@ -125,7 +125,7 @@ String.prototype.replaceAll = function (search, replacement) {
 };
 
 /**
- * Capitaliza string, primer carácter es en mayúsculas.
+ * Capitalize string.
  *
  * @function
  * @returns {string}
@@ -137,16 +137,16 @@ String.prototype.capitalize = function () {
 
 /**
  * ----------------------------------------------------------------------------
- * Extiende Array
+ * Array
  * ----------------------------------------------------------------------------
  */
 
 /**
- * Agrega push si es único.
+ * Add push if unique.
  *
  * @function
- * @param item - Elemento a añadir
- * @returns {boolean} - Indica si el elemento fue añadido o no
+ * @param item - Item to add.
+ * @returns {boolean}
  */
 Array.prototype.pushUnique = function (item) {
     if (this.indexOf(item) === -1) {
@@ -164,10 +164,10 @@ Array.prototype.pushUnique = function (item) {
  */
 
 /**
- * Añade obtener número de la semana.
+ * Get number of the week.
  *
  * @function
- * @returns {number} - Número de la semana
+ * @returns {number} - Week number.
  */
 Date.prototype.getWeekNumber = function () {
     /* eslint no-extend-native:"off" */

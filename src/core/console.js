@@ -8,18 +8,17 @@
 "use strict";
 
 /**
- * Administra la consola de la aplicación.
+ * Application console.
  *
  * @class
  * @private
  * @constructor
- * @since 1.9.52
  */
 function AppConsole() {
     /* eslint no-console:"off" */
 
     /**
-     * Almacena total de mensajes en consola antes de borrar
+     * Stores total messages before wipe.
      * @type {int}
      * @private
      * @ignore
@@ -27,7 +26,7 @@ function AppConsole() {
     this._consoleMessages = 0;
 
     /**
-     * Mensajes totals en consola
+     * Total console messages.
      * @type {int}
      * @private
      * @ignore
@@ -35,7 +34,7 @@ function AppConsole() {
     this._totalConsoleMessages = 0;
 
     /**
-     * Formato de fecha de mensajes
+     * Format string.
      * @type {string}
      * @private
      * @ignore
@@ -43,7 +42,7 @@ function AppConsole() {
     this._msgDateFormat = cfg_date_format_public_d + ' ' + cfg_date_format_public_h;
 
     /**
-     * Puntero a objeto
+     * Object pointer.
      * @type {AppConsole}
      * @private
      * @ignore
@@ -51,12 +50,11 @@ function AppConsole() {
     let self = this;
 
     /**
-     * Aplica formato al mensaje para ser impreso en la consola.
+     * Apply format message.
      *
      * @function
      * @private
-     * @param {string} msg - Mensaje
-     * @since 3.0.28
+     * @param {string} msg - Message
      * @ignore
      */
     this._format = function (msg) {
@@ -71,11 +69,10 @@ function AppConsole() {
     };
 
     /**
-     * Chequea reseteo de mensajes en consola, si se excede borra consola y imprime inicio.
+     * Check console reset.
      *
      * @function
      * @private
-     * @since 3.0.20
      * @ignore
      */
     this._resetMessages = function () {
@@ -89,11 +86,11 @@ function AppConsole() {
     };
 
     /**
-     * Muestra un mensaje de información en la consola.
+     * Information message.
      *
      * @function
      * @public
-     * @param {string} msg - Mensaje
+     * @param {string} msg - Message
      */
     this.info = function (msg) {
         if (cfg_verbose) {
@@ -108,12 +105,11 @@ function AppConsole() {
     };
 
     /**
-     * Escribe un objeto en la consola.
+     * Writes object on console
      *
      * @function
      * @public
-     * @param {Object} obj - Objeto
-     * @since 3.5.22
+     * @param {Object} obj - Object
      */
     this.writeObj = function (obj) {
         if (cfg_verbose) {
@@ -122,12 +118,12 @@ function AppConsole() {
     };
 
     /**
-     * Muestra un mensaje de error en la consola.
+     * Writes an error message
      *
      * @function
      * @public
-     * @param {string} msg - Mensaje
-     * @param {boolean=} w - Indica si se escribe el encabezado o no
+     * @param {string} msg - Message
+     * @param {boolean=} w - Writes header
      */
     this.error = function (msg, w) {
         if (cfg_verbose) {
@@ -148,34 +144,33 @@ function AppConsole() {
     };
 
     /**
-     * Escribe un contenido en la consola sin aplicar formato dentro de la línea.
+     * Writes an formatless error message
      *
      * @function
      * @public
-     * @param {object} obj - Objeto a escribir
-     * @since 1.9.54
+     * @param {object} obj - Object
      */
     this.errorf = function (obj) {
         console.error(obj);
     };
 
     /**
-     * Escribe un error en consola.
+     * Writes an error on console.
      *
      * @function
      * @public
-     * @param {Error} exceptionmsg - Excepción
-     * @param {boolean=} w - Indica si se escribe el encabezado o no
+     * @param {Error} exceptionmsg - Exception message
+     * @param {boolean=} w - Writes header
      */
     this.exception = function (exceptionmsg, w) {
-        if (cfg_verbose && isRoot()) {
+        if (cfg_verbose) {
             let $m;
             if (w) {
                 $m = 'EXCEPTION: ';
             } else {
                 $m = '';
             }
-            self._totalConsoleMessages -= 1; // Excepción no considera como mensaje
+            self._totalConsoleMessages -= 1; // Exception is not treated as message
             self._consoleMessages -= 1;
             this._resetMessages();
             if (isString(exceptionmsg)) {
@@ -187,12 +182,12 @@ function AppConsole() {
     };
 
     /**
-     * Muestra un mensaje de advertencia en la consola.
+     * Writes a generic warning message
      *
      * @function
      * @public
-     * @param {string} msg - Mensaje
-     * @param {boolean=} w - Indica si se escribe el encabezado o no
+     * @param {string} msg - Message
+     * @param {boolean=} w - Writes header
      */
     this.warn = function (msg, w) {
         if (cfg_verbose) {
@@ -213,35 +208,33 @@ function AppConsole() {
     };
 
     /**
-     * Escribe un contenido en la consola sin aplicar formato dentro de la línea.
+     * Write formatless object into console
      *
      * @function
      * @public
-     * @param {object} obj - Objeto a escribir
-     * @since 1.9.54
+     * @param {object} obj - Object to write
      */
     this.warnf = function (obj) {
         console.warn(obj);
     };
 
     /**
-     * Imprime un acerca-de en consola.
+     * Prints about info.
      *
      * @function
      * @public
-     * @since 1.9.52
      * @ignore
      */
     this.aboutInfo = function () {
         console.log('{0} v{1} ({2})'.format(aboutinfo.productname, aboutinfo.v.version, aboutinfo.v.date));
         console.log('{0} | {1}'.format(aboutinfo.author.name, aboutinfo.author.website));
-        console.log(' '); // En IE si está vacío ('') imprime un objeto
+        console.log(' ');
     };
 
 }
 
 /**
- * Almacena objeto consola de la aplicación
+ * Stores console object
  * @type {AppConsole}
  * @var
  * @const

@@ -1,6 +1,6 @@
 /**
  URL
- Funciones utilitarias administración de direcciones.
+ Auxiliary URL functions.
 
  @author Pablo Pizarro R. @ppizarror.com
  @license Copyright 2018-2019, no copiar o distribuír sin permiso directo del autor
@@ -8,12 +8,11 @@
 "use strict";
 
 /**
- * Obtiene parámetros de la url.
+ * Get URL params.
  *
  * @function
- * @param name - Nombre del elemento
+ * @param name - Element name
  * @returns {string | null}
- * @since 1.0.0
  */
 $.urlParam = function (name) {
     let results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
@@ -24,12 +23,11 @@ $.urlParam = function (name) {
 };
 
 /**
- * Obtiene parámetro url.
+ * Get URL param.
  *
  * @function
- * @param {string} name - Nombre del parámetro
- * @returns {string} - Valor del parámetro
- * @since 1.0.0
+ * @param {string} name - Parameter name
+ * @returns {string} - Parameter value
  */
 function getURLParameter(name) {
     // noinspection JSConsecutiveCommasInArrayLiteral
@@ -37,29 +35,29 @@ function getURLParameter(name) {
 }
 
 /**
- * Cambia el parámetro de la url.
+ * Changes URL param.
  *
  * @function
- * @param {string} key - Nombre del parámeto
- * @param {string} value - Valor del parámetro
+ * @param {string} key - Parameter name
+ * @param {string} value - Parameter value
  * @since 2.1.9
  */
 function changeUrlParam(key, value) {
 
     /**
-     * Se obtiene la url y los parámetros existentes
+     * Get URL and exiting params.
      */
     let baseUrl = [location.protocol, '//', location.host, location.pathname].join('');
     let urlQueryString = document.location.search;
     let params = '';
 
     /**
-     * Pasa el valor a un string
+     * Turn to string
      */
     value = value.toString();
 
     /**
-     * Casos de borde
+     * Limit cases
      */
     if (urlQueryString === '') {
         if (value === '' || isNullUndf(value)) {
@@ -72,7 +70,7 @@ function changeUrlParam(key, value) {
     }
 
     /**
-     * Separa los keys en un arreglo
+     * Turn keys into an array
      */
     if (urlQueryString.charAt(0) === '?') urlQueryString = urlQueryString.slice(1);
 
@@ -85,7 +83,7 @@ function changeUrlParam(key, value) {
     }
 
     /**
-     * Si el valor es '' se borra el elemento
+     * Wipes element if empty
      */
     if (value === '' || isNullUndf(value)) {
         for (let i = 0; i < $urlkeys.length; i += 1) {
@@ -99,7 +97,7 @@ function changeUrlParam(key, value) {
     }
 
     /**
-     * Se reemplaza o se añade si no se encontró
+     * Replace or add if not found
      */
     else {
         let $found = false;
@@ -116,7 +114,7 @@ function changeUrlParam(key, value) {
     }
 
     /**
-     * Se arma el string
+     * Create string
      */
     for (let i = 0; i < $urlkeys.length; i += 1) {
         $urlkeys[i] = $urlkeys[i].join('=');
@@ -125,29 +123,27 @@ function changeUrlParam(key, value) {
     if ($urlkeys !== '') $urlkeys = '?' + $urlkeys;
 
     /**
-     * Se actualiza la url
+     * Update URL
      */
     window.history.replaceState({}, '', baseUrl + $urlkeys);
 
 }
 
 /**
- * Elimina todos los parámetros de la url.
+ * Deletes all URL params.
  *
  * @function
- * @since 1.0.0
  */
 function deleteUrlParams() {
     window.history.replaceState(null, null, window.location.pathname);
 }
 
 /**
- * Obtiene un string con todos los parámetros de la url.
+ * Get an string with all URL params.
  *
  * @function
- * @param {String} url - La url
- * @returns {String} - String con los parámetros de la url
- * @since 2.5.0
+ * @param {String} url - URL
+ * @returns {String}
  */
 function getAllUrlParamsString(url) {
     let parser = document.createElement('a');
