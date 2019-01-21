@@ -38,7 +38,7 @@ function removeAllHTMLTag($text, $tag) {
  * Parse string to object.
  *
  * @function
- * @param {string} s - String to convert.
+ * @param {string} s - String to convert
  * @return {string | number | boolean}
  */
 function parseStringToType(s) {

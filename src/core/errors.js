@@ -18,7 +18,7 @@ function AppError() {
     /* eslint no-use-before-define:"off" */
 
     /**
-     * Base de datos de errores
+     * Error database.
      * @public
      */
     this.error = {
@@ -26,7 +26,7 @@ function AppError() {
             "code": 0,
             "id": "langNotExist",
             "moreinfo": "cfg_lang settings is incorrect, reload application to reset configuration",
-            "msg": "Bad language setting"
+            "msg": "Bad language setting",
         },
         "cookiesDisabled": {
             "code": 1,
@@ -34,7 +34,7 @@ function AppError() {
             "moreinfo": "This browser cannot save cookies",
             "msg": "Cannot save cookies",
             "other": "Set cfg_cookie_local to true",
-            "usingLocalStorage": "Cookies are disabled, using localStorage"
+            "usingLocalStorage": "Cookies are disabled, using localStorage",
         },
     };
 
@@ -79,7 +79,6 @@ function AppError() {
      * @public
      * @param {object} errorid - app_error.error object
      * @param {Error=} exceptionmsg - Exception object
-     * @since 1.3.5
      */
     this.throwExceptionID = function (errorid, exceptionmsg) {
         app_console.error('Error #{0} <{2}>: {1}.'.format(errorid.code, errorid.msg, errorid.id), false);

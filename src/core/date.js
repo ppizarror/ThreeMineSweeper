@@ -23,8 +23,8 @@ function getSecondsBetween(finish, init) {
  * Return the seconds after an initial date.
  *
  * @function
- * @param {Date} time - Fecha inicial
- * @returns {number} - Número de segundos
+ * @param {Date} time - Init date
+ * @returns {number} - Number of seconds
  */
 function getSecondsFrom(time) {
     return getSecondsBetween(new Date(), time);

@@ -1,13 +1,13 @@
 /**
  ABOUT
- Author information.
+ About software.
 
  @author Pablo Pizarro R. @ppizarror.com
  @license MIT
  */
 
 /**
- * Application info
+ * Application info.
  * @global
  * @ignore
  */

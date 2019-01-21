@@ -129,7 +129,7 @@ function FullPageLoadingSpinner() {
         if (checker) {
 
             /**
-             * No se ha creado aún el objeto
+             * Object has not been created
              */
             if (isNullUndf(document.getElementById('LoadingDivLayer'))) {
 

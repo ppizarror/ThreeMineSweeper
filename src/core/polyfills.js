@@ -145,7 +145,7 @@ String.prototype.capitalize = function () {
  * Add push if unique.
  *
  * @function
- * @param item - Item to add.
+ * @param item - Item to add
  * @returns {boolean}
  */
 Array.prototype.pushUnique = function (item) {
@@ -167,7 +167,7 @@ Array.prototype.pushUnique = function (item) {
  * Get number of the week.
  *
  * @function
- * @returns {number} - Week number.
+ * @returns {number} - Week number
  */
 Date.prototype.getWeekNumber = function () {
     /* eslint no-extend-native:"off" */

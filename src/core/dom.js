@@ -11,7 +11,6 @@
 /**
  * Get DOM objects.
  * @global
- * @since 0.1.1
  */
 let app_dom = {
     body: null,

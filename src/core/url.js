@@ -40,12 +40,11 @@ function getURLParameter(name) {
  * @function
  * @param {string} key - Parameter name
  * @param {string} value - Parameter value
- * @since 2.1.9
  */
 function changeUrlParam(key, value) {
 
     /**
-     * Get URL and exiting params.
+     * Get URL and exiting params
      */
     let baseUrl = [location.protocol, '//', location.host, location.pathname].join('');
     let urlQueryString = document.location.search;

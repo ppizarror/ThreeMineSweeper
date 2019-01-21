@@ -105,7 +105,7 @@ function AppConsole() {
     };
 
     /**
-     * Writes object on console
+     * Writes object on console.
      *
      * @function
      * @public
@@ -118,7 +118,7 @@ function AppConsole() {
     };
 
     /**
-     * Writes an error message
+     * Writes an error message.
      *
      * @function
      * @public
@@ -144,7 +144,7 @@ function AppConsole() {
     };
 
     /**
-     * Writes an formatless error message
+     * Writes an formatless error message.
      *
      * @function
      * @public
@@ -182,7 +182,7 @@ function AppConsole() {
     };
 
     /**
-     * Writes a generic warning message
+     * Writes a generic warning message.
      *
      * @function
      * @public
@@ -208,7 +208,7 @@ function AppConsole() {
     };
 
     /**
-     * Write formatless object into console
+     * Write formatless object into console.
      *
      * @function
      * @public
@@ -234,7 +234,7 @@ function AppConsole() {
 }
 
 /**
- * Stores console object
+ * Stores console object.
  * @type {AppConsole}
  * @var
  * @const

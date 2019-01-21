@@ -23,7 +23,7 @@ function getRandomColor() {
 }
 
 /**
- * Color shading
+ * Color shading.
  *
  * @function
  * @param {string} color - Color
@@ -43,7 +43,7 @@ function shadeColor2(color, percent) {
 }
 
 /**
- * Return true/false if string is a color
+ * Return true/false if string is a color.
  *
  * @function
  * @param {object} color - Color
@@ -54,7 +54,7 @@ function isColor(color) {
 }
 
 /**
- * Convert hex color to rgba
+ * Convert hex color to rgba.
  *
  * @function
  * @param {string} hex - Color in hex

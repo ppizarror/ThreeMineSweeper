@@ -8,7 +8,7 @@
 "use strict";
 
 /**
- * Rounds a number
+ * Rounds a number.
  *
  * @function
  * @param {number} num - Number

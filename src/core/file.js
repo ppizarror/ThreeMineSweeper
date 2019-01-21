@@ -11,7 +11,7 @@
  * Get file extension.
  *
  * @function
- * @param {string} filename - File name.
+ * @param {string} filename - File name
  * @returns {string}
  */
 function getFileExtension(filename) {

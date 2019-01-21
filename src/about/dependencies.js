@@ -25,6 +25,7 @@ aboutinfo.dependencies = {
     "jscookie": "2.2.0",                    // https://github.com/js-cookie/js-cookie
     "md5": "2.10.0",                        // https://github.com/blueimp/JavaScript-MD5
     "normalize": "8.0.0",                   // https://github.com/necolas/normalize.css
+    "notification.js": "0.1.3",             // https://github.com/ppizarror/notification.js
     "parallax": "1.5.0",                    // https://github.com/pixelcog/parallax.js
     "rippler": "0.1.1",                     // https://github.com/blivesta/rippler
     "spin.js": "4.0.0",                     // https://github.com/fgnass/spin.js

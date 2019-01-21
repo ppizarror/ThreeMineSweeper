@@ -8,7 +8,7 @@
 "use strict";
 
 /**
- * Cookies
+ * Cookies.
  * @global
  */
 let sessionCookie;

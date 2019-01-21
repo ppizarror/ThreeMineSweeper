@@ -36,7 +36,6 @@ function generateID() {
  *     8-digit hex string instead of an integer
  * @param {number} [seed] - optionally pass the hash of the previous chunk
  * @returns {number | string}
- * @since 3.7.44
  */
 function hashFnv32a(str, asString, seed) {
     /* eslint "no-bitwise":off */

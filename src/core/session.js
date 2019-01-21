@@ -11,7 +11,7 @@
  * Save session status.
  *
  * @function
- * @returns {boolean} - Indica el estado de la consulta
+ * @returns {boolean}
  */
 function updateSessionCookie() {
     try {
