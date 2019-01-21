@@ -43,7 +43,7 @@ $(function () {
     NotificationJS.init({
         "core": cfg_notification_core,
         "enabled": true,
-        "exceptionTitle": "Exception",
+        "exceptionTitle": lang.exception,
         "maxStack": cfg_max_notification_stack,
         "timeout": cfg_notification_timeout,
     });
