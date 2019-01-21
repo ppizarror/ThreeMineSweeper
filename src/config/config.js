@@ -115,6 +115,15 @@ const cfg_cookie_session_id = 'R43R6yAZyk';
  */
 const cfg_week_start_at_monday = true;
 
+/**
+ * Only local cookies.
+ * @type {boolean}
+ * @const
+ * @global
+ * @ignore
+ */
+const cfg_cookie_local = false;
+
 
 /**
  * ----------------------------------------------------------------------------
@@ -166,13 +175,13 @@ const cfg_init_loading_layer_after = 350;
  */
 
 /**
- * Notification core
+ * Notification core (amaranjs,jquery-toast-plugin,toastr)
  * @type {string}
  * @const
  * @global
  * @ignore
  */
-const cfg_notification_core = 'jquery.toast';
+const cfg_notification_core = 'toastr';
 
 /**
  * Notification are or not avaiable
