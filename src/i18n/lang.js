@@ -8,7 +8,7 @@
 
 /**
  * ----------------------------------------------------------------------------
- * Sección configurable idiomas
+ * Configurable section
  * ----------------------------------------------------------------------------
  */
 
@@ -57,17 +57,17 @@ $(function () {
     /**
      * If not exists the cookie is created
      */
-    let $langvalue = Cookies.get('lang');
-    if ($langvalue === undefined) {
+    let $lang_value = Cookies.get('lang');
+    if ($lang_value === undefined) {
         Cookies.set('lang', cfg_lang);
-        $langvalue = cfg_lang;
+        $lang_value = cfg_lang;
     }
 
     /**
      * If lang exists the cookie is updated
      */
-    if (lang_available.indexOf($langvalue) !== -1) {
-        cfg_lang = $langvalue;
+    if (lang_available.indexOf($lang_value) !== -1) {
+        cfg_lang = $lang_value;
     } else {
         Cookies.set('lang', cfg_lang);
     }

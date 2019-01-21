@@ -1,0 +1,56 @@
+{
+  "plugins": [
+    "plugins/markdown"
+  ],
+  "recurseDepth": 10,
+  "source": {
+    "include": [
+      "../src"
+    ],
+    "includePattern": ".+\\.js(doc|x)?$",
+    "excludePattern": ".min.js"
+  },
+  "sourceType": "module",
+  "tags": {
+    "allowUnknownTags": true,
+    "dictionaries": [
+      "jsdoc",
+      "closure"
+    ]
+  },
+  "templates": {
+    "analytics": false,
+    "cleverLinks": true,
+    "collapseSymbols": true,
+    "copyright": "Copyright 2018, no copiar o distribuír sin permiso directo del autor",
+    "disableSort": false,
+    "footer": "",
+    "includeDate": false,
+    "inverseNav": false,
+    "linenums": true,
+    "monospaceLinks": false,
+    "navType": "inline",
+    "outputSourceFiles": false,
+    "outputSourcePath": true,
+    "referenceTitle": "Cplanlist",
+    "search": true,
+    "sort": true,
+    "syntaxTheme": "default",
+    "systemName": "Cplanlist",
+    "theme": "readable",
+    "default": {
+      "outputSourceFiles": false,
+      "includeDate": false
+    }
+  },
+  "opts": {
+    "destination": "../docs/",
+    "encoding": "utf8",
+    "private": true,
+    "recurse": true,
+    "template": "countly-docdash"
+  },
+  "docdash": {
+    "search": true
+  }
+}
