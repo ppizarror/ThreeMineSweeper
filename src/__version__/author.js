@@ -7,7 +7,7 @@
  */
 
 /**
- * Author information
+ * Author information.
  */
 aboutinfo.author = {
     "email": "pablo.pizarro@ing.uchile.cl",

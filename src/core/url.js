@@ -3,7 +3,7 @@
  Auxiliary URL functions.
 
  @author Pablo Pizarro R. @ppizarror.com
- @license Copyright 2018-2019, no copiar o distribuír sin permiso directo del autor
+ @license MIT
  */
 "use strict";
 

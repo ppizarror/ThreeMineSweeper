@@ -1,15 +1,15 @@
 /**
  VERSION APP
- Versión del proyecto.
+ App version.
 
  @author Pablo Pizarro R. @ppizarror.com
- @license Copyright 2018-2019, no copiar o distribuír sin permiso directo del autor
+ @license MIT
  */
 
 /**
- * Versión de la aplicación
+ * Version.
  */
 aboutinfo.v = {
-    "date": "16/01/2019",
-    "version": "3.7.92",
+    "date": "22/01/2019",
+    "version": "0.0.1",
 };
