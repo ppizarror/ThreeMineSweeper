@@ -1,0 +1,40 @@
+{
+  "name": "threeminessweeper",
+  "version": "0.1.1",
+  "description": "TMS is an experimental 3D minesweeper game capable to render advanced geometric maps",
+  "main": "src/app.js",
+  "directories": {
+    "doc": "docs",
+    "lib": "lib",
+    "test": "test"
+  },
+  "dependencies": {
+    "jest": "^23.6.0",
+    "stylelint-config-standard": "^18.2.0"
+  },
+  "devDependencies": {
+    "karma": "^3.1.4",
+    "karma-chrome-launcher": "^2.2.0",
+    "karma-jasmine": "^2.0.1",
+    "karma-opera-launcher": "^1.0.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ppizarror/ThreeMinesSweeper.git"
+  },
+  "keywords": [
+    "threejs",
+    "javascript",
+    "game",
+    "experimental"
+  ],
+  "author": "ppizarror",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ppizarror/ThreeMinesSweeper/issues"
+  },
+  "homepage": "https://github.com/ppizarror/ThreeMinesSweeper#readme"
+}
