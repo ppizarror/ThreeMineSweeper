@@ -211,24 +211,6 @@ const cfg_max_notification_stack = 3;
 const cfg_always_show_err_notification = true;
 
 /**
- * Extended timeout in miliseconds
- * @type {number}
- * @global
- * @const
- * @ignore
- */
-const cfg_notification_extendedtimeout = 1000;
-
-/**
- * Show effect in miliseconds
- * @type {number}
- * @global
- * @const
- * @ignore
- */
-const cfg_notification_showduration = 300;
-
-/**
  * Notification time life in miliseconds
  * @type {number}
  * @global
