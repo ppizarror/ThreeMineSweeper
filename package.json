@@ -2,7 +2,7 @@
   "name": "threeminessweeper",
   "version": "0.1.1",
   "description": "TMS is an experimental 3D minesweeper game capable to render advanced geometric maps",
-  "main": "src/app.js",
+  "main": "index.html",
   "directories": {
     "doc": "docs",
     "lib": "lib",
@@ -13,8 +13,12 @@
     "stylelint-config-standard": "^18.2.0"
   },
   "devDependencies": {
+    "jquery": "^3.3.1",
+    "jquery-confirm": "^3.3.3",
     "karma": "^3.1.4",
     "karma-chrome-launcher": "^2.2.0",
+    "karma-coverage": "^1.1.2",
+    "karma-firefox-launcher": "^1.1.0",
     "karma-jasmine": "^2.0.1",
     "karma-opera-launcher": "^1.0.0"
   },
