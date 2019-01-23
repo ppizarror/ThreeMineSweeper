@@ -22,8 +22,10 @@ lang_db.en = {
     "errordb_themeNotExist_moreinfo": "Check your application theme settings or contact the administrator",
     "errordb_themeNotExist_msg": "Selected theme could not be loaded",
     "exception": "Exception",
+    "init_app": "Initializing application",
     "init_themes": "Initializing themes",
     "loading_theme": "Loading theme <{0}>",
+    "page_init_load_time": "Application has been initialized in <{0}> seconds",
     "popup_theme_error_load": "Popup theme could not be loaded, using fallback",
     "test": "Test",
 };

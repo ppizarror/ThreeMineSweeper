@@ -43,6 +43,7 @@ module.exports = function (config) {
 
             'src/config.js',
             'src/core/globals.js',
+            'src/core/errors.js',
             'src/core/color.js',
             'src/core/console.js',
             'src/core/date.js',

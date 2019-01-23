@@ -18,7 +18,7 @@
  * @global
  * @ignore
  */
-let cfg_app_theme = 'material';
+let cfg_app_theme = 'default';
 
 /**
  * Popup themes <bootstrap, dark, light, material, modern, supervan> {@link sessionCookie}

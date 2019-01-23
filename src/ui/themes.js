@@ -12,7 +12,7 @@
  */
 theme_db = {
     "default": {
-        "backgroundColor": "#fbfbfb", // Background color
+        "backgroundColor": "#3e3e3e", // Background color
         "backToTopScrollPxTrigger": 300, // Pixel to show back to top button
         "backToTopShow": true, // Show back to top button
         "backToTopSize": [50, 65], // Size back to top button
@@ -59,7 +59,7 @@ function initThemes() {
     try {
         app_console.info(lang.init_themes);
         let $themes = Object.keys(theme_db);
-        let $mainkeys = Object.keys(theme_db.modern);
+        let $mainkeys = Object.keys(theme_db.default);
         let $theme, $key;
 
         /**
@@ -80,7 +80,7 @@ function initThemes() {
             for (let j = 0; j < $mainkeys.length; j += 1) {
                 $key = $mainkeys[j];
                 if (isNullUndf($theme[$key])) {
-                    $theme[$key] = theme_db.modern[$key];
+                    $theme[$key] = theme_db.default[$key];
                 }
             }
         }
