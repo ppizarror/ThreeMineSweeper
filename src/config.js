@@ -13,6 +13,14 @@
  */
 
 /**
+ * App theme
+ * @type {string}
+ * @global
+ * @ignore
+ */
+let cfg_app_theme = 'material';
+
+/**
  * Popup themes <bootstrap, dark, light, material, modern, supervan> {@link sessionCookie}
  * @type {string}
  * @global

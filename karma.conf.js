@@ -60,6 +60,8 @@ module.exports = function (config) {
             'src/engine/geom/vertex.js',
             'src/engine/geom/volume.js',
 
+            'src/ui/globals.js',
+            'src/ui/themes.js',
             'src/ui/loading.js',
 
             'src/app.js',

@@ -89,23 +89,29 @@
     <script src="src/engine/geom/vertex.js"></script>
     <script src="src/engine/geom/volume.js"></script>
 
+    <script src="src/ui/globals.js"></script>
+    <script src="src/ui/themes.js"></script>
     <script src="src/ui/loading.js"></script>
 
     <script src="src/app.js"></script>
+
+    <!-- Other scripts -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-118050511-9"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'UA-118050511-9');
+    </script>
 </head>
 
 <body>
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-118050511-9"></script>
-<script>
-    window.dataLayer = window.dataLayer || [];
-
-    function gtag() {
-        dataLayer.push(arguments);
-    }
-
-    gtag('js', new Date());
-
-    gtag('config', 'UA-118050511-9');
-</script>
+<div id="header"></div>
+<div id="root"></div>
 </body>
 </html>

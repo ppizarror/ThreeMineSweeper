@@ -39,6 +39,12 @@ function extendDefaultSessionValues($session) {
     $.extend($session, {
 
         /**
+         * App settings
+         */
+        theme_app: cfg_app_theme,       // App theme
+        theme_popup: cfg_popup_theme,   // Popups theme
+
+        /**
          * User data
          */
         profilepic: '',                 // Profile picture

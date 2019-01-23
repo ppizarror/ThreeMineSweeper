@@ -36,6 +36,15 @@ function AppError() {
             "other": "Set cfg_cookie_local to true",
             "usingLocalStorage": "Cookies are disabled, using localStorage",
         },
+        "errorThemeInit": {
+            "code": 2,
+        },
+        "themeNotExist": {
+            "code": 3,
+        },
+        "errorThemeApply": {
+            "code": 4,
+        }
     };
 
     /**
