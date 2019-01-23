@@ -82,7 +82,7 @@ $(function () {
      */
     NotificationJS.init({
         'core': cfg_notification_core,
-        'enabled': true,
+        'enabled': cfg_notification_enabled,
         'exceptionTitle': lang.exception,
         'maxStack': cfg_max_notification_stack,
         'timeout': cfg_notification_timeout,

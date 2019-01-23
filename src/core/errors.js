@@ -92,6 +92,7 @@ function AppError() {
     this.throwExceptionID = function (errorid, exceptionmsg) {
         app_console.error('Error #{0} <{2}>: {1}.'.format(errorid.code, errorid.msg, errorid.id), false);
         if (notNullUndf(exceptionmsg)) app_console.exception(exceptionmsg);
+        if (cfg_always_show_err_notification) this.errorMessage(errorid);
     };
 
     /**
@@ -103,6 +104,7 @@ function AppError() {
      */
     this.errorID = function (errorid) {
         app_error.throwExceptionID(errorid, null);
+        if (cfg_always_show_err_notification) this.errorMessage(errorid);
     };
 
     /**

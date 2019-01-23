@@ -115,15 +115,6 @@ const cfg_cookie_expire_days = 14;
 const cfg_cookie_session_id = 'R43R6yAZyk';
 
 /**
- * Week start on mondays
- * @type {boolean}
- * @const
- * @global
- * @ignore
- */
-const cfg_week_start_at_monday = true;
-
-/**
  * Only local cookies.
  * @type {boolean}
  * @const
@@ -233,15 +224,6 @@ const cfg_notification_timeout = 10000;
  * Date settings
  * ----------------------------------------------------------------------------
  */
-
-/**
- * Private day format
- * @type {string}
- * @const
- * @global
- * @ignore
- */
-const cfg_date_format_private_d = 'yyyy/MM/dd';
 
 /**
  * Public date format
