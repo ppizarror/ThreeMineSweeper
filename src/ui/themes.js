@@ -8,7 +8,7 @@
 "use strict";
 
 /**
- * Temas de la aplicación
+ * Application themes
  */
 theme_db = {
     "default": {

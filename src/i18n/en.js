@@ -1,5 +1,5 @@
 /**
- LANG-ES
+ LANG-EN
  English language.
 
  @author Pablo Pizarro R. @ppizarror.com

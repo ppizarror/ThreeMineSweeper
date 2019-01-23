@@ -1,6 +1,6 @@
 /**
  LANG
- Language configuration.
+ Language manager.
 
  @author Pablo Pizarro R. @ppizarror.com
  @license MIT
@@ -50,12 +50,12 @@ let lang;
 let lang_db = {};
 
 /**
- * Checks cookie language
+ * Check cookie language
  */
 $(function () {
 
     /**
-     * If not exists the cookie is created
+     * If the cookie not exists then it's created
      */
     let $lang_value = Cookies.get('lang');
     if ($lang_value === undefined) {
