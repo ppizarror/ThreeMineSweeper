@@ -10,13 +10,29 @@
 /**
  * Vertex class
  *
- * @param {number} x - X position
- * @param {number} y - Y position
- * @param {number} z - Z position
+ * @param {number=} x - X position
+ * @param {number=} y - Y position
+ * @param {number=} z - Z position
  * @constructor
  */
 function Vertex(x, y, z) {
     /* eslint-disable new-cap */
+
+    /**
+     * If x, y, z not defined then fill by zero
+     */
+    if (isNullUndf(x)) {
+        x = 0;
+        y = 0;
+        z = 0
+    }
+    if (isNullUndf(y)) {
+        y = 0;
+        z = 0;
+    }
+    if (isNullUndf(z)) {
+        z = 0;
+    }
 
     /**
      * ID of the vertex.
@@ -132,6 +148,36 @@ function Vertex(x, y, z) {
     };
 
     /**
+     * Set x position.
+     *
+     * @function
+     * @param {number} pos - Position coordinate
+     */
+    this.set_x = function (pos) {
+        this._position.setX(pos);
+    };
+
+    /**
+     * Set x position.
+     *
+     * @function
+     * @param {number} pos - Position coordinate
+     */
+    this.set_y = function (pos) {
+        this._position.setY(pos);
+    };
+
+    /**
+     * Set x position.
+     *
+     * @function
+     * @param {number} pos - Position coordinate
+     */
+    this.set_z = function (pos) {
+        this._position.setZ(pos);
+    };
+
+    /**
      * Calculates the distance respect another vertex
      *
      * @function
@@ -149,6 +195,60 @@ function Vertex(x, y, z) {
         // If vertex defined
         return this._position.distanceTo(vertex.get_pos());
 
+    };
+
+    /**
+     * Check if vertex is the same.
+     *
+     * @function
+     * @param {Vertex} vertex - Vertex to test
+     * @returns {boolean}
+     */
+    this.equals = function (vertex) {
+        return this._id === vertex.get_id();
+    };
+
+    /**
+     * Adds position to vertex.
+     *
+     * @function
+     * @param {Vertex} vertex - Adds vertex
+     */
+    this.add = function (vertex) {
+        this._position.add(vertex._position);
+    };
+
+    /**
+     * Adds position to vertex.
+     *
+     * @function
+     * @param {Vertex} vertex - Adds vertex
+     */
+    this.subtract = function (vertex) {
+        let v = vertex._position.clone();
+        v.negate();
+        this._position.add(v);
+    };
+
+    /**
+     * Check if vertex position is close to zero.
+     *
+     * @function
+     * @returns {boolean}
+     */
+    this.is_zero = function () {
+        return this.dist() < MIN_TOL;
+    };
+
+    /**
+     * Check if vertex is close to other.
+     *
+     * @function
+     * @param {Vertex} vertex - Vertex to compare
+     * @returns {boolean}
+     */
+    this.close_to = function (vertex) {
+        return this.dist(vertex) < MIN_TOL;
     };
 
 }

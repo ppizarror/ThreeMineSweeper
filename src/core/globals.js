@@ -20,3 +20,10 @@ let sessionCookie;
  * @ignore
  */
 let ajaxStartTime;
+
+/**
+ * Tolerance used by the application.
+ * @global
+ * @type {number}
+ */
+let MIN_TOL = 1e-12;
