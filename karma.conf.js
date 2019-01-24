@@ -17,6 +17,9 @@ module.exports = function (config) {
         // list of files / patterns to load in the browser
         files: [
 
+            // Init application
+            'init.js',
+
             // Load libraries
             'lib/jquery/jquery-3.3.1.js',
             'lib/jquery-confirm/jquery-confirm.min.js',

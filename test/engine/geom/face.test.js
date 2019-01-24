@@ -1,6 +1,6 @@
-describe('Test geometric Face', function () {
-    let k = new Face();
-    it('Test basic face', function () {
+describe('Test face creation', function () {
+    it('Test face init', function () {
+        let k = new Face();
         expect(true).toBe(true);
     })
 });

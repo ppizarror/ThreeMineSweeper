@@ -37,4 +37,14 @@ function Volume() {
      */
     this._vertex = [];
 
+    /**
+     * Return object ID.
+     *
+     * @function
+     * @returns {string}
+     */
+    this.get_id = function () {
+        return this._id;
+    };
+
 }

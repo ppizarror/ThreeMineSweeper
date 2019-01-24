@@ -70,4 +70,14 @@ function Face() {
      */
     this._normal = 0;
 
+    /**
+     * Return object ID.
+     *
+     * @function
+     * @returns {string}
+     */
+    this.get_id = function () {
+        return this._id;
+    };
+
 }
