@@ -321,11 +321,34 @@ function Vertex(x, y, z) {
      *
      * @function
      * @param {number} s - Scale factor
+     * @param {number=} sx - X coordinate scale factor
+     * @param {number=} sy - Y coordinate scale factor
+     * @param {number=} sz - Z coordinate scale factor
      */
-    this.scale = function (s) {
-        this.set_x(this.get_x() * s);
-        this.set_y(this.get_y() * s);
-        this.set_z(this.get_z() * s);
+    this.scale = function (s, sx, sy, sz) {
+        if (isNullUndf(sx)) sx = 1;
+        if (isNullUndf(sy)) sy = 1;
+        if (isNullUndf(sz)) sz = 1;
+        this.set_x(this.get_x() * s * sx);
+        this.set_y(this.get_y() * s * sy);
+        this.set_z(this.get_z() * s * sz);
+    };
+
+    /**
+     * Translate vertex.
+     *
+     * @function
+     * @param {number=} tx - X coordinate
+     * @param {number=} ty - Y coordinate
+     * @param {number=} tz - Z coordinate
+     */
+    this.translate = function (tx, ty, tz) {
+        if (isNullUndf(tx)) tx = 0;
+        if (isNullUndf(ty)) ty = 0;
+        if (isNullUndf(tz)) tz = 0;
+        this.set_x(this.get_x() + tx);
+        this.set_y(this.get_y() + ty);
+        this.set_z(this.get_z() + tz);
     };
 
 }

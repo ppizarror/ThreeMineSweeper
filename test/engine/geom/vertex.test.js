@@ -72,6 +72,8 @@ describe('Test vertex', function () {
         expect(v1.get_x()).toBe(0.5);
         v1.scale(-1);
         expect(v1.get_z()).toBe(0.5);
+        v1.scale(0.5, 1, 0, 0);
+        expect(v1.get_z()).toBe(0);
     });
 
 });
