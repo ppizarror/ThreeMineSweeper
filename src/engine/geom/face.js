@@ -304,4 +304,39 @@ function Face() {
         return area;
     };
 
+    /**
+     * Scale position.
+     *
+     * @function
+     * @param {number} s - Scale factor
+     * @param {number=} sx - X coordinate scale factor
+     * @param {number=} sy - Y coordinate scale factor
+     * @param {number=} sz - Z coordinate scale factor
+     */
+    this.scale = function (s, sx, sy, sz) {
+        if (isNullUndf(sx)) sx = 1;
+        if (isNullUndf(sy)) sy = 1;
+        if (isNullUndf(sz)) sz = 1;
+        for (let i = 0; i < this._length; i += 1) {
+            this._vertex[i].scale(s, sx, sy, sz);
+        }
+    };
+
+    /**
+     * Translate face.
+     *
+     * @function
+     * @param {number=} tx - X coordinate
+     * @param {number=} ty - Y coordinate
+     * @param {number=} tz - Z coordinate
+     */
+    this.translate = function (tx, ty, tz) {
+        if (isNullUndf(tx)) tx = 0;
+        if (isNullUndf(ty)) ty = 0;
+        if (isNullUndf(tz)) tz = 0;
+        for (let i = 0; i < this._length; i += 1) {
+            this._vertex[i].translate(tx, ty, tz);
+        }
+    };
+
 }
