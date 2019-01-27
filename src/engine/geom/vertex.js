@@ -91,10 +91,19 @@ function Vertex(x, y, z) {
      * Adds a face to the vertex.
      *
      * @function
-     * @param {Face} face - Face object
+     * @param {Face|Face[]} face - Face object
      * @returns {boolean}
      */
     this.add_face = function (face) {
+
+        // If face is an array then call multiple times
+        if (face instanceof Array) {
+            let r = true;
+            for (let j = 0; j < face.length; j += 1) {
+                r = r && this.add_face(face[j]);
+            }
+            return r;
+        }
 
         // Check face has not been added
         for (let i = 0; i < this._faces.length; i += 1) {
@@ -107,6 +116,26 @@ function Vertex(x, y, z) {
         this._faces.push(face);
         return true;
 
+    };
+
+    /**
+     * Check if the vertex defines some face.
+     *
+     * @function
+     * @param {Face|Face[]} face
+     * @returns {boolean}
+     */
+    this.has_face = function (face) {
+        if (face instanceof Array) {
+            for (let j = 0; j < face.length; j += 1) {
+                if (!this.has_face(face[j])) return false;
+            }
+            return true;
+        }
+        for (let i = 0; i < this._faces.length; i += 1) {
+            if (this._faces[i].equals(face)) return true;
+        }
+        return false;
     };
 
     /**

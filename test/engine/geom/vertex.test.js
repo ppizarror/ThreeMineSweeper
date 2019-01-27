@@ -50,4 +50,19 @@ describe('Test vertex', function () {
         expect(t1.ccw(t1, t2)).toBe(false);
     });
 
+    it('Check face definition', function () {
+        let f1 = new Face();
+        let f2 = new Face();
+        let f3 = new Face();
+        let f4 = new Face();
+        let tf = new Vertex();
+        tf.add_face(f1);
+        tf.add_face([f2, f3]);
+
+        expect(tf.has_face(f1)).toBe(true);
+        expect(tf.has_face(f4)).toBe(false);
+        expect(tf.has_face([f1, f2, f3])).toBe(true);
+        expect(tf.has_face([f1, f2, f4])).toBe(false);
+    });
+
 });
