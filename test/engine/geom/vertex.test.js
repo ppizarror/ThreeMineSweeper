@@ -1,4 +1,5 @@
 describe('Test vertex', function () {
+    
     let v = new Vertex(1, 2, 3);
     let v2 = new Vertex(4, 5, 6);
 

@@ -71,6 +71,12 @@ function Face() {
     this._normal = 0;
 
     /**
+     * Pointer to object.
+     * @type {Face}
+     */
+    let self = this;
+
+    /**
      * Return object ID.
      *
      * @function
@@ -89,6 +95,70 @@ function Face() {
      */
     this.equals = function (face) {
         return this._id === face._id;
-    }
+    };
+
+    /**
+     * Add vertex to face.
+     *
+     * @function
+     * @param {Vertex|Vertex[]} vertex
+     * @returns {boolean}
+     */
+    this.add_vertex = function (vertex) {
+
+        // If array
+        if (vertex instanceof Array) {
+            let r = true;
+            for (let j = 0; j < vertex.length; j += 1) {
+                r = r && this.add_vertex(vertex[j]);
+            }
+            return r;
+        }
+
+        // Check if vertex is not duplicated
+        if (this.has_vertex(vertex)) return false;
+
+        // Add vertex
+        this._vertex.push(vertex);
+        self._length += 1;
+        return true;
+
+    };
+
+    /**
+     * Check if vertex exists.
+     *
+     * @function
+     * @param {Vertex|Vertex[]} vertex
+     * @returns {boolean}
+     */
+    this.has_vertex = function (vertex) {
+
+        // If vertex array
+        if (vertex instanceof Array) {
+            let r = true;
+            for (let j = 0; j < vertex.length; j += 1) {
+                r = r && this.has_vertex(vertex[j]);
+            }
+            return r;
+        }
+
+        // Look for vertex, if not found returns false
+        for (let i = 0; i < this._length; i += 1) {
+            if (this._vertex[i].equals(vertex)) return true;
+        }
+        return false;
+
+    };
+
+    /**
+     * Return number of vertices.
+     *
+     * @function
+     * @returns {number}
+     */
+    this.length = function () {
+        return this._length;
+    };
 
 }
