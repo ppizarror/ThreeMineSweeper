@@ -45,34 +45,6 @@ function Face() {
     this._mesh = null;
 
     /**
-     * Array that contains the neighbours of the face.
-     * @type {Face[]}
-     * @private
-     */
-    this._neighbours = [];
-
-    /**
-     * Area of the face.
-     * @type {number}
-     * @private
-     */
-    this._area = 0;
-
-    /**
-     * Perimeter of the face
-     * @type {number}
-     * @private
-     */
-    this._perimeter = 0;
-
-    /**
-     * Normal of the vector.
-     * @type {number}
-     * @private
-     */
-    this._normal = 0;
-
-    /**
      * Face name.
      * @type {string}
      * @private
@@ -164,9 +136,15 @@ function Face() {
      * Remove vertex.
      *
      * @function
-     * @param {Vertex} vertex
+     * @param {Vertex|Vertex[]} vertex
      */
     this.remove_vertex = function (vertex) {
+        if (vertex instanceof Array) {
+            for (let j = 0; j < vertex.length; j += 1) {
+                this.remove_vertex(vertex[j]);
+            }
+            return;
+        }
         for (let i = 0; i < this._length; i += 1) {
             if (this._vertex[i].equals(vertex)) {
                 this._vertex.splice(i, 1);
@@ -193,7 +171,14 @@ function Face() {
      * @returns {boolean}
      */
     this.is_ccw = function () {
-
+        if (this._length < 3) return false;
+        for (let i = 0; i < this._length; i += 1) {
+            let i0 = this._vertex[i % this._length];
+            let i1 = this._vertex[(i + 1) % this._length];
+            let i2 = this._vertex[(i + 2) % this._length];
+            if (!i0.ccw(i1, i2)) return false;
+        }
+        return true;
     };
 
     /**
@@ -209,6 +194,7 @@ function Face() {
 
         // Compute first normal
         let n = this._normal(this._vertex[0], this._vertex[1], this._vertex[2]);
+        n.normalize();
         let nx = n.getComponent(0);
         let ny = n.getComponent(1);
         let nz = n.getComponent(2);
@@ -219,6 +205,7 @@ function Face() {
             let i1 = (i + 1) % this._length;
             let i2 = (i + 2) % this._length;
             n = this._normal(this._vertex[i0], this._vertex[i1], this._vertex[i2]);
+            n.normalize();
             if (n.getComponent(0) !== nx || n.getComponent(1) !== ny || n.getComponent(2) !== nz) {
                 return false;
             }
@@ -287,6 +274,34 @@ function Face() {
      */
     this.get_name = function () {
         return this._name;
+    };
+
+    /**
+     * Check face is valid and well defined.
+     *
+     * @function
+     * @return {boolean}
+     */
+    this.is_valid = function () {
+        return this.is_ccw() && this.is_planar();
+    };
+
+    /**
+     * Return face area.
+     *
+     * @function
+     * @returns {number}
+     */
+    this.get_area = function () {
+        if (!this.is_valid()) return -1;
+        let zero = this._vertex[0];
+        let area = 0;
+        for (let i = 0; i < this._length; i += 1) {
+            let i0 = i % this._length;
+            let i1 = (i + 1) % this._length;
+            area += zero.area2(this._vertex[i0], this._vertex[i1]);
+        }
+        return area;
     };
 
 }

@@ -174,9 +174,15 @@ function Vertex(x, y, z) {
      * Remove face.
      *
      * @function
-     * @param {Face} face
+     * @param {Face|Face[]} face
      */
     this.remove_face = function (face) {
+        if (face instanceof Array) {
+            for (let j = 0; j < face.length; j += 1) {
+                this.remove_face(face[j]);
+            }
+            return;
+        }
         for (let i = 0; i < this._faces.length; i += 1) {
             if (this._faces[i].equals(face)) {
                 this._faces.splice(i, 1);
@@ -363,6 +369,33 @@ function Vertex(x, y, z) {
 
     };
 
+    this.area2 = function (v1, v2) {
+
+        // If v1 or v2 is the same then return false
+        if (this.equals(v1) || this.equals(v2)) return false;
+
+        // Calculate vectors
+        let x1 = v1.get_x() - this.get_x();
+        let y1 = v1.get_y() - this.get_y();
+        let z1 = v1.get_z() - this.get_z();
+        let x2 = v2.get_x() - this.get_x();
+        let y2 = v2.get_y() - this.get_y();
+        let z2 = v2.get_z() - this.get_z();
+
+        /**
+         * Calculate u vector
+         * https://math.stackexchange.com/questions/128991/how-to-calculate-area-of-3d-triangle
+         */
+        let x3 = (y1 * z2) - (y2 * z1);
+        let y3 = (x1 * z2) - (x2 * z1);
+        let z3 = (x1 * y2) - (x2 * y1);
+
+        // noinspection JSSuspiciousNameCombination
+        let a = Math.sqrt(Math.pow(x3, 2) + Math.pow(y3, 2) + Math.pow(z3, 2));
+        return a * 0.5;
+
+    };
+
     /**
      * Scale position.
      *
@@ -396,6 +429,15 @@ function Vertex(x, y, z) {
         this.set_x(this.get_x() + tx);
         this.set_y(this.get_y() + ty);
         this.set_z(this.get_z() + tz);
+    };
+
+    /**
+     * Print object to console.
+     *
+     * @function
+     */
+    this.print = function () {
+        app_console.info('Vertex <{0}> at ({1},{2},{3})'.format(this._name, this.get_x(), this.get_y(), this.get_z()));
     };
 
 }

@@ -75,6 +75,23 @@ describe('Test face', function () {
         let v3 = new Vertex(1, 1);
         let v4 = new Vertex(1, 0);
         f.add_vertex([v1, v2, v3, v4]);
+        expect(f.is_ccw()).toBe(true);
+        f.remove_vertex([v1, v2, v3, v4]);
+        f.add_vertex([v1, v3, v2, v4]);
+        expect(f.is_ccw()).toBe(false);
+    });
+
+    it('Area/perimeter calculation', function () {
+        let f = new Face();
+        let v1 = new Vertex(0, 0);
+        let v2 = new Vertex(0, 2);
+        let v3 = new Vertex(1, 1);
+        let v4 = new Vertex(1, 0);
+        f.add_vertex([v1, v2, v3, v4]);
+        expect(f.is_planar()).toBe(true);
+        expect(f.get_area()).toBe(1.5);
+        v2.scale(0.5);
+        expect(f.get_area()).toBe(1);
     });
 
 });
