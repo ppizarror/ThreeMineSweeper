@@ -64,6 +64,9 @@ describe('Test vertex', function () {
         expect(tf.has_face(f4)).toBe(false);
         expect(tf.has_face([f1, f2, f3])).toBe(true);
         expect(tf.has_face([f1, f2, f4])).toBe(false);
+
+        tf.remove_face(f1);
+        expect(tf.has_face(f1)).toBe(false);
     });
 
     it('Test vertex scale position', function () {
@@ -74,6 +77,12 @@ describe('Test vertex', function () {
         expect(v1.get_z()).toBe(0.5);
         v1.scale(0.5, 1, 0, 0);
         expect(v1.get_z()).toBe(0);
+    });
+
+    it('Test vertex name', function () {
+        let s = new Vertex();
+        s.set_name('A');
+        expect(s.get_name()).toBe('A');
     });
 
 });

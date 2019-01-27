@@ -14,6 +14,8 @@
  * @constructor
  */
 function Face() {
+    /* eslint-disable no-extra-parens */
+    /* eslint-disable no-mixed-operators */
 
     /**
      * ID of the face.
@@ -69,6 +71,13 @@ function Face() {
      * @private
      */
     this._normal = 0;
+
+    /**
+     * Face name.
+     * @type {string}
+     * @private
+     */
+    this._name = '';
 
     /**
      * Pointer to object.
@@ -152,6 +161,22 @@ function Face() {
     };
 
     /**
+     * Remove vertex.
+     *
+     * @function
+     * @param {Vertex} vertex
+     */
+    this.remove_vertex = function (vertex) {
+        for (let i = 0; i < this._length; i += 1) {
+            if (this._vertex[i].equals(vertex)) {
+                this._vertex.splice(i, 1);
+                self._length -= 1;
+                return;
+            }
+        }
+    };
+
+    /**
      * Return number of vertices.
      *
      * @function
@@ -159,6 +184,109 @@ function Face() {
      */
     this.length = function () {
         return this._length;
+    };
+
+    /**
+     * Check if face is defined by ccw vertex.
+     *
+     * @function
+     * @returns {boolean}
+     */
+    this.is_ccw = function () {
+
+    };
+
+    /**
+     * Check if face is planar.
+     *
+     * @function
+     * @returns {boolean}
+     */
+    this.is_planar = function () {
+
+        // If face has less than three vertices then it's not planar
+        if (this._length < 3) return false;
+
+        // Compute first normal
+        let n = this._normal(this._vertex[0], this._vertex[1], this._vertex[2]);
+        let nx = n.getComponent(0);
+        let ny = n.getComponent(1);
+        let nz = n.getComponent(2);
+
+        // Check each combination
+        for (let i = 1; i < this._length; i += 1) {
+            let i0 = i % this._length;
+            let i1 = (i + 1) % this._length;
+            let i2 = (i + 2) % this._length;
+            n = this._normal(this._vertex[i0], this._vertex[i1], this._vertex[i2]);
+            if (n.getComponent(0) !== nx || n.getComponent(1) !== ny || n.getComponent(2) !== nz) {
+                return false;
+            }
+        }
+        return true;
+
+    };
+
+    /**
+     * Calculates the normal vector from 3 vertices.
+     *
+     * @function
+     * @param {Vertex} v1
+     * @param {Vertex} v2
+     * @param {Vertex} v3
+     * @returns {Vector3}
+     * @private
+     */
+    this._normal = function (v1, v2, v3) {
+
+        // Compute vectors
+        let a1 = v2.get_x() - v1.get_x();
+        let a2 = v2.get_y() - v1.get_y();
+        let a3 = v2.get_z() - v1.get_z();
+
+        let b1 = v3.get_x() - v2.get_x();
+        let b2 = v3.get_y() - v2.get_y();
+        let b3 = v3.get_z() - v2.get_z();
+
+        // Compute cross vector
+        let nx = a2 * b3 - a3 * b2;
+        let ny = a1 * b3 - a3 * b1;
+        let nz = a1 * b2 - a2 * b1;
+
+        // Return new vector
+        return new THREE.Vector3(nx, -ny, nz);
+
+    };
+
+    /**
+     * Return plane normal.
+     *
+     * @function
+     * @return {Vector3|null}
+     */
+    this.get_normal = function () {
+        if (!this.is_planar()) return null;
+        return this._normal(this._vertex[0], this._vertex[1], this._vertex[2]);
+    };
+
+    /**
+     * Set face name.
+     *
+     * @function
+     * @param {string} s - Name
+     */
+    this.set_name = function (s) {
+        self._name = s;
+    };
+
+    /**
+     * Return face name.
+     *
+     * @function
+     * @return {string}
+     */
+    this.get_name = function () {
+        return this._name;
     };
 
 }

@@ -7,8 +7,6 @@
  */
 "use strict";
 
-/* eslint-disable no-extra-parens */
-
 /**
  * Vertex class
  *
@@ -19,6 +17,7 @@
  */
 function Vertex(x, y, z) {
     /* eslint-disable new-cap */
+    /* eslint-disable no-extra-parens */
 
     /**
      * If x, y, z not defined then fill by zero
@@ -49,6 +48,19 @@ function Vertex(x, y, z) {
      * @private
      */
     this._faces = [];
+
+    /**
+     * Vertex name.
+     * @type {string}
+     * @private
+     */
+    this._name = '';
+
+    /**
+     * Pointer to object.
+     * @type {Vertex}
+     */
+    let self = this;
 
     /**
      * Position of the vertex.
@@ -85,6 +97,26 @@ function Vertex(x, y, z) {
      */
     this.get_id = function () {
         return this._id;
+    };
+
+    /**
+     * Set vertex name.
+     *
+     * @function
+     * @param {string} s - Name
+     */
+    this.set_name = function (s) {
+        self._name = s;
+    };
+
+    /**
+     * Return vertex name.
+     *
+     * @function
+     * @return {string}
+     */
+    this.get_name = function () {
+        return this._name;
     };
 
     /**
@@ -136,6 +168,21 @@ function Vertex(x, y, z) {
             if (this._faces[i].equals(face)) return true;
         }
         return false;
+    };
+
+    /**
+     * Remove face.
+     *
+     * @function
+     * @param {Face} face
+     */
+    this.remove_face = function (face) {
+        for (let i = 0; i < this._faces.length; i += 1) {
+            if (this._faces[i].equals(face)) {
+                this._faces.splice(i, 1);
+                return;
+            }
+        }
     };
 
     /**
