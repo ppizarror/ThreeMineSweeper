@@ -316,4 +316,16 @@ function Vertex(x, y, z) {
 
     };
 
+    /**
+     * Scale position.
+     *
+     * @function
+     * @param {number} s - Scale factor
+     */
+    this.scale = function (s) {
+        this.set_x(this.get_x() * s);
+        this.set_y(this.get_y() * s);
+        this.set_z(this.get_z() * s);
+    };
+
 }

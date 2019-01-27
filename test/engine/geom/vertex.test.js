@@ -1,5 +1,5 @@
 describe('Test vertex', function () {
-    
+
     let v = new Vertex(1, 2, 3);
     let v2 = new Vertex(4, 5, 6);
 
@@ -64,6 +64,14 @@ describe('Test vertex', function () {
         expect(tf.has_face(f4)).toBe(false);
         expect(tf.has_face([f1, f2, f3])).toBe(true);
         expect(tf.has_face([f1, f2, f4])).toBe(false);
+    });
+
+    it('Test vertex scale position', function () {
+        let v1 = new Vertex(1, 2, -1);
+        v1.scale(0.5);
+        expect(v1.get_x()).toBe(0.5);
+        v1.scale(-1);
+        expect(v1.get_z()).toBe(0.5);
     });
 
 });
