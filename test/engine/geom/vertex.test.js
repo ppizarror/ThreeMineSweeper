@@ -36,4 +36,11 @@ describe('Test vertex', function () {
         expect(s.get_z()).toBe(3);
     });
 
+    it('Test ccw definition', function () {
+        let t1 = new Vertex();
+        let t2 = new Vertex(0, 1, 0);
+        let t3 = new Vertex(1, 1, 0);
+        expect(t1.ccw(t2, t3)).toBe(true);
+    });
+
 });

@@ -7,6 +7,8 @@
  */
 "use strict";
 
+/* eslint-disable no-extra-parens */
+
 /**
  * Vertex class
  *
@@ -96,7 +98,7 @@ function Vertex(x, y, z) {
 
         // Check face has not been added
         for (let i = 0; i < this._faces.length; i += 1) {
-            if (this._faces[i].get_id() === face.get_id()) {
+            if (this._faces[i].equals(face)) {
                 return false;
             }
         }
@@ -249,6 +251,37 @@ function Vertex(x, y, z) {
      */
     this.close_to = function (vertex) {
         return this.dist(vertex) < MIN_TOL;
+    };
+
+    /**
+     * Check if vertex is in ccw order along two other vertices.
+     *
+     * @function
+     * @param {Vertex} v1
+     * @param {Vertex} v2
+     * @returns {boolean}
+     */
+    this.ccw = function (v1, v2) {
+
+        // Calculate vectors
+        let x1 = v1.get_x() - this.get_x();
+        let y1 = v1.get_y() - this.get_y();
+        let z1 = v1.get_z() - this.get_z();
+        let x2 = v2.get_x() - this.get_x();
+        let y2 = v2.get_y() - this.get_y();
+        let z2 = v2.get_z() - this.get_z();
+
+        /**
+         * Calculate u vector
+         * https://math.stackexchange.com/questions/128991/how-to-calculate-area-of-3d-triangle
+         */
+        let x3 = (y1 * z2) - (y2 * z1);
+        let y3 = (x1 * z2) - (x2 * z1);
+        let z3 = (x1 * y2) - (x2 * y1);
+
+        // Return area
+        return !(x3 > 0 || y3 > 0 || z3 > 0);
+
     };
 
 }

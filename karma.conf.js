@@ -1,6 +1,5 @@
 /* eslint-disable */
 // Karma configuration
-// Generated on Tue Jan 22 2019 15:57:18 GMT-0300 (GMT-03:00)
 
 // noinspection JSUnresolvedVariable
 module.exports = function (config) {

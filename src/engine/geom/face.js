@@ -80,4 +80,15 @@ function Face() {
         return this._id;
     };
 
+    /**
+     * Check if face is same as other.
+     *
+     * @function
+     * @param {Face} face
+     * @returns {boolean}
+     */
+    this.equals = function (face) {
+        return this._id === face._id;
+    }
+
 }

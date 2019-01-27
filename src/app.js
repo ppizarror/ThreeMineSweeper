@@ -61,9 +61,9 @@ $(function () {
         cfg_app_theme = sessionCookie.theme;
     } else {
         sessionCookie.theme = cfg_app_theme;
+        theme = theme_db[sessionCookie.theme];
         updateSessionCookie();
         app_error.errorID(app_error.error.themeNotExist);
-        return;
     }
     app_console.info(lang.loading_theme.format(cfg_app_theme)); // Display loaded theme on console
     try {
