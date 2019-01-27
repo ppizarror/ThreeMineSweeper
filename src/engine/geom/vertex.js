@@ -263,6 +263,9 @@ function Vertex(x, y, z) {
      */
     this.ccw = function (v1, v2) {
 
+        // If v1 or v2 is the same then return false
+        if (this.equals(v1) || this.equals(v2)) return false;
+
         // Calculate vectors
         let x1 = v1.get_x() - this.get_x();
         let y1 = v1.get_y() - this.get_y();

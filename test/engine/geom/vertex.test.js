@@ -37,10 +37,17 @@ describe('Test vertex', function () {
     });
 
     it('Test ccw definition', function () {
-        let t1 = new Vertex();
+        let t1 = new Vertex(0, 0, 0);
         let t2 = new Vertex(0, 1, 0);
         let t3 = new Vertex(1, 1, 0);
         expect(t1.ccw(t2, t3)).toBe(true);
+        expect(t2.ccw(t3, t1)).toBe(true);
+        expect(t3.ccw(t1, t2)).toBe(true);
+        expect(t1.ccw(t3, t2)).toBe(false);
+        expect(t2.ccw(t1, t3)).toBe(false);
+        expect(t3.ccw(t2, t1)).toBe(false);
+        expect(t1.ccw(t1, t1)).toBe(false);
+        expect(t1.ccw(t1, t2)).toBe(false);
     });
 
 });
