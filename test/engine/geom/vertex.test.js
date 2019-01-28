@@ -1,22 +1,24 @@
 describe('Test vertex', function () {
 
-    let v = new Vertex(1, 2, 3);
-    let v2 = new Vertex(4, 5, 6);
-
     it('Test vertex creation', function () {
+        let v = new Vertex(1, 2, 3);
         expect(v.get_x()).toBe(1);
         expect(v.get_y()).toBe(2);
         expect(v.get_z()).toBe(3);
     });
 
     it('Test distance', function () {
+        let v = new Vertex(1, 2, 3);
+        let v2 = new Vertex(4, 5, 6);
         expect(v.dist()).toBe(Math.sqrt(14));
         expect(v.dist(v2)).toBe(Math.sqrt(Math.pow(4 - 1, 2) +
             Math.pow(5 - 2, 2) + Math.pow(6 - 3, 2)));
     });
 
     it('Test sum/subtract', function () {
+        let v = new Vertex(1, 2, 3);
         let v3 = new Vertex(-1, -2, -3);
+        let v2 = new Vertex(4, 5, 6);
         v3.add(v);
         expect(v3.is_zero()).toBe(true);
         v3.add(v2);
@@ -83,6 +85,44 @@ describe('Test vertex', function () {
         let s = new Vertex();
         s.set_name('A');
         expect(s.get_name()).toBe('A');
+    });
+
+    /**
+     * v1 ---- v2 ---- v6
+     *  |  f1  |   f2  |
+     *  |      |       |
+     *  v4 --- v3 ---- v5
+     */
+    it('Test vertex prev/next', function () {
+        let v1 = new Vertex(0, 1);
+        let v2 = new Vertex(1, 1);
+        let v3 = new Vertex(1, 0);
+        let v4 = new Vertex(0, 0);
+        let v5 = new Vertex(2, 0);
+        let v6 = new Vertex(2, 1);
+        let f1 = new Face();
+        let f2 = new Face();
+        f1.add_vertex([v1, v2, v3, v4]);
+        f2.add_vertex([v5, v3, v2, v6]);
+
+        // Check figures are ok
+        expect(f1.is_valid()).toBe(true);
+        expect(f2.is_valid()).toBe(true);
+
+        // Check next/prev
+        expect(v1.next(f1)).toBe(v2);
+        expect(v2.next(f1)).toBe(v3);
+        expect(v3.next(f1)).toBe(v4);
+        expect(v4.next(f1)).toBe(v1);
+        expect(v1.next(f2)).toBe(null);
+        expect(v1.prev(f1)).toBe(v4);
+        expect(v2.prev(f1)).toBe(v1);
+        expect(v3.prev(f1)).toBe(v2);
+        expect(v4.prev(f1)).toBe(v3);
+
+        // Check next/prev with figures
+        // eslint-disable-next-line newline-per-chained-call
+        expect(v1.next(f1).next(f2).next(f2).next(f2).next(f1).next(f1)).toBe(v1);
     });
 
 });

@@ -77,16 +77,28 @@ function Vertex(x, y, z) {
      * @returns {Vertex}
      */
     this.prev = function (face) {
+        for (let i = 0; i < this._faces.length; i += 1) {
+            if (this._faces[i].equals(face)) {
+                return this._faces[i].get_prev_vertex(this);
+            }
+        }
+        return null;
     };
 
     /**
-     * Returns the next vertex from a face.
+     * Returns the next vertex from a face, null if not found.
      *
      * @function
      * @param {Face} face - Face object
-     * @returns {Vertex}
+     * @returns {Vertex|null}
      */
     this.next = function (face) {
+        for (let i = 0; i < this._faces.length; i += 1) {
+            if (this._faces[i].equals(face)) {
+                return this._faces[i].get_next_vertex(this);
+            }
+        }
+        return null;
     };
 
     /**
@@ -369,6 +381,14 @@ function Vertex(x, y, z) {
 
     };
 
+    /**
+     * Calculates the area with vertices v1 and v2.
+     *
+     * @function
+     * @param {Vertex} v1
+     * @param {Vertex} v2
+     * @returns {number}
+     */
     this.area2 = function (v1, v2) {
 
         // If v1 or v2 is the same then return false
@@ -438,6 +458,16 @@ function Vertex(x, y, z) {
      */
     this.print = function () {
         app_console.info('Vertex <{0}> at ({1},{2},{3})'.format(this._name, this.get_x(), this.get_y(), this.get_z()));
+    };
+
+    /**
+     * Returns face array.
+     *
+     * @function
+     * @return {Face[]}
+     */
+    this.get_faces = function () {
+        return this._faces.slice(0);
     };
 
 }

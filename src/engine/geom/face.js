@@ -101,6 +101,7 @@ function Face() {
 
         // Add vertex
         this._vertex.push(vertex);
+        vertex.add_face(this);
         self._length += 1;
         return true;
 
@@ -354,6 +355,40 @@ function Face() {
         for (let i = 0; i < this._length; i += 1) {
             this._vertex[i].translate(tx, ty, tz);
         }
+    };
+
+    /**
+     * Returns next vertex, null if not found.
+     *
+     * @function
+     * @param {Vertex} vertex
+     * @return {Vertex|null}
+     */
+    this.get_next_vertex = function (vertex) {
+        for (let i = 0; i < this._length; i += 1) {
+            if (this._vertex[i].equals(vertex)) {
+                return this._vertex[(i + 1) % this._length];
+            }
+        }
+        return null;
+    };
+
+    /**
+     * Returns previous vertex, null if not found.
+     *
+     * @function
+     * @param {Vertex} vertex
+     * @return {Vertex|null}
+     */
+    this.get_prev_vertex = function (vertex) {
+        for (let i = 0; i < this._length; i += 1) {
+            if (this._vertex[i].equals(vertex)) {
+                let j = i - 1;
+                if (j < 0) j = this._length - 1;
+                return this._vertex[j];
+            }
+        }
+        return null;
     };
 
 }
