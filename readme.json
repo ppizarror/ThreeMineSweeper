@@ -1,26 +1,26 @@
 {
   "PROJECT": {
-    "NAME": "Pygame Menu",
+    "NAME": "ThreeMinesSweeper",
     "ICON": {
-      "IMAGE": "https://ppizarror.com/resources/other/python.png",
-      "ALT": "Pygame Menu",
+      "IMAGE": "https://ppizarror.com/ThreeMinesSweeper/resources/android-chrome-512x512.png",
+      "ALT": "ThreeMinesSweeper",
       "WIDTH": 200,
       "HEIGHT": 200
     },
-    "URL": "https://ppizarror.com/pygame-menu/",
-    "URL_TITLE": "Pygame Menu"
+    "URL": "https://ppizarror.com/ThreeMinesSweeper/",
+    "URL_TITLE": "ThreeMinesSweeper"
   },
   "AUTHOR": {
     "NAME": "Pablo Pizarro R.",
     "URL": "https://ppizarror.com",
     "ALT": "ppizarror",
-    "DATE": "2017-2019",
+    "DATE": "2019",
     "SECTION": {
       "TITLE": "Author",
       "SHOW": true
     }
   },
-  "DESCRIPTION": "Menu for pygame, simple, lightweight and easy to use",
+  "DESCRIPTION": "TMS is an experimental 3D minesweeper capable to render advanced geometric minesweeper maps",
   "BADGES": {
     "0": {
       "IMAGE": "https://ppizarror.com/badges/author.svg",
@@ -33,31 +33,21 @@
       "ALT": "License MIT"
     },
     "2": {
-      "IMAGE": "https://ppizarror.com/badges/python27.svg",
-      "HREF": "https://www.python.org/downloads/",
-      "ALT": "Python 2.7"
-    },
-    "3": {
-      "IMAGE": "https://ppizarror.com/badges/python36.svg",
-      "HREF": "https://www.python.org/downloads/",
-      "ALT": "Python 3.6"
-    },
-    "4": {
-      "IMAGE": "https://ppizarror.com/badges/pygame194.svg",
-      "HREF": "https://www.pygame.org/",
-      "ALT": "Pygame 1.9.4"
-    },
-	"5": {
       "NEWLINE": true
     },
-    "6": {
-      "IMAGE": "https://img.shields.io/lgtm/alerts/g/ppizarror/pygame-menu.svg?logo=lgtm&logoWidth=18",
-      "HREF": "https://lgtm.com/projects/g/ppizarror/pygame-menu/alerts/",
+    "3": {
+      "IMAGE": "https://img.shields.io/lgtm/alerts/g/ppizarror/ThreeMinesSweeper.svg?logo=lgtm&logoWidth=18",
+      "HREF": "https://lgtm.com/projects/g/ppizarror/ThreeMinesSweeper/alerts/",
       "ALT": "Total alerts"
     },
-	"7": {
-      "IMAGE": "https://img.shields.io/lgtm/grade/python/g/ppizarror/pygame-menu.svg?logo=lgtm&logoWidth=18",
-      "HREF": "https://lgtm.com/projects/g/ppizarror/pygame-menu/context:python",
+    "4": {
+      "IMAGE": "https://img.shields.io/lgtm/grade/javascript/g/ppizarror/ThreeMinesSweeper.svg?logo=lgtm&logoWidth=18",
+      "HREF": "https://lgtm.com/projects/g/ppizarror/ThreeMinesSweeper/context:javascript",
+      "ALT": "Language grade: JavaScript"
+    },
+    "5": {
+      "IMAGE": "https://img.shields.io/lgtm/grade/python/g/ppizarror/ThreeMinesSweeper.svg?logo=lgtm&logoWidth=18",
+      "HREF": "https://lgtm.com/projects/g/ppizarror/ThreeMinesSweeper/context:python",
       "ALT": "Language grade: Python"
     }
   },
