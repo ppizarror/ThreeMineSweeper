@@ -1,2 +1,4 @@
-src/
+dev/
+docs/
+lib/
 .DS_Store
