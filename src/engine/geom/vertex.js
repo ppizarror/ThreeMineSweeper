@@ -464,7 +464,7 @@ function Vertex(x, y, z) {
      * Returns face array.
      *
      * @function
-     * @return {Face[]}
+     * @returns {Face[]}
      */
     this.get_faces = function () {
         return this._faces.slice(0);

@@ -32,13 +32,6 @@ function Face() {
     this._vertex = [];
 
     /**
-     * Number of vertices that define the face.
-     * @type {number}
-     * @private
-     */
-    this._length = 0;
-
-    /**
      * Face name.
      * @type {string}
      * @private
@@ -96,7 +89,6 @@ function Face() {
         // Add vertex
         this._vertex.push(vertex);
         vertex.add_face(this);
-        self._length += 1;
         return true;
 
     };
@@ -120,7 +112,7 @@ function Face() {
         }
 
         // Look for vertex, if not found returns false
-        for (let i = 0; i < this._length; i += 1) {
+        for (let i = 0; i < this._vertex.length; i += 1) {
             if (this._vertex[i].equals(vertex)) return true;
         }
         return false;
@@ -140,10 +132,9 @@ function Face() {
             }
             return;
         }
-        for (let i = 0; i < this._length; i += 1) {
+        for (let i = 0; i < this._vertex.length; i += 1) {
             if (this._vertex[i].equals(vertex)) {
                 this._vertex.splice(i, 1);
-                self._length -= 1;
                 return;
             }
         }
@@ -156,7 +147,7 @@ function Face() {
      * @returns {number}
      */
     this.length = function () {
-        return this._length;
+        return this._vertex.length;
     };
 
     /**
@@ -166,11 +157,11 @@ function Face() {
      * @returns {boolean}
      */
     this.is_ccw = function () {
-        if (this._length < 3) return false;
-        for (let i = 0; i < this._length; i += 1) {
-            let i0 = this._vertex[i % this._length];
-            let i1 = this._vertex[(i + 1) % this._length];
-            let i2 = this._vertex[(i + 2) % this._length];
+        if (this._vertex.length < 3) return false;
+        for (let i = 0; i < this._vertex.length; i += 1) {
+            let i0 = this._vertex[i % this._vertex.length];
+            let i1 = this._vertex[(i + 1) % this._vertex.length];
+            let i2 = this._vertex[(i + 2) % this._vertex.length];
             if (!i0.ccw(i1, i2)) return false;
         }
         return true;
@@ -185,7 +176,7 @@ function Face() {
     this.is_planar = function () {
 
         // If face has less than three vertices then it's not planar
-        if (this._length < 3) return false;
+        if (this._vertex.length < 3) return false;
 
         // Compute first normal
         let n = this._normal(this._vertex[0], this._vertex[1], this._vertex[2]);
@@ -195,10 +186,10 @@ function Face() {
         let nz = n.getComponent(2);
 
         // Check each combination
-        for (let i = 1; i < this._length; i += 1) {
-            let i0 = i % this._length;
-            let i1 = (i + 1) % this._length;
-            let i2 = (i + 2) % this._length;
+        for (let i = 1; i < this._vertex.length; i += 1) {
+            let i0 = i % this._vertex.length;
+            let i1 = (i + 1) % this._vertex.length;
+            let i2 = (i + 2) % this._vertex.length;
             n = this._normal(this._vertex[i0], this._vertex[i1], this._vertex[i2]);
             n.normalize();
             if (n.getComponent(0) !== nx || n.getComponent(1) !== ny || n.getComponent(2) !== nz) {
@@ -244,7 +235,7 @@ function Face() {
      * Return plane normal.
      *
      * @function
-     * @return {Vector3|null}
+     * @returns {Vector3|null}
      */
     this.get_normal = function () {
         if (!this.is_planar()) return null;
@@ -265,7 +256,7 @@ function Face() {
      * Return face name.
      *
      * @function
-     * @return {string}
+     * @returns {string}
      */
     this.get_name = function () {
         return this._name;
@@ -275,7 +266,7 @@ function Face() {
      * Check face is valid and well defined.
      *
      * @function
-     * @return {boolean}
+     * @returns {boolean}
      */
     this.is_valid = function () {
         return this.is_ccw() && this.is_planar();
@@ -291,9 +282,9 @@ function Face() {
         if (!this.is_valid()) return -1;
         let zero = this._vertex[0];
         let area = 0;
-        for (let i = 0; i < this._length; i += 1) {
-            let i0 = i % this._length;
-            let i1 = (i + 1) % this._length;
+        for (let i = 0; i < this._vertex.length; i += 1) {
+            let i0 = i % this._vertex.length;
+            let i1 = (i + 1) % this._vertex.length;
             area += zero.area2(this._vertex[i0], this._vertex[i1]);
         }
         return area;
@@ -308,9 +299,9 @@ function Face() {
     this.get_perimeter = function () {
         if (!this.is_valid()) return -1;
         let dist = 0;
-        for (let i = 0; i < this._length; i += 1) {
-            let i0 = i % this._length;
-            let i1 = (i + 1) % this._length;
+        for (let i = 0; i < this._vertex.length; i += 1) {
+            let i0 = i % this._vertex.length;
+            let i1 = (i + 1) % this._vertex.length;
             dist += this._vertex[i0].dist(this._vertex[i1]);
         }
         return dist;
@@ -329,7 +320,7 @@ function Face() {
         if (isNullUndf(sx)) sx = 1;
         if (isNullUndf(sy)) sy = 1;
         if (isNullUndf(sz)) sz = 1;
-        for (let i = 0; i < this._length; i += 1) {
+        for (let i = 0; i < this._vertex.length; i += 1) {
             this._vertex[i].scale(s, sx, sy, sz);
         }
     };
@@ -346,7 +337,7 @@ function Face() {
         if (isNullUndf(tx)) tx = 0;
         if (isNullUndf(ty)) ty = 0;
         if (isNullUndf(tz)) tz = 0;
-        for (let i = 0; i < this._length; i += 1) {
+        for (let i = 0; i < this._vertex.length; i += 1) {
             this._vertex[i].translate(tx, ty, tz);
         }
     };
@@ -356,12 +347,12 @@ function Face() {
      *
      * @function
      * @param {Vertex} vertex
-     * @return {Vertex|null}
+     * @returns {Vertex|null}
      */
     this.get_next_vertex = function (vertex) {
-        for (let i = 0; i < this._length; i += 1) {
+        for (let i = 0; i < this._vertex.length; i += 1) {
             if (this._vertex[i].equals(vertex)) {
-                return this._vertex[(i + 1) % this._length];
+                return this._vertex[(i + 1) % this._vertex.length];
             }
         }
         return null;
@@ -372,17 +363,36 @@ function Face() {
      *
      * @function
      * @param {Vertex} vertex
-     * @return {Vertex|null}
+     * @returns {Vertex|null}
      */
     this.get_prev_vertex = function (vertex) {
-        for (let i = 0; i < this._length; i += 1) {
+        for (let i = 0; i < this._vertex.length; i += 1) {
             if (this._vertex[i].equals(vertex)) {
                 let j = i - 1;
-                if (j < 0) j = this._length - 1;
+                if (j < 0) j = this._vertex.length - 1;
                 return this._vertex[j];
             }
         }
         return null;
+    };
+
+    /**
+     * Return face neighbours.
+     *
+     * @function
+     * @returns {Face[]}
+     */
+    this.get_neighbours = function () {
+
+        // Neighbours list
+        let n = [];
+
+        /**
+         * Iterate though each vertex of the face and look for faces
+         * that share 2 vertices with the same face
+         */
+
+
     };
 
 }
