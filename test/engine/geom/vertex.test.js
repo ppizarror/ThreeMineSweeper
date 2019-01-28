@@ -128,6 +128,11 @@ describe('Test vertex', function () {
         expect(v1.get_faces().length).toBe(1);
         expect(v2.get_faces().length).toBe(2);
         expect(v3.get_faces().length).toBe(2);
+
+        // Get neighbours faces
+        expect(f1.get_neighbours()[0]).toBe(f2);
+        expect(f1.get_neighbours().length).toBe(1);
+        expect(f2.get_neighbours()[0]).toBe(f1);
     });
 
 });

@@ -383,15 +383,44 @@ function Face() {
      * @returns {Face[]}
      */
     this.get_neighbours = function () {
+        /* eslint-disable no-continue */
 
         // Neighbours list
         let n = [];
+        let n_id = []; // Stores ID
 
         /**
          * Iterate though each vertex of the face and look for faces
          * that share 2 vertices with the same face
          */
+        for (let i = 0; i < this._vertex.length; i += 1) {
 
+            // Get faces of the vertex
+            let v = this._vertex[i];
+            let f = v.get_faces();
+            for (let j = 0; j < f.length; j += 1) {
+
+                // If face is different than the current one
+                if (f[j].equals(this)) { // noinspection UnnecessaryContinueJS
+                    continue;
+                }
+
+                // Get previous or next vertex exists in same face
+                if (this.has_vertex(v.next(f[j])) || this.has_vertex(v.prev(f[j]))) {
+
+                    // Stores neighbour face
+                    if (!n_id.includes(f[j].get_id())) {
+                        n.push(f[j]);
+                        n_id.push(f[j].get_id());
+                    }
+                }
+
+            }
+
+        }
+
+        // Return face list
+        return n;
 
     };
 
