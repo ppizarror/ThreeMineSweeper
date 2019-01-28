@@ -483,4 +483,14 @@ function Vertex(x, y, z) {
         return this._faces.slice(0);
     };
 
+    /**
+     * Return total faces that share the same vertex.
+     *
+     * @function
+     * @returns {number}
+     */
+    this.total_faces = function () {
+        return this._faces.length;
+    };
+
 }

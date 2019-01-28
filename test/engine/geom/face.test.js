@@ -122,7 +122,7 @@ describe('Test face', function () {
         let v9 = new Vertex(5, 4);
         let v10 = new Vertex(7, 4);
 
-        // Assemble figure
+        // Add vertices
         f1.add_vertex([v6, v5, v7]);
         f2.add_vertex([v7, v5, v8]);
         f3.add_vertex([v5, v4, v3, v8]);
@@ -133,18 +133,36 @@ describe('Test face', function () {
         f8.add_vertex([v2, v9, v10]);
         f9.add_vertex([v2, v10, v3]);
 
-        // Test faces
-        expect(f1.is_valid()).toBe(true);
-        expect(f2.is_valid()).toBe(true);
-        expect(f3.is_valid()).toBe(true);
-        expect(f4.is_valid()).toBe(true);
-        expect(f5.is_valid()).toBe(true);
-        expect(f6.is_valid()).toBe(true);
-        expect(f7.is_valid()).toBe(true);
-        expect(f8.is_valid()).toBe(true);
-        expect(f9.is_valid()).toBe(true);
+        // Assemble figure
+        let ff = [f1, f2, f3, f4, f5, f6, f7, f8, f9];
+        for (let i = 0; i < ff.length; i += 1) {
+            ff[i].assemble();
+            expect(ff[i].is_valid()).toBe(true);
+        }
 
         // Test vertex load
+        expect(v1.total_faces()).toBe(1);
+        expect(v2.total_faces()).toBe(3);
+        expect(v3.total_faces()).toBe(3);
+        expect(v4.total_faces()).toBe(1);
+        expect(v5.total_faces()).toBe(3);
+        expect(v6.total_faces()).toBe(3);
+        expect(v7.total_faces()).toBe(4);
+        expect(v8.total_faces()).toBe(4);
+        expect(v9.total_faces()).toBe(4);
+        expect(v10.total_faces()).toBe(4);
+
+        // Check neighbours
+        expect(f5.get_total_neighbours()).toBe(4);
+        expect(f1.is_neighbour([f2, f6], true)).toBe(true);
+        expect(f2.is_neighbour([f1, f3, f5], true)).toBe(true);
+        expect(f3.is_neighbour([f2, f4], true)).toBe(true);
+        expect(f4.is_neighbour([f3, f5, f9], true)).toBe(true);
+        expect(f5.is_neighbour([f2, f6, f4, f8], true)).toBe(true);
+        expect(f6.is_neighbour([f1, f5, f7], true)).toBe(true);
+        expect(f7.is_neighbour([f6, f8], true)).toBe(true);
+        expect(f8.is_neighbour([f7, f5, f9], true)).toBe(true);
+        expect(f9.is_neighbour([f8, f4], true)).toBe(true);
 
     });
 

@@ -39,6 +39,20 @@ function Face() {
     this._name = '';
 
     /**
+     * Assembled.
+     * @type {boolean}
+     * @private
+     */
+    this._assembled = false;
+
+    /**
+     * Stores face neighbours.
+     * @type {Face[]|null}
+     * @private
+     */
+    this._neighbours = null;
+
+    /**
      * Pointer to object.
      * @type {Face}
      */
@@ -89,6 +103,7 @@ function Face() {
         // Add vertex
         this._vertex.push(vertex);
         vertex.add_face(this);
+        self._assembled = false;
         return true;
 
     };
@@ -135,6 +150,7 @@ function Face() {
         for (let i = 0; i < this._vertex.length; i += 1) {
             if (this._vertex[i].equals(vertex)) {
                 this._vertex.splice(i, 1);
+                self._assembled = false;
                 return;
             }
         }
@@ -424,6 +440,7 @@ function Face() {
                         n.push(f[j]);
                         n_id.push(f[j].get_id());
                     }
+
                 }
 
             }
@@ -433,6 +450,51 @@ function Face() {
         // Return face list
         return n;
 
+    };
+
+    /**
+     * Assemble face.
+     *
+     * @function
+     */
+    this.assemble = function () {
+        self._assembled = true;
+        self._neighbours = this.get_neighbours();
+    };
+
+    /**
+     * Check if face if neighbour.
+     *
+     * @function
+     * @param {Face|Face[]} face
+     * @param {boolean=} strict - Only the defined faces can be neighbours
+     * @returns {boolean}
+     */
+    this.is_neighbour = function (face, strict) {
+        if (!this._assembled) this.assemble();
+        if (face instanceof Array) {
+            let r = true;
+            for (let j = 0; j < face.length; j += 1) {
+                r = r && this.is_neighbour(face[j], false);
+            }
+            return r && (face.length === this._neighbours.length);
+        }
+        if (strict) return this._neighbours.length === 1 && this._neighbours[0].equals(face);
+        for (let i = 0; i < this._neighbours.length; i += 1) {
+            if (this._neighbours[i].equals(face)) return true;
+        }
+        return false;
+    };
+
+    /**
+     * Get total number of neighbours.
+     *
+     * @function
+     * @return {number}
+     */
+    this.get_total_neighbours = function () {
+        if (!this._assembled) this.assemble();
+        return this._neighbours.length;
     };
 
 }
