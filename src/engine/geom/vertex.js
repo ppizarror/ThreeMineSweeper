@@ -10,12 +10,14 @@
 /**
  * Vertex class
  *
+ * @class
+ * @constructor
  * @param {number=} x - X position
  * @param {number=} y - Y position
  * @param {number=} z - Z position
- * @constructor
+ * @param {string=} vertex_name - Vertex name
  */
-function Vertex(x, y, z) {
+function Vertex(x, y, z, vertex_name) {
     /* eslint-disable new-cap */
     /* eslint-disable no-extra-parens */
 
@@ -118,6 +120,7 @@ function Vertex(x, y, z) {
      * @param {string} s - Name
      */
     this.set_name = function (s) {
+        if (isNullUndf(s)) return;
         self._name = s;
     };
 
@@ -492,5 +495,10 @@ function Vertex(x, y, z) {
     this.total_faces = function () {
         return this._faces.length;
     };
+
+    /**
+     * Apply constructor
+     */
+    this.set_name(vertex_name)
 
 }

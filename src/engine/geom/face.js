@@ -12,8 +12,10 @@
  *
  * @class
  * @constructor
+ * @param {Vertex[]|Vertex=} face_vertex - Initial vertex definition
+ * @param {string=} face_name - Face name
  */
-function Face() {
+function Face(face_vertex, face_name) {
     /* eslint-disable no-extra-parens */
     /* eslint-disable no-mixed-operators */
 
@@ -87,6 +89,8 @@ function Face() {
      * @returns {boolean}
      */
     this.add_vertex = function (vertex) {
+
+        if (isNullUndf(vertex)) return false;
 
         // If array
         if (vertex instanceof Array) {
@@ -276,6 +280,7 @@ function Face() {
      * @param {string} s - Name
      */
     this.set_name = function (s) {
+        if (isNullUndf(s)) return;
         self._name = s;
     };
 
@@ -296,7 +301,8 @@ function Face() {
      * @returns {boolean}
      */
     this.is_valid = function () {
-        return this.is_ccw() && this.is_planar();
+        return ((this.is_cartesian_plane() === this.is_ccw()) && this.is_planar()) ||
+            (this.is_ccw() && this.is_planar());
     };
 
     /**
@@ -496,5 +502,36 @@ function Face() {
         if (!this._assembled) this.assemble();
         return this._neighbours.length;
     };
+
+    /**
+     * Check if the face is along a cartesian plane.
+     *
+     * @function
+     * @return {boolean}
+     */
+    this.is_cartesian_plane = function () {
+        let n = this.get_normal();
+        let x = n.getComponent(0);
+        let y = n.getComponent(1);
+        let z = n.getComponent(2);
+        return (x !== 0 && y === 0 && z === 0) || (x === 0 && y !== 0 && z === 0) ||
+            (x === 0 && y === 0 && z !== 0);
+    };
+
+    /**
+     * Return face vertices.
+     *
+     * @function
+     * @return {Vertex[]}
+     */
+    this.get_vertices = function () {
+        return this._vertex.slice(0);
+    };
+
+    /**
+     * Apply constructor
+     */
+    this.add_vertex(face_vertex);
+    this.set_name(face_name);
 
 }

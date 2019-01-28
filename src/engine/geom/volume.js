@@ -12,8 +12,10 @@
  *
  * @class
  * @constructor
+ * @param {Face[]|Face=} volume_faces - Initial volume faces
+ * @param {string=} volume_name - Volume name
  */
-function Volume() {
+function Volume(volume_faces, volume_name) {
     /* eslint-disable new-cap */
 
     /**
@@ -31,11 +33,24 @@ function Volume() {
     this._faces = [];
 
     /**
-     * Array that contains the vertices of the volume, unordered.
-     * @type {Vertex[]}
+     * Face name.
+     * @type {string}
      * @private
      */
-    this._vertex = [];
+    this._name = '';
+
+    /**
+     * Face add is strict.
+     * @type {boolean}
+     * @private
+     */
+    this._strict = true;
+
+    /**
+     * Object pointer.
+     * @type {Volume}
+     */
+    let self = this;
 
     /**
      * Return object ID.
@@ -45,6 +60,181 @@ function Volume() {
      */
     this.get_id = function () {
         return this._id;
+    };
+
+    /**
+     * Adds a face to the vertex.
+     *
+     * @function
+     * @param {Face|Face[]} face - Face object
+     * @returns {boolean}
+     */
+    this.add_face = function (face) {
+
+        // If face is an array then call multiple times
+        if (face instanceof Array) {
+            let r = true;
+            for (let j = 0; j < face.length; j += 1) {
+                r = r && this.add_face(face[j]);
+            }
+            return r;
+        }
+
+        // Check face has not been added
+        for (let i = 0; i < this._faces.length; i += 1) {
+            if (this._faces[i].equals(face)) {
+                return false;
+            }
+        }
+
+        // Add face to list
+        if (this._strict) {
+            if (face.is_valid()) {
+                this._faces.push(face);
+                return true;
+            }
+            app_console.error('[VOLUME] Face ID {0} could not be added to volume, not valid'.format(face.get_id()));
+            return false;
+        }
+        this._faces.push(face);
+        return true;
+
+    };
+
+    /**
+     * Check if the vertex defines some face.
+     *
+     * @function
+     * @param {Face|Face[]} face
+     * @returns {boolean}
+     */
+    this.has_face = function (face) {
+        if (face instanceof Array) {
+            for (let j = 0; j < face.length; j += 1) {
+                if (!this.has_face(face[j])) return false;
+            }
+            return true;
+        }
+        for (let i = 0; i < this._faces.length; i += 1) {
+            if (this._faces[i].equals(face)) return true;
+        }
+        return false;
+    };
+
+    /**
+     * Remove face.
+     *
+     * @function
+     * @param {Face|Face[]} face
+     */
+    this.remove_face = function (face) {
+        if (face instanceof Array) {
+            for (let j = 0; j < face.length; j += 1) {
+                this.remove_face(face[j]);
+            }
+            return;
+        }
+        for (let i = 0; i < this._faces.length; i += 1) {
+            if (this._faces[i].equals(face)) {
+                this._faces.splice(i, 1);
+                return;
+            }
+        }
+    };
+
+    /**
+     * Check if volume is same as other.
+     *
+     * @function
+     * @param {Volume} volume
+     * @returns {boolean}
+     */
+    this.equals = function (volume) {
+        return this._id === volume._id;
+    };
+
+    /**
+     * Set volume name.
+     *
+     * @function
+     * @param {string} s - Name
+     */
+    this.set_name = function (s) {
+        if (isNullUndf(s)) return;
+        self._name = s;
+    };
+
+    /**
+     * Return volume name.
+     *
+     * @function
+     * @returns {string}
+     */
+    this.get_name = function () {
+        return this._name;
+    };
+
+    /**
+     * Return volume vertices.
+     *
+     * @function
+     * @returns {Vertex[]}
+     */
+    this.get_vertices = function () {
+        let v = [];
+        let v_id = [];
+
+        // Check all faces and get theirs vertices
+        for (let i = 0; i < this._faces.length; i += 1) {
+            let fv = this._faces[i].get_vertices();
+
+            // Add vertex if not exists
+            for (let j = 0; j < fv.length; j += 1) {
+                if (!v_id.includes(fv[j].get_id())) {
+                    v.push(fv[j]);
+                    v_id.push(fv[j].get_id());
+                }
+            }
+
+        }
+
+        // Return vertex list
+        return v;
+    };
+
+    /**
+     * Check if vertex exists.
+     *
+     * @function
+     * @param {Vertex[]|Vertex} vertex
+     * @returns {boolean}
+     */
+    this.has_vertex = function (vertex) {
+        let vertices = this.get_vertices();
+        if (vertex instanceof Array) {
+            let r = true;
+            for (let j = 0; j < vertex.length; j += 1) {
+                r = r && this._has_vertex(vertex[j], vertices);
+            }
+            return r;
+        }
+        return this._has_vertex(vertex, vertices);
+    };
+
+    /**
+     * Check if vertex exists into vertex_list.
+     *
+     * @function
+     * @param {Vertex} vertex
+     * @param {Vertex[]} vertex_list
+     * @returns {boolean}
+     * @private
+     */
+    this._has_vertex = function (vertex, vertex_list) {
+        for (let i = 0; i < vertex_list.length; i += 1) {
+            if (vertex_list[i].equals(vertex)) return true;
+        }
+        return false;
     };
 
 }

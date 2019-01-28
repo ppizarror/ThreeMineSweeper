@@ -163,7 +163,24 @@ describe('Test face', function () {
         expect(f7.is_neighbour([f6, f8], true)).toBe(true);
         expect(f8.is_neighbour([f7, f5, f9], true)).toBe(true);
         expect(f9.is_neighbour([f8, f4], true)).toBe(true);
+    });
 
+    it('Test cartesian planar', function () {
+        let v1 = new Vertex(0, 0, 0);
+        let v2 = new Vertex(0, 1, 0);
+        let v3 = new Vertex(1, 1, 0);
+        let v4 = new Vertex(0, 0, 1);
+        let v5 = new Vertex(0, 1, 1);
+        let v6 = new Vertex(1, 0, 0);
+        let v7 = new Vertex(1, 0, 1);
+
+        let f1 = new Face([v1, v2, v3]);
+        let f2 = new Face([v1, v4, v5]);
+        let f3 = new Face([v1, v6, v7]);
+
+        f1.is_cartesian_plane();
+        f2.is_cartesian_plane();
+        f3.is_cartesian_plane();
     });
 
 });
