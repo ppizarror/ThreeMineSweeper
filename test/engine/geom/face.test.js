@@ -177,10 +177,12 @@ describe('Test face', function () {
         let f1 = new Face([v1, v2, v3]);
         let f2 = new Face([v1, v4, v5]);
         let f3 = new Face([v1, v6, v7]);
+        let f4 = new Face([v2, v3, v4]);
 
-        f1.is_cartesian_plane();
-        f2.is_cartesian_plane();
-        f3.is_cartesian_plane();
+        expect(f1.is_cartesian_plane()).toBe(true);
+        expect(f2.is_cartesian_plane()).toBe(true);
+        expect(f3.is_cartesian_plane()).toBe(true);
+        expect(f4.is_cartesian_plane()).toBe(false);
     });
 
 });
