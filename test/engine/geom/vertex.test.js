@@ -123,6 +123,11 @@ describe('Test vertex', function () {
         // Check next/prev with figures
         // eslint-disable-next-line newline-per-chained-call
         expect(v1.next(f1).next(f2).next(f2).next(f2).next(f1).next(f1)).toBe(v1);
+
+        // Check faces
+        expect(v1.get_faces().length).toBe(1);
+        expect(v2.get_faces().length).toBe(2);
+        expect(v3.get_faces().length).toBe(2);
     });
 
 });

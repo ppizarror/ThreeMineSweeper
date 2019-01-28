@@ -39,12 +39,6 @@ function Face() {
     this._length = 0;
 
     /**
-     * ThreeJS mesh reference.
-     * @private
-     */
-    this._mesh = null;
-
-    /**
      * Face name.
      * @type {string}
      * @private
