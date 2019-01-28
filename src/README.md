@@ -8,7 +8,7 @@ Application source code directory.
 | :-- | :-- |
 | about/ | Version app info |
 | core/ | Core files |
+| engine/ | Application engine |
 | i18n/ | Localization |
-| res/ | App resources |
 | stylesheets/ | Style code |
 | ui/ | User interface |
