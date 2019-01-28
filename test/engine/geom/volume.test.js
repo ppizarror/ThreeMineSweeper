@@ -15,6 +15,10 @@ describe('Volume test', function () {
         py.set_name(py.get_name() + py.get_id());
         py.has_vertex([v1, v2, v3, v4]);
         py.has_face([f1, f2, f3, f4]);
+
+        // Other checks
+        v4.has_face([f1, f2, f3]);
+        f4.is_neighbour([f1, f2, f3]);
     });
 
 });

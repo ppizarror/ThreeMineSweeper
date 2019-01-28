@@ -237,4 +237,41 @@ function Volume(volume_faces, volume_name) {
         return false;
     };
 
+    /**
+     * Scale position.
+     *
+     * @function
+     * @param {number} s - Scale factor
+     * @param {number=} sx - X coordinate scale factor
+     * @param {number=} sy - Y coordinate scale factor
+     * @param {number=} sz - Z coordinate scale factor
+     */
+    this.scale = function (s, sx, sy, sz) {
+        if (isNullUndf(sx)) sx = 1;
+        if (isNullUndf(sy)) sy = 1;
+        if (isNullUndf(sz)) sz = 1;
+        let vertices = this.get_vertices();
+        for (let i = 0; i < vertices.length; i += 1) {
+            vertices[i].scale(s, sx, sy, sz);
+        }
+    };
+
+    /**
+     * Translate vertex.
+     *
+     * @function
+     * @param {number=} tx - X coordinate
+     * @param {number=} ty - Y coordinate
+     * @param {number=} tz - Z coordinate
+     */
+    this.translate = function (tx, ty, tz) {
+        if (isNullUndf(tx)) tx = 0;
+        if (isNullUndf(ty)) ty = 0;
+        if (isNullUndf(tz)) tz = 0;
+        let vertices = this.get_vertices();
+        for (let i = 0; i < vertices.length; i += 1) {
+            vertices[i].translate(tx, ty, tz);
+        }
+    };
+
 }
