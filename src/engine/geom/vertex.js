@@ -27,7 +27,7 @@ function Vertex(x, y, z, vertex_name) {
     if (isNullUndf(x)) {
         x = 0;
         y = 0;
-        z = 0
+        z = 0;
     }
     if (isNullUndf(y)) {
         y = 0;
