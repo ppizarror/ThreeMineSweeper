@@ -92,12 +92,13 @@ describe('Test face', function () {
         expect(f.get_area()).toBe(1.5);
         v2.scale(0.5);
         expect(f.get_area()).toBe(1);
+        expect(f.get_perimeter()).toBe(4);
 
         // Scale face
         f.scale(2);
         f.translate(1, 1);
         expect(f.get_area()).toBe(4);
-
+        expect(f.get_perimeter()).toBe(8);
     });
 
 });

@@ -305,6 +305,23 @@ function Face() {
     };
 
     /**
+     * Calculate face perimeter.
+     *
+     * @function
+     * @returns {number}
+     */
+    this.get_perimeter = function () {
+        if (!this.is_valid()) return -1;
+        let dist = 0;
+        for (let i = 0; i < this._length; i += 1) {
+            let i0 = i % this._length;
+            let i1 = (i + 1) % this._length;
+            dist += this._vertex[i0].dist(this._vertex[i1]);
+        }
+        return dist;
+    };
+
+    /**
      * Scale position.
      *
      * @function
