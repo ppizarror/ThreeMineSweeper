@@ -101,4 +101,51 @@ describe('Test face', function () {
         expect(f.get_perimeter()).toBe(8);
     });
 
+    it('Test multiple vertex and face', function () {
+        let f1 = new Face();
+        let f2 = new Face();
+        let f3 = new Face();
+        let f4 = new Face();
+        let f5 = new Face();
+        let f6 = new Face();
+        let f7 = new Face();
+        let f8 = new Face();
+        let f9 = new Face();
+        let v1 = new Vertex(3, 3);
+        let v2 = new Vertex(6, 3);
+        let v3 = new Vertex(9, 5);
+        let v4 = new Vertex(8, 8);
+        let v5 = new Vertex(5, 9);
+        let v6 = new Vertex(3, 6);
+        let v7 = new Vertex(5, 6);
+        let v8 = new Vertex(7, 6);
+        let v9 = new Vertex(5, 4);
+        let v10 = new Vertex(7, 4);
+
+        // Assemble figure
+        f1.add_vertex([v6, v5, v7]);
+        f2.add_vertex([v7, v5, v8]);
+        f3.add_vertex([v5, v4, v3, v8]);
+        f4.add_vertex([v10, v8, v3]);
+        f5.add_vertex([v10, v9, v7, v8]);
+        f6.add_vertex([v7, v9, v6]);
+        f7.add_vertex([v1, v6, v9, v2]);
+        f8.add_vertex([v2, v9, v10]);
+        f9.add_vertex([v2, v10, v3]);
+
+        // Test faces
+        expect(f1.is_valid()).toBe(true);
+        expect(f2.is_valid()).toBe(true);
+        expect(f3.is_valid()).toBe(true);
+        expect(f4.is_valid()).toBe(true);
+        expect(f5.is_valid()).toBe(true);
+        expect(f6.is_valid()).toBe(true);
+        expect(f7.is_valid()).toBe(true);
+        expect(f8.is_valid()).toBe(true);
+        expect(f9.is_valid()).toBe(true);
+
+        // Test vertex load
+
+    });
+
 });

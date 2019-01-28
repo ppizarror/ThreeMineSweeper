@@ -162,6 +162,8 @@ function Face() {
             let i0 = this._vertex[i % this._vertex.length];
             let i1 = this._vertex[(i + 1) % this._vertex.length];
             let i2 = this._vertex[(i + 2) % this._vertex.length];
+            // eslint-disable-next-line no-continue
+            if (i0.collinear(i1, i2)) continue;
             if (!i0.ccw(i1, i2)) return false;
         }
         return true;
@@ -179,7 +181,7 @@ function Face() {
         if (this._vertex.length < 3) return false;
 
         // Compute first normal
-        let n = this._normal(this._vertex[0], this._vertex[1], this._vertex[2]);
+        let n = this.get_normal();
         n.normalize();
         let nx = n.getComponent(0);
         let ny = n.getComponent(1);
@@ -187,10 +189,12 @@ function Face() {
 
         // Check each combination
         for (let i = 1; i < this._vertex.length; i += 1) {
-            let i0 = i % this._vertex.length;
-            let i1 = (i + 1) % this._vertex.length;
-            let i2 = (i + 2) % this._vertex.length;
-            n = this._normal(this._vertex[i0], this._vertex[i1], this._vertex[i2]);
+            let i0 = this._vertex[i % this._vertex.length];
+            let i1 = this._vertex[(i + 1) % this._vertex.length];
+            let i2 = this._vertex[(i + 2) % this._vertex.length];
+            // eslint-disable-next-line no-continue
+            if (i0.collinear(i1, i2)) continue;
+            n = this._normal(i0, i1, i2);
             n.normalize();
             if (n.getComponent(0) !== nx || n.getComponent(1) !== ny || n.getComponent(2) !== nz) {
                 return false;
@@ -238,8 +242,15 @@ function Face() {
      * @returns {Vector3|null}
      */
     this.get_normal = function () {
-        if (!this.is_planar()) return null;
-        return this._normal(this._vertex[0], this._vertex[1], this._vertex[2]);
+        for (let i = 0; i < this._vertex.length; i += 1) {
+            let i0 = this._vertex[i % this._vertex.length];
+            let i1 = this._vertex[(i + 1) % this._vertex.length];
+            let i2 = this._vertex[(i + 2) % this._vertex.length];
+            // eslint-disable-next-line no-continue
+            if (i0.collinear(i1, i2)) continue;
+            return this._normal(i0, i1, i2);
+        }
+        return null; // All vertices are collinear
     };
 
     /**

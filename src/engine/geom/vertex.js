@@ -382,6 +382,19 @@ function Vertex(x, y, z) {
     };
 
     /**
+     * Check if vertices are collinear.
+     *
+     * @function
+     * @param {Vertex} v1
+     * @param {Vertex} v2
+     * @returns {boolean}
+     */
+    this.collinear = function (v1, v2) {
+        if (this.equals(v1) || this.equals(v2)) return false;
+        return this.area2(v1, v2) === 0;
+    };
+
+    /**
      * Calculates the area with vertices v1 and v2.
      *
      * @function
