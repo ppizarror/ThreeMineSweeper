@@ -154,7 +154,7 @@ function TMSViewer() {
          */
         axis: false,                     // Show axis
         cameratarget: false,             // Show camera target
-        fpsmeter: false,                 // Show fps
+        fpsmeter: true,                  // Show fps
         grid: true,                      // Show grid plane
         gui: false,                      // Show GUI
         planes: false,                   // Show planes
@@ -204,7 +204,7 @@ function TMSViewer() {
     this._globals = {
         contour: '__CONTOUR',
         helper: '__HELPER',
-        plane: '__PLANE'
+        plane: '__PLANE',
     };
 
     /**
@@ -236,10 +236,10 @@ function TMSViewer() {
                 intensity: 0.600,
             },
             maxdistance: 2.500,              // Maximum distance
-            maxpolarangle: 1.000,            // Max polar angle
+            maxpolarangle: Math.PI,          // Max polar angle
             near: 0.001,                     // Close plane
             nopan: true,                     // Mouse pan
-            posx: 0.400,                     // Initial X position
+            posx: 0.800,                     // Initial X position
             posy: -0.600,                    // Initial Y position
             posz: 1.500,                     // Initial Z position
             rotationx: -1.000,               // Initial X rotation
@@ -560,6 +560,9 @@ function TMSViewer() {
         if (this.threejs_helpers.gui) {
             this.threejs_helpers.gui = false;
             this._toggleGUI();
+        }
+        if (this.threejs_helpers.fpsmeter) {
+            this._toggleFPSMeter();
         }
 
     };
@@ -1512,7 +1515,7 @@ function TMSViewer() {
                 let $griddist = Math.floor(2 / this.threejs_helpers.griddist);
                 helper = new THREE.GridHelper($mapsize, $griddist);
                 helper.position.y = 0;
-                helper.material.opacity = 0.1;
+                helper.material.opacity = 0.5;
                 helper.material.transparent = true;
                 self._addMeshToScene(helper, this._globals.helper, false);
                 // noinspection JSValidateTypes
@@ -1693,6 +1696,7 @@ function TMSViewer() {
         self._initWorldObjects();
         self._initEvents();
         self._animateFrame();
+        loadingHandler(false);
     };
 
 }

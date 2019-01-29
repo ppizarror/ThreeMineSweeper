@@ -8,11 +8,10 @@
 "use strict";
 
 /**
- * Application themes
+ * Application themes.
  */
 theme_db = {
     "default": {
-        "backgroundColor": "#3e3e3e", // Background color
         "backToTopScrollPxTrigger": 300, // Pixel to show back to top button
         "backToTopShow": true, // Show back to top button
         "backToTopSize": [50, 65], // Size back to top button
@@ -36,7 +35,7 @@ theme_db = {
 };
 
 /**
- * Jquery-confirm themes
+ * Jquery-confirm themes.
  */
 popupThemes = {
     "bootstrap": "Bootstrap",
@@ -119,9 +118,6 @@ function applyTheme() {
      * Apply CSS
      * ------------------------------------------------------------------------
      */
-    app_dom.body.css({
-        'background-color': theme.backgroundColor,
-    });
     app_dom.root.css({
         'max-width': theme.maxWebWidth,
     });
@@ -155,23 +151,23 @@ function applyTheme() {
      * ------------------------------------------------------------------------
      */
     switch (theme.tooltipTheme) {
-        case 'tooltipster-borderless':
+        case 'tooltipster-borderless': // noinspection HtmlUnknownTarget
             app_dom.head.append('<link rel="stylesheet" type="text/css" href="lib/tooltipster/themes/sideTip-borderless.min.css" media="screen">');
             break;
-        case 'tooltipster-light':
+        case 'tooltipster-light': // noinspection HtmlUnknownTarget
             app_dom.head.append('<link rel="stylesheet" type="text/css" href="lib/tooltipster/themes/sideTip-light.min.css" media="screen">');
             break;
-        case 'tooltipster-noir':
+        case 'tooltipster-noir': // noinspection HtmlUnknownTarget
             app_dom.head.append('<link rel="stylesheet" type="text/css" href="lib/tooltipster/themes/sideTip-noir.min.css" media="screen">');
             break;
-        case 'tooltipster-punk':
+        case 'tooltipster-punk': // noinspection HtmlUnknownTarget
             app_dom.head.append('<link rel="stylesheet" type="text/css" href="lib/tooltipster/themes/sideTip-punk.min.css" media="screen">');
             break;
-        case 'tooltipster-shadow':
+        case 'tooltipster-shadow': // noinspection HtmlUnknownTarget
             app_dom.head.append('<link rel="stylesheet" type="text/css" href="lib/tooltipster/themes/sideTip-shadow.min.css" media="screen">');
             break;
         default:
-            app_console.warn(lang.popup_theme_error_load);
+            app_console.warn(lang.popup_theme_error_load); // noinspection HtmlUnknownTarget
             app_dom.head.append('<link rel="stylesheet" type="text/css" href="lib/tooltipster/themes/sideTip-borderless.min.css" media="screen">');
             break;
     }

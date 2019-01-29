@@ -7,6 +7,16 @@
  */
 "use strict";
 
+/**
+ * App viewer.
+ * @type {TMSViewer}
+ * @global
+ */
+let app_viewer = new TMSViewer();
+
+/**
+ * App init
+ */
 $(function () {
 
     /**
@@ -95,5 +105,6 @@ $(function () {
      */
     app_console.info(lang.page_init_load_time.format(getSecondsFrom($init_time_app_load)));
     loadingHandler(true);
+    app_viewer.init('#viewer');
 
 });
