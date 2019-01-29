@@ -62,6 +62,7 @@ module.exports = function (config) {
             'src/engine/geom/face.js',
             'src/engine/geom/vertex.js',
             'src/engine/geom/volume.js',
+            'src/engine/viewer/viewer.js',
 
             'src/ui/globals.js',
             'src/ui/themes.js',
