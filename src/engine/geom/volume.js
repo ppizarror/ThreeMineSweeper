@@ -93,7 +93,7 @@ function Volume(volume_faces, volume_name) {
                 this._faces.push(face);
                 return true;
             }
-            app_console.error('[VOLUME] Face ID {0} could not be added to volume, not valid'.format(face.get_id()));
+            app_console.error('[VOLUME] Face {0} ID {1} could not be added to volume, not valid'.format(face.get_name(), face.get_id()));
             return false;
         }
         this._faces.push(face);
@@ -140,6 +140,16 @@ function Volume(volume_faces, volume_name) {
                 return;
             }
         }
+    };
+
+    /**
+     * Return volume faces.
+     *
+     * @function
+     * @returns {Face[]}
+     */
+    this.get_faces = function () {
+        return this._faces.slice(0);
     };
 
     /**

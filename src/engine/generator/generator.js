@@ -50,11 +50,12 @@ function Generator() {
     };
 
     /**
-     * Draw the generated figure.
+     * Start new game based on this geometry.
      *
      * @function
      */
-    this.draw = function () {
+    this.start = function () {
+        app_viewer.new(this._volume);
     };
 
 }

@@ -529,6 +529,21 @@ function Face(face_vertex, face_name) {
     };
 
     /**
+     * Return Threejs Points.
+     *
+     * @function
+     * @returns {Vector3[]}
+     */
+    this.get_threejs_points = function () {
+        let p = [];
+        for (let i = 0; i < this.length(); i += 1) {
+            p.push(this._vertex[i].get_pos())
+        }
+        p.reverse();
+        return p;
+    };
+
+    /**
      * Apply constructor
      */
     this.add_vertex(face_vertex);

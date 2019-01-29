@@ -14,6 +14,7 @@
  * @constructor
  */
 function TMSViewer() {
+    /* eslint-disable arrow-parens */
     /* eslint-disable newline-per-chained-call */
     /* eslint-disable no-mixed-operators */
 
@@ -50,6 +51,13 @@ function TMSViewer() {
      * @protected
      */
     this._guiID = 'viewer-gui';
+
+    /**
+     * Viewer mesh
+     * @type {Mesh | null}
+     * @private
+     */
+    this._viewerMesh = null;
 
 
     /**
@@ -1697,6 +1705,85 @@ function TMSViewer() {
         self._initEvents();
         self._animateFrame();
         loadingHandler(false);
+    };
+
+    /**
+     * Creates new game.
+     *
+     * @function
+     * @param {Volume} volume
+     */
+    this.new = function (volume) {
+        this._draw_volume(volume);
+    };
+
+    /**
+     * Draw volume.
+     *
+     * @function
+     * @param volume
+     * @private
+     */
+    this._draw_volume = function (volume) {
+
+        // Destroy geometry if added
+        if (notNullUndf(this._viewerMesh)) {
+            this._scene.remove(this._viewerMesh);
+        }
+
+        // Create new geometry
+        let geometryMerge = new THREE.Geometry();
+        let mergeMaterials = [];
+        let meshNames = [];
+
+        // Draw each face
+        let f = volume.get_faces()[2];
+
+        let points = f.get_threejs_points();
+        let geom = new THREE.BufferGeometry().setFromPoints(points);
+        let normal = f.get_normal();
+        let normalZ = new THREE.Vector3(0, 0, 1);
+        let quaternion = new THREE.Quaternion().setFromUnitVectors(normal, normalZ);
+        let quaternionBack = new THREE.Quaternion().setFromUnitVectors(normalZ, normal);
+        points.forEach(p => {
+            p.applyQuaternion(quaternion)
+        });
+
+        // noinspection JSCheckFunctionSignatures
+        let shape = new THREE.Shape(points);
+        let shapeGeom = new THREE.ShapeGeometry(shape);
+        points.forEach(p => {
+            p.applyQuaternion(quaternionBack)
+        });
+        shapeGeom.vertices = points;
+
+        let shapeMesh = new THREE.Mesh(shapeGeom, new THREE.MeshBasicMaterial({
+            color: 0x404040
+        }));
+        this._scene.add(shapeMesh);
+
+    };
+
+    /**
+     * Draw face.
+     *
+     * @function
+     * @param {Face} face - Face to draw
+     * @param {Geometry} geometry - Three.js geometry buffer
+     * @param {string[]} name - Name lists
+     * @private
+     */
+    this._draw_face = function (face, geometry, name) {
+
+        // Create new shape
+        let $shape = new THREE.Shape();
+
+        // Get vertices
+        let $v = face.get_vertices();
+        for (let i = 0; $v.length; i += 1) {
+            $shape.moveTo()
+        }
+
     };
 
 }
