@@ -2090,7 +2090,7 @@ function TMSViewer() {
         });
         let shapeMesh = new THREE.Mesh(geometryMerge, material);
         this._scene.add(shapeMesh);
-        let helper = new THREE.FaceNormalsHelper(shapeMesh, 2, 0x00ff00, 1);
+        let helper = new THREE.FaceNormalsHelper(shapeMesh, 1, 0x00ff00, 1);
         this._scene.add(helper);
 
         // Render
