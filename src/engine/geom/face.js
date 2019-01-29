@@ -539,7 +539,6 @@ function Face(face_vertex, face_name) {
         for (let i = 0; i < this.length(); i += 1) {
             p.push(this._vertex[i].get_pos())
         }
-        p.reverse();
         return p;
     };
 

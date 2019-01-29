@@ -44,7 +44,7 @@ function Volume(volume_faces, volume_name) {
      * @type {boolean}
      * @private
      */
-    this._strict = true;
+    this._strict = false;
 
     /**
      * Object pointer.

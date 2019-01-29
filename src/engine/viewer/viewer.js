@@ -1721,7 +1721,7 @@ function TMSViewer() {
      * Draw volume.
      *
      * @function
-     * @param volume
+     * @param {Volume} volume
      * @private
      */
     this._draw_volume = function (volume) {
@@ -1737,11 +1737,32 @@ function TMSViewer() {
         let meshNames = [];
 
         // Draw each face
-        let f = volume.get_faces()[2];
+        let faces = volume.get_faces();
+        for (let i = 0; i < faces.length; i += 1) {
+            this._draw_face(faces[i], geometryMerge, mergeMaterials, meshNames);
+        }
 
-        let points = f.get_threejs_points();
-        let geom = new THREE.BufferGeometry().setFromPoints(points);
-        let normal = f.get_normal();
+        let shapeMesh = new THREE.Mesh(geometryMerge, new THREE.MeshBasicMaterial({
+            color: 0x404040
+        }));
+        this._scene.add(shapeMesh);
+
+    };
+
+    /**
+     * Draw face.
+     *
+     * @function
+     * @param {Face} face - Face to draw
+     * @param {Geometry} geometry - Three.js geometry buffer
+     * @param {object[]} material - Material
+     * @param {string[]} name - Name lists
+     * @private
+     */
+    this._draw_face = function (face, geometry, material, name) {
+
+        let points = face.get_threejs_points();
+        let normal = face.get_normal();
         let normalZ = new THREE.Vector3(0, 0, 1);
         let quaternion = new THREE.Quaternion().setFromUnitVectors(normal, normalZ);
         let quaternionBack = new THREE.Quaternion().setFromUnitVectors(normalZ, normal);
@@ -1756,33 +1777,9 @@ function TMSViewer() {
             p.applyQuaternion(quaternionBack)
         });
         shapeGeom.vertices = points;
-
-        let shapeMesh = new THREE.Mesh(shapeGeom, new THREE.MeshBasicMaterial({
-            color: 0x404040
-        }));
-        this._scene.add(shapeMesh);
-
-    };
-
-    /**
-     * Draw face.
-     *
-     * @function
-     * @param {Face} face - Face to draw
-     * @param {Geometry} geometry - Three.js geometry buffer
-     * @param {string[]} name - Name lists
-     * @private
-     */
-    this._draw_face = function (face, geometry, name) {
-
-        // Create new shape
-        let $shape = new THREE.Shape();
-
-        // Get vertices
-        let $v = face.get_vertices();
-        for (let i = 0; $v.length; i += 1) {
-            $shape.moveTo()
-        }
+        geometry.merge(shapeGeom);
+        name.push(face.get_name());
+        material.push(true);
 
     };
 
