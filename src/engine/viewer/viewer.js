@@ -1742,10 +1742,14 @@ function TMSViewer() {
             this._draw_face(faces[i], geometryMerge, mergeMaterials, meshNames);
         }
 
+        // Create figure
         let shapeMesh = new THREE.Mesh(geometryMerge, new THREE.MeshBasicMaterial({
             color: 0x404040
         }));
         this._scene.add(shapeMesh);
+
+        // Render
+        this._render();
 
     };
 
