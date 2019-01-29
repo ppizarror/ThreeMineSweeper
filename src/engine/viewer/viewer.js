@@ -285,7 +285,7 @@ function TMSViewer() {
             color: 0XFFFFFF,
             decay: 1.600,
             distance: 0.793,
-            intensity: 1.500,
+            intensity: 0.000,
             penumbra: 0.580,
             planeshadow: false,
             pos: {
@@ -2067,6 +2067,9 @@ function TMSViewer() {
             this._scene.remove(this._viewerMesh);
         }
 
+        // Scale volume
+        volume.scale(1, this._worldsize.x, this._worldsize.y, this._worldsize.z);
+
         // Create new geometry
         let geometryMerge = new THREE.Geometry();
         let mergeMaterials = [];
@@ -2080,13 +2083,15 @@ function TMSViewer() {
 
         // Create figure
         let material = new THREE.MeshPhongMaterial({
-            ambient: 0x050505,
-            color: 0x0033ff,
+            ambient: 0x222222,
+            color: 0x888888,
             specular: 0x555555,
             shininess: 30
         });
         let shapeMesh = new THREE.Mesh(geometryMerge, material);
         this._scene.add(shapeMesh);
+        let helper = new THREE.FaceNormalsHelper(shapeMesh, 2, 0x00ff00, 1);
+        this._scene.add(helper);
 
         // Render
         this._render();
@@ -2120,6 +2125,15 @@ function TMSViewer() {
         points.forEach(p => {
             p.applyQuaternion(quaternionBack)
         });
+
+        // TODO
+        normal.normalize();
+        shapeGeom.rotateY(-normal.getComponent(0) * Math.PI / 2);
+        shapeGeom.rotateX(normal.getComponent(1) * Math.PI / 2);
+        if (normal.getComponent(2) !== 0) {
+            shapeGeom.rotateX((normal.getComponent(2) - 1) * Math.PI / 2);
+        }
+
         shapeGeom.vertices = points;
         geometry.merge(shapeGeom);
         name.push(face.get_name());
