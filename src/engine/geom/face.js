@@ -12,7 +12,7 @@
  *
  * @class
  * @constructor
- * @param {Vertex[]|Vertex=} face_vertex - Initial vertex definition
+ * @param {Vertex[] | Vertex=} face_vertex - Initial vertex definition
  * @param {string=} face_name - Face name
  */
 function Face(face_vertex, face_name) {
@@ -49,7 +49,7 @@ function Face(face_vertex, face_name) {
 
     /**
      * Stores face neighbours.
-     * @type {Face[]|null}
+     * @type {Face[] | null}
      * @private
      */
     this._neighbours = null;
@@ -85,7 +85,7 @@ function Face(face_vertex, face_name) {
      * Add vertex to face.
      *
      * @function
-     * @param {Vertex|Vertex[]} vertex
+     * @param {Vertex | Vertex[]} vertex
      * @returns {boolean}
      */
     this.add_vertex = function (vertex) {
@@ -116,7 +116,7 @@ function Face(face_vertex, face_name) {
      * Check if vertex exists.
      *
      * @function
-     * @param {Vertex|Vertex[]} vertex
+     * @param {Vertex | Vertex[]} vertex
      * @returns {boolean}
      */
     this.has_vertex = function (vertex) {
@@ -142,7 +142,7 @@ function Face(face_vertex, face_name) {
      * Remove vertex.
      *
      * @function
-     * @param {Vertex|Vertex[]} vertex
+     * @param {Vertex | Vertex[]} vertex
      */
     this.remove_vertex = function (vertex) {
         if (vertex instanceof Array) {
@@ -496,7 +496,7 @@ function Face(face_vertex, face_name) {
      * Get total number of neighbours.
      *
      * @function
-     * @return {number}
+     * @returns {number}
      */
     this.get_total_neighbours = function () {
         if (!this._assembled) this.assemble();
@@ -507,7 +507,7 @@ function Face(face_vertex, face_name) {
      * Check if the face is along a cartesian plane.
      *
      * @function
-     * @return {boolean}
+     * @returns {boolean}
      */
     this.is_cartesian_plane = function () {
         let n = this.get_normal();
@@ -522,7 +522,7 @@ function Face(face_vertex, face_name) {
      * Return face vertices.
      *
      * @function
-     * @return {Vertex[]}
+     * @returns {Vertex[]}
      */
     this.get_vertices = function () {
         return this._vertex.slice(0);

@@ -128,7 +128,7 @@ function Vertex(x, y, z, vertex_name) {
      * Return vertex name.
      *
      * @function
-     * @return {string}
+     * @returns {string}
      */
     this.get_name = function () {
         return this._name;
@@ -138,7 +138,7 @@ function Vertex(x, y, z, vertex_name) {
      * Adds a face to the vertex.
      *
      * @function
-     * @param {Face|Face[]} face - Face object
+     * @param {Face | Face[]} face - Face object
      * @returns {boolean}
      */
     this.add_face = function (face) {

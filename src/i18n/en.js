@@ -28,4 +28,5 @@ lang_db.en = {
     "page_init_load_time": "Application has been initialized in <{0}> seconds",
     "popup_theme_error_load": "Popup theme could not be loaded, using fallback",
     "test": "Test",
+    "viewer_gui_camera": "Camera",
 };

@@ -12,7 +12,7 @@
  *
  * @class
  * @constructor
- * @param {Face[]|Face=} volume_faces - Initial volume faces
+ * @param {Face[] | Face=} volume_faces - Initial volume faces
  * @param {string=} volume_name - Volume name
  */
 function Volume(volume_faces, volume_name) {
@@ -206,7 +206,7 @@ function Volume(volume_faces, volume_name) {
      * Check if vertex exists.
      *
      * @function
-     * @param {Vertex[]|Vertex} vertex
+     * @param {Vertex[] | Vertex} vertex
      * @returns {boolean}
      */
     this.has_vertex = function (vertex) {
