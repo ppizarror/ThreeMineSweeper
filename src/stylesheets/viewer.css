@@ -22,3 +22,10 @@ License MIT
 	top: 0;
 	width: 100%;
 }
+
+#viewer-gui {
+	right: 20px;
+	position: absolute;
+	top: 0;
+	z-index: 10;
+}

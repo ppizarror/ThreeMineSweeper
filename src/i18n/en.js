@@ -28,5 +28,12 @@ lang_db.en = {
     "page_init_load_time": "Application has been initialized in <{0}> seconds",
     "popup_theme_error_load": "Popup theme could not be loaded, using fallback",
     "test": "Test",
+    "viewer_gui_ambientlight": "Ambient light",
     "viewer_gui_camera": "Camera",
+    "viewer_gui_cameralight": "Camera light",
+    "viewer_gui_export_light_title": "Light",
+    "viewer_gui_fog": "Fog",
+    "viewer_gui_light": "Static light",
+    "gui_button_open": "Open Menu",
+    "gui_button_close": "Close Menu",
 };

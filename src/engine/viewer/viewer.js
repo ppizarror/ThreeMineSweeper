@@ -164,7 +164,7 @@ function TMSViewer() {
         cameratarget: false,             // Show camera target
         fpsmeter: true,                  // Show fps
         grid: true,                      // Show grid plane
-        gui: false,                      // Show GUI
+        gui: true,                      // Show GUI
         planes: false,                   // Show planes
         worldlimits: false,              // Show world limits
 
@@ -231,7 +231,7 @@ function TMSViewer() {
         },
 
         /**
-         * Cámara
+         * Camera
          */
         camera: {
             angle: 56,                       // FOV
@@ -267,6 +267,41 @@ function TMSViewer() {
                 z: 0.050,
             },
             zoom: 1.000,                     // Zoom factor
+        },
+
+        /**
+         * Ambient light
+         */
+        ambientlight: {
+            color: 0X202020,
+            intensity: 0.500,
+        },
+
+        /**
+         * Puntual light
+         */
+        light: {
+            angle: 1.600,
+            color: 0XFFFFFF,
+            decay: 1.600,
+            distance: 0.793,
+            intensity: 1.500,
+            penumbra: 0.580,
+            planeshadow: false,
+            pos: {
+                x: 0.000,
+                y: 0.000,
+                z: 1.000,
+            },
+        },
+
+        /**
+         * Fog
+         */
+        fog: {
+            color: 0x131313,
+            density: 0.00024,
+            enabled: true,
         },
 
     };
@@ -438,10 +473,14 @@ function TMSViewer() {
          * --------------------------------------------------------------------
          */
         this.objects_props.camera.light.distance *= this._worldsize.diagl;
+        this.objects_props.light.distance *= this._worldsize.diagl;
+        this.objects_props.light.pos.x *= this._worldsize.x;
+        this.objects_props.light.pos.y *= this._worldsize.y;
+        this.objects_props.light.pos.z *= this._worldsize.z;
 
         /**
          * --------------------------------------------------------------------
-         * Inicia Three.js render
+         * Init Three.js render
          * --------------------------------------------------------------------
          */
         this._renderer = new THREE.WebGLRenderer({
@@ -485,6 +524,47 @@ function TMSViewer() {
 
         /**
          * --------------------------------------------------------------------
+         * Static light
+         * --------------------------------------------------------------------
+         */
+        this._light = new THREE.SpotLight();
+        this._light.castShadow = true;
+        this._light.color.setHex(self.objects_props.light.color);
+        this._light.decay = self.objects_props.light.decay;
+        this._light.distance = this._worldsize.diagl;
+        this._light.intensity = self.objects_props.light.intensity;
+        this._light.penumbra = self.objects_props.light.penumbra;
+        this._light.angle = self.objects_props.light.angle;
+        // noinspection JSSuspiciousNameCombination
+        this._light.position.x = this.objects_props.light.pos.y;
+        this._light.position.y = this.objects_props.light.pos.z;
+        this._light.position.z = this.objects_props.light.pos.x;
+        this._light.shadow.mapSize.height = 512;
+        this._light.shadow.mapSize.width = 512;
+        this._scene.add(this._light);
+
+        /**
+         * --------------------------------------------------------------------
+         * Set fog
+         * --------------------------------------------------------------------
+         */
+        this._fog = new THREE.FogExp2(this.objects_props.fog.color, this.objects_props.fog.density);
+        if (this.objects_props.fog.enabled) {
+            this._scene.fog = this._fog;
+        }
+
+        /**
+         * --------------------------------------------------------------------
+         * Ambiental light
+         * --------------------------------------------------------------------
+         */
+        this._ambientlight = new THREE.AmbientLight();
+        this._ambientlight.color.setHex(this.objects_props.ambientlight.color);
+        this._ambientlight.intensity = this.objects_props.ambientlight.intensity;
+        this._scene.add(this._ambientlight);
+
+        /**
+         * --------------------------------------------------------------------
          * Modify render to support lights
          * --------------------------------------------------------------------
          */
@@ -506,8 +586,6 @@ function TMSViewer() {
             self.objects_props.camera.far,
         );
         this._three_camera.zoom = this.objects_props.camera.zoom;
-
-        // noinspection JSUnusedGlobalSymbols
         this._cameralight = new THREE.PointLight();
         this._cameralight.color.setHex(this.objects_props.camera.light.color);
         this._cameralight.decay = this.objects_props.camera.light.decay;
@@ -993,6 +1071,20 @@ function TMSViewer() {
     };
 
     /**
+     * Change RGB to HEX color.
+     *
+     * @function
+     * @private
+     * @param {number} rgb
+     * @returns {string}
+     */
+    this._rgb2hex = function (rgb) {
+        let hex = rgb.toString(16);
+        hex = hex.length === 1 ? "0" + hex : hex;
+        return hex.toString();
+    };
+
+    /**
      * Init events.
      *
      * @function
@@ -1083,7 +1175,7 @@ function TMSViewer() {
         });
 
         /**
-         * Presión de botones sobre el canvas al tener el foco activo
+         * Press button on active canvas
          */
         this._canvasParent.on(self._eventID.keydown, function (e) {
             e.preventDefault(); // Cancel all default buttons
@@ -1252,6 +1344,21 @@ function TMSViewer() {
     };
 
     /**
+     * Return distance to origin.
+     *
+     * @function
+     * @private
+     * @param {number} x
+     * @param {number} y
+     * @param {number} z
+     * @returns {number}
+     */
+    this._distOriginxyz = function (x, y, z) {
+        // noinspection JSSuspiciousNameCombination
+        return Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2) + Math.pow(z, 2));
+    };
+
+    /**
      * Build GUI.
      *
      * @function
@@ -1263,6 +1370,235 @@ function TMSViewer() {
          * Creates the GUI
          */
         this._gui = new dat.GUI({autoPlace: false});
+
+        /**
+         * --------------------------------------------------------------------
+         * Ambient light
+         * --------------------------------------------------------------------
+         */
+        this._ambientLightParam = {
+            color: self._ambientlight.color.getHex(),
+            intensity: self._ambientlight.intensity,
+            exportLight: function () {
+                let $color = '0X' + self._rgb2hex(self._ambientLightParam.color).toUpperCase();
+                app_dialog.text('<b>light.color</b>: <i>{0}</i>'.format($color), lang.viewer_gui_export_light_title);
+                if (self.threejs_helpers.guicloseafterpopup) self._gui.close();
+            },
+        };
+        let ambientlightfolder = this._gui.addFolder(lang.viewer_gui_ambientlight);
+        ambientlightfolder.addColor(this._ambientLightParam, 'color').onChange(function (val) {
+            self._ambientlight.color.setHex(val);
+            self._render();
+        });
+        ambientlightfolder.add(this._ambientLightParam, 'intensity', 0, 5).onChange(function (val) {
+            self._ambientlight.intensity = val;
+            self._render();
+        });
+        ambientlightfolder.add(this._ambientLightParam, 'exportLight');
+
+        /**
+         * --------------------------------------------------------------------
+         * Camera light folder
+         * --------------------------------------------------------------------
+         */
+        this._cameraLightParam = {
+            color: self._cameralight.color.getHex(),
+            intensity: self._cameralight.intensity,
+            distance: self._cameralight.distance,
+            decay: self._cameralight.decay,
+            exportLight: function () {
+
+                // Calculate values
+                let $distance, $color;
+                $color = '0X' + self._rgb2hex(self._cameraLightParam.color).toUpperCase();
+                $distance = roundNumber(self._cameralight.distance / self._worldsize.diagl, 3);
+
+                // Popup
+                app_dialog.text('<b>light.color</b>: <i>{0}</i><br><b>light.distance</b>: <i>{1}</i>'.format($color, $distance), lang.viewer_gui_export_light_title);
+                if (self.threejs_helpers.guicloseafterpopup) self._gui.close();
+
+            },
+        };
+        let cameralightfolder = this._gui.addFolder(lang.viewer_gui_cameralight);
+        cameralightfolder.addColor(this._cameraLightParam, 'color').onChange(function (val) {
+            self._cameralight.color.setHex(val);
+            self._render();
+        });
+        cameralightfolder.add(this._cameraLightParam, 'intensity', 0, 5).onChange(function (val) {
+            self._cameralight.intensity = val;
+            self._render();
+        });
+        cameralightfolder.add(this._cameraLightParam, 'distance', 0, 3 * self._worldsize.diagl).onChange(function (val) {
+            self._cameralight.distance = val;
+            self._render();
+        });
+        cameralightfolder.add(this._cameraLightParam, 'decay', 1, 2).onChange(function (val) {
+            self._cameralight.decay = val;
+            self._render();
+        });
+        cameralightfolder.add(this._cameraLightParam, 'exportLight');
+
+        /**
+         * --------------------------------------------------------------------
+         * Static light
+         * --------------------------------------------------------------------
+         */
+        this._guiLightParam = {
+            color: self._light.color.getHex(),
+            intensity: self._light.intensity,
+            distance: self._light.distance,
+            angle: self._light.angle,
+            penumbra: self._light.penumbra,
+            decay: self._light.decay,
+            posx: self._light.position.z,
+            posy: self._light.position.x,
+            posz: self._light.position.y,
+            planeshadow: self.objects_props.light.planeshadow,
+            radius: self._distOriginxyz(self._light.position.x, self._light.position.y, self._light.position.z),
+            rotatexy: (Math.atan2(this._light.position.z, this._light.position.x) * 180 / Math.PI + 360) % 360,
+            rotatexz: 0.0,
+            rotateyz: 0.0,
+            mapsizeh: self._light.shadow.mapSize.height,
+            mapsizew: self._light.shadow.mapSize.width,
+            exportLight: function () {
+
+                // Calculate values
+                let $posx, $posy, $posz, $distance, $color;
+                $posx = roundNumber(self._light.position.z / self._worldsize.x, 3);
+                $posy = roundNumber(self._light.position.x / self._worldsize.y, 3);
+                $posz = roundNumber(self._light.position.y / self._worldsize.z, 3);
+                $distance = roundNumber(self._light.distance / self._worldsize.diagl, 3);
+                $color = '0X' + self._rgb2hex(self._guiLightParam.color).toUpperCase();
+
+                // Popup
+                app_dialog.text('<b>light.color</b>: <i>{4}</i><br><b>light.pos.x</b>: <i>{0}</i><br><b>light.pos.y</b>: <i>{1}</i><br><b>light.pos.z</b>: <i>{2}</i><br><b>light.distance</b>: <i>{3}</i>'.format($posx, $posy, $posz, $distance, $color), lang.viewer_gui_export_light_title);
+                if (self.threejs_helpers.guicloseafterpopup) self._gui.close();
+
+            },
+        };
+        let lightfolder = this._gui.addFolder(lang.viewer_gui_light);
+        lightfolder.addColor(this._guiLightParam, 'color').onChange(function (val) {
+            self._light.color.setHex(val);
+            self._render();
+        });
+        lightfolder.add(this._guiLightParam, 'intensity', 0, 10).onChange(function (val) {
+            self._light.intensity = val;
+            self._render();
+        });
+        lightfolder.add(this._guiLightParam, 'distance', 0.01, 3 * self._worldsize.diagl).onChange(function (val) {
+            self._light.distance = val;
+            self._render();
+        });
+        lightfolder.add(this._guiLightParam, 'angle', 0.01, Math.PI / 2).onChange(function (val) {
+            self._light.angle = val;
+            self._render();
+        });
+        lightfolder.add(this._guiLightParam, 'penumbra', 0, 1).onChange(function (val) {
+            self._light.penumbra = val;
+            self._render();
+        });
+        lightfolder.add(this._guiLightParam, 'decay', 1, 2).onChange(function (val) {
+            self._light.decay = val;
+            self._render();
+        });
+        lightfolder.add(this._guiLightParam, 'posx', -self._worldsize.diagl, self._worldsize.diagl).onChange(function (val) {
+            self._light.position.z = val;
+            self._render();
+            // noinspection JSSuspiciousNameCombination
+            self._guiLightParam.rotatexy = (180 * Math.atan2(self._light.position.x, self._light.position.z) / Math.PI + 360) % 360;
+        }).listen();
+        lightfolder.add(this._guiLightParam, 'posy', -self._worldsize.diagl, self._worldsize.diagl).onChange(function (val) {
+            self._light.position.x = val;
+            self._render();
+        }).listen();
+        lightfolder.add(this._guiLightParam, 'posz', 0, self._worldsize.diagl).onChange(function (val) {
+            self._light.position.y = val;
+            self._render();
+        }).listen();
+        lightfolder.add(this._guiLightParam, 'radius', 0.01, self._worldsize.diagl).onChange(function (r) {
+
+            // Radius
+            let $ract = self._distOriginxyz(self._light.position.x, self._light.position.y, self._light.position.z);
+
+            // Calculate angles
+            let angxy, angxyz;
+            // noinspection JSSuspiciousNameCombination
+            angxy = Math.atan2(self._light.position.x, self._light.position.z);
+            angxyz = Math.asin(self._light.position.y / $ract);
+
+            // Calculates projection between radius and xz plane
+            let $e = r * Math.cos(angxyz);
+
+            // Calculate new position
+            let $x, $y, $z;
+            $x = $e * Math.cos(angxy);
+            $y = $e * Math.sin(angxy);
+            $z = $e * Math.tan(angxyz);
+
+            // noinspection JSSuspiciousNameCombination
+            self._light.position.x = $y;
+            self._light.position.y = $z;
+            self._light.position.z = $x;
+            self._render();
+
+            // Updates menu entry
+            self._guiLightParam.posx = self._light.position.x;
+            self._guiLightParam.posy = self._light.position.z;
+            self._guiLightParam.posz = self._light.position.y;
+
+        }).listen();
+        lightfolder.add(this._guiLightParam, 'rotatexy', 0, 360).onChange(function (val) {
+
+            // Calculates angle in radians
+            val = val * Math.PI / 180;
+
+            // Actual position
+            let posx, posy;
+            posx = self._light.position.x;
+            posy = self._light.position.z;
+
+            // noinspection JSSuspiciousNameCombination
+            let r = Math.sqrt(Math.pow(posx, 2) + Math.pow(posy, 2)); // Radius
+
+            // Update position
+            self._light.position.z = r * Math.cos(val);
+            self._light.position.x = r * Math.sin(val);
+            self._render();
+
+            // Update menu entry
+            self._guiLightParam.posx = self._light.position.z;
+            self._guiLightParam.posy = self._light.position.x;
+
+        }).listen();
+        lightfolder.add(this._guiLightParam, 'exportLight');
+
+        /**
+         * --------------------------------------------------------------------
+         * Fog folder
+         * --------------------------------------------------------------------
+         */
+        let fogfolder = this._gui.addFolder(lang.viewer_gui_fog);
+        this._guiFogParams = {
+            color: self._fog.color.getHex(),
+            density: self._fog.density,
+            enabled: self.objects_props.fog.enabled,
+        };
+        fogfolder.addColor(this._guiFogParams, 'color').onChange(function (val) {
+            self._fog.color.setHex(val);
+            self._render();
+        });
+        fogfolder.add(this._guiFogParams, 'density', 0.00001, 0.00025 * 10).onChange(function (val) {
+            self._fog.density = val;
+            self._render();
+        });
+        fogfolder.add(this._guiFogParams, 'enabled').onChange(function (val) {
+            if (val) {
+                self._scene.fog = self._fog;
+            } else {
+                self._scene.fog = null;
+            }
+            self._animateFrame();
+        });
 
         /**
          * --------------------------------------------------------------------
@@ -1743,9 +2079,13 @@ function TMSViewer() {
         }
 
         // Create figure
-        let shapeMesh = new THREE.Mesh(geometryMerge, new THREE.MeshBasicMaterial({
-            color: 0x404040
-        }));
+        let material = new THREE.MeshPhongMaterial({
+            ambient: 0x050505,
+            color: 0x0033ff,
+            specular: 0x555555,
+            shininess: 30
+        });
+        let shapeMesh = new THREE.Mesh(geometryMerge, material);
         this._scene.add(shapeMesh);
 
         // Render
