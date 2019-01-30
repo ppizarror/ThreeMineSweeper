@@ -543,6 +543,37 @@ function Face(face_vertex, face_name) {
     };
 
     /**
+     * Generates geometry to push back to Three.js, uses earcut to triangulate.
+     *
+     * @function
+     */
+    this.generate_geometry = function () {
+        let geom = new THREE.Geometry();
+
+        // Triangulates
+        let coords = [];
+        for (let i = 0; i < this._vertex.length; i += 1) {
+            coords.push(this._vertex[i].get_x());
+            coords.push(this._vertex[i].get_y());
+            coords.push(this._vertex[i].get_z());
+        }
+        let triangles = earcut(coords, null, 3);
+        console.log(this.get_normal());
+        console.log(coords);
+        console.log(triangles);
+        return;
+
+        for (let i = 0; i < this._vertex.length; i += 1) {
+            geom.vertices.push()
+        }
+        geom.vertices.push(new THREE.Vertex(v1));
+        geom.vertices.push(new THREE.Vertex(v2));
+        geom.vertices.push(new THREE.Vertex(v3));
+
+        geom.faces.push(new THREE.Face3(0, 1, 2));
+    };
+
+    /**
      * Apply constructor
      */
     this.add_vertex(face_vertex);

@@ -45,8 +45,8 @@ function BasicCube() {
 
         // Create faces
         let f1 = new Face([v1, v5, v6, v2], 'F1');
-        let f2 = new Face([v3, v7, v8, v4], 'F2');
-        let f3 = new Face([v4, v8, v5, v1], 'F3');
+        let f2 = new Face([v3, v4, v8, v7], 'F2');
+        let f3 = new Face([v4, v1, v5, v8], 'F3');
         let f4 = new Face([v2, v6, v7, v3], 'F4');
         let f5 = new Face([v5, v8, v7, v6], 'F5');
         let f6 = new Face([v2, v3, v4, v1], 'F6');

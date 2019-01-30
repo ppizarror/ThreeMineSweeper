@@ -160,28 +160,28 @@ function TMSViewer() {
         /**
          * Status
          */
-        axis: false,                     // Show axis
+        axis: true,                      // Show axis
         cameratarget: false,             // Show camera target
         fpsmeter: true,                  // Show fps
-        grid: true,                      // Show grid plane
-        gui: true,                      // Show GUI
+        grid: false,                     // Show grid plane
+        gui: true,                       // Show GUI
         planes: false,                   // Show planes
         worldlimits: false,              // Show world limits
 
         /**
-         * Helpers parameters
+         * Helpers params
          */
-        axissize: 0.40,                 // Axis sizes
-        cameratargetcolor: 0X0000FF,    // Color target
-        cameratargetsize: 0.02,         // Size target
-        griddist: 0.03,                 // Grid distance in percentage
-        guistartclosed: true,           // GUI starts closed
-        guicloseafterpopup: false,      // GUI closes after an popup
-        planecolorx: 0X0000FF,          // X plane color
-        planecolory: 0XFF0000,          // Y plane color
-        planecolorz: 0X00FF00,          // Z plane color
-        planeopacity: 0.5,              // Plane opacity
-        worldlimitscolor: 0X444444,     // World limits color
+        axissize: 0.40,                  // Axis sizes
+        cameratargetcolor: 0X0000FF,     // Color target
+        cameratargetsize: 0.02,          // Size target
+        griddist: 0.03,                  // Grid distance in percentage
+        guistartclosed: true,            // GUI starts closed
+        guicloseafterpopup: false,       // GUI closes after an popup
+        planecolorx: 0X0000FF,           // X plane color
+        planecolory: 0XFF0000,           // Y plane color
+        planecolorz: 0X00FF00,           // Z plane color
+        planeopacity: 0.5,               // Plane opacity
+        worldlimitscolor: 0X444444,      // World limits color
 
     };
 
@@ -2083,7 +2083,6 @@ function TMSViewer() {
 
         // Create figure
         let material = new THREE.MeshPhongMaterial({
-            ambient: 0x222222,
             color: 0x888888,
             specular: 0x555555,
             shininess: 30
@@ -2110,9 +2109,10 @@ function TMSViewer() {
      */
     this._draw_face = function (face, geometry, material, name) {
 
+        face.generate_geometry();
         let points = face.get_threejs_points();
         let normal = face.get_normal();
-        let normalZ = new THREE.Vector3(0, 0, 1);
+        let normalZ = new THREE.Vector3(0, 0, -1);
         let quaternion = new THREE.Quaternion().setFromUnitVectors(normal, normalZ);
         let quaternionBack = new THREE.Quaternion().setFromUnitVectors(normalZ, normal);
         points.forEach(p => {
@@ -2127,13 +2127,6 @@ function TMSViewer() {
         });
 
         // TODO
-        normal.normalize();
-        shapeGeom.rotateY(-normal.getComponent(0) * Math.PI / 2);
-        shapeGeom.rotateX(normal.getComponent(1) * Math.PI / 2);
-        if (normal.getComponent(2) !== 0) {
-            shapeGeom.rotateX((normal.getComponent(2) - 1) * Math.PI / 2);
-        }
-
         shapeGeom.vertices = points;
         geometry.merge(shapeGeom);
         name.push(face.get_name());
