@@ -49,13 +49,13 @@ function BasicPyramid() {
         let v6 = new Vertex(xm, ym, -h, 'V1');
 
         // Create faces
-        let f1 = new Face([v1, v2, v5], 'F1');
+        let f1 = new Face([v5, v2, v1], 'F1');
         let f2 = new Face([v5, v3, v2], 'F2');
         let f3 = new Face([v5, v4, v3], 'F3');
-        let f4 = new Face([v4, v1, v5], 'F4');
+        let f4 = new Face([v5, v1, v4], 'F4');
         let f5 = new Face([v1, v2, v6], 'F1');
-        let f6 = new Face([v6, v3, v2], 'F2');
-        let f7 = new Face([v6, v4, v3], 'F3');
+        let f6 = new Face([v2, v3, v6], 'F2');
+        let f7 = new Face([v3, v4, v6], 'F3');
         let f8 = new Face([v4, v1, v6], 'F4');
 
         // Add faces to volume

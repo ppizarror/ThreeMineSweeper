@@ -530,15 +530,16 @@ function Face(face_vertex, face_name) {
     };
 
     /**
-     * Return Threejs Points.
+     * Return Three.js Points.
      *
      * @function
+     * @param {boolean=} apply_z - Apply z conversion
      * @returns {Vector3[]}
      */
-    this.get_threejs_points = function () {
+    this.get_threejs_points = function (apply_z) {
         let p = [];
         for (let i = 0; i < this.length(); i += 1) {
-            p.push(this._vertex[i].get_pos())
+            p.push(this._vertex[i].get_pos(apply_z))
         }
         return p;
     };
@@ -547,44 +548,65 @@ function Face(face_vertex, face_name) {
      * Generates geometry to push back to Three.js, uses earcut to triangulate.
      *
      * @function
+     * @returns {Geometry}
      */
     this.generate_geometry = function () {
+
+        // Generate new Geometry
         let geom = new THREE.Geometry();
         let normal = this.get_normal();
+        normal.normalize();
 
         // Triangulates, rotate points respect to normal Z
-        let coords = [];
+        let triangles;
+        let ntriang; // Number of triangles
 
-        let points = this.get_threejs_points();
-        let normalZ = new THREE.Vector3(0, 0, 1);
-        let quaternion = new THREE.Quaternion().setFromUnitVectors(normal, normalZ);
-        let quaternionBack = new THREE.Quaternion().setFromUnitVectors(normalZ, normal);
-        points.forEach(p => {
-            p.applyQuaternion(quaternion)
-        });
-
-        // noinspection JSCheckFunctionSignatures
-        for (let i = 0; i < points.length; i += 1) {
-            coords.push(points[i].getComponent(0));
-            coords.push(points[i].getComponent(1));
-            coords.push(points[i].getComponent(2));
+        // If face has 3 vertices
+        if (this.length() === 3) {
+            triangles = [0, 1, 2];
+            ntriang = 1;
+        } else {
+            let coords = [];
+            let points = this.get_threejs_points(false);
+            let normalZ = new THREE.Vector3(0, 0, 1);
+            let quaternion = new THREE.Quaternion().setFromUnitVectors(normal, normalZ);
+            let quaternionBack = new THREE.Quaternion().setFromUnitVectors(normalZ, normal);
+            points.forEach(p => {
+                p.applyQuaternion(quaternion)
+            });
+            for (let i = 0; i < points.length; i += 1) {
+                coords.push(points[i].getComponent(0));
+                coords.push(points[i].getComponent(1));
+                coords.push(points[i].getComponent(2));
+            }
+            let max_coord = Math.abs(getMaxOfArray(coords));
+            for (let i = 0; i < coords.length; i += 1) {
+                coords[i] /= max_coord;
+            }
+            points.forEach(p => {
+                p.applyQuaternion(quaternionBack)
+            });
+            triangles = earcut(coords, null, 3);
+            ntriang = triangles.length / 3;
         }
-        points.forEach(p => {
-            p.applyQuaternion(quaternionBack)
-        });
-        let triangles = earcut(coords, null, 3);
-        let ntriang = triangles.length / 3;
+
+        // Generates faces
         if (ntriang > 0) {
             for (let i = 0; i < this._vertex.length; i += 1) {
-                geom.vertices.push(this._vertex[i].get_pos());
+                geom.vertices.push(this._vertex[i].get_pos(true));
             }
             for (let j = 0; j < ntriang; j += 1) {
                 geom.faces.push(new THREE.Face3(triangles[3 * j + 2], triangles[3 * j + 1], triangles[3 * j], normal));
             }
         }
+
+        // Computes normals
         geom.computeFaceNormals();
         geom.computeVertexNormals();
+
+        // Returns geometry
         return geom;
+
     };
 
     /**

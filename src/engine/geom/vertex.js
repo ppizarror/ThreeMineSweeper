@@ -210,10 +210,14 @@ function Vertex(x, y, z, vertex_name) {
      * Return vertex position as vector.
      *
      * @function
+     * @param {boolean=} apply_z - Apply Z conversion
      * @returns {Vector3}
      */
-    this.get_pos = function () {
-        return new THREE.Vector3(this.get_y(), this.get_z(), this.get_x());
+    this.get_pos = function (apply_z) {
+        if (apply_z) {
+            return new THREE.Vector3(this.get_y(), this.get_z(), this.get_x());
+        }
+        return this._position.clone();
     };
 
     /**

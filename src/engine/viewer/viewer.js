@@ -2063,9 +2063,7 @@ function TMSViewer() {
     this._draw_volume = function (volume) {
 
         // Destroy geometry if added
-        if (notNullUndf(this._viewerMesh)) {
-            this._scene.remove(this._viewerMesh);
-        }
+        if (notNullUndf(this._viewerMesh)) this._scene.remove(this._viewerMesh);
 
         // Scale volume
         volume.scale(1, this._worldsize.x, this._worldsize.y, this._worldsize.z);
@@ -2089,7 +2087,10 @@ function TMSViewer() {
         });
         let shapeMesh = new THREE.Mesh(geometryMerge, material);
         this._scene.add(shapeMesh);
-        let helper = new THREE.FaceNormalsHelper(shapeMesh, 1, 0x00ff00, 1);
+
+        // Adds normal helper
+        let nh_size = Math.min(this._worldsize.x, this._worldsize.x, this._worldsize.z) * 0.1;
+        let helper = new THREE.FaceNormalsHelper(shapeMesh, nh_size, 0xff0000, 1);
         this._scene.add(helper);
 
         // Render
