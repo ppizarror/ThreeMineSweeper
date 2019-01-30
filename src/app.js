@@ -108,7 +108,7 @@ $(function () {
     app_viewer.init('#viewer');
 
     // Test
-    let g = new BasicCube();
+    let g = new BasicPyramid();
     g.generate(-0.5, -0.5, -0.5, 0.5, 0.5, 0.5);
     g.start();
 

@@ -16,6 +16,7 @@
  * @param {string=} face_name - Face name
  */
 function Face(face_vertex, face_name) {
+    /* eslint-disable arrow-parens */
     /* eslint-disable no-extra-parens */
     /* eslint-disable no-mixed-operators */
 
@@ -549,28 +550,41 @@ function Face(face_vertex, face_name) {
      */
     this.generate_geometry = function () {
         let geom = new THREE.Geometry();
+        let normal = this.get_normal();
 
-        // Triangulates
+        // Triangulates, rotate points respect to normal Z
         let coords = [];
-        for (let i = 0; i < this._vertex.length; i += 1) {
-            coords.push(this._vertex[i].get_x());
-            coords.push(this._vertex[i].get_y());
-            coords.push(this._vertex[i].get_z());
+
+        let points = this.get_threejs_points();
+        let normalZ = new THREE.Vector3(0, 0, 1);
+        let quaternion = new THREE.Quaternion().setFromUnitVectors(normal, normalZ);
+        let quaternionBack = new THREE.Quaternion().setFromUnitVectors(normalZ, normal);
+        points.forEach(p => {
+            p.applyQuaternion(quaternion)
+        });
+
+        // noinspection JSCheckFunctionSignatures
+        for (let i = 0; i < points.length; i += 1) {
+            coords.push(points[i].getComponent(0));
+            coords.push(points[i].getComponent(1));
+            coords.push(points[i].getComponent(2));
         }
+        points.forEach(p => {
+            p.applyQuaternion(quaternionBack)
+        });
         let triangles = earcut(coords, null, 3);
-        console.log(this.get_normal());
-        console.log(coords);
-        console.log(triangles);
-        return;
-
-        for (let i = 0; i < this._vertex.length; i += 1) {
-            geom.vertices.push()
+        let ntriang = triangles.length / 3;
+        if (ntriang > 0) {
+            for (let i = 0; i < this._vertex.length; i += 1) {
+                geom.vertices.push(this._vertex[i].get_pos());
+            }
+            for (let j = 0; j < ntriang; j += 1) {
+                geom.faces.push(new THREE.Face3(triangles[3 * j + 2], triangles[3 * j + 1], triangles[3 * j], normal));
+            }
         }
-        geom.vertices.push(new THREE.Vertex(v1));
-        geom.vertices.push(new THREE.Vertex(v2));
-        geom.vertices.push(new THREE.Vertex(v3));
-
-        geom.faces.push(new THREE.Face3(0, 1, 2));
+        geom.computeFaceNormals();
+        geom.computeVertexNormals();
+        return geom;
     };
 
     /**

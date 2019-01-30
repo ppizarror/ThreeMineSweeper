@@ -213,7 +213,7 @@ function Vertex(x, y, z, vertex_name) {
      * @returns {Vector3}
      */
     this.get_pos = function () {
-        return this._position.clone();
+        return new THREE.Vector3(this.get_y(), this.get_z(), this.get_x());
     };
 
     /**

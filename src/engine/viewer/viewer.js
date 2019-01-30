@@ -238,18 +238,18 @@ function TMSViewer() {
             autorotate: false,               // Auto rotates the camera
             far: 9.000,                      // Far plane
             light: {                         // Light color on the camera
-                color: 0X181818,
-                decay: 1.500,
-                distance: 0.483,
-                intensity: 0.600,
+                color: 0x7f7f7f,
+                decay: 1.400,
+                distance: 4.200,
+                intensity: 0.740,
             },
             maxdistance: 2.500,              // Maximum distance
             maxpolarangle: Math.PI,          // Max polar angle
             near: 0.001,                     // Close plane
             nopan: true,                     // Mouse pan
-            posx: 0.800,                     // Initial X position
-            posy: -0.600,                    // Initial Y position
-            posz: 1.500,                     // Initial Z position
+            posx: 1.400,                     // Initial X position
+            posy: 1.400,                     // Initial Y position
+            posz: 0.700,                     // Initial Z position
             rotationx: -1.000,               // Initial X rotation
             rotationy: -1.300,               // Initial Y rotation
             rotationz: -0.500,               // Initial Z rotation
@@ -273,8 +273,8 @@ function TMSViewer() {
          * Ambient light
          */
         ambientlight: {
-            color: 0X202020,
-            intensity: 0.500,
+            color: 0x636363,
+            intensity: 0.130,
         },
 
         /**
@@ -282,7 +282,7 @@ function TMSViewer() {
          */
         light: {
             angle: 1.600,
-            color: 0XFFFFFF,
+            color: 0xffffff,
             decay: 1.600,
             distance: 0.793,
             intensity: 0.000,
@@ -2108,30 +2108,9 @@ function TMSViewer() {
      * @private
      */
     this._draw_face = function (face, geometry, material, name) {
-
-        face.generate_geometry();
-        let points = face.get_threejs_points();
-        let normal = face.get_normal();
-        let normalZ = new THREE.Vector3(0, 0, -1);
-        let quaternion = new THREE.Quaternion().setFromUnitVectors(normal, normalZ);
-        let quaternionBack = new THREE.Quaternion().setFromUnitVectors(normalZ, normal);
-        points.forEach(p => {
-            p.applyQuaternion(quaternion)
-        });
-
-        // noinspection JSCheckFunctionSignatures
-        let shape = new THREE.Shape(points);
-        let shapeGeom = new THREE.ShapeGeometry(shape);
-        points.forEach(p => {
-            p.applyQuaternion(quaternionBack)
-        });
-
-        // TODO
-        shapeGeom.vertices = points;
-        geometry.merge(shapeGeom);
+        geometry.merge(face.generate_geometry());
         name.push(face.get_name());
         material.push(true);
-
     };
 
 }
