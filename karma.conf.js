@@ -70,6 +70,7 @@ module.exports = function (config) {
             'src/engine/viewer/viewer.js',
 
             'src/ui/globals.js',
+            'src/ui/dialogs.js',
             'src/ui/themes.js',
             'src/ui/loading.js',
 

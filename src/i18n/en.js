@@ -7,7 +7,16 @@
  */
 
 lang_db.en = {
+    "answer_no": "No",
+    "answer_yes": "Ok",
+    "app_dialog_unknown_size": "Cannot open dialog with unknown size <{0}>",
     "building_full_loading_layer": "Init loading layer",
+    "dialog_error_button_function_null": "Cant associate an invalid event to the dialog button ({0}), null function has been stablished",
+    "dialog_form_cancel": "Cancel",
+    "dialog_form_send": "Send",
+    "dialog_form_submit_null": "Submit function cannot be null",
+    "dialog_last_closed_equal_opened": "The last dialog has been closed because the new one is identical",
+    "dialog_popup_created": "Opening dialog <{0}>",
     "error": "Error",
     "error_cookie_load": "Cookies cannot be loaded",
     "error_errordb_langinit_defaultmsg": "Contact admin",
@@ -22,6 +31,8 @@ lang_db.en = {
     "errordb_themeNotExist_moreinfo": "Check your application theme settings or contact the administrator",
     "errordb_themeNotExist_msg": "Selected theme could not be loaded",
     "exception": "Exception",
+    "gui_button_close": "Close Menu",
+    "gui_button_open": "Open Menu",
     "init_app": "Initializing application",
     "init_themes": "Initializing themes",
     "loading_theme": "Loading theme <{0}>",
@@ -34,6 +45,4 @@ lang_db.en = {
     "viewer_gui_export_light_title": "Light",
     "viewer_gui_fog": "Fog",
     "viewer_gui_light": "Static light",
-    "gui_button_open": "Open Menu",
-    "gui_button_close": "Close Menu",
 };
