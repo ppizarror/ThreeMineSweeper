@@ -165,6 +165,7 @@ function TMSViewer() {
         fpsmeter: true,                  // Show fps
         grid: false,                     // Show grid plane
         gui: true,                       // Show GUI
+        normals: false,                  // Show normals
         planes: false,                   // Show planes
         worldlimits: false,              // Show world limits
 
@@ -247,8 +248,8 @@ function TMSViewer() {
             maxpolarangle: Math.PI,          // Max polar angle
             near: 0.001,                     // Close plane
             nopan: true,                     // Mouse pan
-            posx: 1.400,                     // Initial X position
-            posy: 1.400,                     // Initial Y position
+            posx: 0.700,                     // Initial X position
+            posy: -1.80,                     // Initial Y position
             posz: 0.700,                     // Initial Z position
             rotationx: -1.000,               // Initial X rotation
             rotationy: -1.300,               // Initial Y rotation
@@ -2089,9 +2090,11 @@ function TMSViewer() {
         this._scene.add(shapeMesh);
 
         // Adds normal helper
-        let nh_size = Math.min(this._worldsize.x, this._worldsize.x, this._worldsize.z) * 0.1;
-        let helper = new THREE.FaceNormalsHelper(shapeMesh, nh_size, 0xff0000, 1);
-        this._scene.add(helper);
+        if (this.threejs_helpers.normals) {
+            let nh_size = Math.min(this._worldsize.x, this._worldsize.x, this._worldsize.z) * 0.1;
+            let helper = new THREE.FaceNormalsHelper(shapeMesh, nh_size, 0xff0000, 1);
+            this._scene.add(helper);
+        }
 
         // Render
         this._render();

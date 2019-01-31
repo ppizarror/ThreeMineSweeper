@@ -22,6 +22,13 @@ function Generator() {
     let self = this;
 
     /**
+     * Order of recursive fractal generators.
+     * @type {number}
+     * @protected
+     */
+    this._order = 1;
+
+    /**
      * ID of the generator.
      * @type {string}
      * @protected
@@ -47,6 +54,16 @@ function Generator() {
      * @param {number} zf - End Z coordinate
      */
     this.generate = function (xi, yi, zi, xf, yf, zf) {
+    };
+
+    /**
+     * Set fractal order of the generator.
+     *
+     * @function
+     * @param {number} order
+     */
+    this.set_order = function (order) {
+        self._order = order;
     };
 
     /**

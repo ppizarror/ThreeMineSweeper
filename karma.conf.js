@@ -63,9 +63,10 @@ module.exports = function (config) {
             'src/engine/geom/vertex.js',
             'src/engine/geom/volume.js',
 
-            'src/engine/generator/generator.js',
+            'src/engine/generator/__generator.js',
             'src/engine/generator/basic_cube.js',
             'src/engine/generator/basic_pyramid.js',
+            'src/engine/generator/sierpinski_cube.js',
 
             'src/engine/viewer/viewer.js',
 
@@ -115,6 +116,7 @@ module.exports = function (config) {
 
         // Concurrency level
         // how many browser should be started simultaneous
-        concurrency: Infinity
-    })
+        concurrency: Infinity,
+
+    });
 };
