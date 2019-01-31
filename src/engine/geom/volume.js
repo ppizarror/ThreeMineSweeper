@@ -348,6 +348,17 @@ function Volume(volume_faces, volume_name) {
     };
 
     /**
+     * Assemble volume.
+     *
+     * @function
+     */
+    this.assemble = function () {
+        for (let i = 0; i < this._faces.length; i += 1) {
+            this._faces[i].assemble();
+        }
+    };
+
+    /**
      * Apply constructor
      */
     this.add_face(volume_faces);

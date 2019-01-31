@@ -60,6 +60,7 @@ function BasicPyramid() {
 
         // Add faces to volume
         this._volume.add_face([f1, f2, f3, f4, f5, f6, f7, f8]);
+        this._volume.assemble();
 
     };
 
