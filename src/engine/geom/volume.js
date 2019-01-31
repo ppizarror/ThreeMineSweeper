@@ -17,6 +17,7 @@
  */
 function Volume(volume_faces, volume_name) {
     /* eslint-disable new-cap */
+    /* eslint-disable no-continue */
 
     /**
      * ID of the volume.
@@ -31,6 +32,13 @@ function Volume(volume_faces, volume_name) {
      * @private
      */
     this._faces = [];
+
+    /**
+     * Stores last added faces.
+     * @type {Face[]}
+     * @private
+     */
+    this._last_added_faces = [];
 
     /**
      * Face name.
@@ -67,16 +75,25 @@ function Volume(volume_faces, volume_name) {
      *
      * @function
      * @param {Face|Face[]} face - Face object
+     * @param {boolean=} disable_check - Check faces after addition
      * @returns {boolean}
      */
-    this.add_face = function (face) {
+    this.add_face = function (face, disable_check) {
+
+        // Disable face check after addition
+        if (isNullUndf(disable_check)) disable_check = false;
+
+        // If null
+        if (isNullUndf(face)) return false;
 
         // If face is an array then call multiple times
         if (face instanceof Array) {
             let r = true;
             for (let j = 0; j < face.length; j += 1) {
-                r = r && this.add_face(face[j]);
+                r = r && this.add_face(face[j], true);
             }
+            self._last_added_faces = face;
+            this._check_faces();
             return r;
         }
 
@@ -88,15 +105,16 @@ function Volume(volume_faces, volume_name) {
         }
 
         // Add face to list
-        if (this._strict) {
-            if (face.is_valid()) {
-                this._faces.push(face);
-                return true;
-            }
+        if (this._strict && !face.is_valid()) {
             app_console.error('[VOLUME] Face {0} ID {1} could not be added to volume, not valid'.format(face.get_name(), face.get_id()));
             return false;
         }
+        face.check_vertices();
         this._faces.push(face);
+        if (!disable_check) {
+            self._last_added_faces = [face];
+            this._check_faces();
+        }
         return true;
 
     };
@@ -283,5 +301,56 @@ function Volume(volume_faces, volume_name) {
             vertices[i].translate(tx, ty, tz);
         }
     };
+
+    /**
+     * Check faces after addition.
+     *
+     * @function
+     * @private
+     */
+    this._check_faces = function () {
+
+        // Faces to be deleted
+        let delete_id = [];
+
+        // Look for repeated faces
+        /**
+         * @type {Face}
+         */
+        let fi, fj;
+        for (let i = 0; i < self._last_added_faces.length; i += 1) {
+            fi = self._last_added_faces[i];
+            for (let j = 0; j < self._faces.length; j += 1) {
+                fj = self._faces[j];
+                if (fi.equals(fj)) { // noinspection UnnecessaryContinueJS
+                    continue;
+                }
+                if (fj.has_vertex(fi.get_vertices())) {
+                    delete_id.pushUnique(fj.get_id());
+                    delete_id.pushUnique(fi.get_id());
+                    break;
+                }
+            }
+        }
+
+        // Delete each face
+        for (let j = 0; j < this._faces.length; j += 1) {
+            if (delete_id.includes(this._faces[j].get_id())) {
+                this._faces[j].remove();
+                this._faces.splice(j, 1);
+                j -= 1;
+            }
+        }
+
+        // Remove last added faces
+        self._last_added_faces = [];
+
+    };
+
+    /**
+     * Apply constructor
+     */
+    this.add_face(volume_faces);
+    this.set_name(volume_name);
 
 }

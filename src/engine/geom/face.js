@@ -610,6 +610,28 @@ function Face(face_vertex, face_name) {
     };
 
     /**
+     * Removes face from vertices.
+     *
+     * @function
+     */
+    this.remove = function () {
+        for (let i = 0; i < this._vertex.length; i += 1) {
+            this._vertex[i].remove_face(this);
+        }
+    };
+
+    /**
+     * Check vertex topology.
+     *
+     * @function
+     */
+    this.check_vertices = function () {
+        for (let i = 0; i < this._vertex.length; i += 1) {
+            this._vertex[i].add_face(this);
+        }
+    };
+
+    /**
      * Apply constructor
      */
     this.add_vertex(face_vertex);

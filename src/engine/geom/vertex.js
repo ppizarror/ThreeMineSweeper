@@ -169,7 +169,7 @@ function Vertex(x, y, z, vertex_name) {
      * Check if the vertex defines some face.
      *
      * @function
-     * @param {Face|Face[]} face
+     * @param {Face | Face[]} face
      * @returns {boolean}
      */
     this.has_face = function (face) {
@@ -189,7 +189,7 @@ function Vertex(x, y, z, vertex_name) {
      * Remove face.
      *
      * @function
-     * @param {Face|Face[]} face
+     * @param {Face | Face[]} face
      */
     this.remove_face = function (face) {
         if (face instanceof Array) {

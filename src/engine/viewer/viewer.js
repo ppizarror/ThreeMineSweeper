@@ -2083,7 +2083,7 @@ function TMSViewer() {
         let material = new THREE.MeshPhongMaterial({
             color: 0x888888,
             specular: 0x555555,
-            shininess: 30
+            shininess: 40,
         });
         let shapeMesh = new THREE.Mesh(geometryMerge, material);
         this._scene.add(shapeMesh);
