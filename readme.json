@@ -2,7 +2,7 @@
   "PROJECT": {
     "NAME": "ThreeMinesSweeper",
     "ICON": {
-      "IMAGE": "https://ppizarror.com/ThreeMinesSweeper/resources/android-chrome-512x512.png",
+      "IMAGE": "https://ppizarror.com/ThreeMinesSweeper/resources/favicon/android-chrome-512x512.png",
       "ALT": "ThreeMinesSweeper",
       "WIDTH": 200,
       "HEIGHT": 200
