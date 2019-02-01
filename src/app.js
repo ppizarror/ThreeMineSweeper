@@ -100,14 +100,24 @@ $(function () {
 
     /**
      * ------------------------------------------------------------------------
-     * Init viewer
+     * Check if test mode
      * ------------------------------------------------------------------------
      */
     app_console.info(lang.page_init_load_time.format(getSecondsFrom($init_time_app_load)));
+    if (app_mode_test) {
+        app_console.info(lang.init_test_mode);
+        return;
+    }
+
+    /**
+     * ------------------------------------------------------------------------
+     * Init viewer
+     * ------------------------------------------------------------------------
+     */
     loadingHandler(true);
     app_viewer.init('#viewer');
 
-    // Test
+    // Draw figure
     setTimeout(function () {
         let g = new SierpinskiCube();
         g.set_order(2);

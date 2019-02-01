@@ -35,6 +35,7 @@ lang_db.en = {
     "gui_button_close": "Close Menu",
     "gui_button_open": "Open Menu",
     "init_app": "Initializing application",
+    "init_test_mode": "Initializing test mode",
     "init_themes": "Initializing themes",
     "loading_theme": "Loading theme <{0}>",
     "page_init_load_time": "Application has been initialized in <{0}> seconds",
