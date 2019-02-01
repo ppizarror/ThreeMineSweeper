@@ -20,6 +20,7 @@ function BasicCube() {
      */
     Generator.call(this);
 
+    // noinspection JSUnusedGlobalSymbols
     /**
      * Generate element, space volume goes from (xi,yi,zi) to (xf,yf,zf).
      *
@@ -31,7 +32,7 @@ function BasicCube() {
      * @param {number} yf - End Y coordinate
      * @param {number} zf - End Z coordinate
      */
-    this.generate = function (xi, yi, zi, xf, yf, zf) {
+    this._generate = function (xi, yi, zi, xf, yf, zf) {
 
         // Create vertices
         let v1 = new Vertex(xi, yi, zi, 'V1');
@@ -53,7 +54,6 @@ function BasicCube() {
 
         // Add faces to volume
         this._volume.add_face([f1, f2, f3, f4, f5, f6]);
-        this._volume.assemble();
 
     };
 

@@ -109,6 +109,7 @@ $(function () {
 
     // Test
     let g = new SierpinskiCube();
+    g.set_order(2);
     g.generate(-0.5, -0.5, -0.5, 0.5, 0.5, 0.5);
     g.start();
 

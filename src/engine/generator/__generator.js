@@ -52,8 +52,28 @@ function Generator() {
      * @param {number} xf - End X coordinate
      * @param {number} yf - End Y coordinate
      * @param {number} zf - End Z coordinate
+     * @abstract
+     */
+    this._generate = function (xi, yi, zi, xf, yf, zf) {
+    };
+
+    /**
+     * Generate element, space volume goes from (xi,yi,zi) to (xf,yf,zf).
+     *
+     * @function
+     * @param {number} xi - Initial X coordinate
+     * @param {number} yi - Initial Y coordinate
+     * @param {number} zi - Initial Z coordinate
+     * @param {number} xf - End X coordinate
+     * @param {number} yf - End Y coordinate
+     * @param {number} zf - End Z coordinate
      */
     this.generate = function (xi, yi, zi, xf, yf, zf) {
+        let ti = new Date();
+        self._generate(xi, yi, zi, xf, yf, zf);
+        this._volume.assemble();
+        let tf = getSecondsFrom(ti);
+        app_console.info(lang.generator_finished.format(tf, this._volume.get_total_faces()));
     };
 
     /**

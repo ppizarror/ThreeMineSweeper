@@ -359,6 +359,16 @@ function Volume(volume_faces, volume_name) {
     };
 
     /**
+     * Return number of faces.
+     *
+     * @function
+     * @returns {number}
+     */
+    this.get_total_faces = function () {
+        return this._faces.length;
+    };
+
+    /**
      * Apply constructor
      */
     this.add_face(volume_faces);

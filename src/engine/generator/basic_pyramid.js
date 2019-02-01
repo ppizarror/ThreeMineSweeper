@@ -20,6 +20,7 @@ function BasicPyramid() {
      */
     Generator.call(this);
 
+    // noinspection JSUnusedGlobalSymbols
     /**
      * Generate element, space volume goes from (xi,yi,zi) to (xf,yf,zf).
      *
@@ -31,7 +32,7 @@ function BasicPyramid() {
      * @param {number} yf - End Y coordinate
      * @param {number} zf - End Z coordinate
      */
-    this.generate = function (xi, yi, zi, xf, yf, zf) {
+    this._generate = function (xi, yi, zi, xf, yf, zf) {
 
         // Calculate some values
         let zm = (zf + zi) / 2;
@@ -60,7 +61,6 @@ function BasicPyramid() {
 
         // Add faces to volume
         this._volume.add_face([f1, f2, f3, f4, f5, f6, f7, f8]);
-        this._volume.assemble();
 
     };
 

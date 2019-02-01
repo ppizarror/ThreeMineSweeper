@@ -465,6 +465,7 @@ function Face(face_vertex, face_name) {
      * @function
      */
     this.assemble = function () {
+        if (self._assembled) return;
         self._assembled = true;
         self._neighbours = this.get_neighbours();
     };
