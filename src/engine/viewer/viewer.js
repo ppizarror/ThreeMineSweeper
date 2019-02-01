@@ -2041,7 +2041,6 @@ function TMSViewer() {
         self._initWorldObjects();
         self._initEvents();
         self._animateFrame();
-        loadingHandler(false);
     };
 
     /**
@@ -2051,7 +2050,9 @@ function TMSViewer() {
      * @param {Volume} volume
      */
     this.new = function (volume) {
+        loadingHandler(true);
         this._draw_volume(volume);
+        loadingHandler(false);
     };
 
     /**

@@ -108,9 +108,11 @@ $(function () {
     app_viewer.init('#viewer');
 
     // Test
-    let g = new SierpinskiCube();
-    g.set_order(2);
-    g.generate(-0.5, -0.5, -0.5, 0.5, 0.5, 0.5);
-    g.start();
+    setTimeout(function () {
+        let g = new SierpinskiCube();
+        g.set_order(2);
+        g.generate(-0.5, -0.5, -0.5, 0.5, 0.5, 0.5);
+        g.start();
+    }, 500);
 
 });
