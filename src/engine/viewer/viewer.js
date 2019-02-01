@@ -250,9 +250,9 @@ function TMSViewer() {
             maxpolarangle: Math.PI,          // Max polar angle
             near: 0.001,                     // Close plane
             nopan: true,                     // Mouse pan
-            posx: 0.700,                     // Initial X position
-            posy: -1.80,                     // Initial Y position
-            posz: 0.700,                     // Initial Z position
+            posx: 1.300,                     // Initial X position
+            posy: -1.30,                     // Initial Y position
+            posz: 1.000,                     // Initial Z position
             rotationx: -1.000,               // Initial X rotation
             rotationy: -1.300,               // Initial Y rotation
             rotationz: -0.500,               // Initial Z rotation
@@ -276,8 +276,8 @@ function TMSViewer() {
          * Ambient light
          */
         ambientlight: {
-            color: 0x636363,
-            intensity: 0.130,
+            color: 0x141414,
+            intensity: 0.180,
         },
 
         /**
@@ -2102,7 +2102,6 @@ function TMSViewer() {
      * @param {boolean=} collaidable - Object is collaidable or not
      * @param {boolean=} castShadow - Object cast shadows
      * @param {boolean=} receiveShadow - Object can receive shadows
-     * @since 1.82
      */
     this._addMeshToScene = function (mesh, name, collaidable, castShadow, receiveShadow) {
 
@@ -2147,7 +2146,6 @@ function TMSViewer() {
      * @function
      * @public
      * @param {string} parentElement - Container
-     * @since 0.1.3
      */
     this.init = function (parentElement) {
         self.id = parentElement;
