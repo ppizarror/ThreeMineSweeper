@@ -213,7 +213,9 @@ function TMSViewer() {
     this._globals = {
         contour: '__CONTOUR',
         helper: '__HELPER',
+        normals: '__NORMALS',
         plane: '__PLANE',
+        volume: 'VOLUME',
     };
 
     /**
@@ -1980,32 +1982,6 @@ function TMSViewer() {
     };
 
     /**
-     * Add mesh to scene.
-     *
-     * @function
-     * @private
-     * @param {Object3D} mesh - Mesh
-     * @param {string} name - Object name
-     * @param {boolean=} collaidable
-     */
-    this._addMeshToScene = function (mesh, name, collaidable) {
-        mesh.name = name;
-        self._scene.add(mesh);
-        if (collaidable) self._addToCollidable(mesh);
-    };
-
-    /**
-     * Add mesh to collaidable elements.
-     *
-     * @function
-     * @private
-     * @param {object} mesh
-     */
-    this._addToCollidable = function (mesh) {
-        this._collaidableMeshes.push(mesh);
-    };
-
-    /**
      * Add a point in (x,y,z).
      *
      * @function
@@ -2017,6 +1993,145 @@ function TMSViewer() {
      */
     this._newThreePoint = function (x, y, z) {
         return new THREE.Vector3(y, z, x);
+    };
+
+    /**
+     * Draw volume.
+     *
+     * @function
+     * @param {Volume} volume
+     * @private
+     */
+    this._draw_volume = function (volume) {
+
+        // Destroy geometry if added
+        if (notNullUndf(this._viewerMesh)) this._scene.remove(this._viewerMesh);
+
+        // Scale volume
+        volume.scale(1, this._worldsize.x, this._worldsize.y, this._worldsize.z);
+
+        // Create new geometry
+        let geometryMerge = new THREE.Geometry();
+        let mergeMaterials = [];
+        let meshNames = [];
+
+        // Draw each face
+        let faces = volume.get_faces();
+        for (let i = 0; i < faces.length; i += 1) {
+            this._draw_face(faces[i], geometryMerge, mergeMaterials, meshNames, 0x000000);
+        }
+
+        // Create figure
+        let material = new THREE.MeshPhongMaterial({
+            color: 0x888888,
+            shininess: 10,
+            specular: 0x111111,
+        });
+        let shapeMesh = new THREE.Mesh(geometryMerge, material);
+        this._scene.add(shapeMesh);
+        this._addMeshToScene(shapeMesh, this._globals.volume, true, true, true);
+
+        // Adds normal helper
+        if (this.threejs_helpers.normals) {
+            let nh_size = Math.min(this._worldsize.x, this._worldsize.x, this._worldsize.z) * 0.1;
+            let helper = new THREE.FaceNormalsHelper(shapeMesh, nh_size, 0xff0000, 1);
+            this._addMeshToScene(helper, this._globals.normals, false);
+        }
+
+        // Create secondary contour
+        let s_edges = new THREE.EdgesGeometry(geometryMerge, 60);
+        let s_contour = new THREE.LineSegments(s_edges, new THREE.LineBasicMaterial({color: 0xffffff}));
+        s_contour.material.linewidth = 2;
+        this._addMeshToScene(s_contour, this._globals.contour, false);
+
+        // Render
+        this._render();
+
+    };
+
+    /**
+     * Create contours from a geometry.
+     *
+     * @function
+     * @protected
+     * @param {EdgesGeometry} edges - Geometry edges
+     * @param {number} color - Border color
+     * @returns {LineSegments}
+     */
+    this._createContour = function (edges, color) {
+        let material = new THREE.LineBasicMaterial({color: color});
+        return new THREE.LineSegments(edges, material);
+    };
+
+    /**
+     * Draw face.
+     *
+     * @function
+     * @param {Face} face - Face to draw
+     * @param {Geometry} geometry - Three.js geometry buffer
+     * @param {object[]} material - Material
+     * @param {string[]} name - Name lists
+     * @param {number} contour_color - Contour color
+     * @private
+     */
+    this._draw_face = function (face, geometry, material, name, contour_color) {
+
+        // Create geometry
+        let geom = face.generate_geometry();
+        geometry.merge(geom);
+        name.push(face.get_name());
+        material.push(true);
+
+        // Create contour
+        let objEdges = new THREE.EdgesGeometry(geom);
+        let contour = this._createContour(objEdges, contour_color);
+        contour.material.opacity = 1.0;
+        contour.position.y = 0;
+        contour.material.transparent = false;
+        this._addMeshToScene(contour, this._globals.contour, false);
+
+    };
+
+    /**
+     * Adds mesh to scene.
+     *
+     * @function
+     * @protected
+     * @param {Object3D} mesh - Mesh
+     * @param {string} name - Object name
+     * @param {boolean=} collaidable - Object is collaidable or not
+     * @param {boolean=} castShadow - Object cast shadows
+     * @param {boolean=} receiveShadow - Object can receive shadows
+     * @since 1.82
+     */
+    this._addMeshToScene = function (mesh, name, collaidable, castShadow, receiveShadow) {
+
+        // Apply properties
+        mesh.name = name;
+        if (isNullUndf(castShadow) || castShadow) {
+            mesh.castShadow = false;
+        }
+        if (isNullUndf(receiveShadow) || receiveShadow) {
+            mesh.receiveShadow = false;
+        }
+
+        // Add mesh to scene
+        self._scene.add(mesh);
+
+        // Add to collaidable
+        if (collaidable) self._addToCollidable(mesh);
+
+    };
+
+    /**
+     * Adds mesh to collaidable list.
+     *
+     * @function
+     * @protected
+     * @param {object} mesh
+     */
+    this._addToCollidable = function (mesh) {
+        this._collaidableMeshes.push(mesh);
     };
 
 
@@ -2052,69 +2167,6 @@ function TMSViewer() {
     this.new = function (volume) {
         this._draw_volume(volume);
         loadingHandler(false);
-    };
-
-    /**
-     * Draw volume.
-     *
-     * @function
-     * @param {Volume} volume
-     * @private
-     */
-    this._draw_volume = function (volume) {
-
-        // Destroy geometry if added
-        if (notNullUndf(this._viewerMesh)) this._scene.remove(this._viewerMesh);
-
-        // Scale volume
-        volume.scale(1, this._worldsize.x, this._worldsize.y, this._worldsize.z);
-
-        // Create new geometry
-        let geometryMerge = new THREE.Geometry();
-        let mergeMaterials = [];
-        let meshNames = [];
-
-        // Draw each face
-        let faces = volume.get_faces();
-        for (let i = 0; i < faces.length; i += 1) {
-            this._draw_face(faces[i], geometryMerge, mergeMaterials, meshNames);
-        }
-
-        // Create figure
-        let material = new THREE.MeshPhongMaterial({
-            color: 0x888888,
-            shininess: 40,
-            specular: 0x555555,
-        });
-        let shapeMesh = new THREE.Mesh(geometryMerge, material);
-        this._scene.add(shapeMesh);
-
-        // Adds normal helper
-        if (this.threejs_helpers.normals) {
-            let nh_size = Math.min(this._worldsize.x, this._worldsize.x, this._worldsize.z) * 0.1;
-            let helper = new THREE.FaceNormalsHelper(shapeMesh, nh_size, 0xff0000, 1);
-            this._scene.add(helper);
-        }
-
-        // Render
-        this._render();
-
-    };
-
-    /**
-     * Draw face.
-     *
-     * @function
-     * @param {Face} face - Face to draw
-     * @param {Geometry} geometry - Three.js geometry buffer
-     * @param {object[]} material - Material
-     * @param {string[]} name - Name lists
-     * @private
-     */
-    this._draw_face = function (face, geometry, material, name) {
-        geometry.merge(face.generate_geometry());
-        name.push(face.get_name());
-        material.push(true);
     };
 
 }
