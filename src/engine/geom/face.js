@@ -35,6 +35,13 @@ function Face(face_vertex, face_name) {
     this._vertex = [];
 
     /**
+     * Array that contains volumes.
+     * @type {Volume[]}
+     * @private
+     */
+    this._volumes = [];
+
+    /**
      * Face name.
      * @type {string}
      * @private
@@ -630,6 +637,50 @@ function Face(face_vertex, face_name) {
         for (let i = 0; i < this._vertex.length; i += 1) {
             this._vertex[i].add_face(this);
         }
+    };
+
+    /**
+     * Adds volume.
+     *
+     * @function
+     * @param {Volume} volume
+     * @returns {boolean}
+     */
+    this.add_volume = function (volume) {
+        if (this.has_volume(volume)) return false;
+        this._volumes.push(volume);
+        return true;
+    };
+
+    /**
+     * Face contains volume.
+     *
+     * @function
+     * @param {Volume} volume
+     * @returns {boolean}
+     */
+    this.has_volume = function (volume) {
+        for (let i = 0; i < this._volumes.length; i += 1) {
+            if (this._volumes[i].equals(volume)) return true;
+        }
+        return false;
+    };
+
+    /**
+     * Remove volume from face.
+     *
+     * @function
+     * @param {Volume} volume
+     * @returns {boolean}
+     */
+    this.remove_volume = function (volume) {
+        for (let i = 0; i < this._volumes.length; i += 1) {
+            if (this._volumes[i].equals(volume)) {
+                this._volumes.splice(i, 1);
+                return true;
+            }
+        }
+        return false;
     };
 
     /**

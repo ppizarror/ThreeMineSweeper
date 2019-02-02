@@ -135,4 +135,10 @@ describe('Test vertex', function () {
         expect(f2.get_neighbours()[0]).toBe(f1);
     });
 
+    it('Test equal vertices', function () {
+        let v1 = new Vertex(1, 1 / 3, 2);
+        let v2 = new Vertex(1, 1 / 3, 2);
+        expect(v1.equal_position(v2)).toBe(true);
+    });
+
 });

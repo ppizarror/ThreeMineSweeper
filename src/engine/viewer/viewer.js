@@ -161,7 +161,7 @@ function TMSViewer() {
          * Status
          */
         axis: true,                      // Show axis
-        cameratarget: false,             // Show camera target
+        cameratarget: true,             // Show camera target
         fpsmeter: true,                  // Show fps
         grid: false,                     // Show grid plane
         gui: true,                       // Show GUI
@@ -174,7 +174,7 @@ function TMSViewer() {
          */
         axissize: 0.40,                  // Axis sizes
         cameratargetcolor: 0X0000FF,     // Color target
-        cameratargetsize: 0.02,          // Size target
+        cameratargetsize: 0.10,          // Size target
         griddist: 0.03,                  // Grid distance in percentage
         guistartclosed: true,            // GUI starts closed
         guicloseafterpopup: false,       // GUI closes after an popup
@@ -250,9 +250,9 @@ function TMSViewer() {
             maxpolarangle: Math.PI,          // Max polar angle
             near: 0.001,                     // Close plane
             nopan: true,                     // Mouse pan
-            posx: 1.300,                     // Initial X position
-            posy: -1.30,                     // Initial Y position
-            posz: 1.000,                     // Initial Z position
+            posx: 2.300,                     // Initial X position
+            posy: -2.30,                     // Initial Y position
+            posz: 2.000,                     // Initial Z position
             rotationx: -1.000,               // Initial X rotation
             rotationy: -1.300,               // Initial Y rotation
             rotationz: -0.500,               // Initial Z rotation
@@ -594,6 +594,7 @@ function TMSViewer() {
         this._cameralight.decay = this.objects_props.camera.light.decay;
         this._cameralight.distance = this.objects_props.camera.light.distance;
         this._cameralight.intensity = this.objects_props.camera.light.intensity;
+        this._cameralight.castShadow = true;
         this._three_camera.add(this._cameralight);
 
         /**
@@ -2107,12 +2108,10 @@ function TMSViewer() {
 
         // Apply properties
         mesh.name = name;
-        if (isNullUndf(castShadow) || castShadow) {
-            mesh.castShadow = false;
-        }
-        if (isNullUndf(receiveShadow) || receiveShadow) {
-            mesh.receiveShadow = false;
-        }
+        if (isNullUndf(castShadow)) castShadow = false;
+        if (isNullUndf(receiveShadow)) receiveShadow = false;
+        mesh.castShadow = castShadow;
+        mesh.receiveShadow = receiveShadow;
 
         // Add mesh to scene
         self._scene.add(mesh);

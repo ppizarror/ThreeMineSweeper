@@ -55,6 +55,13 @@ function Volume(volume_faces, volume_name) {
     this._strict = false;
 
     /**
+     * Stores deleted faces.
+     * @type {number}
+     * @private
+     */
+    this._faces_deleted = 0;
+
+    /**
      * Object pointer.
      * @type {Volume}
      */
@@ -93,7 +100,7 @@ function Volume(volume_faces, volume_name) {
                 r = r && this.add_face(face[j], true);
             }
             self._last_added_faces = face;
-            this._check_faces();
+            this._check_after_add_face();
             return r;
         }
 
@@ -111,9 +118,10 @@ function Volume(volume_faces, volume_name) {
         }
         face.check_vertices();
         this._faces.push(face);
+        face.add_volume(this);
         if (!disable_check) {
             self._last_added_faces = [face];
-            this._check_faces();
+            this._check_after_add_face();
         }
         return true;
 
@@ -303,6 +311,58 @@ function Volume(volume_faces, volume_name) {
     };
 
     /**
+     * Get vertices from last added faces.
+     *
+     * @function
+     * @returns {Vertex[]}
+     * @private
+     */
+    this._get_vertices_last_added = function () {
+        let v = [];
+        let v_id = [];
+        for (let i = 0; i < self._last_added_faces.length; i += 1) {
+            let fv = self._last_added_faces[i].get_vertices();
+            for (let j = 0; j < fv.length; j += 1) {
+                if (!v_id.includes(fv[j].get_id())) {
+                    v.push(fv[j]);
+                    v_id.pushUnique(fv[j].get_id());
+                }
+            }
+        }
+        return v;
+    };
+
+    /**
+     * Return faces around last added to check deletion.
+     *
+     * @function
+     * @return {Face[]}
+     * @private
+     */
+    this._get_faces_around_last_added = function () {
+
+        // Get last added vertices
+        let v = this._get_vertices_last_added();
+
+        // Get faces from those vertices
+        let faces = [];
+        let faces_id = [];
+        for (let i = 0; i < v.length; i += 1) {
+            let fs = v[i].get_faces();
+            for (let j = 0; j < fs.length; j += 1) {
+                if (!faces_id.includes(fs[j].get_id()) && fs[j].has_volume(this)) {
+                    faces.push(fs[j]);
+                    faces_id.push(fs[j].get_id());
+                }
+            }
+        }
+
+        // Return faces
+        return faces;
+
+    };
+
+    /**
      * Check faces after addition.
      *
      * @function
@@ -312,6 +372,7 @@ function Volume(volume_faces, volume_name) {
 
         // Faces to be deleted
         let delete_id = [];
+        let faces = this._get_faces_around_last_added();
 
         // Look for repeated faces
         /**
@@ -320,8 +381,8 @@ function Volume(volume_faces, volume_name) {
         let fi, fj;
         for (let i = 0; i < self._last_added_faces.length; i += 1) {
             fi = self._last_added_faces[i];
-            for (let j = 0; j < self._faces.length; j += 1) {
-                fj = self._faces[j];
+            for (let j = 0; j < faces.length; j += 1) {
+                fj = faces[j];
                 if (fi.equals(fj)) { // noinspection UnnecessaryContinueJS
                     continue;
                 }
@@ -333,14 +394,65 @@ function Volume(volume_faces, volume_name) {
             }
         }
 
-        // Delete each face
+        // Delete each face from volume
         for (let j = 0; j < this._faces.length; j += 1) {
             if (delete_id.includes(this._faces[j].get_id())) {
                 this._faces[j].remove();
+                this._faces[j].remove_volume(this);
                 this._faces.splice(j, 1);
+                self._faces_deleted += 1;
                 j -= 1;
             }
         }
+
+        // Delete each face from added faces
+        for (let j = 0; j < this._last_added_faces.length; j += 1) {
+            if (delete_id.includes(this._last_added_faces[j].get_id())) {
+                self._last_added_faces.splice(j, 1);
+                self._faces_deleted += 1;
+                j -= 1;
+            }
+        }
+    };
+
+    /**
+     * Check duplicated vertices.
+     *
+     * @function
+     * @private
+     */
+    this._check_vertices = function () {
+
+        // Find vertices from last added faces
+        let v_last = this.get_vertices();
+
+        // Get current vertices
+        let v = this.get_vertices();
+
+        let vi, vj;
+        for (let i = 0; i < v.length; i += 1) {
+            vi = v[i];
+            for (let j = 0; j < v_last.length; j += 1) {
+                vj = v_last[j];
+                if (vi.equals(vj)) continue;
+                if (vj.equal_position(vi)) {
+                    console.log('Media cagá');
+                }
+            }
+        }
+
+    };
+
+    /**
+     * Check topology after add face.
+     *
+     * @function
+     * @private
+     */
+    this._check_after_add_face = function () {
+
+        // Check face topology
+        this._check_faces();
 
         // Remove last added faces
         self._last_added_faces = [];
@@ -353,6 +465,7 @@ function Volume(volume_faces, volume_name) {
      * @function
      */
     this.assemble = function () {
+        this._check_vertices();
         for (let i = 0; i < this._faces.length; i += 1) {
             this._faces[i].assemble();
         }
@@ -366,6 +479,16 @@ function Volume(volume_faces, volume_name) {
      */
     this.get_total_faces = function () {
         return this._faces.length;
+    };
+
+    /**
+     * Return number of deleted faces.
+     *
+     * @function
+     * @return {number}
+     */
+    this.get_total_deleted_faces = function () {
+        return this._faces_deleted;
     };
 
     /**

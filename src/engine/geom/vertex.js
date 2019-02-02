@@ -501,6 +501,28 @@ function Vertex(x, y, z, vertex_name) {
     };
 
     /**
+     * Check if vertex has the same position.
+     *
+     * @function
+     * @param {Vertex} vertex
+     * @returns {boolean}
+     */
+    this.equal_position = function (vertex) {
+        return this.get_x() === vertex.get_x() && this.get_y() === vertex.get_y() &&
+            this.get_z() === vertex.get_z();
+    };
+
+    /**
+     * Replace vertex by another.
+     *
+     * @function
+     * @param {Vertex} vertex
+     */
+    this.replace_by = function (vertex) {
+
+    };
+
+    /**
      * Apply constructor
      */
     this.set_name(vertex_name)

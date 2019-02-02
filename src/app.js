@@ -119,9 +119,9 @@ $(function () {
 
     // Draw figure
     setTimeout(function () {
-        let g = new SierpinskiCube();
+        let g = new CrossFractal();
         g.set_order(2);
-        g.generate(-0.5, -0.5, -0.5, 0.5, 0.5, 0.5);
+        g.generate(-1, -1, -1, 1, 1, 1);
         g.start();
     }, 500);
 
