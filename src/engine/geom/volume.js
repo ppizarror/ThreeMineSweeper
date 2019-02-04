@@ -351,7 +351,7 @@ function Volume(volume_faces, volume_name) {
      * Return faces around last added to check deletion.
      *
      * @function
-     * @return {Face[]}
+     * @returns {Face[]}
      * @private
      */
     this._get_faces_around_last_added = function () {

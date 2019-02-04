@@ -117,11 +117,29 @@ $(function () {
     loadingHandler(true);
     app_viewer.init('#viewer');
 
-    // Draw figure
+    let $fig = 2; // Draw figure
     setTimeout(function () {
-        let g = new SierpinskiTriangle();
-
-        g.set_order(2);
+        let g;
+        switch ($fig) {
+            case 0:
+                g = new BasicCube();
+                break;
+            case 1:
+                g = new BasicPyramid();
+                break;
+            case 2:
+                g = new CrossFractal();
+                break;
+            case 3:
+                g = new SierpinskiCube();
+                break;
+            case 4:
+                g = new SierpinskiTriangle();
+                break;
+            default:
+                return;
+        }
+        g.set_order(1);
         g.generate(-1, -1, -1, 1, 1, 1);
         g.start();
     }, 500);

@@ -25,35 +25,34 @@ function TMSViewer() {
      */
 
     /**
-     * Canvas ID
+     * Canvas ID.
      * @type {string}
      * @private
      */
     this.id = generateID();
 
     /**
-     * DIV canvas
+     * DIV canvas.
      * @type {JQuery | jQuery | HTMLElement | null}
      * @protected
      */
     this._canvasParent = null;
 
     /**
-     * Object pointer
+     * Object pointer.
      * @type {TMSViewer}
      */
     let self = this;
 
-    // noinspection JSUnusedGlobalSymbols
     /**
-     * GUI ID
+     * GUI ID.
      * @type {object | string}
      * @protected
      */
     this._guiID = 'viewer-gui';
 
     /**
-     * Viewer mesh
+     * Viewer mesh.
      * @type {Mesh | null}
      * @private
      */
@@ -68,7 +67,7 @@ function TMSViewer() {
 
     // noinspection JSUnusedGlobalSymbols
     /**
-     * Button is pressed
+     * Button is pressed.
      * @type {boolean}
      * @private
      */
@@ -76,14 +75,14 @@ function TMSViewer() {
 
     // noinspection JSUnusedGlobalSymbols
     /**
-     * Mouse over canvas
+     * Mouse over canvas.
      * @type {boolean}
      * @private
      */
     this._hasMouseOver = false;
 
     /**
-     * Mouse is pressed
+     * Mouse is pressed.
      * @type {boolean}
      * @private
      */
@@ -91,7 +90,7 @@ function TMSViewer() {
 
     // noinspection JSUnusedGlobalSymbols
     /**
-     * Mouse is pressed and dragged
+     * Mouse is pressed and dragged.
      * @type {boolean}
      * @private
      */
@@ -99,14 +98,14 @@ function TMSViewer() {
 
     // noinspection JSUnusedGlobalSymbols
     /**
-     * 5r
+     * Mouse intersects plane.
      * @type {boolean}
      * @private
      */
     this._hasMouseIntersectPlane = false;
 
     /**
-     * Window mousemove ID event
+     * Window mousemove ID event.
      * @type {string}
      * @private
      */
@@ -114,14 +113,14 @@ function TMSViewer() {
 
     // noinspection JSUnusedGlobalSymbols
     /**
-     * Mouse is pressed
+     * Mouse is pressed.
      * @type {boolean}
      * @private
      */
     this._mouseKeepPressed = false;
 
     /**
-     * Event IDs
+     * Event IDs.
      * @private
      */
     this._eventID = {
@@ -145,14 +144,14 @@ function TMSViewer() {
      */
 
     /**
-     * Animation is active
+     * Animation is active.
      * @type {boolean}
      * @private
      */
     this._animateThread = false;
 
     /**
-     * Three.js helpers
+     * Three.js helpers.
      * @protected
      */
     this.threejs_helpers = {
@@ -165,7 +164,7 @@ function TMSViewer() {
         fpsmeter: true,                  // Show fps
         grid: false,                     // Show grid plane
         gui: true,                       // Show GUI
-        normals: false,                  // Show normals
+        normals: true,                   // Show normals
         planes: false,                   // Show planes
         worldlimits: false,              // Show world limits
 
@@ -187,14 +186,14 @@ function TMSViewer() {
     };
 
     /**
-     * Contains helpers updates
+     * Contains helpers updates.
      * @type {Array}
      * @private
      */
     this._helpersUpdate = [];
 
     /**
-     * Helpers instances @drawHelpers
+     * Helpers instances @drawHelpers.
      * @private
      */
     this._helperInstances = {
@@ -207,7 +206,7 @@ function TMSViewer() {
     };
 
     /**
-     * Global names
+     * Global names.
      * @protected
      */
     this._globals = {
@@ -219,7 +218,7 @@ function TMSViewer() {
     };
 
     /**
-     * Object properties
+     * Object properties.
      * @protected
      */
     this.objects_props = {
@@ -228,48 +227,48 @@ function TMSViewer() {
          * Scane plane
          */
         plane: {
-            color: 0x222222,                 // Color
-            dithering: false,                // Dithering
-            obj: null,                       // Stores the object
+            color: 0x222222,                    // Color
+            dithering: false,                   // Dithering
+            obj: null,                          // Stores the object
         },
 
         /**
          * Camera
          */
         camera: {
-            angle: 56,                       // FOV
-            autorotate: false,               // Auto rotates the camera
-            far: 9.000,                      // Far plane
-            light: {                         // Light color on the camera
+            angle: 56,                          // FOV
+            autorotate: false,                  // Auto rotates the camera
+            far: 9.000,                         // Far plane
+            light: {                            // Light color on the camera
                 color: 0x7f7f7f,
                 decay: 1.400,
                 distance: 4.200,
                 intensity: 0.740,
             },
-            maxdistance: 2.500,              // Maximum distance
-            maxpolarangle: Math.PI,          // Max polar angle
-            near: 0.001,                     // Close plane
-            nopan: true,                     // Mouse pan
-            posx: 2.300,                     // Initial X position
-            posy: -2.30,                     // Initial Y position
-            posz: 2.000,                     // Initial Z position
-            rotationx: -1.000,               // Initial X rotation
-            rotationy: -1.300,               // Initial Y rotation
-            rotationz: -0.500,               // Initial Z rotation
-            target: {                        // Camera target
+            maxdistance: 2.500,                 // Maximum distance
+            maxpolarangle: Math.PI,             // Max polar angle
+            near: 0.001,                        // Close plane
+            nopan: true,                        // Mouse pan
+            posx: 2.300,                        // Initial X position
+            posy: -2.30,                        // Initial Y position
+            posz: 2.000,                        // Initial Z position
+            rotationx: -1.000,                  // Initial X rotation
+            rotationy: -1.300,                  // Initial Y rotation
+            rotationz: -0.500,                  // Initial Z rotation
+            target: {                           // Camera target
                 x: 0.000,
                 y: 0.000,
                 z: 0.000,
             },
-            targetMoveCamera: true,          // Move camera target
-            targetMoveCameraFlipByPos: true, // Inverse camera target
-            targetSpeed: {                   // Target speed
+            targetMoveCamera: true,             // Move camera target
+            targetMoveCameraFlipByPos: true,    // Inverse camera target
+            targetSpeed: {                      // Target speed
                 angular: 0.05,
                 x: 0.010,
                 y: 0.010,
                 z: 0.050,
             },
-            zoom: 1.000,                     // Zoom factor
+            zoom: 1.000,                        // Zoom factor
         },
 
         /**
@@ -310,7 +309,7 @@ function TMSViewer() {
     };
 
     /**
-     * World limits
+     * World limits.
      */
     this._worldsize = {
         x: 1.000,
@@ -319,7 +318,7 @@ function TMSViewer() {
     };
 
     /**
-     * Collaidable meshes list
+     * Collaidable meshes list.
      * @type {Array}
      * @private
      */
@@ -327,7 +326,7 @@ function TMSViewer() {
 
     // noinspection JSUnusedGlobalSymbols
     /**
-     * Mouse coordinates
+     * Mouse coordinates.
      * @private
      */
     this._mouse = {
@@ -343,7 +342,7 @@ function TMSViewer() {
      */
 
     /**
-     * Resize canvas
+     * Resize canvas.
      *
      * @function
      * @protected
@@ -744,7 +743,7 @@ function TMSViewer() {
     };
 
     /**
-     * Increase camera target.
+     * Update camera target.
      *
      * @function
      * @private
@@ -1699,7 +1698,6 @@ function TMSViewer() {
         }
     };
 
-    // noinspection JSUnusedGlobalSymbols
     /**
      * Adds FPS meter.
      *
@@ -2023,14 +2021,14 @@ function TMSViewer() {
         }
 
         // Create figure
-        let shapeMesh = new THREE.Mesh(geometryMerge, mergeMaterials);
-        this._scene.add(shapeMesh);
-        this._addMeshToScene(shapeMesh, this._globals.volume, true);
+        self._viewerMesh = new THREE.Mesh(geometryMerge, mergeMaterials);
+        this._scene.add(this._viewerMesh);
+        this._addMeshToScene(this._viewerMesh, this._globals.volume, true);
 
         // Adds normal helper
         if (this.threejs_helpers.normals) {
             let nh_size = Math.min(this._worldsize.x, this._worldsize.x, this._worldsize.z) * 0.1;
-            let helper = new THREE.FaceNormalsHelper(shapeMesh, nh_size, 0xff0000, 1);
+            let helper = new THREE.FaceNormalsHelper(this._viewerMesh, nh_size, 0xff0000, 1);
             this._addMeshToScene(helper, this._globals.normals, false);
         }
 
