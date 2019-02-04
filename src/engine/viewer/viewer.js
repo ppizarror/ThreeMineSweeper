@@ -2023,12 +2023,7 @@ function TMSViewer() {
         }
 
         // Create figure
-        let material = new THREE.MeshPhongMaterial({
-            color: 0x888888,
-            shininess: 10,
-            specular: 0x111111,
-        });
-        let shapeMesh = new THREE.Mesh(geometryMerge, material);
+        let shapeMesh = new THREE.Mesh(geometryMerge, mergeMaterials);
         this._scene.add(shapeMesh);
         this._addMeshToScene(shapeMesh, this._globals.volume, true);
 
@@ -2070,7 +2065,7 @@ function TMSViewer() {
      * @function
      * @param {Face} face - Face to draw
      * @param {Geometry} geometry - Three.js geometry buffer
-     * @param {object[]} material - Material
+     * @param {MeshPhongMaterial[]} material - Material
      * @param {string[]} name - Name lists
      * @param {number} contour_color - Contour color
      * @private
@@ -2081,7 +2076,14 @@ function TMSViewer() {
         let geom = face.generate_geometry();
         geometry.merge(geom);
         name.push(face.get_name());
-        material.push(true);
+
+        // Create material
+        let mat = new THREE.MeshPhongMaterial({
+            color: 0x888888,
+            shininess: 10,
+            specular: 0x111111,
+        });
+        material.push(mat);
 
         // Create contour
         let objEdges = new THREE.EdgesGeometry(geom);
