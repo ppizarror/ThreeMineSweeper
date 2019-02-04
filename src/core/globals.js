@@ -14,14 +14,6 @@
 let sessionCookie;
 
 /**
- * Stores total ajax time queries.
- * @type {Date}
- * @global
- * @ignore
- */
-let ajaxStartTime;
-
-/**
  * Tolerance used by the application.
  * @global
  * @type {number}

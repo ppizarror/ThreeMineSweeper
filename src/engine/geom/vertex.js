@@ -8,7 +8,7 @@
 "use strict";
 
 /**
- * Vertex class
+ * Vertex class.
  *
  * @class
  * @constructor
@@ -508,8 +508,21 @@ function Vertex(x, y, z, vertex_name) {
      * @returns {boolean}
      */
     this.equal_position = function (vertex) {
-        return this.get_x() === vertex.get_x() && this.get_y() === vertex.get_y() &&
-            this.get_z() === vertex.get_z();
+        return this._eq_pos(this.get_x(), vertex.get_x()) && this._eq_pos(this.get_y(), vertex.get_y()) &&
+            this._eq_pos(this.get_z(), vertex.get_z());
+    };
+
+    /**
+     * Check if two positions are the same.
+     *
+     * @function
+     * @param {number} a
+     * @param {number} b
+     * @returns {boolean}
+     * @private
+     */
+    this._eq_pos = function (a, b) {
+        return Math.abs(a - b) < MIN_TOL;
     };
 
     /**

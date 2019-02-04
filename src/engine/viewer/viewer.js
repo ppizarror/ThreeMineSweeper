@@ -576,8 +576,8 @@ function TMSViewer() {
             // Depth buffer logarithmic
             logarithmicDepthBuffer: false,
 
-            // WebGL power preference "high-performance", "low-power" ó "default"
-            powerPreference: "high-performance",
+            // WebGL power preference 'high-performance', 'low-power' or 'default'
+            powerPreference: 'default',
 
             // Precision
             precision: 'highp',
