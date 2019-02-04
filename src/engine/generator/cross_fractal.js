@@ -112,7 +112,7 @@ function CrossFractal() {
         let v16 = new Vertex(x + (2 * lx / 3), y + (ly / 3), z + (lz / 3));
         let v17 = new Vertex(x + (2 * lx / 3), y + (2 * ly / 3), z + (lz / 3));
         let v18 = new Vertex(x + (lx / 3), y + (2 * ly / 3), z + (lz / 3));
-        this._cross(v11, v12, v13, v14, v15, v16, v17, v18, step + 1, '-1');
+        this._cross(v11, v12, v13, v14, v15, v16, v17, v18, step + 1, cube + '-1');
 
         let v21 = new Vertex(x, y + (ly / 3), z + (lz / 3));
         let v24 = new Vertex(x, y + (2 * ly / 3), z + (lz / 3));
@@ -120,35 +120,35 @@ function CrossFractal() {
         let v26 = new Vertex(x + (lx / 3), y + (ly / 3), z + (2 * lz / 3));
         let v27 = new Vertex(x + (lx / 3), y + (2 * ly / 3), z + (2 * lz / 3));
         let v28 = new Vertex(x, y + (2 * ly / 3), z + (2 * lz / 3));
-        this._cross(v21, v15, v18, v24, v25, v26, v27, v28, step + 1, '-2');
+        this._cross(v21, v15, v18, v24, v25, v26, v27, v28, step + 1, cube + '-2');
 
         let v31 = new Vertex(x + (lx / 3), y, z + (lz / 3));
         let v32 = new Vertex(x + (2 * lx / 3), y, z + (lz / 3));
         let v35 = new Vertex(x + (lx / 3), y, z + (2 * lz / 3));
         let v36 = new Vertex(x + (2 * lx / 3), y, z + (2 * lz / 3));
         let v37 = new Vertex(x + (2 * lx / 3), y + (ly / 3), z + (2 * lz / 3));
-        this._cross(v31, v32, v16, v15, v35, v36, v37, v26, step + 1, '-3');
+        this._cross(v31, v32, v16, v15, v35, v36, v37, v26, step + 1, cube + '-3');
 
         let v42 = new Vertex(x + lx, y + (ly / 3), z + (lz / 3));
         let v43 = new Vertex(x + lx, y + (2 * ly / 3), z + (lz / 3));
         let v46 = new Vertex(x + lx, y + (ly / 3), z + (2 * lz / 3));
         let v47 = new Vertex(x + lx, y + (2 * ly / 3), z + (2 * lz / 3));
         let v48 = new Vertex(x + (2 * lx / 3), y + (2 * ly / 3), z + (2 * lz / 3));
-        this._cross(v16, v42, v43, v17, v37, v46, v47, v48, step + 1, '-4');
+        this._cross(v16, v42, v43, v17, v37, v46, v47, v48, step + 1, cube + '-4');
 
         let v53 = new Vertex(x + (2 * lx / 3), y + ly, z + (lz / 3));
         let v54 = new Vertex(x + (lx / 3), y + ly, z + (lz / 3));
         let v57 = new Vertex(x + (2 * lx / 3), y + ly, z + (2 * lz / 3));
         let v58 = new Vertex(x + (lx / 3), y + ly, z + (2 * lz / 3));
-        this._cross(v18, v17, v53, v54, v27, v48, v57, v58, step + 1, '-5');
+        this._cross(v18, v17, v53, v54, v27, v48, v57, v58, step + 1, cube + '-5');
 
-        this._cross(v15, v16, v17, v18, v26, v37, v48, v27, step + 1, '-6');
+        this._cross(v15, v16, v17, v18, v26, v37, v48, v27, step + 1, cube + '-6');
 
         let v75 = new Vertex(x + (lx / 3), y + (ly / 3), z + lz);
         let v76 = new Vertex(x + (2 * lx / 3), y + (ly / 3), z + lz);
         let v77 = new Vertex(x + (2 * lx / 3), y + (2 * ly / 3), z + lz);
         let v78 = new Vertex(x + (lx / 3), y + (2 * ly / 3), z + lz);
-        this._cross(v26, v37, v48, v27, v75, v76, v77, v78, step + 1, '-7');
+        this._cross(v26, v37, v48, v27, v75, v76, v77, v78, step + 1, cube + '-7');
 
     };
 

@@ -36,7 +36,7 @@ function SierpinskiCube() {
     this._generate = function (xi, yi, zi, xf, yf, zf) {
 
         // Apply limit
-        this._apply_order_limit(1);
+        this._apply_order_limit(2);
 
         // Create vertices
         let v1 = new Vertex(xi, yi, zi, 'V1-0');
@@ -49,7 +49,7 @@ function SierpinskiCube() {
         let v8 = new Vertex(xi, yf, zf, 'V8-0');
 
         // Add faces to volume
-        this._sierpinksi(v1, v2, v3, v4, v5, v6, v7, v8, -1, 'C');
+        this._sierpinksi(v1, v2, v3, v4, v5, v6, v7, v8, 0, 'C');
 
     };
 

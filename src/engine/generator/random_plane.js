@@ -52,7 +52,7 @@ function RandomPlane() {
             y = (Math.random() * ly) + yi;
             z = zo;
             v.push([x, y]);
-            vertices.push(new Vertex(x, y, z, 'V' + (i + 1).toString()));
+            vertices.push(new Vertex(x, y, z, 'V-' + (i + 1).toString()));
         }
 
         // Triangulate
@@ -62,7 +62,7 @@ function RandomPlane() {
 
         // Draw faces
         for (let i = 0; i < triangles.length / 3; i += 1) {
-            faces.push(new Face([vertices[triangles[(3 * i)]], vertices[triangles[(3 * i) + 1]], vertices[triangles[(3 * i) + 2]]], 'F' + (i + 1).toString()));
+            faces.push(new Face([vertices[triangles[(3 * i)]], vertices[triangles[(3 * i) + 1]], vertices[triangles[(3 * i) + 2]]], 'F-' + (i + 1).toString()));
         }
 
         // Add to geometry

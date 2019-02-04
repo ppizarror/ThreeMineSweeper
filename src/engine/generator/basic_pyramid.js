@@ -43,21 +43,21 @@ function BasicPyramid() {
 
         // Create vertices
         let v1 = new Vertex(xi, yi, zm, 'V1');
-        let v2 = new Vertex(xf, yi, zm, 'V1');
-        let v3 = new Vertex(xf, yf, zm, 'V1');
-        let v4 = new Vertex(xi, yf, zm, 'V1');
-        let v5 = new Vertex(xm, ym, h, 'V1');
-        let v6 = new Vertex(xm, ym, -h, 'V1');
+        let v2 = new Vertex(xf, yi, zm, 'V2');
+        let v3 = new Vertex(xf, yf, zm, 'V3');
+        let v4 = new Vertex(xi, yf, zm, 'V4');
+        let v5 = new Vertex(xm, ym, h, 'V5');
+        let v6 = new Vertex(xm, ym, -h, 'V6');
 
         // Create faces
         let f1 = new Face([v5, v2, v1], 'F1');
         let f2 = new Face([v5, v3, v2], 'F2');
         let f3 = new Face([v5, v4, v3], 'F3');
         let f4 = new Face([v5, v1, v4], 'F4');
-        let f5 = new Face([v1, v2, v6], 'F1');
-        let f6 = new Face([v2, v3, v6], 'F2');
-        let f7 = new Face([v3, v4, v6], 'F3');
-        let f8 = new Face([v4, v1, v6], 'F4');
+        let f5 = new Face([v1, v2, v6], 'F5');
+        let f6 = new Face([v2, v3, v6], 'F6');
+        let f7 = new Face([v3, v4, v6], 'F7');
+        let f8 = new Face([v4, v1, v6], 'F8');
 
         // Add faces to volume
         this._volume.add_face([f1, f2, f3, f4, f5, f6, f7, f8]);

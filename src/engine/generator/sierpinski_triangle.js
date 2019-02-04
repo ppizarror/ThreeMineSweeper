@@ -36,7 +36,7 @@ function SierpinskiTriangle() {
     this._generate = function (xi, yi, zi, xf, yf, zf) {
 
         // Apply limit
-        this._apply_order_limit(4);
+        this._apply_order_limit(5);
 
         // Disables checks
         this._disable_face_check();
@@ -65,7 +65,7 @@ function SierpinskiTriangle() {
         v4.scale(a / 2);
 
         // Add faces to volume
-        this._sierpinksi(v1, v2, v3, v4, -1, 'T');
+        this._sierpinksi(v1, v2, v3, v4, 0, 'T');
 
     };
 
