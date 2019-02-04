@@ -164,7 +164,7 @@ function TMSViewer() {
         fpsmeter: true,                  // Show fps
         grid: false,                     // Show grid plane
         gui: true,                       // Show GUI
-        normals: true,                   // Show normals
+        normals: false,                  // Show normals
         planes: false,                   // Show planes
         worldlimits: false,              // Show world limits
 

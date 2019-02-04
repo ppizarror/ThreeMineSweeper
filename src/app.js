@@ -117,7 +117,7 @@ $(function () {
     loadingHandler(true);
     app_viewer.init('#viewer');
 
-    let $fig = 2; // Draw figure
+    let $fig = 4; // Draw figure
     setTimeout(function () {
         let g;
         switch ($fig) {
@@ -139,7 +139,7 @@ $(function () {
             default:
                 return;
         }
-        g.set_order(1);
+        g.set_order(0);
         g.generate(-1, -1, -1, 1, 1, 1);
         g.start();
     }, 500);

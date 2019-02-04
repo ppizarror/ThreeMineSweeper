@@ -32,6 +32,7 @@ lang_db.en = {
     "errordb_themeNotExist_msg": "Selected theme could not be loaded",
     "exception": "Exception",
     "generator_finished": "Geometry generated in {0} seconds. Faces: {1}. Vertices: {4}. Deleted faces: {2}. Duplicated vertices: {3}.",
+    "generator_order_exceeded": "Generator order {0} exceeded maximum limit {1}.",
     "gui_button_close": "Close Menu",
     "gui_button_open": "Open Menu",
     "init_app": "Initializing application",

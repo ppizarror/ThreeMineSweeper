@@ -77,6 +77,20 @@ function Volume(volume_faces, volume_name) {
     this._total_vertices = 0;
 
     /**
+     * Check faces.
+     * @type {boolean}
+     * @private
+     */
+    this._add_check_faces = true;
+
+    /**
+     * Check vertices.
+     * @type {boolean}
+     * @private
+     */
+    this._add_check_vertices = true;
+
+    /**
      * Object pointer.
      * @type {Volume}
      */
@@ -104,6 +118,7 @@ function Volume(volume_faces, volume_name) {
 
         // Disable face check after addition
         if (isNullUndf(disable_check)) disable_check = false;
+        disable_check = disable_check && self._add_check_faces;
 
         // If null
         if (isNullUndf(face)) return false;
@@ -115,7 +130,7 @@ function Volume(volume_faces, volume_name) {
                 r = r && this.add_face(face[j], true);
             }
             self._last_added_faces = face;
-            this._check_after_add_face();
+            if (!disable_check) this._check_after_add_face();
             return r;
         }
 
@@ -131,7 +146,7 @@ function Volume(volume_faces, volume_name) {
             app_console.error('[VOLUME] Face {0} ID {1} could not be added to volume, not valid'.format(face.get_name(), face.get_id()));
             return false;
         }
-        face.check_vertices();
+        if (self._add_check_vertices) face.check_vertices();
         this._faces.push(face);
         face.add_volume(this);
         if (!disable_check) {
@@ -556,6 +571,24 @@ function Volume(volume_faces, volume_name) {
      */
     this.get_total_vertices = function () {
         return this._total_vertices;
+    };
+
+    /**
+     * Disables face check.
+     *
+     * @function
+     */
+    this.disable_face_check = function () {
+        self._add_check_faces = false;
+    };
+
+    /**
+     * Disables vertex check.
+     *
+     * @function
+     */
+    this.disable_vertex_check = function () {
+        self._add_check_vertices = false;
     };
 
     /**

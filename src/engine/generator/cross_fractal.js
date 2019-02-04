@@ -35,6 +35,9 @@ function CrossFractal() {
      */
     this._generate = function (xi, yi, zi, xf, yf, zf) {
 
+        // Apply limit
+        this._apply_order_limit(2);
+
         // Create vertices
         let v1 = new Vertex(xi, yi, zi, 'V1-0');
         let v2 = new Vertex(xf, yi, zi, 'V2-0');

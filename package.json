@@ -1,6 +1,6 @@
 {
   "name": "threeminessweeper",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "TMS is an experimental 3D minesweeper game capable to render advanced geometric maps",
   "main": "index.html",
   "directories": {

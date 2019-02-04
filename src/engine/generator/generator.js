@@ -89,6 +89,41 @@ function Generator() {
     };
 
     /**
+     * Apply order limit.
+     *
+     * @function
+     * @param {number} max_order
+     * @protected
+     */
+    this._apply_order_limit = function (max_order) {
+        self._order = Math.max(self._order, 0);
+        if (self._order > max_order) {
+            app_console.info(lang.generator_order_exceeded.format(self._order, max_order));
+            self._order = max_order;
+        }
+    };
+
+    /**
+     * Disables face check.
+     *
+     * @function
+     * @protected
+     */
+    this._disable_face_check = function () {
+        this._volume.disable_face_check();
+    };
+
+    /**
+     * Disables vertex check.
+     *
+     * @function
+     * @protected
+     */
+    this._disable_vertex_check = function () {
+        this._volume.disable_vertex_check();
+    };
+
+    /**
      * Start new game based on this geometry.
      *
      * @function

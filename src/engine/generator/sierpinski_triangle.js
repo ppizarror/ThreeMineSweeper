@@ -35,6 +35,13 @@ function SierpinskiTriangle() {
      */
     this._generate = function (xi, yi, zi, xf, yf, zf) {
 
+        // Apply limit
+        this._apply_order_limit(4);
+
+        // Disables checks
+        this._disable_face_check();
+        this._disable_vertex_check();
+
         // Calculate origin
         let xo = (xf + xi) / 2;
         let yo = (yf + yi) / 2;
