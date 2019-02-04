@@ -14,6 +14,8 @@ aboutinfo.dependencies = {
     "animate.css": "3.7.0",                 // https://github.com/daneden/animate.css
     "bootstrap": "4.2.1",                   // https://github.com/twbs/bootstrap
     "dat.gui": "0.7.2",                     // https://github.com/dataarts/dat.gui/releases
+    "delaunator": "3.0.2",                  // https://github.com/mapbox/delaunator
+    "earcut": "2.1.4",                      // https://github.com/mapbox/earcut
     "fontawesome": "5.2.0",                 // https://fontawesome.com
     "hover": "2.3.1",                       // https://github.com/IanLunn/Hover
     "jquery": "3.3.1",                      // https://github.com/jquery/jquery

@@ -68,8 +68,10 @@ module.exports = function (config) {
             'src/engine/generator/basic_cube.js',
             'src/engine/generator/basic_pyramid.js',
             'src/engine/generator/cross_fractal.js',
+            'src/engine/generator/random_plane.js',
             'src/engine/generator/sierpinski_cube.js',
             'src/engine/generator/sierpinski_triangle.js',
+            'src/engine/generator/sphere.js',
 
             'src/engine/viewer/viewer.js',
 

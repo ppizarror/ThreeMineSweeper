@@ -29,6 +29,27 @@ function Generator() {
     this._order = 1;
 
     /**
+     * Target face for face-number depending generators.
+     * @type {number}
+     * @protected
+     */
+    this._faces_target = 0;
+
+    /**
+     * Sphere latitude.
+     * @type {number}
+     * @protected
+     */
+    this._lat = 0;
+
+    /**
+     * Sphere longitude.
+     * @type {number}
+     * @protected
+     */
+    this._lng = 0;
+
+    /**
      * ID of the generator.
      * @type {string}
      * @protected
@@ -70,6 +91,7 @@ function Generator() {
      */
     this.generate = function (xi, yi, zi, xf, yf, zf) {
         let ti = new Date();
+        let _xi = Math.min(xi, xf);
         self._generate(xi, yi, zi, xf, yf, zf);
         this._volume.assemble();
         let tf = getSecondsFrom(ti);
@@ -85,7 +107,37 @@ function Generator() {
      * @param {number} order
      */
     this.set_order = function (order) {
-        self._order = order;
+        self._order = Math.max(order, 0);
+    };
+
+    /**
+     * Set face target of the generator.
+     *
+     * @function
+     * @param {number} target
+     */
+    this.set_face_target = function (target) {
+        self._faces_target = Math.max(target, 1);
+    };
+
+    /**
+     * Set geometry latitude.
+     *
+     * @function
+     * @param {number} lat
+     */
+    this.set_latitude = function (lat) {
+        self._lat = Math.max(lat, 3);
+    };
+
+    /**
+     * Set geometry longitude.
+     *
+     * @function
+     * @param {number} lng
+     */
+    this.set_longitude = function (lng) {
+        self._lng = Math.max(lng, 3);
     };
 
     /**

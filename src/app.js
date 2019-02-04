@@ -117,7 +117,7 @@ $(function () {
     loadingHandler(true);
     app_viewer.init('#viewer');
 
-    let $fig = 4; // Draw figure
+    let $fig = 6; // Draw figure
     setTimeout(function () {
         let g;
         switch ($fig) {
@@ -136,10 +136,19 @@ $(function () {
             case 4:
                 g = new SierpinskiTriangle();
                 break;
+            case 5:
+                g = new Sphere();
+                break;
+            case 6:
+                g = new RandomPlane();
+                break;
             default:
                 return;
         }
-        g.set_order(0);
+        g.set_order(2);
+        g.set_face_target(50);
+        g.set_latitude(10);
+        g.set_longitude(10);
         g.generate(-1, -1, -1, 1, 1, 1);
         g.start();
     }, 500);
