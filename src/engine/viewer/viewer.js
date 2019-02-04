@@ -161,7 +161,7 @@ function TMSViewer() {
          * Status
          */
         axis: true,                      // Show axis
-        cameratarget: false,             // Show camera target
+        cameratarget: true,              // Show camera target
         fpsmeter: true,                  // Show fps
         grid: false,                     // Show grid plane
         gui: true,                       // Show GUI
@@ -174,7 +174,7 @@ function TMSViewer() {
          */
         axissize: 0.40,                  // Axis sizes
         cameratargetcolor: 0X0000FF,     // Color target
-        cameratargetsize: 0.10,          // Size target
+        cameratargetsize: 0.05,          // Size target
         griddist: 0.03,                  // Grid distance in percentage
         guistartclosed: true,            // GUI starts closed
         guicloseafterpopup: false,       // GUI closes after an popup
