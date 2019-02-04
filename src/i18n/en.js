@@ -48,4 +48,5 @@ lang_db.en = {
     "viewer_gui_export_light_title": "Light",
     "viewer_gui_fog": "Fog",
     "viewer_gui_light": "Static light",
+    "viewer_tooltip_empty_class": "Viewer tooltip class cannot be empty",
 };

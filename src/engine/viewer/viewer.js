@@ -16,6 +16,7 @@
 function TMSViewer() {
     /* eslint-disable arrow-parens */
     /* eslint-disable newline-per-chained-call */
+    /* eslint-disable no-extra-parens */
     /* eslint-disable no-mixed-operators */
 
     /**
@@ -217,6 +218,7 @@ function TMSViewer() {
         volume: 'VOLUME',
     };
 
+    // noinspection JSUnusedGlobalSymbols
     /**
      * Object properties.
      * @protected
@@ -306,6 +308,81 @@ function TMSViewer() {
             enabled: true,
         },
 
+        /**
+         * Tooltip
+         */
+        tooltip: {
+            addMode: function (m) {             // Adds an mode, functions that take intersected object
+                let $f = m.__eval;
+                if (notNullUndf($f)) self.objects_props.tooltip.modes.push($f);
+            },
+            container: 'viewer',                // Viewer ID
+            enabled: false,                     // Check if tooltip is enabled or not
+            ignoreEmpty: true,                  // If content is empty then tooltip dont show
+            left: 20,                           // Tooltip lateral offset
+            mode: {
+
+                // Group mode, uses faces
+                group: {
+                    addContainer: function (container, name) { // Adds an group
+                        self.objects_props.tooltip.mode.group.__groups.push(container);
+                        self.objects_props.tooltip.mode.group.__names[container] = name;
+                    },
+                    __names: {}, // Store names
+                    __groups: [], // Store groups
+                    __eval: function (intersects) {
+
+                        // Check first intersected object, must be opaque (not transparent)
+                        try {
+                            for (let i = 0; i < intersects.length; i += 1) {
+                                if (self.objects_props.tooltip.mode.group.__groups.indexOf(intersects[i].object.name) !== -1 && intersects[i].object.material[intersects[i].face.materialIndex].opacity !== 0) {
+                                    return self.objects_props.tooltip.mode.group.__names[intersects[i].object.name][intersects[i].face.materialIndex];
+                                }
+                            }
+                        } catch ($e) {
+                        } finally {
+                        }
+                        return '';
+
+                    }
+                },
+
+                // Mesh group, takes object
+                mesh: {
+                    addIgnore: function (name) { // Ignored mesh
+                        if (self.objects_props.tooltip.mode.mesh.__ignored.indexOf(name) === -1) {
+                            self.objects_props.tooltip.mode.mesh.__ignored.push(name);
+                        }
+                    },
+                    delIgnore: function (name) { // Delete ignored mesh
+                        let $indx = self.objects_props.tooltip.mode.mesh.__ignored.indexOf(name);
+                        if ($indx !== -1) {
+                            self.objects_props.tooltip.mode.mesh.__ignored.splice($indx, 1);
+                        }
+                    },
+                    __eval: function (intersects) {
+
+                        // Check first intersected object, must be opaque (not transparent)
+                        try {
+                            for (let i = 0; i < intersects.length; i += 1) {
+                                if (self.objects_props.tooltip.mode.mesh.__ignored.indexOf(intersects[i].object.name) === -1 && intersects[i].object.material.opacity !== 0) {
+                                    return intersects[i].object.name;
+                                }
+                            }
+                        } catch ($e) {
+                        } finally {
+                        }
+                        return '';
+
+                    },
+                    __ignored: [this._globals.plane, this._globals.contour, this._globals.helper],
+                }
+            },
+            modes: [],                          // Update modes
+            tooltipClass: 'viewer-tooltip',     // Tooltip class
+            top: -12,                           // Vertical tooltip offset
+        },
+
     };
 
     /**
@@ -324,14 +401,14 @@ function TMSViewer() {
      */
     this._collaidableMeshes = [];
 
-    // noinspection JSUnusedGlobalSymbols
     /**
      * Mouse coordinates.
      * @private
      */
     this._mouse = {
         x: 0,
-        y: 0
+        y: 0,
+        inside: false,
     };
 
 
@@ -1166,7 +1243,6 @@ function TMSViewer() {
             e.preventDefault();
         });
 
-        // noinspection JSUnusedLocalSymbols
         /**
          * Move mouse around canvas
          */
@@ -1174,6 +1250,7 @@ function TMSViewer() {
 
             // e.preventDefault();
             self._mouseMoveDrag = self._hasMousePressed && true;
+            self._mouseHandler(e);
 
         });
 
@@ -1221,7 +1298,7 @@ function TMSViewer() {
                 case 69: // [E]
                     self._moveUp();
                     break;
-                default: // Se ignoran otros input
+                default: // Ignore other inputs
                     break;
             }
         });
@@ -1233,6 +1310,183 @@ function TMSViewer() {
          * Canvas resize
          */
         this._threeResize(true);
+
+    };
+
+    /**
+     * Handles mouse.
+     *
+     * @function
+     * @param {Object} e - Event
+     * @private
+     */
+    this._mouseHandler = function (e) {
+
+        /**
+         * Check events
+         */
+        if (self._hasMousePressed || self._hasKeyPressed || !self._hasMouseOver) {
+            self.objects_props.tooltip.obj.css('display', 'none');
+            return;
+        }
+
+        /**
+         * Get general dimensions
+         */
+        let $offset = self._canvasParent.offset();
+        let $wh = self._canvasParent.innerHeight();
+        let $ww = self._canvasParent.innerWidth();
+
+        /**
+         * Mouse position inside window
+         */
+        let $x = e.clientX - $offset.left + app_dom.window.scrollLeft();
+        let $y = e.clientY - $offset.top + app_dom.window.scrollTop();
+
+        /**
+         * Tooltip position
+         */
+        let $tx = 0;
+        let $ty = 0;
+        let $contentw = 0;
+
+        /**
+         * Check mouse is inside canvas
+         */
+        let $show = ($x >= 0 && $x <= $ww) && ($y >= 0 && $y <= $wh);
+
+        /**
+         * Updates mouse
+         */
+        self._mouse.inside = $show;
+        self._mouse.x = (($x / $ww) * 2) - 1;
+        self._mouse.y = (-($y / $wh) * 2) + 1;
+
+        /**
+         * Apply raycast
+         */
+        self._raycaster.setFromCamera(self._mouse, self._three_camera);
+        let intersects = self._raycaster.intersectObjects(self._scene.children, false);
+
+        /**
+         * Check results
+         */
+        if (isNullUndf(intersects) || intersects.length === 0) {
+            $show = false;
+        } else { // Intersected
+
+            let $content = ''; // Tooltip content
+
+            // Check each tooltip
+            for (let i = 0; i < self.objects_props.tooltip.modes.length; i += 1) {
+                $content += self.objects_props.tooltip.modes[i](intersects);
+            }
+
+            // Write content
+            self.objects_props.tooltip.obj.html($content);
+
+            // Ignore empty
+            if ($content === '' && self.objects_props.tooltip.ignoreEmpty) {
+                $show = false;
+            } else {
+
+                /**
+                 * Check position of tooltip
+                 */
+                $contentw = self.objects_props.tooltip.obj.outerWidth();
+
+                /**
+                 * Tooltip left
+                 */
+                if ($contentw !== 0 && ($contentw + e.clientX + self.objects_props.tooltip.left + app_dom.window.scrollLeft()) > app_dom.window.width()) {
+
+                    // Remove classes
+                    self.objects_props.tooltip.obj.addClass('tooltip-left');
+                    self.objects_props.tooltip.obj.removeClass('tooltip-right');
+
+                    // Get position
+                    $ty = e.clientY + self.objects_props.tooltip.top + app_dom.window.scrollTop();
+                    $tx = e.clientX - self.objects_props.tooltip.left + app_dom.window.scrollLeft() - $contentw;
+
+                }
+
+                /**
+                 * Tooltip right
+                 */
+                else {
+
+                    // Remove classes
+                    self.objects_props.tooltip.obj.addClass('tooltip-right');
+                    self.objects_props.tooltip.obj.removeClass('tooltip-left');
+
+                    // Get website size
+                    let $wwidth = app_dom.window.width();
+                    let $mnwidth = app_dom.root.outerWidth();
+
+                    // Calculate position
+                    $tx = $x + self.objects_props.tooltip.left + $offset.left;
+                    if ($wwidth > $mnwidth) {
+                        $tx -= ($wwidth - $mnwidth) / 2;
+                    }
+                    $ty = e.clientY + self.objects_props.tooltip.top + app_dom.window.scrollTop();
+
+                }
+
+            }
+        }
+
+        /**
+         * Apply style
+         */
+        self.objects_props.tooltip.obj.css({
+            display: $show ? 'block' : 'none',
+            left: $tx,
+            top: $ty,
+        });
+
+    };
+
+    /**
+     * Init tooltip.
+     *
+     * @function
+     * @protected
+     */
+    this._initTooltip = function () {
+
+        /**
+         * Enable tooltip
+         */
+        this.objects_props.tooltip.enabled = true;
+
+        /**
+         * If tooltip exists then it's removed
+         */
+        if (notNullUndf(this.objects_props.tooltip.obj)) {
+            this.objects_props.tooltip.obj.remove();
+        }
+
+        /**
+         * Create tooltip in main content
+         * @type {string}
+         */
+        let $tooltipid = generateID();
+        $('#' + this.objects_props.tooltip.container).append('<div id="{0}" class="{1}"></div>'.format($tooltipid, this.objects_props.tooltip.tooltipClass));
+        if (this.objects_props.tooltip.tooltipClass === '') {
+            app_console.warn(lang.viewer_tooltip_empty_class);
+        }
+
+        /**
+         * Get object
+         * @type {JQuery | jQuery | HTMLElement}
+         */
+        this.objects_props.tooltip.obj = $('#' + $tooltipid);
+
+        /**
+         * Configure tooltip
+         */
+        self.objects_props.tooltip.enabled = false;
+        self.objects_props.tooltip.addMode(self.objects_props.tooltip.mode.group);
 
     };
 
@@ -1966,8 +2220,8 @@ function TMSViewer() {
 
                 // noinspection JSValidateTypes
                 this._helperInstances.cameratarget = {
+                    obj: mesh,
                     update: this._helpersUpdate.length - 1,
-                    obj: mesh
                 }
             }
         } else { // Deletes helper if initialized
@@ -2022,8 +2276,8 @@ function TMSViewer() {
 
         // Create figure
         self._viewerMesh = new THREE.Mesh(geometryMerge, mergeMaterials);
-        this._scene.add(this._viewerMesh);
         this._addMeshToScene(this._viewerMesh, this._globals.volume, true);
+        this.objects_props.tooltip.mode.group.addContainer(this._globals.volume, meshNames);
 
         // Adds normal helper
         if (this.threejs_helpers.normals) {
@@ -2062,7 +2316,7 @@ function TMSViewer() {
      *
      * @function
      * @param {Face} face - Face to draw
-     * @param {Geometry} geometry - Three.js geometry buffer
+     * @param {Object} geometry - Three.js geometry buffer
      * @param {MeshPhongMaterial[]} material - Material
      * @param {string[]} name - Name lists
      * @param {number} contour_color - Contour color
@@ -2072,8 +2326,6 @@ function TMSViewer() {
 
         // Create geometry
         let geom = face.generate_geometry();
-        geometry.merge(geom);
-        name.push(face.get_name());
 
         // Create material
         let mat = new THREE.MeshPhongMaterial({
@@ -2081,6 +2333,20 @@ function TMSViewer() {
             shininess: 10,
             specular: 0x111111,
         });
+
+        // Create mesh
+        let $mesh = new THREE.Mesh(geom, mat);
+
+        // Update mesh with material
+        $mesh.updateMatrix();
+        let $meshfaces = $mesh.geometry.faces;
+        for (let i = 0; i < $meshfaces.length; i += 1) { // Update each face index
+            $mesh.geometry.faces[i].materialIndex = 0;
+        }
+
+        // Merge geometry
+        geometry.merge($mesh.geometry, $mesh.matrix, material.length);
+        name.push(face.get_name());
         material.push(mat);
 
         // Create contour
@@ -2152,6 +2418,7 @@ function TMSViewer() {
         self._initThree();
         self._initWorldObjects();
         self._initEvents();
+        self._initTooltip();
         self._animateFrame();
     };
 
