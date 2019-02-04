@@ -46,7 +46,7 @@ function SierpinskiCube() {
         let v8 = new Vertex(xi, yf, zf, 'V8-0');
 
         // Add faces to volume
-        this._sierpinksi(v1, v2, v3, v4, v5, v6, v7, v8, 0, 'C');
+        this._sierpinksi(v1, v2, v3, v4, v5, v6, v7, v8, -1, 'C');
 
     };
 
