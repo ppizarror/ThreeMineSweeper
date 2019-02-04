@@ -120,8 +120,9 @@ $(function () {
     // Draw figure
     setTimeout(function () {
         // let g = new CrossFractal();
-        let g = new SierpinskiCube();
-        g.set_order(2);
+        let g = new SierpinskiTriangle();
+
+        g.set_order(0);
         g.generate(-1, -1, -1, 1, 1, 1);
         g.start();
     }, 500);

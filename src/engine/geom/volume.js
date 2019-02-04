@@ -8,7 +8,7 @@
 "use strict";
 
 /**
- * Vertex class.
+ * Volume, contains faces and generates the whole figure topology.
  *
  * @class
  * @constructor

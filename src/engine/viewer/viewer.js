@@ -8,7 +8,7 @@
 "use strict";
 
 /**
- * Main viewer class
+ * Main viewer class.
  *
  * @class
  * @constructor
