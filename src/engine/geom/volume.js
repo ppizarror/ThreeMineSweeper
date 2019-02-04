@@ -70,6 +70,13 @@ function Volume(volume_faces, volume_name) {
     this._vertices_duplicated = 0;
 
     /**
+     * Total vertices.
+     * @type {number}
+     * @private
+     */
+    this._total_vertices = 0;
+
+    /**
      * Object pointer.
      * @type {Volume}
      */
@@ -474,6 +481,9 @@ function Volume(volume_faces, volume_name) {
             }
         }
 
+        // Total vertices
+        self._total_vertices = v.length;
+
         // Update faces
         self._last_added_faces = f;
         this._check_after_add_face();
@@ -536,6 +546,16 @@ function Volume(volume_faces, volume_name) {
      */
     this.get_duplicated_vertices = function () {
         return this._vertices_duplicated;
+    };
+
+    /**
+     * Return total vertices.
+     *
+     * @function
+     * @returns {number}
+     */
+    this.get_total_vertices = function () {
+        return this._total_vertices;
     };
 
     /**

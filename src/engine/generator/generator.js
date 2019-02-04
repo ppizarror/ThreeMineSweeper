@@ -74,7 +74,8 @@ function Generator() {
         this._volume.assemble();
         let tf = getSecondsFrom(ti);
         app_console.info(lang.generator_finished.format(tf, this._volume.get_total_faces(),
-            this._volume.get_total_deleted_faces(), this._volume.get_duplicated_vertices()));
+            this._volume.get_total_deleted_faces(), this._volume.get_duplicated_vertices(),
+            this._volume.get_total_vertices()));
     };
 
     /**
