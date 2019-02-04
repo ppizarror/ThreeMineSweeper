@@ -161,7 +161,7 @@ function TMSViewer() {
          * Status
          */
         axis: true,                      // Show axis
-        cameratarget: true,             // Show camera target
+        cameratarget: false,             // Show camera target
         fpsmeter: true,                  // Show fps
         grid: false,                     // Show grid plane
         gui: true,                       // Show GUI
@@ -2030,7 +2030,7 @@ function TMSViewer() {
         });
         let shapeMesh = new THREE.Mesh(geometryMerge, material);
         this._scene.add(shapeMesh);
-        this._addMeshToScene(shapeMesh, this._globals.volume, true, true, true);
+        this._addMeshToScene(shapeMesh, this._globals.volume, true);
 
         // Adds normal helper
         if (this.threejs_helpers.normals) {

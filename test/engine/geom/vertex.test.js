@@ -141,4 +141,22 @@ describe('Test vertex', function () {
         expect(v1.equal_position(v2)).toBe(true);
     });
 
+    it('Test join replace', function () {
+        let v1 = new Vertex();
+        let v2 = new Vertex(1, 0);
+        let v3 = new Vertex(1, 1);
+        let vr = new Vertex();
+        let f1 = new Face([v1, v2, v3]);
+        let f2 = new Face([vr, v2, v3]);
+        f1.assemble();
+        f2.assemble();
+        expect(v1.equal_position(vr)).toBe(true);
+        expect(f1.has_vertex(vr)).toBe(false);
+        expect(v1.join_replace(vr)).toBe(true);
+        expect(f2.has_vertex(vr)).toBe(false);
+        expect(f2.has_vertex(v1)).toBe(true);
+        expect(v1.has_face([f1, f2])).toBe(true);
+        expect(vr.has_face([f1, f2])).toBe(false);
+    });
+
 });

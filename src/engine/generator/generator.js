@@ -72,10 +72,9 @@ function Generator() {
         let ti = new Date();
         self._generate(xi, yi, zi, xf, yf, zf);
         this._volume.assemble();
-        this._volume.check_vertices();
         let tf = getSecondsFrom(ti);
         app_console.info(lang.generator_finished.format(tf, this._volume.get_total_faces(),
-            this._volume.get_total_deleted_faces()));
+            this._volume.get_total_deleted_faces(), this._volume.get_duplicated_vertices()));
     };
 
     /**

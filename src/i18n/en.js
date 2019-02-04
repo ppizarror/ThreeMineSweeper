@@ -31,7 +31,7 @@ lang_db.en = {
     "errordb_themeNotExist_moreinfo": "Check your application theme settings or contact the administrator",
     "errordb_themeNotExist_msg": "Selected theme could not be loaded",
     "exception": "Exception",
-    "generator_finished": "Geometry generated in {0} seconds. Faces: {1}. Deleted faces: {2}.",
+    "generator_finished": "Geometry generated in {0} seconds. Faces: {1}. Deleted faces: {2}. Duplicated vertices: {3}.",
     "gui_button_close": "Close Menu",
     "gui_button_open": "Open Menu",
     "init_app": "Initializing application",

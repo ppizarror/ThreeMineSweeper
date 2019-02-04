@@ -16,6 +16,7 @@
  * @param {string=} volume_name - Volume name
  */
 function Volume(volume_faces, volume_name) {
+    /* eslint-disable max-depth */
     /* eslint-disable new-cap */
     /* eslint-disable no-continue */
 
@@ -60,6 +61,13 @@ function Volume(volume_faces, volume_name) {
      * @private
      */
     this._faces_deleted = 0;
+
+    /**
+     * Stores duplicated vertices.
+     * @type {number}
+     * @private
+     */
+    this._vertices_duplicated = 0;
 
     /**
      * Object pointer.
@@ -423,23 +431,52 @@ function Volume(volume_faces, volume_name) {
      */
     this._check_vertices = function () {
 
-        // Find vertices from last added faces
-        let v_last = this.get_vertices();
-
-        // Get current vertices
+        // Get vertices
         let v = this.get_vertices();
 
+        // Find affected faces
+        let f = [];
+        let f_id = [];
+
+        // Find duplicated vertices
         let vi, vj;
         for (let i = 0; i < v.length; i += 1) {
             vi = v[i];
-            for (let j = 0; j < v_last.length; j += 1) {
-                vj = v_last[j];
+            for (let j = 0; j < v.length; j += 1) {
+                vj = v[j];
                 if (vi.equals(vj)) continue;
                 if (vj.equal_position(vi)) {
-                    console.log('Media cagá');
+
+                    // Store affected faces
+                    let fi = vi.get_faces();
+                    for (let ii = 0; ii < fi.length; ii += 1) {
+                        if (!f_id.includes(fi[ii].get_id())) {
+                            f.push(fi[ii]);
+                            f_id.push(fi[ii].get_id());
+                        }
+                    }
+                    let fj = vj.get_faces();
+                    for (let jj = 0; jj < fj.length; jj += 1) {
+                        if (!f_id.includes(fj[jj].get_id())) {
+                            f.push(fj[jj]);
+                            f_id.push(fj[jj].get_id());
+                        }
+                    }
+
+                    // Replace vertices
+                    vi.join_replace(vj);
+                    v.splice(j, 1);
+
+                    j -= 1;
+                    self._vertices_duplicated += 1;
+
                 }
             }
         }
+
+        // Update faces
+        self._last_added_faces = f;
+        this._check_after_add_face();
 
     };
 
@@ -485,10 +522,20 @@ function Volume(volume_faces, volume_name) {
      * Return number of deleted faces.
      *
      * @function
-     * @return {number}
+     * @returns {number}
      */
     this.get_total_deleted_faces = function () {
         return this._faces_deleted;
+    };
+
+    /**
+     * Get duplicated vertices.
+     *
+     * @function
+     * @returns {number}
+     */
+    this.get_duplicated_vertices = function () {
+        return this._vertices_duplicated;
     };
 
     /**

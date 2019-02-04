@@ -513,13 +513,22 @@ function Vertex(x, y, z, vertex_name) {
     };
 
     /**
-     * Replace vertex by another.
+     * Join vertex and replace external, vertices must have same position.
      *
      * @function
      * @param {Vertex} vertex
+     * @returns {boolean}
      */
-    this.replace_by = function (vertex) {
-
+    this.join_replace = function (vertex) {
+        if (!this.equal_position(vertex)) return false;
+        this.set_name(vertex.get_name());
+        let f = vertex.get_faces();
+        for (let i = 0; i < f.length; i += 1) {
+            this.add_face(f[i]);
+            vertex.remove_face(f[i]);
+            f[i].replace_vertex(vertex, this);
+        }
+        return true;
     };
 
     /**

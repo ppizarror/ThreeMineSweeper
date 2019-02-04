@@ -684,6 +684,24 @@ function Face(face_vertex, face_name) {
     };
 
     /**
+     * Replaces vertex.
+     *
+     * @function
+     * @param {Vertex} from
+     * @param {Vertex} to
+     * @returns {boolean}
+     */
+    this.replace_vertex = function (from, to) {
+        for (let i = 0; i < this._vertex.length; i += 1) {
+            if (this._vertex[i].equals(from)) {
+                this._vertex[i] = to;
+                return true;
+            }
+        }
+        return false;
+    };
+
+    /**
      * Apply constructor
      */
     this.add_vertex(face_vertex);
