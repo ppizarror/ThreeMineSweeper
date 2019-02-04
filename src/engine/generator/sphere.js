@@ -43,6 +43,49 @@ function Sphere() {
         // Calculate radius
         let r = Math.min((xf - xi) / 2, (yf - yi) / 2, (zf - zi) / 2);
 
+        // Create hemispheres vertices
+        let vi = new Vertex(xo, yo, -r);
+        let vs = new Vertex(xo, yo, r);
+
+        // Create latitudes heights
+        let lath = [];
+        let lz = zi;
+        for (let i = 0; i < this._lat; i += 1) {
+            lz += ((2 * r) / (this._lat + 1));
+            lath.push(lz);
+        }
+
+        // Create latitudes vertices
+        let latv = [];
+        let theta, rj;
+        for (let i = 0; i < this._lat; i += 1) {
+            let latvi = [];
+            for (let j = 0; j < this._lng; j += 1) {
+                theta = 2 * Math.PI * j / (this._lng);
+                rj = Math.sqrt(Math.pow(r, 2) - Math.pow(Math.abs(lath[i] - zo), 2));
+                latvi.push(new Vertex(rj * Math.cos(theta), rj * Math.sin(theta), lath[i]));
+            }
+            latv.push(latvi);
+        }
+
+        // Create vertices hemispheres faces
+        for (let i = 0; i < this._lng; i += 1) {
+            this._volume.add_face(new Face([vi, latv[0][i % this._lng], latv[0][(i + 1) % this._lng]]));
+        }
+        for (let i = 0; i < this._lng; i += 1) {
+            this._volume.add_face(new Face([vs, latv[this._lat - 1][(i + 1) % this._lng], latv[this._lat - 1][i % this._lng]]));
+        }
+
+        // Create faces between hemispheres
+        let f;
+        for (let i = 0; i < this._lat - 1; i += 1) {
+            for (let j = 0; j < this._lng; j += 1) {
+                f = new Face([latv[i][j], latv[i][(j + 1) % this._lng], latv[(i + 1) % this._lat][(j + 1) % this._lng], latv[(i + 1) % this._lat][j]]);
+                f.reverse_vertices();
+                this._volume.add_face(f);
+            }
+        }
+
     };
 
 }

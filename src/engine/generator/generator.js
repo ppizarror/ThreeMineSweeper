@@ -92,7 +92,12 @@ function Generator() {
     this.generate = function (xi, yi, zi, xf, yf, zf) {
         let ti = new Date();
         let _xi = Math.min(xi, xf);
-        self._generate(xi, yi, zi, xf, yf, zf);
+        let _xf = Math.max(xi, xf);
+        let _yi = Math.min(yi, yf);
+        let _yf = Math.max(yi, yf);
+        let _zi = Math.min(zi, zf);
+        let _zf = Math.max(zi, zf);
+        self._generate(_xi, _yi, _zi, _xf, _yf, _zf);
         this._volume.assemble();
         let tf = getSecondsFrom(ti);
         app_console.info(lang.generator_finished.format(tf, this._volume.get_total_faces(),
@@ -127,7 +132,7 @@ function Generator() {
      * @param {number} lat
      */
     this.set_latitude = function (lat) {
-        self._lat = Math.max(lat, 3);
+        self._lat = Math.max(lat, 1);
     };
 
     /**

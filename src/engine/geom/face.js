@@ -169,6 +169,15 @@ function Face(face_vertex, face_name) {
     };
 
     /**
+     * Reverse vertices.
+     *
+     * @function
+     */
+    this.reverse_vertices = function () {
+        this._vertex.reverse();
+    };
+
+    /**
      * Return number of vertices.
      *
      * @function

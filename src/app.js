@@ -117,7 +117,7 @@ $(function () {
     loadingHandler(true);
     app_viewer.init('#viewer');
 
-    let $fig = 6; // Draw figure
+    let $fig = 5; // Draw figure
     setTimeout(function () {
         let g;
         switch ($fig) {
@@ -147,8 +147,8 @@ $(function () {
         }
         g.set_order(2);
         g.set_face_target(50);
-        g.set_latitude(10);
-        g.set_longitude(10);
+        g.set_latitude(30);
+        g.set_longitude(30);
         g.generate(-1, -1, -1, 1, 1, 1);
         g.start();
     }, 500);
