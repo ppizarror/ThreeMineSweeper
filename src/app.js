@@ -117,7 +117,7 @@ $(function () {
     loadingHandler(true);
     app_viewer.init('#viewer');
 
-    let $fig = 5; // Draw figure
+    let $fig = 6; // Draw figure
     setTimeout(function () {
         let g;
         switch ($fig) {
@@ -137,10 +137,13 @@ $(function () {
                 g = new SierpinskiTriangle();
                 break;
             case 5:
-                g = new Sphere();
+                g = new RandomPlane();
                 break;
             case 6:
-                g = new RandomPlane();
+                g = new Sphere();
+                break;
+            case 7:
+                g = new Cylinder();
                 break;
             default:
                 return;

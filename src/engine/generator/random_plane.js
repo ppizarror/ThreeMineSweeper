@@ -1,5 +1,5 @@
 /**
- RANDOM PLANE.
+ RANDOM PLANE
  Creates an random plane.
 
  @author Pablo Pizarro R. @ppizarror.com

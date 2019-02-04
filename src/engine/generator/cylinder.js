@@ -1,6 +1,6 @@
 /**
- SPHERE
- Sphere class.
+ CYLINDER
+ Regular cylinder class.
 
  @author Pablo Pizarro R. @ppizarror.com
  @license MIT
@@ -8,12 +8,12 @@
 "use strict";
 
 /**
- * Sphere.
+ * Cylinder.
  *
  * @class
  * @extends {Generator}
  */
-function Sphere() {
+function Cylinder() {
     /* eslint-disable no-extra-parens */
 
     /**
@@ -38,7 +38,6 @@ function Sphere() {
         // Calculate origin
         let xo = (xf + xi) / 2;
         let yo = (yf + yi) / 2;
-        let zo = (zf + zi) / 2;
 
         // Calculate radius
         let r = Math.min((xf - xi) / 2, (yf - yi) / 2, (zf - zi) / 2);
@@ -50,20 +49,20 @@ function Sphere() {
         // Create latitudes heights
         let lath = [];
         let lz = zi;
-        for (let i = 0; i < this._lat; i += 1) {
-            lz += ((2 * r) / (this._lat + 1));
+        let lat = Math.min(2, this._lat);
+        for (let i = 0; i < lat; i += 1) {
+            lz = i * ((2 * r) / (lat - 1));
             lath.push(lz);
         }
 
         // Create latitudes vertices
         let latv = [];
-        let theta, rj;
+        let theta;
         for (let i = 0; i < this._lat; i += 1) {
             let latvi = [];
             for (let j = 0; j < this._lng; j += 1) {
                 theta = 2 * Math.PI * j / (this._lng);
-                rj = Math.sqrt(Math.pow(r, 2) - Math.pow(Math.abs(lath[i] - zo), 2));
-                latvi.push(new Vertex(rj * Math.cos(theta), rj * Math.sin(theta), lath[i]));
+                latvi.push(new Vertex(r * Math.cos(theta), r * Math.sin(theta), zi + lath[i]));
             }
             latv.push(latvi);
         }
