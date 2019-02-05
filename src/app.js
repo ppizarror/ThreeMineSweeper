@@ -15,6 +15,18 @@
 let app_tms = new ThreeMinesSweeper();
 
 /**
+ * Pointer to loaded language {@link lang_db}.
+ * @global
+ */
+let lang;
+
+/**
+ * Cookies.
+ * @global
+ */
+let sessionCookie;
+
+/**
  * App init
  */
 $(function () {

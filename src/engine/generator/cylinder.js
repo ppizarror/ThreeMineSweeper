@@ -48,7 +48,7 @@ function Cylinder() {
 
         // Create latitudes heights
         let lath = [];
-        let lz = zi;
+        let lz;
         let lat = Math.max(2, this._lat);
         for (let i = 0; i < lat; i += 1) {
             lz = i * ((2 * r) / (lat - 1));

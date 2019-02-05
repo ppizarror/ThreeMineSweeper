@@ -36,14 +36,7 @@ const lang_available = ['en'];
  */
 
 /**
- * Pointer to loaded language {@link lang_db}
- * @var
- * @global
- */
-let lang;
-
-/**
- * Lang database
+ * Lang database.
  * @var
  * @global
  */

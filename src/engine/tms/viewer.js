@@ -1626,7 +1626,7 @@ function TMSViewer() {
                 this._helperInstances.cameratarget = {
                     obj: mesh,
                     update: this._helpersUpdate.length - 1,
-                }
+                };
             }
         } else { // Deletes helper if initialized
             if (notNullUndf(this._helperInstances.cameratarget)) {

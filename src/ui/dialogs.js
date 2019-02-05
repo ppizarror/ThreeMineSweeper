@@ -358,7 +358,7 @@ function AppDialog() {
                 $prevsubmit();
                 let jc = this;
                 jc.close();
-            }
+            };
         }
 
         options['confirm'] = submit;

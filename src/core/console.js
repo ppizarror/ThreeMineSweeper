@@ -62,7 +62,6 @@ function AppConsole() {
         msg = msg.replace(/&lt;/g, '<');
         msg = msg.replace(/&gt;/g, '>');
         msg = msg.replace(/&nbsp;/g, ' ');
-        msg = msg.replace(/&amp;/g, '&');
         msg = msg.replace(/&quot;/g, '"');
         msg = msg.replace(/&apos;/g, "'");
         return msg;

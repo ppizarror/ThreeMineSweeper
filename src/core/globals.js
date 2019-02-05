@@ -8,12 +8,6 @@
 "use strict";
 
 /**
- * Cookies.
- * @global
- */
-let sessionCookie;
-
-/**
  * Tolerance used by the application.
  * @global
  * @type {number}
