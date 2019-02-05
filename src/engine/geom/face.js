@@ -862,8 +862,8 @@ function Face(face_vertex, face_name) {
      * @param {number} y
      */
     this.set_uv_translate = function (x, y) {
-        self._uv_traslate.setX(x);
-        self._uv_traslate.setY(y);
+        self._uv_traslate.setX(-x);
+        self._uv_traslate.setY(-y);
     };
 
     /**

@@ -69,11 +69,14 @@ function Sphere() {
         }
 
         // Create vertices hemispheres faces
+        let face;
         for (let i = 0; i < this._lng; i += 1) {
-            this._volume.add_face(new Face([vi, latv[0][i % this._lng], latv[0][(i + 1) % this._lng]], 'F-B' + i.toString()));
+            face = new Face([vi, latv[0][i % this._lng], latv[0][(i + 1) % this._lng]], 'F-B' + i.toString());
+            this._volume.add_face(face);
         }
         for (let i = 0; i < this._lng; i += 1) {
-            this._volume.add_face(new Face([vs, latv[this._lat - 1][(i + 1) % this._lng], latv[this._lat - 1][i % this._lng]], 'F-T' + i.toString()));
+            face = new Face([vs, latv[this._lat - 1][(i + 1) % this._lng], latv[this._lat - 1][i % this._lng]], 'F-T' + i.toString());
+            this._volume.add_face(face);
         }
 
         // Create faces between hemispheres

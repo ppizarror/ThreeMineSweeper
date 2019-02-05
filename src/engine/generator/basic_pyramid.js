@@ -72,11 +72,11 @@ function BasicPyramid() {
         let f = [f1, f2, f3, f4, f5, f6, f7, f8];
         for (let i = 0; i < f.length / 2; i += 1) {
             f[i].set_uv_scale(1.2);
-            f[i].set_uv_translate(-0.1, -0.075);
+            f[i].set_uv_translate(0.1, 0.075);
         }
         for (let i = f.length / 2; i < f.length; i += 1) {
             f[i].set_uv_scale(1.2);
-            f[i].set_uv_translate(-0.1, -0.150);
+            f[i].set_uv_translate(0.1, 0.150);
         }
 
         // Add faces to volume

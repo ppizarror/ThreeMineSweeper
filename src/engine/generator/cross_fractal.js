@@ -89,6 +89,8 @@ function CrossFractal() {
          * If reached maximum depth create faces
          */
         if (step === this._order) {
+
+            // Create faces
             let f1 = new Face([v1, v5, v6, v2], cube + '+F1');
             let f2 = new Face([v3, v7, v8, v4], cube + '+F2');
             let f3 = new Face([v4, v8, v5, v1], cube + '+F3');
@@ -96,9 +98,16 @@ function CrossFractal() {
             let f5 = new Face([v5, v8, v7, v6], cube + '+F5');
             let f6 = new Face([v2, v3, v4, v1], cube + '+F6');
 
+            // Rotate textures
+            f1.enable_uv_flip();
+            f2.set_uv_rotation(90);
+            f3.enable_uv_flip();
+            f3.set_uv_rotation(90);
+
             // Add faces to volume
             this._volume.add_face([f1, f2, f3, f4, f5, f6]);
             return;
+
         }
 
         /**

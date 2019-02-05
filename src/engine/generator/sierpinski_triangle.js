@@ -101,14 +101,28 @@ function SierpinskiTriangle() {
          * If reached maximum depth create faces
          */
         if (step === this._order) {
+
+            // Create faces
             let f1 = new Face([v1, v4, v2], triangle + '+F1');
             let f2 = new Face([v2, v4, v3], triangle + '+F2');
             let f3 = new Face([v3, v4, v1], triangle + '+F3');
             let f4 = new Face([v1, v2, v3], triangle + '+F4');
 
+            // Rotate textures
+            f1.enable_uv_flip();
+            f3.enable_uv_flip();
+            f3.set_uv_rotation(90);
+            f4.set_uv_rotation(90);
+            let f = [f1, f2, f3, f4];
+            for (let i = 0; i < f.length; i += 1) {
+                f[i].set_uv_scale(1.4);
+                f[i].set_uv_translate(0.2, 0.1);
+            }
+
             // Add faces to volume
-            this._volume.add_face([f1, f2, f3, f4]);
+            this._volume.add_face(f);
             return;
+
         }
 
         /**

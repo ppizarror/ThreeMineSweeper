@@ -61,8 +61,11 @@ function RandomPlane() {
         let faces = [];
 
         // Draw faces
+        let face;
         for (let i = 0; i < triangles.length / 3; i += 1) {
-            faces.push(new Face([vertices[triangles[(3 * i)]], vertices[triangles[(3 * i) + 1]], vertices[triangles[(3 * i) + 2]]], 'F-' + (i + 1).toString()));
+            face = new Face([vertices[triangles[(3 * i)]], vertices[triangles[(3 * i) + 1]], vertices[triangles[(3 * i) + 2]]], 'F-' + (i + 1).toString());
+            face.enable_uv_flip();
+            faces.push(face);
         }
 
         // Add to geometry
