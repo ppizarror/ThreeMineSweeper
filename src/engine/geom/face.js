@@ -1107,6 +1107,7 @@ function Face(face_vertex, face_name) {
     this.play = function (viewer) {
         self._played = true;
         self._mesh.material.color = viewer.palette.face_color_played;
+        self._mesh.material.emissive = viewer.palette.face_unhover_played;
         self._mesh.material.shininess = viewer.palette.face_shininess_played;
     };
 

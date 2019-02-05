@@ -370,10 +370,10 @@ function TMSViewer() {
         face_hover_played: new THREE.Color(0x000000), // Emissive
         face_hover_unplayed: new THREE.Color(0x555555), // Emissive
         face_shininess_played: 0,
-        face_shininess_unplayed: 100,
+        face_shininess_unplayed: 30,
         face_specular: 0x101010,
         face_unhover_played: new THREE.Color(0x000000), // Emissive
-        face_unhover_unplayed: new THREE.Color(0x000000), // Emissive
+        face_unhover_unplayed: new THREE.Color(0x050505), // Emissive
     };
 
 

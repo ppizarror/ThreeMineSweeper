@@ -807,7 +807,7 @@ function TMSEvents() {
         if (isNullUndf(face) && isNullUndf(self._lastHoverFace)) return;
         if (isNullUndf(face) && notNullUndf(self._lastHoverFace) || notNullUndf(face) && notNullUndf(self._lastHoverFace) && !face.equals(self._lastHoverFace)) {
             let $mesh = self._lastHoverFace.get_mesh();
-            if (notNullUndf(face) && face.is_played()) {
+            if (self._lastHoverFace.is_played()) {
                 $mesh.material.emissive = self._viewer.palette.face_unhover_played;
             } else {
                 $mesh.material.emissive = self._viewer.palette.face_unhover_unplayed;

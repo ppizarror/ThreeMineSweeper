@@ -81,6 +81,9 @@ function Minesweeper() {
             face.play(viewer);
             face.place_image(viewer);
 
+            // If face has bomb
+            if (face.has_bomb()) return;
+
             // If face has zero bombs
             if (face.get_bomb_count() === 0) this._clear_zeros(face, viewer);
 
