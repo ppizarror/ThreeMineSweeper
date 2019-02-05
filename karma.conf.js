@@ -34,6 +34,7 @@ module.exports = function (config) {
             'lib/dat.gui/dat.gui.min.js',
             'lib/toastr/toastr.min.js',
             'lib/notification.js/notification.min.js',
+            'lib/ion.sound/ion.sound.min.js',
 
             // Load application
             'src/about/about.js',

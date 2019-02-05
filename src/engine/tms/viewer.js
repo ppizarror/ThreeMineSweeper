@@ -321,7 +321,7 @@ function TMSViewer() {
      * @private
      */
     this._textureLoader = new THREE.TextureLoader();
-    self._textureLoader.setPath('resources/game/');
+    self._textureLoader.setPath('resources/tiles/');
 
     /**
      * Store images.

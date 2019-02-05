@@ -18,6 +18,7 @@ aboutinfo.dependencies = {
     "earcut": "2.1.4",                      // https://github.com/mapbox/earcut
     "fontawesome": "5.2.0",                 // https://fontawesome.com
     "hover": "2.3.1",                       // https://github.com/IanLunn/Hover
+    "ion.sound": "3.0.7",                   // https://github.com/IonDen/ion.sound
     "jquery": "3.3.1",                      // https://github.com/jquery/jquery
     "jquery-confirm": "3.3.2",              // https://github.com/craftpip/jquery-confirm
     "jquery-dateFormat": "1.0.2",           // https://github.com/phstc/jquery-dateFormat
