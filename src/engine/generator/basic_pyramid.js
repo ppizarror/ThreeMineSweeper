@@ -59,8 +59,28 @@ function BasicPyramid() {
         let f7 = new Face([v3, v4, v6], 'F7');
         let f8 = new Face([v4, v1, v6], 'F8');
 
+        // Texture rotation
+        f1.enable_uv_flip();
+        f3.set_uv_rotation(90);
+        f4.enable_uv_flip();
+        f4.set_uv_rotation(90);
+        f5.enable_uv_flip();
+        f7.set_uv_rotation(90);
+        f8.enable_uv_flip();
+        f8.set_uv_rotation(90);
+
+        let f = [f1, f2, f3, f4, f5, f6, f7, f8];
+        for (let i = 0; i < f.length / 2; i += 1) {
+            f[i].set_uv_scale(1.2);
+            f[i].set_uv_translate(-0.1, -0.075);
+        }
+        for (let i = f.length / 2; i < f.length; i += 1) {
+            f[i].set_uv_scale(1.2);
+            f[i].set_uv_translate(-0.1, -0.150);
+        }
+
         // Add faces to volume
-        this._volume.add_face([f1, f2, f3, f4, f5, f6, f7, f8]);
+        this._volume.add_face(f);
 
     };
 

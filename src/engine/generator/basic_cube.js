@@ -54,9 +54,9 @@ function BasicCube() {
 
         // Rotate textures
         f1.enable_uv_flip();
-        f2.set_texture_rotation(90);
+        f2.set_uv_rotation(90);
         f3.enable_uv_flip();
-        f3.set_texture_rotation(90);
+        f3.set_uv_rotation(90);
 
         // Add faces to volume
         this._volume.add_face([f1, f2, f3, f4, f5, f6]);

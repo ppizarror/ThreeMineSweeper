@@ -79,6 +79,27 @@ function Face(face_vertex, face_name) {
     this._uv_flip = false;
 
     /**
+     * UV texture coordinates scale factor.
+     * @type {number}
+     * @private
+     */
+    this._uv_scale = 1;
+
+    /**
+     * UV texture rotation center.
+     * @type {Vector2}
+     * @private
+     */
+    this._uv_center = new THREE.Vector2(0.5, 0.5);
+
+    /**
+     * UV texture translate coordinates.
+     * @type {Vector2}
+     * @private
+     */
+    this._uv_traslate = new THREE.Vector2(0, 0);
+
+    /**
      * Pointer to object.
      * @type {Face}
      */
@@ -682,7 +703,6 @@ function Face(face_vertex, face_name) {
                 geometry.faceVertexUvs[0].push([new THREE.Vector2(), new THREE.Vector2(), new THREE.Vector2()]);
             }
         }
-        let rot_center = new THREE.Vector2(0.5, 0.5);
         for (let i = 0; i < geometry.faces.length; i += 1) {
             let faceUVs = geometry.faceVertexUvs[0][i];
             let va = geometry.vertices[geometry.faces[i].a];
@@ -706,12 +726,15 @@ function Face(face_vertex, face_name) {
                 faceUVs[1].set((vb[vAxis] - min[vAxis]) / sz[vAxis], (vb[uAxis] - min[uAxis]) / sz[uAxis]);
                 faceUVs[2].set((vc[vAxis] - min[vAxis]) / sz[vAxis], (vc[uAxis] - min[uAxis]) / sz[uAxis]);
             }
-            faceUVs[0].rotateAround(rot_center, this._uv_rotation);
-            faceUVs[1].rotateAround(rot_center, this._uv_rotation);
-            faceUVs[2].rotateAround(rot_center, this._uv_rotation);
-            faceUVs[0].multiplyScalar(1);
-            faceUVs[1].multiplyScalar(1);
-            faceUVs[2].multiplyScalar(1);
+            faceUVs[0].rotateAround(this._uv_center, this._uv_rotation);
+            faceUVs[1].rotateAround(this._uv_center, this._uv_rotation);
+            faceUVs[2].rotateAround(this._uv_center, this._uv_rotation);
+            faceUVs[0].multiplyScalar(this._uv_scale);
+            faceUVs[1].multiplyScalar(this._uv_scale);
+            faceUVs[2].multiplyScalar(this._uv_scale);
+            faceUVs[0].add(this._uv_traslate);
+            faceUVs[1].add(this._uv_traslate);
+            faceUVs[2].add(this._uv_traslate);
         }
         geometry.elementsNeedUpdate = true;
         geometry.verticesNeedUpdate = true;
@@ -802,22 +825,45 @@ function Face(face_vertex, face_name) {
     };
 
     /**
-     * Set texture rotation angle.
+     * Set UV texture rotation angle (0-360).
      *
      * @function
      * @param {number} angle
      */
-    this.set_texture_rotation = function (angle) {
+    this.set_uv_rotation = function (angle) {
         self._uv_rotation = angle * Math.PI / 180;
     };
 
     /**
-     * Flips uv texture coordinates.
+     * Flips UV texture coordinates.
      *
      * @function
      */
     this.enable_uv_flip = function () {
         self._uv_flip = true;
+    };
+
+    /**
+     * Set UV texture coordinates scale.
+     *
+     * @function
+     * @param {number} scale
+     */
+    this.set_uv_scale = function (scale) {
+        if (scale === 0 || scale < 0) return;
+        self._uv_scale = scale;
+    };
+
+    /**
+     * Set UV texture translate coordinates.
+     *
+     * @function
+     * @param {number} x
+     * @param {number} y
+     */
+    this.set_uv_translate = function (x, y) {
+        self._uv_traslate.setX(x);
+        self._uv_traslate.setY(y);
     };
 
     /**
