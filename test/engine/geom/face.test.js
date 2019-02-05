@@ -185,4 +185,18 @@ describe('Test face', function () {
         expect(f4.is_cartesian_plane()).toBe(false);
     });
 
+    it('Test rotation', function () {
+        let v1 = new Vertex(0, 0, 0);
+        let v2 = new Vertex(0, 1, 0);
+        let v3 = new Vertex(1, 1, 0);
+        let f1 = new Face([v1, v2, v3]);
+        let v = [v1, v2, v3];
+        expect(f1.has_vertex(v)).toBe(true);
+        f1.push_right();
+        expect(f1.has_vertex(v)).toBe(true);
+        f1.push_left();
+        f1.push_left();
+        expect(f1.has_vertex(v)).toBe(true);
+    });
+
 });

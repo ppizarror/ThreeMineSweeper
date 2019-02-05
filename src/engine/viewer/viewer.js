@@ -411,6 +411,31 @@ function TMSViewer() {
         inside: false,
     };
 
+    /**
+     * Texture loader.
+     * @type {TextureLoader}
+     * @private
+     */
+    this._textureLoader = new THREE.TextureLoader();
+    self._textureLoader.setPath('resources/game/');
+
+    /**
+     * Store images.
+     * @private
+     */
+    this._images = {
+        unopened: self._textureLoader.load('unopened.png'),
+        tile0: self._textureLoader.load('tile_0.png'),
+        tile1: self._textureLoader.load('tile_1.png'),
+        tile2: self._textureLoader.load('tile_2.png'),
+        tile3: self._textureLoader.load('tile_3.png'),
+        tile4: self._textureLoader.load('tile_4.png'),
+        tile5: self._textureLoader.load('tile_5.png'),
+        tile6: self._textureLoader.load('tile_6.png'),
+        tile7: self._textureLoader.load('tile_7.png'),
+        tile8: self._textureLoader.load('tile_8.png'),
+    };
+
 
     /**
      * ------------------------------------------------------------------------
@@ -2329,8 +2354,8 @@ function TMSViewer() {
 
         // Create material
         let mat = new THREE.MeshPhongMaterial({
-            color: 0x888888,
-            shininess: 10,
+            map: self._images['tile1'],
+            shininess: 50,
             specular: 0x111111,
         });
 

@@ -52,6 +52,12 @@ function BasicCube() {
         let f5 = new Face([v5, v8, v7, v6], 'F5');
         let f6 = new Face([v2, v3, v4, v1], 'F6');
 
+        // Rotate textures
+        f1.enable_uv_flip();
+        f2.set_texture_rotation(90);
+        f3.enable_uv_flip();
+        f3.set_texture_rotation(90);
+
         // Add faces to volume
         this._volume.add_face([f1, f2, f3, f4, f5, f6]);
 

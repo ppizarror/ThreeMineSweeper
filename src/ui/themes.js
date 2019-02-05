@@ -18,7 +18,6 @@ theme_db = {
         "headerBgColor": "#24292e", // Header background color
         "headerFontColor": "#ffffff", // Text header color
         "headerPosition": "fixed", // Header position <fixed, absolute>
-        "maxWebWidth": "75rem", // Max page width
         "spinColor": "#ffffff", // Spinner color
         "spinLines": 11, // Spinner number of lines
         "spinScale": 0.23, // Spinner scale
@@ -118,9 +117,7 @@ function applyTheme() {
      * Apply CSS
      * ------------------------------------------------------------------------
      */
-    app_dom.root.css({
-        'max-width': theme.maxWebWidth,
-    });
+    app_dom.root.css({});
     app_dom.header.css({
         'background-color': theme.headerBgColor,
         'position': theme.headerPosition,

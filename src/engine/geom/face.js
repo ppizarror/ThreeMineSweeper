@@ -17,8 +17,10 @@
  */
 function Face(face_vertex, face_name) {
     /* eslint-disable arrow-parens */
+    /* eslint-disable newline-per-chained-call */
     /* eslint-disable no-extra-parens */
     /* eslint-disable no-mixed-operators */
+    /* eslint-disable no-nested-ternary */
 
     /**
      * ID of the face.
@@ -61,6 +63,20 @@ function Face(face_vertex, face_name) {
      * @private
      */
     this._neighbours = null;
+
+    /**
+     * Rotation texture in sexagesimal angles.
+     * @type {number}
+     * @private
+     */
+    this._uv_rotation = 0;
+
+    /**
+     * Flip uv texture.
+     * @type {boolean}
+     * @private
+     */
+    this._uv_flip = false;
 
     /**
      * Pointer to object.
@@ -175,6 +191,26 @@ function Face(face_vertex, face_name) {
      */
     this.reverse_vertices = function () {
         this._vertex.reverse();
+    };
+
+    /**
+     * Push all vertices to right.
+     *
+     * @function
+     */
+    this.push_right = function () {
+        let v = this._vertex.shift();
+        this._vertex.push(v);
+    };
+
+    /**
+     * Push all vertices to left.
+     *
+     * @function
+     */
+    this.push_left = function () {
+        let v = this._vertex.pop();
+        this._vertex.unshift(v);
     };
 
     /**
@@ -621,9 +657,64 @@ function Face(face_vertex, face_name) {
         geom.computeFaceNormals();
         geom.computeVertexNormals();
 
+        // Compute UV
+        this._boxUnwrapUVs(geom);
+
         // Returns geometry
         return geom;
 
+    };
+
+    /**
+     * Create UV texture coordinates from plane.
+     *
+     * @function
+     * @param {Geometry} geometry
+     * @private
+     */
+    this._boxUnwrapUVs = function (geometry) {
+        // https://stackoverflow.com/questions/51659109/three-js-calculate-the-custom-uvs-for-custom-buffer-geometry
+        if (!geometry.boundingBox) geometry.computeBoundingBox();
+        let sz = geometry.boundingBox.getSize(new THREE.Vector3());
+        let min = geometry.boundingBox.min;
+        if (geometry.faceVertexUvs[0].length === 0) {
+            for (let i = 0; i < geometry.faces.length; i += 1) {
+                geometry.faceVertexUvs[0].push([new THREE.Vector2(), new THREE.Vector2(), new THREE.Vector2()]);
+            }
+        }
+        let rot_center = new THREE.Vector2(0.5, 0.5);
+        for (let i = 0; i < geometry.faces.length; i += 1) {
+            let faceUVs = geometry.faceVertexUvs[0][i];
+            let va = geometry.vertices[geometry.faces[i].a];
+            let vb = geometry.vertices[geometry.faces[i].b];
+            let vc = geometry.vertices[geometry.faces[i].c];
+            let vab = new THREE.Vector3().copy(vb).sub(va);
+            let vac = new THREE.Vector3().copy(vc).sub(va);
+            let vcross = new THREE.Vector3().copy(vab).cross(vac);
+            // noinspection JSSuspiciousNameCombination
+            vcross.set(Math.abs(vcross.x), Math.abs(vcross.y), Math.abs(vcross.z));
+            let majorAxis = vcross.x > vcross.y ? (vcross.x > vcross.z ? 'x' : vcross.y > vcross.z ? 'y' : vcross.y > vcross.z) : vcross.y > vcross.z ? 'y' : 'z';
+            // Take the other two axis from the largest axis
+            let uAxis = majorAxis === 'x' ? 'y' : majorAxis === 'y' ? 'x' : 'x';
+            let vAxis = majorAxis === 'x' ? 'z' : majorAxis === 'y' ? 'z' : 'y';
+            if (!this._uv_flip) {
+                faceUVs[0].set((va[uAxis] - min[uAxis]) / sz[uAxis], (va[vAxis] - min[vAxis]) / sz[vAxis]);
+                faceUVs[1].set((vb[uAxis] - min[uAxis]) / sz[uAxis], (vb[vAxis] - min[vAxis]) / sz[vAxis]);
+                faceUVs[2].set((vc[uAxis] - min[uAxis]) / sz[uAxis], (vc[vAxis] - min[vAxis]) / sz[vAxis]);
+            } else {
+                faceUVs[0].set((va[vAxis] - min[vAxis]) / sz[vAxis], (va[uAxis] - min[uAxis]) / sz[uAxis]);
+                faceUVs[1].set((vb[vAxis] - min[vAxis]) / sz[vAxis], (vb[uAxis] - min[uAxis]) / sz[uAxis]);
+                faceUVs[2].set((vc[vAxis] - min[vAxis]) / sz[vAxis], (vc[uAxis] - min[uAxis]) / sz[uAxis]);
+            }
+            faceUVs[0].rotateAround(rot_center, this._uv_rotation);
+            faceUVs[1].rotateAround(rot_center, this._uv_rotation);
+            faceUVs[2].rotateAround(rot_center, this._uv_rotation);
+            faceUVs[0].multiplyScalar(1);
+            faceUVs[1].multiplyScalar(1);
+            faceUVs[2].multiplyScalar(1);
+        }
+        geometry.elementsNeedUpdate = true;
+        geometry.verticesNeedUpdate = true;
     };
 
     /**
@@ -708,6 +799,25 @@ function Face(face_vertex, face_name) {
             }
         }
         return false;
+    };
+
+    /**
+     * Set texture rotation angle.
+     *
+     * @function
+     * @param {number} angle
+     */
+    this.set_texture_rotation = function (angle) {
+        self._uv_rotation = angle * Math.PI / 180;
+    };
+
+    /**
+     * Flips uv texture coordinates.
+     *
+     * @function
+     */
+    this.enable_uv_flip = function () {
+        self._uv_flip = true;
     };
 
     /**
