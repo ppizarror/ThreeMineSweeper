@@ -597,6 +597,18 @@ function Volume(volume_faces, volume_name) {
     };
 
     /**
+     * Set bomb behaviour of faces.
+     *
+     * @function
+     * @param {number} mode - Behaviour mode
+     */
+    this.set_bomb_behaviour = function (mode) {
+        for (let i = 0; i < this._faces.length; i += 1) {
+            this._faces[i].set_bomb_behaviour(mode);
+        }
+    };
+
+    /**
      * Apply constructor
      */
     this.add_face(volume_faces);

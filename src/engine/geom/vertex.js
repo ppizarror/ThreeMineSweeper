@@ -475,10 +475,14 @@ function Vertex(x, y, z, vertex_name) {
      * Returns face array.
      *
      * @function
+     * @param {boolean=} do_clone - Clones array
      * @returns {Face[]}
      */
-    this.get_faces = function () {
-        return this._faces.slice(0);
+    this.get_faces = function (do_clone) {
+        if (do_clone) {
+            return this._faces.slice(0);
+        }
+        return this._faces;
     };
 
     /**
@@ -526,7 +530,7 @@ function Vertex(x, y, z, vertex_name) {
     this.join_replace = function (vertex) {
         if (!this.equal_position(vertex)) return false;
         this.set_name(vertex.get_name());
-        let f = vertex.get_faces();
+        let f = vertex.get_faces(true);
         for (let i = 0; i < f.length; i += 1) {
             this.add_face(f[i]);
             vertex.remove_face(f[i]);

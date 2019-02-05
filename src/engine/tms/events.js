@@ -770,7 +770,7 @@ function TMSEvents() {
      * @private
      */
     this._faceMouseHandler = function (face) {
-        app_console.info('FACE: {1}. N: {0}'.format(face.get_neighbours_strlist(), face.get_name()));
+        // app_console.info('FACE: {1}. N: {0}'.format(face.get_neighbours_strlist(), face.get_name()));
         this._faceHover(face);
         return '';
     };
@@ -793,6 +793,7 @@ function TMSEvents() {
                 return;
             }
         }
+        if (!face.is_enabled()) return;
         let $mesh = face.get_mesh();
         $mesh.material.emissive = self._viewer.palette.face_hover;
         self._lastHoverFace = face;

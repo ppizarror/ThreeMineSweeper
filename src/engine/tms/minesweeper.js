@@ -45,7 +45,7 @@ function Minesweeper() {
         let pm = 0;
         for (let i = 0; i < mines; i += 1) {
             let j = getRandomInt(0, tfaces - 1);
-            if (!faces[j].has_bomb()) {
+            if (!faces[j].has_bomb() && faces[j].is_enabled()) {
                 faces[j].place_bomb();
                 pm += 1;
             } else {
@@ -57,7 +57,7 @@ function Minesweeper() {
         // Set bomb counters
         for (let i = 0; i < tfaces; i += 1) {
             if (!faces[i].has_bomb()) {
-                faces[i].set_bomb_count(faces[i].get_neighbours_bomb_count());
+                faces[i].set_bomb_count(faces[i].get_bomb_count());
             }
         }
 

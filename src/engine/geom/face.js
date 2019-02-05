@@ -114,6 +114,29 @@ function Face(face_vertex, face_name) {
     this._bomb = 0;
 
     /**
+     * Face is enabled.
+     * @type {boolean}
+     * @private
+     */
+    this._enabled = true;
+
+    /**
+     * Bomb counter behaviour.
+     * @type {{NEIGHBOUR: number, AROUND: number}}
+     */
+    this.behaviour = {
+        AROUND: 1,
+        NEIGHBOUR: 0,
+    };
+
+    /**
+     * Face bomb behaviour.
+     * @type {number}
+     * @private
+     */
+    this._bomb_behaviour = this.behaviour.NEIGHBOUR;
+
+    /**
      * Pointer to object.
      * @type {Face}
      */
@@ -547,6 +570,49 @@ function Face(face_vertex, face_name) {
     };
 
     /**
+     * Return faces around current.
+     *
+     * @function
+     * @returns {Face[]}
+     */
+    this.get_faces_around = function () {
+        /* eslint-disable no-continue */
+
+        // Neighbours list
+        let n = [];
+        let n_id = []; // Stores ID
+
+        /**
+         * Iterate though each vertex of the face and look for faces
+         * that share 1 vertex with the face
+         */
+        for (let i = 0; i < this._vertex.length; i += 1) {
+
+            // Get faces of the vertex
+            let v = this._vertex[i];
+            let f = v.get_faces();
+            for (let j = 0; j < f.length; j += 1) {
+
+                // If face is different than the current one
+                if (f[j].equals(this)) { // noinspection UnnecessaryContinueJS
+                    continue;
+                }
+
+                // Stores neighbour face
+                if (!n_id.includes(f[j].get_id())) {
+                    n.push(f[j]);
+                    n_id.push(f[j].get_id());
+                }
+
+            }
+
+        }
+
+        // Return face list
+        return n;
+    };
+
+    /**
      * Return neighbours as a string list.
      *
      * @function
@@ -938,16 +1004,6 @@ function Face(face_vertex, face_name) {
     };
 
     /**
-     * Get bomb count.
-     *
-     * @function
-     * @returns {number}
-     */
-    this.get_bomb_count = function () {
-        return self._bomb;
-    };
-
-    /**
      * Set bomb count.
      *
      * @function
@@ -958,13 +1014,31 @@ function Face(face_vertex, face_name) {
     };
 
     /**
+     * Bomb count behaviour.
+     *
+     * @function
+     * @param {number} mode
+     */
+    this.set_bomb_behaviour = function (mode) {
+        self._bomb_behaviour = mode;
+    };
+
+    /**
      * Get neighbours bombs.
      *
      * @function
      * @returns {number}
      */
-    this.get_neighbours_bomb_count = function () {
-        let n = this.get_neighbours();
+    this.get_bomb_count = function () {
+        if (!this.is_enabled()) return 0;
+        let n; // Face list
+        if (this._bomb_behaviour === this.behaviour.NEIGHBOUR) {
+            n = this.get_neighbours();
+        } else if (this._bomb_behaviour === this.behaviour.AROUND) {
+            n = this.get_faces_around();
+        } else {
+            return 0;
+        }
         let t = 0; // Total bombs
         let f; // Face
         for (let i = 0; i < n.length; i += 1) {
@@ -975,6 +1049,25 @@ function Face(face_vertex, face_name) {
     };
 
     /**
+     * Disable face.
+     *
+     * @function
+     */
+    this.disable_face = function () {
+        self._enabled = false;
+    };
+
+    /**
+     * Face is enabled or not.
+     *
+     * @function
+     * @returns {boolean}
+     */
+    this.is_enabled = function () {
+        return this._enabled;
+    };
+
+    /**
      * Get image of the face.
      *
      * @function
@@ -982,9 +1075,8 @@ function Face(face_vertex, face_name) {
      * @returns {Texture}
      */
     this.get_image = function (viewer) {
-        if (this.has_bomb()) {
-            return viewer.images.bomb;
-        }
+        if (!this.is_enabled()) return viewer.images.disabled;
+        if (this.has_bomb()) return viewer.images.bomb;
         return viewer.images['tile' + self._bomb];
     };
 

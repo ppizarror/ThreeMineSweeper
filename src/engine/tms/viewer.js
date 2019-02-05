@@ -328,6 +328,7 @@ function TMSViewer() {
      */
     this.images = {
         bomb: self._textureLoader.load('bomb.png'),
+        disabled: self._textureLoader.load('disabled.png'),
         flag: self._textureLoader.load('flag.png'),
         question: self._textureLoader.load('question.png'),
         tile0: self._textureLoader.load('tile_0.png'),
@@ -1756,12 +1757,14 @@ function TMSViewer() {
         face.set_mesh($mesh);
 
         // Create contour
-        let objEdges = new THREE.EdgesGeometry(geom);
-        let contour = this._createContour(objEdges, this.palette.contour_minor_color);
-        contour.material.opacity = this.palette.contour_minor_opacity;
-        contour.position.y = 0;
-        contour.material.transparent = false;
-        this._addMeshToScene(contour, this._globals.contour, false);
+        if (face.is_enabled()) {
+            let objEdges = new THREE.EdgesGeometry(geom);
+            let contour = this._createContour(objEdges, this.palette.contour_minor_color);
+            contour.material.opacity = this.palette.contour_minor_opacity;
+            contour.position.y = 0;
+            contour.material.transparent = false;
+            this._addMeshToScene(contour, this._globals.contour, false);
+        }
 
     };
 

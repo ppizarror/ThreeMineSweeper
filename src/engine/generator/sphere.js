@@ -72,21 +72,23 @@ function Sphere() {
         let face;
         for (let i = 0; i < this._lng; i += 1) {
             face = new Face([vi, latv[0][i % this._lng], latv[0][(i + 1) % this._lng]], 'F-B' + i.toString());
+            face.disable_face();
             this._volume.add_face(face);
         }
         for (let i = 0; i < this._lng; i += 1) {
             face = new Face([vs, latv[this._lat - 1][(i + 1) % this._lng], latv[this._lat - 1][i % this._lng]], 'F-T' + i.toString());
+            face.disable_face();
             this._volume.add_face(face);
         }
 
         // Create faces between hemispheres
-        let f; // Face
         let k = 0;
         for (let i = 0; i < this._lat - 1; i += 1) {
             for (let j = 0; j < this._lng; j += 1) {
-                f = new Face([latv[i][j], latv[i][(j + 1) % this._lng], latv[(i + 1) % this._lat][(j + 1) % this._lng], latv[(i + 1) % this._lat][j]], 'FH{0}+{1}-{2}'.format(i, j, k));
-                f.reverse_vertices();
-                this._volume.add_face(f);
+                face = new Face([latv[i][j], latv[i][(j + 1) % this._lng], latv[(i + 1) % this._lat][(j + 1) % this._lng], latv[(i + 1) % this._lat][j]], 'FH{0}+{1}-{2}'.format(i, j, k));
+                face.reverse_vertices();
+                face.set_bomb_behaviour(face.behaviour.AROUND);
+                this._volume.add_face(face);
                 k += 1;
             }
         }
