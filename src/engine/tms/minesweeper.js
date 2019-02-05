@@ -63,4 +63,49 @@ function Minesweeper() {
 
     };
 
+    /**
+     * Play face.
+     *
+     * @function
+     * @param {Face} face - Face to play
+     * @param {boolean} lclick - Left or right click
+     * @param {TMSViewer} viewer - Viewer reference
+     */
+    this.play = function (face, lclick, viewer) {
+
+        // Not valid conditions
+        if (isNullUndf(face) || face.is_played()) return;
+
+        // If left click, uncovers face
+        if (lclick) {
+            face.play(viewer);
+            face.place_image(viewer);
+
+            // If face has zero bombs
+            if (face.get_bomb_count() === 0) this._clear_zeros(face, viewer);
+
+            viewer.render();
+        }
+
+    };
+
+    /**
+     * Clear zero bombs around a face.
+     *
+     * @function
+     * @param {Face} face
+     * @param {TMSViewer} viewer
+     * @private
+     */
+    this._clear_zeros = function (face, viewer) {
+        let f = face.get_target_faces();
+        for (let i = 0; i < f.length; i += 1) {
+            if (f[i].is_enabled() && !f[i].is_played() && !f[i].has_bomb()) {
+                f[i].play(viewer);
+                f[i].place_image(viewer);
+                if (f[i].get_bomb_count() === 0) this._clear_zeros(f[i], viewer);
+            }
+        }
+    };
+
 }

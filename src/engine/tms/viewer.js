@@ -361,15 +361,19 @@ function TMSViewer() {
      * Game palette.
      */
     this.palette = {
-        contour_minor_color: 0x000000,
-        contour_minor_opacity: 1,
         contour_major_color: 0x666666,
         contour_major_opacity: 1,
-        face_color: 0xffffff,
-        face_hover: new THREE.Color(0x222222), // Emissive
-        face_shininess: 50,
-        face_specular: 0x111111,
-        face_unhover: new THREE.Color(0x000000), // Emissive
+        contour_minor_color: 0x000000,
+        contour_minor_opacity: 1,
+        face_color_played: new THREE.Color(0x777777),
+        face_color_unplayed: new THREE.Color(0xffffff),
+        face_hover_played: new THREE.Color(0x000000), // Emissive
+        face_hover_unplayed: new THREE.Color(0x555555), // Emissive
+        face_shininess_played: 0,
+        face_shininess_unplayed: 100,
+        face_specular: 0x101010,
+        face_unhover_played: new THREE.Color(0x000000), // Emissive
+        face_unhover_unplayed: new THREE.Color(0x000000), // Emissive
     };
 
 
@@ -1449,8 +1453,8 @@ function TMSViewer() {
                 // X plane
                 geometry = new THREE.Geometry();
                 geometry.vertices.push(
-                    this._newThreePoint(this.worldsize.x, 0, 0),
-                    this._newThreePoint(-this.worldsize.x, 0, 0),
+                    this._newThreePoint(this.worldsize.x, 0, -this.worldsize.z),
+                    this._newThreePoint(-this.worldsize.x, 0, -this.worldsize.z),
                     this._newThreePoint(-this.worldsize.x, 0, this.worldsize.z),
                     this._newThreePoint(this.worldsize.x, 0, this.worldsize.z)
                 );
@@ -1464,8 +1468,8 @@ function TMSViewer() {
                 // Y plane
                 geometry = new THREE.Geometry();
                 geometry.vertices.push(
-                    this._newThreePoint(0, -this.worldsize.y, 0),
-                    this._newThreePoint(0, this.worldsize.y, 0),
+                    this._newThreePoint(0, -this.worldsize.y, -this.worldsize.z),
+                    this._newThreePoint(0, this.worldsize.y, -this.worldsize.z),
                     this._newThreePoint(0, this.worldsize.y, this.worldsize.z),
                     this._newThreePoint(0, -this.worldsize.y, this.worldsize.z)
                 );
@@ -1733,10 +1737,9 @@ function TMSViewer() {
 
         // Create material
         let mat = new THREE.MeshPhongMaterial({
-            color: self.palette.face_color,
-            emissive: self.palette.face_unhover,
-            map: face.get_image(this),
-            shininess: self.palette.face_shininess,
+            color: self.palette.face_color_unplayed,
+            emissive: self.palette.face_unhover_unplayed,
+            shininess: self.palette.face_shininess_unplayed,
             specular: self.palette.face_specular,
         });
 
@@ -1755,6 +1758,7 @@ function TMSViewer() {
         geometry.merge($mesh.geometry, $mesh.matrix, material.length);
         material.push(mat);
         face.set_mesh($mesh);
+        face.place_image(this);
 
         // Create contour
         if (face.is_enabled()) {

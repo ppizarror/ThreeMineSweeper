@@ -139,6 +139,13 @@ function TMSEvents() {
     this._raycaster = null;
 
     /**
+     * Minesweeper reference.
+     * @type {Minesweeper}
+     * @private
+     */
+    this._minesweeper = null;
+
+    /**
      * Stores object reference.
      * @type {TMSEvents}
      */
@@ -163,6 +170,16 @@ function TMSEvents() {
         self._canvasParent = v.get_canvas_parent();
         self._scene = v.get_scene();
         self._raycaster = v.get_raycaster();
+    };
+
+    /**
+     * Set minesweeper reference.
+     *
+     * @function
+     * @param {Minesweeper} m
+     */
+    this.set_minesweeper = function (m) {
+        self._minesweeper = m;
     };
 
     /**
@@ -244,6 +261,8 @@ function TMSEvents() {
          */
         this._canvasParent.on(self._eventID.click, function (e) {
             e.preventDefault();
+            if (self._mouseMoveDrag) return;
+            self._minesweeper.play(self._lastHoverFace, true, self._viewer);
         });
 
         /**
@@ -251,6 +270,8 @@ function TMSEvents() {
          */
         this._canvasParent.on(self._eventID.contextmenu, function (e) {
             e.preventDefault();
+            if (self._mouseMoveDrag) return;
+            self._minesweeper.play(self._lastHoverFace, false, self._viewer);
         });
 
         /**
@@ -786,7 +807,12 @@ function TMSEvents() {
         if (isNullUndf(face) && isNullUndf(self._lastHoverFace)) return;
         if (isNullUndf(face) && notNullUndf(self._lastHoverFace) || notNullUndf(face) && notNullUndf(self._lastHoverFace) && !face.equals(self._lastHoverFace)) {
             let $mesh = self._lastHoverFace.get_mesh();
-            $mesh.material.emissive = self._viewer.palette.face_unhover;
+            if (notNullUndf(face) && face.is_played()) {
+                $mesh.material.emissive = self._viewer.palette.face_unhover_played;
+            } else {
+                $mesh.material.emissive = self._viewer.palette.face_unhover_unplayed;
+            }
+
             self._lastHoverFace = null;
             if (isNullUndf(face)) {
                 this._viewer.render();
@@ -795,7 +821,11 @@ function TMSEvents() {
         }
         if (!face.is_enabled()) return;
         let $mesh = face.get_mesh();
-        $mesh.material.emissive = self._viewer.palette.face_hover;
+        if (face.is_played()) {
+            $mesh.material.emissive = self._viewer.palette.face_hover_played;
+        } else {
+            $mesh.material.emissive = self._viewer.palette.face_hover_unplayed;
+        }
         self._lastHoverFace = face;
         this._viewer.render();
     };

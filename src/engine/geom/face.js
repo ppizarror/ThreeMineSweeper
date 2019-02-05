@@ -121,6 +121,13 @@ function Face(face_vertex, face_name) {
     this._enabled = true;
 
     /**
+     * Face is played or not.
+     * @type {boolean}
+     * @private
+     */
+    this._played = false;
+
+    /**
      * Bomb counter behaviour.
      * @type {{NEIGHBOUR: number, AROUND: number}}
      */
@@ -1076,8 +1083,58 @@ function Face(face_vertex, face_name) {
      */
     this.get_image = function (viewer) {
         if (!this.is_enabled()) return viewer.images.disabled;
+        if (!this._played) return viewer.images.unopened;
         if (this.has_bomb()) return viewer.images.bomb;
         return viewer.images['tile' + self._bomb];
+    };
+
+    /**
+     * Place image on mesh.
+     *
+     * @function
+     * @param {TMSViewer} viewer
+     */
+    this.place_image = function (viewer) {
+        this._mesh.material.map = this.get_image(viewer);
+    };
+
+    /**
+     * Set face as played.
+     *
+     * @function
+     * @param {TMSViewer} viewer
+     */
+    this.play = function (viewer) {
+        self._played = true;
+        self._mesh.material.color = viewer.palette.face_color_played;
+        self._mesh.material.shininess = viewer.palette.face_shininess_played;
+    };
+
+    /**
+     * Face is played.
+     *
+     * @function
+     * @returns {boolean}
+     */
+    this.is_played = function () {
+        return self._played || !self._enabled;
+    };
+
+    /**
+     * Return playable faces around face.
+     *
+     * @function
+     * @returns {Face[]}
+     */
+    this.get_target_faces = function () {
+        switch (this._bomb_behaviour) {
+            case this.behaviour.NEIGHBOUR:
+                return this.get_neighbours();
+            case this.behaviour.AROUND:
+                return this.get_faces_around();
+            default:
+                return [];
+        }
     };
 
     /**

@@ -60,6 +60,7 @@ function ThreeMinesSweeper() {
         // Init viewer
         self._viewer.init(parentElement);
         self._events.set_viewer(self._viewer);
+        self._events.set_minesweeper(self._mines);
         self._events.initEvents();
 
     };
