@@ -1,1 +1,0 @@
-"use strict";var dcl=require("dcl");var Chains=dcl(null,{declaredClass:"base/chains"});dcl.chainBefore(Chains,"close");dcl.chainBefore(Chains,"end");dcl.chainBefore(Chains,"destroy");dcl.chainAfter(Chains,"open");module.exports=Chains;
