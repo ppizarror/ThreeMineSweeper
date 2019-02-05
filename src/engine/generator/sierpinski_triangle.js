@@ -117,6 +117,7 @@ function SierpinskiTriangle() {
             for (let i = 0; i < f.length; i += 1) {
                 f[i].set_uv_scale(1.4);
                 f[i].set_uv_translate(0.2, 0.1);
+                f[i].set_bomb_behaviour(f[i].behaviour.AROUND);
             }
 
             // Add faces to volume

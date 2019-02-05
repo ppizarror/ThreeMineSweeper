@@ -179,9 +179,9 @@ function TMSViewer() {
             targetMoveCameraFlipByPos: true,    // Inverse camera target
             targetSpeed: {                      // Target speed
                 angular: 0.05,
-                x: 0.010,
-                y: 0.010,
-                z: 0.050,
+                x: 0.020,
+                y: 0.020,
+                z: 0.020,
             },
             zoom: 1.000,                        // Zoom factor
         },
@@ -363,7 +363,7 @@ function TMSViewer() {
     this.palette = {
         contour_minor_color: 0x000000,
         contour_minor_opacity: 1,
-        contour_major_color: 0xffffff,
+        contour_major_color: 0x666666,
         contour_major_opacity: 1,
         face_color: 0xffffff,
         face_hover: new THREE.Color(0x222222), // Emissive

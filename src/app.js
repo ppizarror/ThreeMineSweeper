@@ -118,7 +118,7 @@ $(function () {
     deleteUrlParams();
     app_tms.init('#viewer');
 
-    let $fig = 3; // Draw figure
+    let $fig = 4; // Draw figure
     setTimeout(function () {
         let g;
         switch ($fig) {
@@ -149,7 +149,7 @@ $(function () {
             default:
                 return;
         }
-        g.set_order(2);
+        g.set_order(4);
         g.set_face_target(20);
         g.set_latitude(30);
         g.set_longitude(30);

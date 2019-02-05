@@ -419,7 +419,7 @@ function TMSEvents() {
                 val *= $factor;
 
                 // Updates target and camera
-                if (self._checkCameraTargetCollision(dir, val) && self._checkCameraTargetLimits(dir, 0.00001, self._viewer.worldsize.z) && self._viewer.objects_props.camera.targetMoveCamera) {
+                if (self._checkCameraTargetCollision(dir, val) && self._checkCameraTargetLimits(dir, -self._viewer.worldsize.z, self._viewer.worldsize.z) && self._viewer.objects_props.camera.targetMoveCamera) {
                     self._three_camera.position.y += val;
                 }
                 break;
