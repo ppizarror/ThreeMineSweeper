@@ -8,11 +8,11 @@
 "use strict";
 
 /**
- * App viewer.
- * @type {TMSViewer}
+ * App game.
+ * @type {ThreeMinesSweeper}
  * @global
  */
-let app_viewer = new TMSViewer();
+let app_tms = new ThreeMinesSweeper();
 
 /**
  * App init
@@ -116,7 +116,7 @@ $(function () {
      */
     loadingHandler(true);
     deleteUrlParams();
-    app_viewer.init('#viewer');
+    app_tms.init('#viewer');
 
     let $fig = 3; // Draw figure
     setTimeout(function () {

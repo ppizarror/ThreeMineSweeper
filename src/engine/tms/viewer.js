@@ -62,84 +62,6 @@ function TMSViewer() {
 
     /**
      * ------------------------------------------------------------------------
-     * Events
-     * ------------------------------------------------------------------------
-     */
-
-    // noinspection JSUnusedGlobalSymbols
-    /**
-     * Button is pressed.
-     * @type {boolean}
-     * @private
-     */
-    this._hasKeyPressed = false;
-
-    // noinspection JSUnusedGlobalSymbols
-    /**
-     * Mouse over canvas.
-     * @type {boolean}
-     * @private
-     */
-    this._hasMouseOver = false;
-
-    /**
-     * Mouse is pressed.
-     * @type {boolean}
-     * @private
-     */
-    this._hasMousePressed = false;
-
-    // noinspection JSUnusedGlobalSymbols
-    /**
-     * Mouse is pressed and dragged.
-     * @type {boolean}
-     * @private
-     */
-    this._mouseMoveDrag = false;
-
-    // noinspection JSUnusedGlobalSymbols
-    /**
-     * Mouse intersects plane.
-     * @type {boolean}
-     * @private
-     */
-    this._hasMouseIntersectPlane = false;
-
-    /**
-     * Window mousemove ID event.
-     * @type {string}
-     * @private
-     */
-    this._windowMouseMoveEvent = 'mousemove.rectzoom';
-
-    // noinspection JSUnusedGlobalSymbols
-    /**
-     * Mouse is pressed.
-     * @type {boolean}
-     * @private
-     */
-    this._mouseKeepPressed = false;
-
-    /**
-     * Event IDs.
-     * @private
-     */
-    this._eventID = {
-        click: 'click.canvas',
-        contextmenu: 'contextmenu.canvas',
-        keydown: 'keydown.canvas',
-        keyup: 'keyup.canvas',
-        mousedown: 'mousedown.canvas',
-        mouseout: 'mouseout.canvas',
-        mouseover: 'mouseover.canvas',
-        mouseup: 'mouseup.canvas',
-        mousewheel: 'mousewheel.canvas',
-        wheel: 'wheel.canvas',
-    };
-
-
-    /**
-     * ------------------------------------------------------------------------
      * Three.js objects
      * ------------------------------------------------------------------------
      */
@@ -155,7 +77,7 @@ function TMSViewer() {
      * Three.js helpers.
      * @protected
      */
-    this.threejs_helpers = {
+    this._threejs_helpers = {
 
         /**
          * Status
@@ -221,7 +143,6 @@ function TMSViewer() {
     // noinspection JSUnusedGlobalSymbols
     /**
      * Object properties.
-     * @protected
      */
     this.objects_props = {
 
@@ -387,8 +308,9 @@ function TMSViewer() {
 
     /**
      * World limits.
+     * @type {{x: number, y: number, z: number}}
      */
-    this._worldsize = {
+    this.worldsize = {
         x: 1.000,
         y: 1.000,
         z: 1.000,
@@ -400,16 +322,6 @@ function TMSViewer() {
      * @private
      */
     this._collaidableMeshes = [];
-
-    /**
-     * Mouse coordinates.
-     * @private
-     */
-    this._mouse = {
-        x: 0,
-        y: 0,
-        inside: false,
-    };
 
     /**
      * Texture loader.
@@ -442,7 +354,7 @@ function TMSViewer() {
 
     /**
      * ------------------------------------------------------------------------
-     * Game variables
+     * Viewer game variables
      * ------------------------------------------------------------------------
      */
 
@@ -454,17 +366,9 @@ function TMSViewer() {
     this._volume = null;
 
     /**
-     * Last hovered face.
-     * @type {Face | null}
-     * @private
-     */
-    this._lastHoverFace = null;
-
-    /**
      * Game palette.
-     * @private
      */
-    this._palette = {
+    this.palette = {
         face_hover: new THREE.Color(0x222222), // Emissive
         face_unhover: new THREE.Color(0x000000), // Emissive
     };
@@ -480,10 +384,9 @@ function TMSViewer() {
      * Resize canvas.
      *
      * @function
-     * @protected
      * @param {boolean} type - If true add event, false deletes
      */
-    this._threeResize = function (type) {
+    this.threeResize = function (type) {
 
         /**
          * Event name
@@ -524,7 +427,7 @@ function TMSViewer() {
                 /**
                  * Redraw
                  */
-                self._animateFrame();
+                self.animateFrame();
 
             };
             app_dom.window.on($ev, $f);
@@ -553,12 +456,12 @@ function TMSViewer() {
          * Update world limits
          * --------------------------------------------------------------------
          */
-        this._worldsize.diagl = Math.sqrt(Math.pow(2 * this._worldsize.x, 2) +
-            Math.pow(2 * this._worldsize.y, 2) + Math.pow(this._worldsize.z, 2));
-        this._worldsize.diagx = Math.sqrt(Math.pow(2 * this._worldsize.x, 2) +
-            Math.pow(this._worldsize.z, 2));
-        this._worldsize.diagy = Math.sqrt(Math.pow(2 * this._worldsize.y, 2) +
-            Math.pow(this._worldsize.z, 2));
+        this.worldsize.diagl = Math.sqrt(Math.pow(2 * this.worldsize.x, 2) +
+            Math.pow(2 * this.worldsize.y, 2) + Math.pow(this.worldsize.z, 2));
+        this.worldsize.diagx = Math.sqrt(Math.pow(2 * this.worldsize.x, 2) +
+            Math.pow(this.worldsize.z, 2));
+        this.worldsize.diagy = Math.sqrt(Math.pow(2 * this.worldsize.y, 2) +
+            Math.pow(this.worldsize.z, 2));
 
         /**
          * --------------------------------------------------------------------
@@ -567,14 +470,14 @@ function TMSViewer() {
          */
 
         // Camera restrictions
-        this.objects_props.camera.far *= this._worldsize.diagl;
-        this.objects_props.camera.maxdistance *= this._worldsize.diagl;
+        this.objects_props.camera.far *= this.worldsize.diagl;
+        this.objects_props.camera.maxdistance *= this.worldsize.diagl;
         this.objects_props.camera.maxpolarangle *= Math.PI / 2;
 
         // Initial position
-        this.objects_props.camera.posx *= this._worldsize.x;
-        this.objects_props.camera.posy *= this._worldsize.y;
-        this.objects_props.camera.posz *= this._worldsize.z;
+        this.objects_props.camera.posx *= this.worldsize.x;
+        this.objects_props.camera.posy *= this.worldsize.y;
+        this.objects_props.camera.posz *= this.worldsize.z;
 
         // Initial rotation
         this.objects_props.camera.rotationx *= Math.PI / 2;
@@ -582,15 +485,15 @@ function TMSViewer() {
         this.objects_props.camera.rotationz *= Math.PI / 2;
 
         // Camera target
-        this.objects_props.camera.target.x *= this._worldsize.x;
-        this.objects_props.camera.target.y *= this._worldsize.y;
-        this.objects_props.camera.target.z *= this._worldsize.z;
+        this.objects_props.camera.target.x *= this.worldsize.x;
+        this.objects_props.camera.target.y *= this.worldsize.y;
+        this.objects_props.camera.target.z *= this.worldsize.z;
 
         // Target speed
-        this.objects_props.camera.targetSpeed.x *= this._worldsize.x;
-        this.objects_props.camera.targetSpeed.y *= this._worldsize.y;
-        this.objects_props.camera.targetSpeed.z *= this._worldsize.z;
-        this.objects_props.camera.targetSpeed.xy = this._dist2(this.objects_props.camera.targetSpeed.x, this.objects_props.camera.targetSpeed.y);
+        this.objects_props.camera.targetSpeed.x *= this.worldsize.x;
+        this.objects_props.camera.targetSpeed.y *= this.worldsize.y;
+        this.objects_props.camera.targetSpeed.z *= this.worldsize.z;
+        this.objects_props.camera.targetSpeed.xy = this.dist2(this.objects_props.camera.targetSpeed.x, this.objects_props.camera.targetSpeed.y);
 
         // Add camera position to target
         this.objects_props.camera.posx += this.objects_props.camera.target.x;
@@ -609,11 +512,11 @@ function TMSViewer() {
          * Set light properties
          * --------------------------------------------------------------------
          */
-        this.objects_props.camera.light.distance *= this._worldsize.diagl;
-        this.objects_props.light.distance *= this._worldsize.diagl;
-        this.objects_props.light.pos.x *= this._worldsize.x;
-        this.objects_props.light.pos.y *= this._worldsize.y;
-        this.objects_props.light.pos.z *= this._worldsize.z;
+        this.objects_props.camera.light.distance *= this.worldsize.diagl;
+        this.objects_props.light.distance *= this.worldsize.diagl;
+        this.objects_props.light.pos.x *= this.worldsize.x;
+        this.objects_props.light.pos.y *= this.worldsize.y;
+        this.objects_props.light.pos.z *= this.worldsize.z;
 
         /**
          * --------------------------------------------------------------------
@@ -668,7 +571,7 @@ function TMSViewer() {
         this._light.castShadow = true;
         this._light.color.setHex(self.objects_props.light.color);
         this._light.decay = self.objects_props.light.decay;
-        this._light.distance = this._worldsize.diagl;
+        this._light.distance = this.worldsize.diagl;
         this._light.intensity = self.objects_props.light.intensity;
         this._light.penumbra = self.objects_props.light.penumbra;
         this._light.angle = self.objects_props.light.angle;
@@ -754,7 +657,7 @@ function TMSViewer() {
          * --------------------------------------------------------------------
          */
         this._controls = new THREE.OrbitControls(this._three_camera, this._renderer.domElement);
-        this._controls.addEventListener('change', this._render);
+        this._controls.addEventListener('change', this.render);
         this._controls.enablePan = true;
         this._controls.enableKey = false;
         this._controls.autoRotate = this.objects_props.camera.autorotate;
@@ -768,7 +671,6 @@ function TMSViewer() {
          */
         this._setInitialCameraPosition();
 
-        // noinspection JSUnusedGlobalSymbols
         /**
          * --------------------------------------------------------------------
          * Creates raycaster
@@ -781,11 +683,11 @@ function TMSViewer() {
          * Init GUI
          * --------------------------------------------------------------------
          */
-        if (this.threejs_helpers.gui) {
-            this.threejs_helpers.gui = false;
+        if (this._threejs_helpers.gui) {
+            this._threejs_helpers.gui = false;
             this._toggleGUI();
         }
-        if (this.threejs_helpers.fpsmeter) {
+        if (this._threejs_helpers.fpsmeter) {
             this._toggleFPSMeter();
         }
 
@@ -815,7 +717,7 @@ function TMSViewer() {
         this.objects_props.camera.target.z = self.objects_props.camera.initialTarget.z;
 
         // Updates camera
-        this._setCameraTarget();
+        this.setCameraTarget();
 
     };
 
@@ -823,122 +725,31 @@ function TMSViewer() {
      * Set camera target.
      *
      * @function
-     * @private
      */
-    this._setCameraTarget = function () {
+    this.setCameraTarget = function () {
         // noinspection JSSuspiciousNameCombination
         self._controls.target.set(self.objects_props.camera.target.y, self.objects_props.camera.target.z, self.objects_props.camera.target.x);
         self._controls.update();
     };
 
     /**
-     * Check that the camera target is inside the world limits.
-     *
-     * @function
-     * @private
-     * @param {string} axis - Updated axis
-     * @param {number} min - Min position value
-     * @param {number} max - Max position value
-     * @returns {boolean} - Camera can move
-     */
-    this._checkCameraTargetLimits = function (axis, min, max) {
-        let $pos = self.objects_props.camera.target[axis];
-        if (min <= $pos && $pos <= max) {
-            return true;
-        }
-        self.objects_props.camera.target[axis] = Math.min(max, Math.max($pos, min));
-        return false;
-    };
-
-    /**
      * Calculates distance between two points.
      *
      * @function
-     * @private
      * @param {number} a
      * @param {number} b
      * @returns {number}
      */
-    this._dist2 = function (a, b) {
+    this.dist2 = function (a, b) {
         return Math.sqrt(Math.pow(a, 2) + Math.pow(b, 2));
-    };
-
-    /**
-     * Check camera target cannot collide.
-     *
-     * @function
-     * @private
-     * @param {string} axis - Axis to evaluate
-     * @param {number} val - Value to add
-     * @returns {boolean} - Collides or not
-     */
-    this._checkCameraTargetCollision = function (axis, val) {
-        self.objects_props.camera.target[axis] += val;
-        return true;
-    };
-
-    /**
-     * Update camera target.
-     *
-     * @function
-     * @private
-     * @param {string} dir - Direction
-     * @param {number} val - Increase target
-     * @param {boolean=} flipSignPos - Change increase direction
-     * @param {boolean=} setTarget - Set camera target
-     */
-    this._updateCameraTarget = function (dir, val, flipSignPos, setTarget) {
-
-        let $factor = 1.0;
-        switch (dir) {
-            case 'x':
-                if (flipSignPos) { // Updates factor depending the position of the camera
-                    $factor = Math.sign(self._three_camera.position.z);
-                }
-                val *= $factor;
-
-                // Updates target and camera
-                if (self._checkCameraTargetCollision(dir, val) && self._checkCameraTargetLimits(dir, -self._worldsize.x, self._worldsize.x) && self.objects_props.camera.targetMoveCamera) {
-                    self._three_camera.position.z += val;
-                }
-                break;
-            case 'y':
-                if (flipSignPos) { // Updates factor depending the position of the camera
-                    $factor = Math.sign(self._three_camera.position.x);
-                }
-                val *= $factor;
-
-                // Updates target and camera
-                if (self._checkCameraTargetCollision(dir, val) && self._checkCameraTargetLimits(dir, -self._worldsize.y, self._worldsize.y) && self.objects_props.camera.targetMoveCamera) {
-                    self._three_camera.position.x += val;
-                }
-                break;
-            case 'z':
-                if (flipSignPos) { // Updates factor depending the position of the camera
-                    // noinspection JSSuspiciousNameCombination
-                    $factor = Math.sign(self._three_camera.position.y);
-                }
-                val *= $factor;
-
-                // Updates target and camera
-                if (self._checkCameraTargetCollision(dir, val) && self._checkCameraTargetLimits(dir, 0.00001, self._worldsize.z) && self.objects_props.camera.targetMoveCamera) {
-                    self._three_camera.position.y += val;
-                }
-                break;
-            default:
-                break;
-        }
-        if (setTarget) self._setCameraTarget();
-
     };
 
     /**
      * Render Three.js content.
      *
      * @function
-     * @private
      */
-    this._render = function () {
+    this.render = function () {
 
         // Render
         self._renderer.render(self._scene, self._three_camera);
@@ -962,15 +773,14 @@ function TMSViewer() {
      * Update controls and render.
      *
      * @function
-     * @private
      */
-    this._animateFrame = function () {
+    this.animateFrame = function () {
 
         // Update controls
         this._controls.update();
 
         // Render frame
-        this._render();
+        this.render();
 
     };
 
@@ -983,7 +793,7 @@ function TMSViewer() {
     this._animationThread = function () {
         if (!self._animateThread) return;
         requestAnimationFrame(self.initAnimate);
-        self._animateFrame();
+        self.animateFrame();
     };
 
     /**
@@ -1009,7 +819,7 @@ function TMSViewer() {
         this._drawHelpers();
 
         // Set camera target
-        this._setCameraTarget();
+        this.setCameraTarget();
 
         // Save initial status
         this._saveInitialStatus();
@@ -1026,176 +836,6 @@ function TMSViewer() {
         self.objects_props.camera.initialTarget.x = self.objects_props.camera.target.x;
         self.objects_props.camera.initialTarget.y = self.objects_props.camera.target.y;
         self.objects_props.camera.initialTarget.z = self.objects_props.camera.target.z;
-    };
-
-    /**
-     * Moves camera parallel to the ray between camera and target.
-     *
-     * @function
-     * @private
-     * @param {number} direction
-     */
-    this._moveParallel = function (direction) {
-
-        // Calculates advance angle
-        let $ang = Math.atan2(self._three_camera.position.x - self.objects_props.camera.target.y, self._three_camera.position.z - self.objects_props.camera.target.x);
-
-        // Calculate displacements
-        let $dx, $dy;
-        $dx = self.objects_props.camera.targetSpeed.x * Math.cos($ang) * direction;
-        $dy = self.objects_props.camera.targetSpeed.y * Math.sin($ang) * direction;
-
-        // Adds to components
-        self._updateCameraTarget('x', $dx, false, false);
-        self._updateCameraTarget('y', $dy, false, true);
-
-    };
-
-    /**
-     * Moves camera orthogonal to the ray between camera and target.
-     *
-     * @function
-     * @private
-     * @param {number} direction
-     */
-    this._moveOrtho = function (direction) {
-
-        // Calculates advance angle
-        let $ang = Math.atan2(self._three_camera.position.x - self.objects_props.camera.target.y, self._three_camera.position.z - self.objects_props.camera.target.x);
-        $ang += Math.PI / 2;
-
-        // Calculate displacements
-        let $dx, $dy;
-        $dx = self.objects_props.camera.targetSpeed.x * Math.cos($ang) * direction;
-        $dy = self.objects_props.camera.targetSpeed.y * Math.sin($ang) * direction;
-
-        // Add to components
-        self._updateCameraTarget('x', $dx, false, false);
-        self._updateCameraTarget('y', $dy, false, true);
-
-    };
-
-    /**
-     * Moves camera in +Z axis.
-     *
-     * @function
-     * @private
-     * @param {number} direction
-     */
-    this._moveVertical = function (direction) {
-        self._updateCameraTarget('z', self.objects_props.camera.targetSpeed.z * direction, false, true);
-    };
-
-    /**
-     * Rotates objective.
-     *
-     * @function
-     * @private
-     * @param {number} direction
-     */
-    this._rotateTarget = function (direction) {
-
-        // Get angle
-        let $ang = Math.PI + Math.atan2(self._three_camera.position.x - self.objects_props.camera.target.y, self._three_camera.position.z - self.objects_props.camera.target.x);
-
-        // Add angular velocity
-        $ang += direction * self.objects_props.camera.targetSpeed.angular;
-
-        // Calcualtes radius
-        let $r = self._dist2(self._three_camera.position.x - self.objects_props.camera.target.y, self._three_camera.position.z - self.objects_props.camera.target.x);
-
-        // Calculate new position
-        self.objects_props.camera.target.x = self._three_camera.position.z + $r * Math.cos($ang);
-        self.objects_props.camera.target.y = self._three_camera.position.x + $r * Math.sin($ang);
-
-        // Check limits
-        self._checkCameraTargetLimits('x', -self._worldsize.x, self._worldsize.x);
-        self._checkCameraTargetLimits('y', -self._worldsize.y, self._worldsize.y);
-
-        // Updates camera and render
-        self._setCameraTarget();
-        self._render();
-
-    };
-
-    /**
-     * Moves camera forward.
-     *
-     * @function
-     * @private
-     */
-    this._moveForward = function () {
-        this._moveParallel(-1);
-    };
-
-    /**
-     * Moves camera backward.
-     *
-     * @function
-     * @private
-     */
-    this._moveBackward = function () {
-        this._moveParallel(1);
-    };
-
-    /**
-     * Moves camera left.
-     *
-     * @function
-     * @private
-     */
-    this._moveLeft = function () {
-        this._moveOrtho(-1);
-    };
-
-    /**
-     * Moves camera right.
-     *
-     * @function
-     * @private
-     */
-    this._moveRight = function () {
-        this._moveOrtho(1);
-    };
-
-    /**
-     * Moves camera up.
-     *
-     * @function
-     * @private
-     */
-    this._moveUp = function () {
-        this._moveVertical(1);
-    };
-
-    /**
-     * Moves camera down.
-     *
-     * @function
-     * @private
-     */
-    this._moveDown = function () {
-        this._moveVertical(-1);
-    };
-
-    /**
-     * Rotate camera left.
-     *
-     * @function
-     * @private
-     */
-    this._rotateLeft = function () {
-        this._rotateTarget(1);
-    };
-
-    /**
-     * Rotate camera right.
-     *
-     * @function
-     * @private
-     */
-    this._rotateRight = function () {
-        this._rotateTarget(-1);
     };
 
     /**
@@ -1220,335 +860,6 @@ function TMSViewer() {
         let hex = rgb.toString(16);
         hex = hex.length === 1 ? "0" + hex : hex;
         return hex.toString();
-    };
-
-    /**
-     * Init events.
-     *
-     * @function
-     * @protected
-     */
-    this._initEvents = function () {
-
-        if (isNullUndf(this._canvasParent)) return;
-
-        /**
-         * Canvas orbitcontrols
-         */
-        this._canvasParent.on(self._eventID.mousewheel, function (e) {
-            stopWheelEvent(e);
-            e.preventDefault();
-            self._animateFrame();
-        });
-
-        /**
-         * Disable left click
-         */
-        this._canvasParent.on(self._eventID.mousedown, function (e) {
-            e.preventDefault();
-            self.focus();
-            self._animateFrame();
-            self._hasMouseOver = true;
-            self._hasMousePressed = true;
-        });
-
-        /**
-         * Focus
-         */
-        this._canvasParent.on('blur', function () {
-        });
-
-        /**
-         * Mouse inside canvas
-         */
-        this._canvasParent.on(self._eventID.mouseover, function () {
-            self._hasMouseOver = true;
-        });
-        this._canvasParent.on(self._eventID.mouseout, function () {
-            self._hasMouseOver = false;
-        });
-
-        /**
-         * Mouse press
-         */
-        this._canvasParent.on('mousedown.canvas', function (e) {
-            e.preventDefault();
-            self._hasMousePressed = true;
-        });
-
-        /**
-         * Mouseup
-         */
-        this._canvasParent.on('mouseup.canvas', function (e) {
-            e.preventDefault();
-            self._hasMousePressed = false;
-            setTimeout(function () {
-                self._mouseMoveDrag = false;
-            }, 50);
-        });
-
-        /**
-         * Left click
-         */
-        this._canvasParent.on(self._eventID.click, function (e) {
-            e.preventDefault();
-        });
-
-        /**
-         * Right click
-         */
-        this._canvasParent.on(self._eventID.contextmenu, function (e) {
-            e.preventDefault();
-        });
-
-        /**
-         * Move mouse around canvas
-         */
-        app_dom.window.on(self._windowMouseMoveEvent, function (e) {
-
-            // e.preventDefault();
-            self._mouseMoveDrag = self._hasMousePressed && true;
-            self._mouseHandler(e);
-
-        });
-
-        /**
-         * Press button on active canvas
-         */
-        this._canvasParent.on(self._eventID.keydown, function (e) {
-            e.preventDefault(); // Cancel all default buttons
-            e.stopPropagation();
-
-            // Set key pressed
-            self._hasKeyPressed = true;
-
-            // If pressed mouse returns
-            if (self._hasMousePressed) return;
-
-            switch (e.which) {
-                case 87: // [W]
-                    self._moveForward();
-                    break;
-                case 83: // [S]
-                    self._moveBackward();
-                    break;
-                case 65: // [A]
-                    self._moveLeft();
-                    break;
-                case 68: // [D]
-                    self._moveRight();
-                    break;
-                case 38: // [UP ARROW}
-                    self._moveForward();
-                    break;
-                case 40: // [DOWN ARROW]
-                    self._moveBackward();
-                    break;
-                case 37: // [LEFT ARROW]
-                    self._rotateLeft();
-                    break;
-                case 39: // [RIGHT ARROW]
-                    self._rotateRight();
-                    break;
-                case 81: // [Q]
-                    self._moveDown();
-                    break;
-                case 69: // [E]
-                    self._moveUp();
-                    break;
-                default: // Ignore other inputs
-                    break;
-            }
-        });
-        this._canvasParent.on(self._eventID.keyup, function () {
-            self._hasKeyPressed = false;
-        });
-
-        /**
-         * Canvas resize
-         */
-        this._threeResize(true);
-
-    };
-
-    /**
-     * Handles mouse.
-     *
-     * @function
-     * @param {Object} e - Event
-     * @private
-     */
-    this._mouseHandler = function (e) {
-
-        /**
-         * Check events
-         */
-        if (self._hasMousePressed || self._hasKeyPressed || !self._hasMouseOver) {
-            self.objects_props.tooltip.obj.css('display', 'none');
-            return;
-        }
-
-        /**
-         * Get general dimensions
-         */
-        let $offset = self._canvasParent.offset();
-        let $wh = self._canvasParent.innerHeight();
-        let $ww = self._canvasParent.innerWidth();
-
-        /**
-         * Mouse position inside window
-         */
-        let $x = e.clientX - $offset.left + app_dom.window.scrollLeft();
-        let $y = e.clientY - $offset.top + app_dom.window.scrollTop();
-
-        /**
-         * Tooltip position
-         */
-        let $tx = 0;
-        let $ty = 0;
-        let $contentw = 0;
-
-        /**
-         * Check mouse is inside canvas
-         */
-        let $show = ($x >= 0 && $x <= $ww) && ($y >= 0 && $y <= $wh);
-
-        /**
-         * Updates mouse
-         */
-        self._mouse.inside = $show;
-        self._mouse.x = (($x / $ww) * 2) - 1;
-        self._mouse.y = (-($y / $wh) * 2) + 1;
-
-        /**
-         * Apply raycast
-         */
-        self._raycaster.setFromCamera(self._mouse, self._three_camera);
-        let intersects = self._raycaster.intersectObjects(self._scene.children, false);
-
-        /**
-         * Check results
-         */
-        if (isNullUndf(intersects) || intersects.length === 0) {
-            $show = false;
-            self._faceHover(null);
-        } else { // Intersected
-
-            let faceID = ''; // Face identificator
-            let $content = ''; // Tooltip content
-
-            // Look for face collision
-            for (let i = 0; i < self.objects_props.tooltip.modes.length; i += 1) {
-                faceID += self.objects_props.tooltip.modes[i](intersects);
-            }
-
-            // Get face
-            let $face = parseInt(faceID, 10);
-            if (!isNaN($face)) {
-                let faces = this._volume.get_faces();
-                if ($face >= 0 && $face < faces.length) {
-                    $content = this._faceMouseHandler(faces[$face]);
-                }
-            } else {
-                this._faceHover(null);
-            }
-
-            // Write content
-            self.objects_props.tooltip.obj.html($content);
-
-            /**
-             * Display tooltip content
-             */
-            if ($content === '' && self.objects_props.tooltip.ignoreEmpty) {
-                $show = false;
-            } else {
-
-                // Check position of tooltip
-                $contentw = self.objects_props.tooltip.obj.outerWidth();
-
-                // Tooltip left
-                if ($contentw !== 0 && ($contentw + e.clientX + self.objects_props.tooltip.left + app_dom.window.scrollLeft()) > app_dom.window.width()) {
-
-                    // Remove classes
-                    self.objects_props.tooltip.obj.addClass('tooltip-left');
-                    self.objects_props.tooltip.obj.removeClass('tooltip-right');
-
-                    // Get position
-                    $ty = e.clientY + self.objects_props.tooltip.top + app_dom.window.scrollTop();
-                    $tx = e.clientX - self.objects_props.tooltip.left + app_dom.window.scrollLeft() - $contentw;
-
-                }
-
-                // Tooltip right
-                else {
-
-                    // Remove classes
-                    self.objects_props.tooltip.obj.addClass('tooltip-right');
-                    self.objects_props.tooltip.obj.removeClass('tooltip-left');
-
-                    // Get website size
-                    let $wwidth = app_dom.window.width();
-                    let $mnwidth = app_dom.root.outerWidth();
-
-                    // Calculate position
-                    $tx = $x + self.objects_props.tooltip.left + $offset.left;
-                    if ($wwidth > $mnwidth) {
-                        $tx -= ($wwidth - $mnwidth) / 2;
-                    }
-                    $ty = e.clientY + self.objects_props.tooltip.top + app_dom.window.scrollTop();
-
-                }
-
-            }
-        }
-
-        /**
-         * Tooltip style
-         */
-        self.objects_props.tooltip.obj.css({
-            display: $show ? 'block' : 'none',
-            left: $tx,
-            top: $ty,
-        });
-
-    };
-
-    /**
-     * Handles mouse collision with a face.
-     *
-     * @function
-     * @param {Face} face
-     * @returns {string} - String to tooltip, if empty tooltip hides
-     * @private
-     */
-    this._faceMouseHandler = function (face) {
-        app_console.info('FACE: {1}. N: {0}'.format(face.get_neighbours_strlist(), face.get_name()));
-        this._faceHover(face);
-        return '';
-    };
-
-    /**
-     * Hovers face.
-     *
-     * @function
-     * @param {Face | null} face
-     * @private
-     */
-    this._faceHover = function (face) {
-        if (isNullUndf(face) && isNullUndf(self._lastHoverFace)) return;
-        if (isNullUndf(face) && notNullUndf(self._lastHoverFace) || notNullUndf(face) && notNullUndf(self._lastHoverFace) && !face.equals(self._lastHoverFace)) {
-            let $mesh = self._lastHoverFace.get_mesh();
-            $mesh.material.emissive = self._palette.face_unhover;
-            self._lastHoverFace = null;
-            if (isNullUndf(face)) {
-                this._render();
-                return;
-            }
-        }
-        let $mesh = face.get_mesh();
-        $mesh.material.emissive = self._palette.face_hover;
-        self._lastHoverFace = face;
-        this._render();
     };
 
     /**
@@ -1595,7 +906,6 @@ function TMSViewer() {
 
     };
 
-    // noinspection JSUnusedGlobalSymbols
     /**
      * Stop rendering thread.
      *
@@ -1606,7 +916,6 @@ function TMSViewer() {
         self._animateThread = false;
     };
 
-    // noinspection JSUnusedGlobalSymbols
     /**
      * Reset camera.
      *
@@ -1615,7 +924,7 @@ function TMSViewer() {
      */
     this._resetCamera = function () {
         self._setInitialCameraPosition();
-        self._animateFrame();
+        self.animateFrame();
     };
 
     /**
@@ -1626,11 +935,10 @@ function TMSViewer() {
      */
     this._toggleHelper = function () {
         self._drawHelpers();
-        self._animateFrame();
+        self.animateFrame();
         self.focus();
     };
 
-    // noinspection JSUnusedGlobalSymbols
     /**
      * Hide/show axis.
      *
@@ -1638,11 +946,10 @@ function TMSViewer() {
      * @private
      */
     this._toggleAxis = function () {
-        self.threejs_helpers.axis = !self.threejs_helpers.axis;
+        self._threejs_helpers.axis = !self._threejs_helpers.axis;
         self._toggleHelper();
     };
 
-    // noinspection JSUnusedGlobalSymbols
     /**
      * Hide/show grid.
      *
@@ -1650,11 +957,10 @@ function TMSViewer() {
      * @private
      */
     this._toggleGrid = function () {
-        self.threejs_helpers.grid = !self.threejs_helpers.grid;
+        self._threejs_helpers.grid = !self._threejs_helpers.grid;
         self._toggleHelper();
     };
 
-    // noinspection JSUnusedGlobalSymbols
     /**
      * Hide/show world limits.
      *
@@ -1662,11 +968,10 @@ function TMSViewer() {
      * @private
      */
     this._toggleWorldLimits = function () {
-        self.threejs_helpers.worldlimits = !self.threejs_helpers.worldlimits;
+        self._threejs_helpers.worldlimits = !self._threejs_helpers.worldlimits;
         self._toggleHelper();
     };
 
-    // noinspection JSUnusedGlobalSymbols
     /**
      * Hide/show camera target.
      *
@@ -1674,11 +979,10 @@ function TMSViewer() {
      * @private
      */
     this._toggleCameraTarget = function () {
-        self.threejs_helpers.cameratarget = !self.threejs_helpers.cameratarget;
+        self._threejs_helpers.cameratarget = !self._threejs_helpers.cameratarget;
         self._toggleHelper();
     };
 
-    // noinspection JSUnusedGlobalSymbols
     /**
      * Hide/show planes.
      *
@@ -1686,7 +990,7 @@ function TMSViewer() {
      * @private
      */
     this._togglePlanes = function () {
-        self.threejs_helpers.planes = !self.threejs_helpers.planes;
+        self._threejs_helpers.planes = !self._threejs_helpers.planes;
         self._toggleHelper();
     };
 
@@ -1697,8 +1001,8 @@ function TMSViewer() {
      * @private
      */
     this._toggleGUI = function () {
-        self.threejs_helpers.gui = !self.threejs_helpers.gui;
-        if (self.threejs_helpers.gui) {
+        self._threejs_helpers.gui = !self._threejs_helpers.gui;
+        if (self._threejs_helpers.gui) {
             self._buildGUI();
         } else {
             self._destroyGUI();
@@ -1744,17 +1048,17 @@ function TMSViewer() {
             exportLight: function () {
                 let $color = '0X' + self._rgb2hex(self._ambientLightParam.color).toUpperCase();
                 app_dialog.text('<b>light.color</b>: <i>{0}</i>'.format($color), lang.viewer_gui_export_light_title);
-                if (self.threejs_helpers.guicloseafterpopup) self._gui.close();
+                if (self._threejs_helpers.guicloseafterpopup) self._gui.close();
             },
         };
         let ambientlightfolder = this._gui.addFolder(lang.viewer_gui_ambientlight);
         ambientlightfolder.addColor(this._ambientLightParam, 'color').onChange(function (val) {
             self._ambientlight.color.setHex(val);
-            self._render();
+            self.render();
         });
         ambientlightfolder.add(this._ambientLightParam, 'intensity', 0, 5).onChange(function (val) {
             self._ambientlight.intensity = val;
-            self._render();
+            self.render();
         });
         ambientlightfolder.add(this._ambientLightParam, 'exportLight');
 
@@ -1773,30 +1077,30 @@ function TMSViewer() {
                 // Calculate values
                 let $distance, $color;
                 $color = '0X' + self._rgb2hex(self._cameraLightParam.color).toUpperCase();
-                $distance = roundNumber(self._cameralight.distance / self._worldsize.diagl, 3);
+                $distance = roundNumber(self._cameralight.distance / self.worldsize.diagl, 3);
 
                 // Popup
                 app_dialog.text('<b>light.color</b>: <i>{0}</i><br><b>light.distance</b>: <i>{1}</i>'.format($color, $distance), lang.viewer_gui_export_light_title);
-                if (self.threejs_helpers.guicloseafterpopup) self._gui.close();
+                if (self._threejs_helpers.guicloseafterpopup) self._gui.close();
 
             },
         };
         let cameralightfolder = this._gui.addFolder(lang.viewer_gui_cameralight);
         cameralightfolder.addColor(this._cameraLightParam, 'color').onChange(function (val) {
             self._cameralight.color.setHex(val);
-            self._render();
+            self.render();
         });
         cameralightfolder.add(this._cameraLightParam, 'intensity', 0, 5).onChange(function (val) {
             self._cameralight.intensity = val;
-            self._render();
+            self.render();
         });
-        cameralightfolder.add(this._cameraLightParam, 'distance', 0, 3 * self._worldsize.diagl).onChange(function (val) {
+        cameralightfolder.add(this._cameraLightParam, 'distance', 0, 3 * self.worldsize.diagl).onChange(function (val) {
             self._cameralight.distance = val;
-            self._render();
+            self.render();
         });
         cameralightfolder.add(this._cameraLightParam, 'decay', 1, 2).onChange(function (val) {
             self._cameralight.decay = val;
-            self._render();
+            self.render();
         });
         cameralightfolder.add(this._cameraLightParam, 'exportLight');
 
@@ -1826,58 +1130,58 @@ function TMSViewer() {
 
                 // Calculate values
                 let $posx, $posy, $posz, $distance, $color;
-                $posx = roundNumber(self._light.position.z / self._worldsize.x, 3);
-                $posy = roundNumber(self._light.position.x / self._worldsize.y, 3);
-                $posz = roundNumber(self._light.position.y / self._worldsize.z, 3);
-                $distance = roundNumber(self._light.distance / self._worldsize.diagl, 3);
+                $posx = roundNumber(self._light.position.z / self.worldsize.x, 3);
+                $posy = roundNumber(self._light.position.x / self.worldsize.y, 3);
+                $posz = roundNumber(self._light.position.y / self.worldsize.z, 3);
+                $distance = roundNumber(self._light.distance / self.worldsize.diagl, 3);
                 $color = '0X' + self._rgb2hex(self._guiLightParam.color).toUpperCase();
 
                 // Popup
                 app_dialog.text('<b>light.color</b>: <i>{4}</i><br><b>light.pos.x</b>: <i>{0}</i><br><b>light.pos.y</b>: <i>{1}</i><br><b>light.pos.z</b>: <i>{2}</i><br><b>light.distance</b>: <i>{3}</i>'.format($posx, $posy, $posz, $distance, $color), lang.viewer_gui_export_light_title);
-                if (self.threejs_helpers.guicloseafterpopup) self._gui.close();
+                if (self._threejs_helpers.guicloseafterpopup) self._gui.close();
 
             },
         };
         let lightfolder = this._gui.addFolder(lang.viewer_gui_light);
         lightfolder.addColor(this._guiLightParam, 'color').onChange(function (val) {
             self._light.color.setHex(val);
-            self._render();
+            self.render();
         });
         lightfolder.add(this._guiLightParam, 'intensity', 0, 10).onChange(function (val) {
             self._light.intensity = val;
-            self._render();
+            self.render();
         });
-        lightfolder.add(this._guiLightParam, 'distance', 0.01, 3 * self._worldsize.diagl).onChange(function (val) {
+        lightfolder.add(this._guiLightParam, 'distance', 0.01, 3 * self.worldsize.diagl).onChange(function (val) {
             self._light.distance = val;
-            self._render();
+            self.render();
         });
         lightfolder.add(this._guiLightParam, 'angle', 0.01, Math.PI / 2).onChange(function (val) {
             self._light.angle = val;
-            self._render();
+            self.render();
         });
         lightfolder.add(this._guiLightParam, 'penumbra', 0, 1).onChange(function (val) {
             self._light.penumbra = val;
-            self._render();
+            self.render();
         });
         lightfolder.add(this._guiLightParam, 'decay', 1, 2).onChange(function (val) {
             self._light.decay = val;
-            self._render();
+            self.render();
         });
-        lightfolder.add(this._guiLightParam, 'posx', -self._worldsize.diagl, self._worldsize.diagl).onChange(function (val) {
+        lightfolder.add(this._guiLightParam, 'posx', -self.worldsize.diagl, self.worldsize.diagl).onChange(function (val) {
             self._light.position.z = val;
-            self._render();
+            self.render();
             // noinspection JSSuspiciousNameCombination
             self._guiLightParam.rotatexy = (180 * Math.atan2(self._light.position.x, self._light.position.z) / Math.PI + 360) % 360;
         }).listen();
-        lightfolder.add(this._guiLightParam, 'posy', -self._worldsize.diagl, self._worldsize.diagl).onChange(function (val) {
+        lightfolder.add(this._guiLightParam, 'posy', -self.worldsize.diagl, self.worldsize.diagl).onChange(function (val) {
             self._light.position.x = val;
-            self._render();
+            self.render();
         }).listen();
-        lightfolder.add(this._guiLightParam, 'posz', 0, self._worldsize.diagl).onChange(function (val) {
+        lightfolder.add(this._guiLightParam, 'posz', 0, self.worldsize.diagl).onChange(function (val) {
             self._light.position.y = val;
-            self._render();
+            self.render();
         }).listen();
-        lightfolder.add(this._guiLightParam, 'radius', 0.01, self._worldsize.diagl).onChange(function (r) {
+        lightfolder.add(this._guiLightParam, 'radius', 0.01, self.worldsize.diagl).onChange(function (r) {
 
             // Radius
             let $ract = self._distOriginxyz(self._light.position.x, self._light.position.y, self._light.position.z);
@@ -1901,7 +1205,7 @@ function TMSViewer() {
             self._light.position.x = $y;
             self._light.position.y = $z;
             self._light.position.z = $x;
-            self._render();
+            self.render();
 
             // Updates menu entry
             self._guiLightParam.posx = self._light.position.x;
@@ -1925,7 +1229,7 @@ function TMSViewer() {
             // Update position
             self._light.position.z = r * Math.cos(val);
             self._light.position.x = r * Math.sin(val);
-            self._render();
+            self.render();
 
             // Update menu entry
             self._guiLightParam.posx = self._light.position.z;
@@ -1947,11 +1251,11 @@ function TMSViewer() {
         };
         fogfolder.addColor(this._guiFogParams, 'color').onChange(function (val) {
             self._fog.color.setHex(val);
-            self._render();
+            self.render();
         });
         fogfolder.add(this._guiFogParams, 'density', 0.00001, 0.00025 * 10).onChange(function (val) {
             self._fog.density = val;
-            self._render();
+            self.render();
         });
         fogfolder.add(this._guiFogParams, 'enabled').onChange(function (val) {
             if (val) {
@@ -1959,7 +1263,7 @@ function TMSViewer() {
             } else {
                 self._scene.fog = null;
             }
-            self._animateFrame();
+            self.animateFrame();
         });
 
         /**
@@ -1984,49 +1288,49 @@ function TMSViewer() {
         camerafolder.add(this._guiCameraParams, 'fov', 1, 179).onChange(function (val) {
             self._three_camera.fov = val;
             self._three_camera.updateProjectionMatrix();
-            self._animateFrame();
+            self.animateFrame();
         });
         camerafolder.add(this._guiCameraParams, 'far', 100, 10000).onChange(function (val) {
             self._three_camera.far = val;
             self._three_camera.updateProjectionMatrix();
-            self._animateFrame();
+            self.animateFrame();
         });
         camerafolder.add(this._guiCameraParams, 'zoom', 0.1, 10).onChange(function (val) {
             self._three_camera.zoom = val;
             self._three_camera.updateProjectionMatrix();
-            self._animateFrame();
+            self.animateFrame();
         });
-        camerafolder.add(this._guiCameraParams, 'maxdistance', 100, 5 * self._worldsize.diagl).onChange(function (val) {
+        camerafolder.add(this._guiCameraParams, 'maxdistance', 100, 5 * self.worldsize.diagl).onChange(function (val) {
             self._controls.maxDistance = val;
-            self._animateFrame();
+            self.animateFrame();
         });
         camerafolder.add(this._guiCameraParams, 'maxpolarangle', 0, Math.PI).onChange(function (val) {
             self._controls.maxPolarAngle = val;
-            self._animateFrame();
+            self.animateFrame();
         });
-        camerafolder.add(this._guiCameraParams, 'posx', 1, 2 * self._worldsize.diagl).onChange(function (val) {
+        camerafolder.add(this._guiCameraParams, 'posx', 1, 2 * self.worldsize.diagl).onChange(function (val) {
             self._three_camera.position.z = val;
-            self._animateFrame();
+            self.animateFrame();
         }).listen();
-        camerafolder.add(this._guiCameraParams, 'posy', 1, 2 * self._worldsize.diagl).onChange(function (val) {
+        camerafolder.add(this._guiCameraParams, 'posy', 1, 2 * self.worldsize.diagl).onChange(function (val) {
             self._three_camera.position.x = val;
-            self._animateFrame();
+            self.animateFrame();
         }).listen();
-        camerafolder.add(this._guiCameraParams, 'posz', 1, 2 * self._worldsize.diagl).onChange(function (val) {
+        camerafolder.add(this._guiCameraParams, 'posz', 1, 2 * self.worldsize.diagl).onChange(function (val) {
             self._three_camera.position.y = val;
-            self._animateFrame();
+            self.animateFrame();
         }).listen();
         camerafolder.add(this._guiCameraParams, 'rotationx', -Math.PI, Math.PI).onChange(function (val) {
             self._three_camera.rotation.z = val;
-            self._animateFrame();
+            self.animateFrame();
         }).listen();
         camerafolder.add(this._guiCameraParams, 'rotationy', -Math.PI, Math.PI).onChange(function (val) {
             self._three_camera.rotation.x = val;
-            self._animateFrame();
+            self.animateFrame();
         }).listen();
         camerafolder.add(this._guiCameraParams, 'rotationz', -Math.PI / 2, Math.PI / 2).onChange(function (val) {
             self._three_camera.rotation.y = val;
-            self._animateFrame();
+            self.animateFrame();
         }).listen();
 
         /**
@@ -2037,7 +1341,7 @@ function TMSViewer() {
         /**
          * GUI starts closed
          */
-        if (this.threejs_helpers.guistartclosed) {
+        if (this._threejs_helpers.guistartclosed) {
             this._gui.close();
         }
 
@@ -2066,7 +1370,7 @@ function TMSViewer() {
     this._toggleFPSMeter = function () {
 
         // If not enabled
-        if (!self.threejs_helpers.fpsmeter) return;
+        if (!self._threejs_helpers.fpsmeter) return;
 
         // If not created
         if (isNullUndf(self._helperInstances.fpsmeter)) {
@@ -2103,9 +1407,9 @@ function TMSViewer() {
          * Draw axis
          * --------------------------------------------------------------------
          */
-        if (this.threejs_helpers.axis) {
+        if (this._threejs_helpers.axis) {
             if (isNullUndf(this._helperInstances.axis)) {
-                let $helpersize = Math.min(self._worldsize.x, self._worldsize.y, self._worldsize.z) * self.threejs_helpers.axissize;
+                let $helpersize = Math.min(self.worldsize.x, self.worldsize.y, self.worldsize.z) * self._threejs_helpers.axissize;
                 helper = new THREE.AxesHelper($helpersize);
                 self._addMeshToScene(helper, this._globals.helper, false);
                 // noinspection JSValidateTypes
@@ -2124,29 +1428,29 @@ function TMSViewer() {
          * Draw X, Y and Z planes
          * --------------------------------------------------------------------
          */
-        if (this.threejs_helpers.planes) {
+        if (this._threejs_helpers.planes) {
             if (isNullUndf(this._helperInstances.planes)) {
                 let $planes = [];
 
                 // Colors
                 let materialx = new THREE.MeshBasicMaterial({
-                    color: self.threejs_helpers.planecolorx,
-                    opacity: self.threejs_helpers.planeopacity,
+                    color: self._threejs_helpers.planecolorx,
+                    opacity: self._threejs_helpers.planeopacity,
                 });
                 let materialy = new THREE.MeshBasicMaterial({
-                    color: self.threejs_helpers.planecolory,
-                    opacity: self.threejs_helpers.planeopacity,
+                    color: self._threejs_helpers.planecolory,
+                    opacity: self._threejs_helpers.planeopacity,
                 });
                 let materialz = new THREE.MeshBasicMaterial({
-                    color: self.threejs_helpers.planecolorz,
-                    opacity: self.threejs_helpers.planeopacity,
+                    color: self._threejs_helpers.planecolorz,
+                    opacity: self._threejs_helpers.planeopacity,
                 });
                 materialx.wireframe = true;
-                materialx.aoMapIntensity = self.threejs_helpers.planeopacity;
+                materialx.aoMapIntensity = self._threejs_helpers.planeopacity;
                 materialy.wireframe = true;
-                materialy.aoMapIntensity = self.threejs_helpers.planeopacity;
+                materialy.aoMapIntensity = self._threejs_helpers.planeopacity;
                 materialz.wireframe = true;
-                materialz.aoMapIntensity = self.threejs_helpers.planeopacity;
+                materialz.aoMapIntensity = self._threejs_helpers.planeopacity;
 
                 // Geometry
                 let geometry, plane;
@@ -2154,10 +1458,10 @@ function TMSViewer() {
                 // X plane
                 geometry = new THREE.Geometry();
                 geometry.vertices.push(
-                    this._newThreePoint(this._worldsize.x, 0, 0),
-                    this._newThreePoint(-this._worldsize.x, 0, 0),
-                    this._newThreePoint(-this._worldsize.x, 0, this._worldsize.z),
-                    this._newThreePoint(this._worldsize.x, 0, this._worldsize.z)
+                    this._newThreePoint(this.worldsize.x, 0, 0),
+                    this._newThreePoint(-this.worldsize.x, 0, 0),
+                    this._newThreePoint(-this.worldsize.x, 0, this.worldsize.z),
+                    this._newThreePoint(this.worldsize.x, 0, this.worldsize.z)
                 );
                 geometry.faces.push(new THREE.Face3(0, 1, 2));
                 geometry.faces.push(new THREE.Face3(0, 2, 3));
@@ -2169,10 +1473,10 @@ function TMSViewer() {
                 // Y plane
                 geometry = new THREE.Geometry();
                 geometry.vertices.push(
-                    this._newThreePoint(0, -this._worldsize.y, 0),
-                    this._newThreePoint(0, this._worldsize.y, 0),
-                    this._newThreePoint(0, this._worldsize.y, this._worldsize.z),
-                    this._newThreePoint(0, -this._worldsize.y, this._worldsize.z)
+                    this._newThreePoint(0, -this.worldsize.y, 0),
+                    this._newThreePoint(0, this.worldsize.y, 0),
+                    this._newThreePoint(0, this.worldsize.y, this.worldsize.z),
+                    this._newThreePoint(0, -this.worldsize.y, this.worldsize.z)
                 );
                 geometry.faces.push(new THREE.Face3(0, 1, 2));
                 geometry.faces.push(new THREE.Face3(0, 2, 3));
@@ -2184,10 +1488,10 @@ function TMSViewer() {
                 // Z plane
                 geometry = new THREE.Geometry();
                 geometry.vertices.push(
-                    this._newThreePoint(this._worldsize.x, this._worldsize.y, 0),
-                    this._newThreePoint(-this._worldsize.x, this._worldsize.y, 0),
-                    this._newThreePoint(-this._worldsize.x, -this._worldsize.y, 0),
-                    this._newThreePoint(this._worldsize.x, -this._worldsize.y, 0)
+                    this._newThreePoint(this.worldsize.x, this.worldsize.y, 0),
+                    this._newThreePoint(-this.worldsize.x, this.worldsize.y, 0),
+                    this._newThreePoint(-this.worldsize.x, -this.worldsize.y, 0),
+                    this._newThreePoint(this.worldsize.x, -this.worldsize.y, 0)
                 );
                 geometry.faces.push(new THREE.Face3(0, 1, 2));
                 geometry.faces.push(new THREE.Face3(0, 2, 3));
@@ -2214,10 +1518,10 @@ function TMSViewer() {
          * Draw plane grid
          * --------------------------------------------------------------------
          */
-        if (this.threejs_helpers.grid) {
+        if (this._threejs_helpers.grid) {
             if (isNullUndf(this._helperInstances.grid)) {
-                let $mapsize = 2 * Math.max(this._worldsize.x, this._worldsize.y);
-                let $griddist = Math.floor(2 / this.threejs_helpers.griddist);
+                let $mapsize = 2 * Math.max(this.worldsize.x, this.worldsize.y);
+                let $griddist = Math.floor(2 / this._threejs_helpers.griddist);
                 helper = new THREE.GridHelper($mapsize, $griddist);
                 helper.position.y = 0;
                 helper.material.opacity = 0.5;
@@ -2238,45 +1542,45 @@ function TMSViewer() {
          * Draw map limits
          * --------------------------------------------------------------------
          */
-        if (this.threejs_helpers.worldlimits) {
+        if (this._threejs_helpers.worldlimits) {
             if (isNullUndf(this._helperInstances.worldlimits)) {
                 let material = new THREE.MeshBasicMaterial({
-                    color: self.threejs_helpers.worldlimitscolor,
-                    opacity: self.threejs_helpers.planeopacity
+                    color: self._threejs_helpers.worldlimitscolor,
+                    opacity: self._threejs_helpers.planeopacity
                 });
                 material.wireframe = true;
                 material.aoMapIntensity = 0.5;
                 let geometry = new THREE.Geometry();
                 geometry.vertices.push(
                     // +X
-                    this._newThreePoint(this._worldsize.x, -this._worldsize.y, 0),
-                    this._newThreePoint(this._worldsize.x, this._worldsize.y, 0),
-                    this._newThreePoint(this._worldsize.x, this._worldsize.y, this._worldsize.z),
-                    this._newThreePoint(this._worldsize.x, -this._worldsize.y, this._worldsize.z),
+                    this._newThreePoint(this.worldsize.x, -this.worldsize.y, 0),
+                    this._newThreePoint(this.worldsize.x, this.worldsize.y, 0),
+                    this._newThreePoint(this.worldsize.x, this.worldsize.y, this.worldsize.z),
+                    this._newThreePoint(this.worldsize.x, -this.worldsize.y, this.worldsize.z),
 
                     // +Y
-                    this._newThreePoint(this._worldsize.x, this._worldsize.y, 0),
-                    this._newThreePoint(-this._worldsize.x, this._worldsize.y, 0),
-                    this._newThreePoint(-this._worldsize.x, this._worldsize.y, this._worldsize.z),
-                    this._newThreePoint(this._worldsize.x, this._worldsize.y, this._worldsize.z),
+                    this._newThreePoint(this.worldsize.x, this.worldsize.y, 0),
+                    this._newThreePoint(-this.worldsize.x, this.worldsize.y, 0),
+                    this._newThreePoint(-this.worldsize.x, this.worldsize.y, this.worldsize.z),
+                    this._newThreePoint(this.worldsize.x, this.worldsize.y, this.worldsize.z),
 
                     // -X
-                    this._newThreePoint(-this._worldsize.x, -this._worldsize.y, 0),
-                    this._newThreePoint(-this._worldsize.x, this._worldsize.y, 0),
-                    this._newThreePoint(-this._worldsize.x, this._worldsize.y, this._worldsize.z),
-                    this._newThreePoint(-this._worldsize.x, -this._worldsize.y, this._worldsize.z),
+                    this._newThreePoint(-this.worldsize.x, -this.worldsize.y, 0),
+                    this._newThreePoint(-this.worldsize.x, this.worldsize.y, 0),
+                    this._newThreePoint(-this.worldsize.x, this.worldsize.y, this.worldsize.z),
+                    this._newThreePoint(-this.worldsize.x, -this.worldsize.y, this.worldsize.z),
 
                     // -Y
-                    this._newThreePoint(this._worldsize.x, -this._worldsize.y, 0),
-                    this._newThreePoint(-this._worldsize.x, -this._worldsize.y, 0),
-                    this._newThreePoint(-this._worldsize.x, -this._worldsize.y, this._worldsize.z),
-                    this._newThreePoint(this._worldsize.x, -this._worldsize.y, this._worldsize.z),
+                    this._newThreePoint(this.worldsize.x, -this.worldsize.y, 0),
+                    this._newThreePoint(-this.worldsize.x, -this.worldsize.y, 0),
+                    this._newThreePoint(-this.worldsize.x, -this.worldsize.y, this.worldsize.z),
+                    this._newThreePoint(this.worldsize.x, -this.worldsize.y, this.worldsize.z),
 
                     // Z
-                    this._newThreePoint(this._worldsize.x, -this._worldsize.y, this._worldsize.z),
-                    this._newThreePoint(this._worldsize.x, this._worldsize.y, this._worldsize.z),
-                    this._newThreePoint(-this._worldsize.x, this._worldsize.y, this._worldsize.z),
-                    this._newThreePoint(-this._worldsize.x, -this._worldsize.y, this._worldsize.z)
+                    this._newThreePoint(this.worldsize.x, -this.worldsize.y, this.worldsize.z),
+                    this._newThreePoint(this.worldsize.x, this.worldsize.y, this.worldsize.z),
+                    this._newThreePoint(-this.worldsize.x, this.worldsize.y, this.worldsize.z),
+                    this._newThreePoint(-this.worldsize.x, -this.worldsize.y, this.worldsize.z)
                 );
                 for (let j = 0; j <= 4; j += 1) {
                     geometry.faces.push(new THREE.Face3(4 * j, 4 * j + 1, 4 * j + 2));
@@ -2300,13 +1604,13 @@ function TMSViewer() {
          * Draw camera objective
          * --------------------------------------------------------------------
          */
-        if (this.threejs_helpers.cameratarget) {
+        if (this._threejs_helpers.cameratarget) {
             if (isNullUndf(this._helperInstances.cameratarget)) {
-                let $targetsize = Math.min(self._worldsize.x, self._worldsize.y, self._worldsize.z) * self.threejs_helpers.cameratargetsize / 2;
+                let $targetsize = Math.min(self.worldsize.x, self.worldsize.y, self.worldsize.z) * self._threejs_helpers.cameratargetsize / 2;
                 let sphereGeometry = new THREE.SphereGeometry($targetsize, 16, 8);
                 let wireframeMaterial = new THREE.MeshBasicMaterial(
                     {
-                        color: self.threejs_helpers.cameratargetcolor,
+                        color: self._threejs_helpers.cameratargetcolor,
                         transparent: true,
                         wireframe: true,
                     });
@@ -2369,7 +1673,7 @@ function TMSViewer() {
         if (notNullUndf(this._viewerMesh)) this._scene.remove(this._viewerMesh);
 
         // Scale volume
-        volume.scale(1, this._worldsize.x, this._worldsize.y, this._worldsize.z);
+        volume.scale(1, this.worldsize.x, this.worldsize.y, this.worldsize.z);
 
         // Create new geometry
         let geometryMerge = new THREE.Geometry();
@@ -2389,8 +1693,8 @@ function TMSViewer() {
         this.objects_props.tooltip.mode.group.addContainer(this._globals.volume, meshNames);
 
         // Adds normal helper
-        if (this.threejs_helpers.normals) {
-            let nh_size = Math.min(this._worldsize.x, this._worldsize.x, this._worldsize.z) * 0.1;
+        if (this._threejs_helpers.normals) {
+            let nh_size = Math.min(this.worldsize.x, this.worldsize.x, this.worldsize.z) * 0.1;
             let helper = new THREE.FaceNormalsHelper(this._viewerMesh, nh_size, 0xff0000, 1);
             this._addMeshToScene(helper, this._globals.normals, false);
         }
@@ -2402,7 +1706,7 @@ function TMSViewer() {
         this._addMeshToScene(s_contour, this._globals.contour, false);
 
         // Render
-        this._render();
+        this.render();
 
     };
 
@@ -2507,6 +1811,46 @@ function TMSViewer() {
         this._collaidableMeshes.push(mesh);
     };
 
+    /**
+     * Return canvas parent.
+     *
+     * @function
+     * @returns {JQuery|jQuery|HTMLElement}
+     */
+    this.get_canvas_parent = function () {
+        return this._canvasParent;
+    };
+
+    /**
+     * Returns camera.
+     *
+     * @function
+     * @returns {THREE.PerspectiveCamera|PerspectiveCamera}
+     */
+    this.get_camera = function () {
+        return this._three_camera;
+    };
+
+    /**
+     * Returns scene.
+     *
+     * @function
+     * @returns {THREE.Scene|Scene}
+     */
+    this.get_scene = function () {
+        return this._scene;
+    };
+
+    /**
+     * Returns raycaster.
+     *
+     * @function
+     * @returns {THREE.Raycaster|Raycaster}
+     */
+    this.get_raycaster = function () {
+        return this._raycaster;
+    };
+
 
     /**
      * ------------------------------------------------------------------------
@@ -2526,9 +1870,8 @@ function TMSViewer() {
         self._canvasParent = $(parentElement);
         self._initThree();
         self._initWorldObjects();
-        self._initEvents();
         self._initTooltip();
-        self._animateFrame();
+        self.animateFrame();
     };
 
     /**

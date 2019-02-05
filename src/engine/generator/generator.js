@@ -186,7 +186,7 @@ function Generator() {
      * @function
      */
     this.start = function () {
-        app_viewer.new(this._volume);
+        app_tms.new(this._volume);
     };
 
 }

@@ -547,6 +547,6 @@ function Vertex(x, y, z, vertex_name) {
     /**
      * Apply constructor
      */
-    this.set_name(vertex_name)
+    this.set_name(vertex_name);
 
 }
