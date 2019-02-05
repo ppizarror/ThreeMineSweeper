@@ -1742,6 +1742,11 @@ function TMSViewer() {
             shininess: self.palette.face_shininess_unplayed,
             specular: self.palette.face_specular,
         });
+        if (!face.is_enabled()) {
+            mat.color = self.palette.face_color_played;
+            mat.emissive = self.palette.face_unhover_played;
+            mat.shininess = self.palette.face_shininess_played;
+        }
 
         // Create mesh
         let $mesh = new THREE.Mesh(geom, mat);

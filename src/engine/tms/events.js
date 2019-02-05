@@ -52,7 +52,6 @@ function TMSEvents() {
      */
     this._hasMousePressed = false;
 
-    // noinspection JSUnusedGlobalSymbols
     /**
      * Mouse is pressed and dragged.
      * @type {boolean}
@@ -60,7 +59,6 @@ function TMSEvents() {
      */
     this._mouseMoveDrag = false;
 
-    // noinspection JSUnusedGlobalSymbols
     /**
      * Mouse is pressed.
      * @type {boolean}
@@ -253,7 +251,7 @@ function TMSEvents() {
             self._hasMousePressed = false;
             setTimeout(function () {
                 self._mouseMoveDrag = false;
-            }, 50);
+            }, 20);
         });
 
         /**
@@ -261,7 +259,7 @@ function TMSEvents() {
          */
         this._canvasParent.on(self._eventID.click, function (e) {
             e.preventDefault();
-            if (self._mouseMoveDrag) return;
+            if (self._mouseMoveDrag || self._mouseKeepPressed) return;
             self._minesweeper.play(self._lastHoverFace, true, self._viewer);
         });
 
@@ -270,7 +268,6 @@ function TMSEvents() {
          */
         this._canvasParent.on(self._eventID.contextmenu, function (e) {
             e.preventDefault();
-            if (self._mouseMoveDrag) return;
             self._minesweeper.play(self._lastHoverFace, false, self._viewer);
         });
 
@@ -278,11 +275,9 @@ function TMSEvents() {
          * Move mouse around canvas
          */
         app_dom.window.on(self._eventID.windowmousemove, function (e) {
-
             // e.preventDefault();
             self._mouseMoveDrag = self._hasMousePressed && true;
             self._mouseHandler(e);
-
         });
 
         /**

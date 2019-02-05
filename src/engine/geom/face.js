@@ -23,6 +23,12 @@ function Face(face_vertex, face_name) {
     /* eslint-disable no-nested-ternary */
 
     /**
+     * ------------------------------------------------------------------------
+     * Topology definition
+     * ------------------------------------------------------------------------
+     */
+
+    /**
      * ID of the face.
      * @type {string}
      * @private
@@ -105,43 +111,6 @@ function Face(face_vertex, face_name) {
      * @private
      */
     this._mesh = null;
-
-    /**
-     * Bombs in face.
-     * @type {number}
-     * @private
-     */
-    this._bomb = 0;
-
-    /**
-     * Face is enabled.
-     * @type {boolean}
-     * @private
-     */
-    this._enabled = true;
-
-    /**
-     * Face is played or not.
-     * @type {boolean}
-     * @private
-     */
-    this._played = false;
-
-    /**
-     * Bomb counter behaviour.
-     * @type {{NEIGHBOUR: number, AROUND: number}}
-     */
-    this.behaviour = {
-        AROUND: 1,
-        NEIGHBOUR: 0,
-    };
-
-    /**
-     * Face bomb behaviour.
-     * @type {number}
-     * @private
-     */
-    this._bomb_behaviour = this.behaviour.NEIGHBOUR;
 
     /**
      * Pointer to object.
@@ -991,6 +960,57 @@ function Face(face_vertex, face_name) {
         return this._mesh;
     };
 
+
+    /**
+     * ------------------------------------------------------------------------
+     * Game definition
+     * ------------------------------------------------------------------------
+     */
+
+    /**
+     * Bombs in face.
+     * @type {number}
+     * @private
+     */
+    this._bomb = 0;
+
+    /**
+     * Face is enabled.
+     * @type {boolean}
+     * @private
+     */
+    this._enabled = true;
+
+    /**
+     * Face is played or not.
+     * @type {boolean}
+     * @private
+     */
+    this._played = false;
+
+    /**
+     * Face flag status.
+     * @type {number}
+     * @private
+     */
+    this._flag = 0;
+
+    /**
+     * Bomb counter behaviour.
+     * @type {{NEIGHBOUR: number, AROUND: number}}
+     */
+    this.behaviour = {
+        AROUND: 1,
+        NEIGHBOUR: 0,
+    };
+
+    /**
+     * Face bomb behaviour.
+     * @type {number}
+     * @private
+     */
+    this._bomb_behaviour = this.behaviour.NEIGHBOUR;
+
     /**
      * Put a bomb on the face.
      *
@@ -1056,7 +1076,7 @@ function Face(face_vertex, face_name) {
     };
 
     /**
-     * Disable face.
+     * Disables face.
      *
      * @function
      */
@@ -1083,6 +1103,8 @@ function Face(face_vertex, face_name) {
      */
     this.get_image = function (viewer) {
         if (!this.is_enabled()) return viewer.images.disabled;
+        if (this._flag === 1) return viewer.images.flag;
+        if (this._flag === 2) return viewer.images.question;
         if (!this._played) return viewer.images.unopened;
         if (this.has_bomb()) return viewer.images.bomb;
         return viewer.images['tile' + self._bomb];
@@ -1139,7 +1161,39 @@ function Face(face_vertex, face_name) {
     };
 
     /**
-     * Apply constructor
+     * Place flag.
+     *
+     * @function
+     */
+    this.place_flag = function () {
+        self._flag = (self._flag + 1) % 3;
+    };
+
+    /**
+     * Face has flag.
+     *
+     * @function
+     * @returns {boolean}
+     */
+    this.has_flag = function () {
+        return self._flag === 1;
+    };
+
+    /**
+     * Face has question.
+     *
+     * @function
+     * @returns {boolean}
+     */
+    this.has_question = function () {
+        return self._flag === 2;
+    };
+
+
+    /**
+     * ------------------------------------------------------------------------
+     * Constructor
+     * ------------------------------------------------------------------------
      */
     this.add_vertex(face_vertex);
     this.set_name(face_name);

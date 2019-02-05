@@ -25,6 +25,16 @@ function Minesweeper() {
     this._volume = null;
 
     /**
+     * Stores last click
+     * @type {{id: string, time: Date}}
+     * @private
+     */
+    this._last_click = {
+        id: '',
+        time: new Date(),
+    };
+
+    /**
      * Apply minesweeper rules to volume.
      *
      * @function
@@ -74,10 +84,29 @@ function Minesweeper() {
     this.play = function (face, lclick, viewer) {
 
         // Not valid conditions
-        if (isNullUndf(face) || face.is_played()) return;
+        if (isNullUndf(face)) return;
+
+        // Click time
+        let t = new Date();
+        let ts = getSecondsBetween(t, this._last_click.time); // Seconds between last click
+
+        // If face played then only left click is allowed
+        if (face.is_played() && this._last_click.id === face.get_id() && ts < 0.15 && lclick && face.get_bomb_count() !== 0) {
+            app_console.info(lang.mines_detected_double_lclick.format(ts));
+            this._clear_zeros(face, viewer, true);
+        }
+
+        // Stores last click
+        this._last_click.id = face.get_id();
+        this._last_click.time = t;
+
+        // Return if played
+        if (face.is_played()) return;
 
         // If left click, uncovers face
         if (lclick) {
+            if (face.has_flag()) return;
+            if (face.has_question()) face.place_flag();
             face.play(viewer);
             face.place_image(viewer);
 
@@ -85,10 +114,14 @@ function Minesweeper() {
             if (face.has_bomb()) return;
 
             // If face has zero bombs
-            if (face.get_bomb_count() === 0) this._clear_zeros(face, viewer);
-
-            viewer.render();
+            if (face.get_bomb_count() === 0) this._clear_zeros(face, viewer, false);
+        } else {
+            face.place_flag();
+            face.place_image(viewer);
         }
+
+        // Render scene
+        viewer.render();
 
     };
 
@@ -98,15 +131,16 @@ function Minesweeper() {
      * @function
      * @param {Face} face
      * @param {TMSViewer} viewer
+     * @param {boolean} click_bombs
      * @private
      */
-    this._clear_zeros = function (face, viewer) {
+    this._clear_zeros = function (face, viewer, click_bombs) {
         let f = face.get_target_faces();
         for (let i = 0; i < f.length; i += 1) {
-            if (f[i].is_enabled() && !f[i].is_played() && !f[i].has_bomb()) {
+            if (f[i].is_enabled() && !f[i].is_played() && (!f[i].has_bomb() || click_bombs) && !f[i].has_flag() && !f[i].has_question()) {
                 f[i].play(viewer);
                 f[i].place_image(viewer);
-                if (f[i].get_bomb_count() === 0) this._clear_zeros(f[i], viewer);
+                if (f[i].get_bomb_count() === 0) this._clear_zeros(f[i], viewer, true);
             }
         }
     };
