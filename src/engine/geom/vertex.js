@@ -24,18 +24,9 @@ function Vertex(x, y, z, vertex_name) {
     /**
      * If x, y, z not defined then fill by zero
      */
-    if (isNullUndf(x)) {
-        x = 0;
-        y = 0;
-        z = 0;
-    }
-    if (isNullUndf(y)) {
-        y = 0;
-        z = 0;
-    }
-    if (isNullUndf(z)) {
-        z = 0;
-    }
+    if (isNullUndf(x)) x = 0;
+    if (isNullUndf(y)) y = 0;
+    if (isNullUndf(z)) z = 0;
 
     /**
      * ID of the vertex.
