@@ -82,11 +82,11 @@ function TMSViewer() {
         /**
          * Status
          */
-        axis: true,                      // Show axis
+        axis: false,                     // Show axis
         cameratarget: true,              // Show camera target
-        fpsmeter: true,                  // Show fps
+        fpsmeter: false,                 // Show fps
         grid: false,                     // Show grid plane
-        gui: true,                       // Show GUI
+        gui: false,                      // Show GUI
         normals: false,                  // Show normals
         planes: false,                   // Show planes
         worldlimits: false,              // Show world limits
@@ -685,10 +685,10 @@ function TMSViewer() {
          */
         if (this._threejs_helpers.gui) {
             this._threejs_helpers.gui = false;
-            this._toggleGUI();
+            this.toggleGUI();
         }
         if (this._threejs_helpers.fpsmeter) {
-            this._toggleFPSMeter();
+            this.toggleFPSMeter();
         }
 
     };
@@ -907,22 +907,11 @@ function TMSViewer() {
     };
 
     /**
-     * Stop rendering thread.
-     *
-     * @function
-     * @protected
-     */
-    this.stopAnimate = function () {
-        self._animateThread = false;
-    };
-
-    /**
      * Reset camera.
      *
      * @function
-     * @private
      */
-    this._resetCamera = function () {
+    this.resetCamera = function () {
         self._setInitialCameraPosition();
         self.animateFrame();
     };
@@ -943,9 +932,8 @@ function TMSViewer() {
      * Hide/show axis.
      *
      * @function
-     * @private
      */
-    this._toggleAxis = function () {
+    this.toggleAxis = function () {
         self._threejs_helpers.axis = !self._threejs_helpers.axis;
         self._toggleHelper();
     };
@@ -954,9 +942,8 @@ function TMSViewer() {
      * Hide/show grid.
      *
      * @function
-     * @private
      */
-    this._toggleGrid = function () {
+    this.toggleGrid = function () {
         self._threejs_helpers.grid = !self._threejs_helpers.grid;
         self._toggleHelper();
     };
@@ -965,9 +952,8 @@ function TMSViewer() {
      * Hide/show world limits.
      *
      * @function
-     * @private
      */
-    this._toggleWorldLimits = function () {
+    this.toggleWorldLimits = function () {
         self._threejs_helpers.worldlimits = !self._threejs_helpers.worldlimits;
         self._toggleHelper();
     };
@@ -976,9 +962,8 @@ function TMSViewer() {
      * Hide/show camera target.
      *
      * @function
-     * @private
      */
-    this._toggleCameraTarget = function () {
+    this.toggleCameraTarget = function () {
         self._threejs_helpers.cameratarget = !self._threejs_helpers.cameratarget;
         self._toggleHelper();
     };
@@ -987,9 +972,8 @@ function TMSViewer() {
      * Hide/show planes.
      *
      * @function
-     * @private
      */
-    this._togglePlanes = function () {
+    this.togglePlanes = function () {
         self._threejs_helpers.planes = !self._threejs_helpers.planes;
         self._toggleHelper();
     };
@@ -998,9 +982,8 @@ function TMSViewer() {
      * Hide/show GUI.
      *
      * @function
-     * @private
      */
-    this._toggleGUI = function () {
+    this.toggleGUI = function () {
         self._threejs_helpers.gui = !self._threejs_helpers.gui;
         if (self._threejs_helpers.gui) {
             self._buildGUI();
@@ -1365,9 +1348,8 @@ function TMSViewer() {
      * Adds FPS meter.
      *
      * @function
-     * @private
      */
-    this._toggleFPSMeter = function () {
+    this.toggleFPSMeter = function () {
 
         // If not enabled
         if (!self._threejs_helpers.fpsmeter) return;
@@ -1553,26 +1535,26 @@ function TMSViewer() {
                 let geometry = new THREE.Geometry();
                 geometry.vertices.push(
                     // +X
-                    this._newThreePoint(this.worldsize.x, -this.worldsize.y, 0),
-                    this._newThreePoint(this.worldsize.x, this.worldsize.y, 0),
+                    this._newThreePoint(this.worldsize.x, -this.worldsize.y, -this.worldsize.z),
+                    this._newThreePoint(this.worldsize.x, this.worldsize.y, -this.worldsize.z),
                     this._newThreePoint(this.worldsize.x, this.worldsize.y, this.worldsize.z),
                     this._newThreePoint(this.worldsize.x, -this.worldsize.y, this.worldsize.z),
 
                     // +Y
-                    this._newThreePoint(this.worldsize.x, this.worldsize.y, 0),
-                    this._newThreePoint(-this.worldsize.x, this.worldsize.y, 0),
+                    this._newThreePoint(this.worldsize.x, this.worldsize.y, -this.worldsize.z),
+                    this._newThreePoint(-this.worldsize.x, this.worldsize.y, -this.worldsize.z),
                     this._newThreePoint(-this.worldsize.x, this.worldsize.y, this.worldsize.z),
                     this._newThreePoint(this.worldsize.x, this.worldsize.y, this.worldsize.z),
 
                     // -X
-                    this._newThreePoint(-this.worldsize.x, -this.worldsize.y, 0),
-                    this._newThreePoint(-this.worldsize.x, this.worldsize.y, 0),
+                    this._newThreePoint(-this.worldsize.x, -this.worldsize.y, -this.worldsize.z),
+                    this._newThreePoint(-this.worldsize.x, this.worldsize.y, -this.worldsize.z),
                     this._newThreePoint(-this.worldsize.x, this.worldsize.y, this.worldsize.z),
                     this._newThreePoint(-this.worldsize.x, -this.worldsize.y, this.worldsize.z),
 
                     // -Y
-                    this._newThreePoint(this.worldsize.x, -this.worldsize.y, 0),
-                    this._newThreePoint(-this.worldsize.x, -this.worldsize.y, 0),
+                    this._newThreePoint(this.worldsize.x, -this.worldsize.y, -this.worldsize.z),
+                    this._newThreePoint(-this.worldsize.x, -this.worldsize.y, -this.worldsize.z),
                     this._newThreePoint(-this.worldsize.x, -this.worldsize.y, this.worldsize.z),
                     this._newThreePoint(this.worldsize.x, -this.worldsize.y, this.worldsize.z),
 
@@ -1741,6 +1723,7 @@ function TMSViewer() {
 
         // Create material
         let mat = new THREE.MeshPhongMaterial({
+            color: 0xffffff,
             map: self._images.unopened,
             shininess: 50,
             specular: 0x111111,
@@ -1871,6 +1854,7 @@ function TMSViewer() {
         self._initThree();
         self._initWorldObjects();
         self._initTooltip();
+        self.focus();
         self.animateFrame();
     };
 

@@ -275,6 +275,40 @@ function TMSEvents() {
             // If pressed mouse returns
             if (self._hasMousePressed) return;
 
+            // Check Alt+key events
+            if (e.altKey) {
+                switch (e.which) {
+                    case 49: // [1]
+                        self._viewer.resetCamera();
+                        break;
+                    case 50: // [2]
+                        self._viewer.toggleAxis();
+                        break;
+                    case 51: // [3]
+                        self._viewer.toggleCameraTarget();
+                        break;
+                    case 52: // [4]
+                        self._viewer.toggleFPSMeter();
+                        break;
+                    case 53: // [5]
+                        self._viewer.toggleGrid();
+                        break;
+                    case 54: // [6]
+                        self._viewer.toggleGUI();
+                        break;
+                    case 55: // [7]
+                        self._viewer.toggleWorldLimits();
+                        break;
+                    case 56: // [8]
+                        self._viewer.togglePlanes();
+                        break;
+                    default:
+                        break;
+                }
+                return;
+            }
+
+            // Switch between single keys
             switch (e.which) {
                 case 87: // [W]
                     self._moveForward();
@@ -309,6 +343,7 @@ function TMSEvents() {
                 default: // Ignore other inputs
                     break;
             }
+
         });
         this._canvasParent.on(self._eventID.keyup, function () {
             self._hasKeyPressed = false;
