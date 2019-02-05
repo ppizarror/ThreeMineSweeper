@@ -82,29 +82,30 @@ function TMSViewer() {
         /**
          * Status
          */
-        axis: false,                     // Show axis
-        cameratarget: true,              // Show camera target
-        fpsmeter: false,                 // Show fps
-        grid: false,                     // Show grid plane
-        gui: false,                      // Show GUI
-        normals: false,                  // Show normals
-        planes: false,                   // Show planes
-        worldlimits: false,              // Show world limits
+        axis: false,                    // Show axis
+        cameratarget: false,            // Show camera target
+        fpsmeter: false,                // Show fps
+        grid: false,                    // Show grid plane
+        gui: false,                     // Show GUI
+        normals: false,                 // Show normals
+        planes: false,                  // Show planes
+        worldlimits: false,             // Show world limits
 
         /**
          * Helpers params
          */
-        axissize: 0.40,                  // Axis sizes
-        cameratargetcolor: 0X0000FF,     // Color target
-        cameratargetsize: 0.05,          // Size target
-        griddist: 0.03,                  // Grid distance in percentage
-        guistartclosed: true,            // GUI starts closed
-        guicloseafterpopup: false,       // GUI closes after an popup
-        planecolorx: 0X0000FF,           // X plane color
-        planecolory: 0XFF0000,           // Y plane color
-        planecolorz: 0X00FF00,           // Z plane color
-        planeopacity: 0.5,               // Plane opacity
-        worldlimitscolor: 0X444444,      // World limits color
+        axissize: 0.40,                 // Axis sizes
+        cameratargetcolor: 0X0000ff,    // Color target
+        cameratargetsize: 0.05,         // Size target
+        griddist: 0.03,                 // Grid distance in percentage
+        guicloseafterpopup: false,      // GUI closes after an popup
+        guistartclosed: true,           // GUI starts closed
+        normalcolor: 0xff0000,          // Normal color
+        planecolorx: 0X0000ff,          // X plane color
+        planecolory: 0Xff0000,          // Y plane color
+        planecolorz: 0X00ff00,          // Z plane color
+        planeopacity: 0.5,              // Plane opacity
+        worldlimitscolor: 0X444444,     // World limits color
 
     };
 
@@ -145,15 +146,6 @@ function TMSViewer() {
      * Object properties.
      */
     this.objects_props = {
-
-        /**
-         * Scane plane
-         */
-        plane: {
-            color: 0x222222,                    // Color
-            dithering: false,                   // Dithering
-            obj: null,                          // Stores the object
-        },
 
         /**
          * Camera
@@ -369,7 +361,14 @@ function TMSViewer() {
      * Game palette.
      */
     this.palette = {
+        contour_minor_color: 0x000000,
+        contour_minor_opacity: 1,
+        contour_major_color: 0xffffff,
+        contour_major_opacity: 1,
+        face_color: 0xffffff,
         face_hover: new THREE.Color(0x222222), // Emissive
+        face_shininess: 50,
+        face_specular: 0x111111,
         face_unhover: new THREE.Color(0x000000), // Emissive
     };
 
@@ -1665,7 +1664,7 @@ function TMSViewer() {
         // Draw each face
         let faces = volume.get_faces();
         for (let i = 0; i < faces.length; i += 1) {
-            this._draw_face(faces[i], geometryMerge, mergeMaterials, 0x000000);
+            this._draw_face(faces[i], geometryMerge, mergeMaterials);
             meshNames.push(i);
         }
 
@@ -1677,14 +1676,16 @@ function TMSViewer() {
         // Adds normal helper
         if (this._threejs_helpers.normals) {
             let nh_size = Math.min(this.worldsize.x, this.worldsize.x, this.worldsize.z) * 0.1;
-            let helper = new THREE.FaceNormalsHelper(this._viewerMesh, nh_size, 0xff0000, 1);
+            let helper = new THREE.FaceNormalsHelper(this._viewerMesh, nh_size,
+                this._threejs_helpers.normalcolor, 1);
             this._addMeshToScene(helper, this._globals.normals, false);
         }
 
         // Create secondary contour
-        let s_edges = new THREE.EdgesGeometry(geometryMerge, 60);
-        let s_contour = new THREE.LineSegments(s_edges, new THREE.LineBasicMaterial({color: 0xffffff}));
-        s_contour.material.linewidth = 2;
+        let s_edges = new THREE.EdgesGeometry(geometryMerge);
+        let s_material = new THREE.LineBasicMaterial({color: this.palette.contour_major_color});
+        s_material.opacity = this.palette.contour_major_opacity;
+        let s_contour = new THREE.LineSegments(s_edges, s_material);
         this._addMeshToScene(s_contour, this._globals.contour, false);
 
         // Render
@@ -1713,20 +1714,20 @@ function TMSViewer() {
      * @param {Face} face - Face to draw
      * @param {Object} geometry - Three.js geometry buffer
      * @param {MeshPhongMaterial[]} material - Material
-     * @param {number} contour_color - Contour color
      * @private
      */
-    this._draw_face = function (face, geometry, material, contour_color) {
+    this._draw_face = function (face, geometry, material) {
 
         // Create geometry
         let geom = face.generate_geometry();
 
         // Create material
         let mat = new THREE.MeshPhongMaterial({
-            color: 0xffffff,
+            color: self.palette.face_color,
+            emissive: self.palette.face_unhover,
             map: self._images.unopened,
-            shininess: 50,
-            specular: 0x111111,
+            shininess: self.palette.face_shininess,
+            specular: self.palette.face_specular,
         });
 
         // Create mesh
@@ -1747,8 +1748,8 @@ function TMSViewer() {
 
         // Create contour
         let objEdges = new THREE.EdgesGeometry(geom);
-        let contour = this._createContour(objEdges, contour_color);
-        contour.material.opacity = 1.0;
+        let contour = this._createContour(objEdges, this.palette.contour_minor_color);
+        contour.material.opacity = this.palette.contour_minor_opacity;
         contour.position.y = 0;
         contour.material.transparent = false;
         this._addMeshToScene(contour, this._globals.contour, false);

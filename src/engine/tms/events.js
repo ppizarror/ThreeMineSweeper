@@ -52,6 +52,7 @@ function TMSEvents() {
      */
     this._hasMousePressed = false;
 
+    // noinspection JSUnusedGlobalSymbols
     /**
      * Mouse is pressed and dragged.
      * @type {boolean}
@@ -59,6 +60,7 @@ function TMSEvents() {
      */
     this._mouseMoveDrag = false;
 
+    // noinspection JSUnusedGlobalSymbols
     /**
      * Mouse is pressed.
      * @type {boolean}
