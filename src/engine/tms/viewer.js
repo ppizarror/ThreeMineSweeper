@@ -325,9 +325,8 @@ function TMSViewer() {
 
     /**
      * Store images.
-     * @private
      */
-    this._images = {
+    this.images = {
         bomb: self._textureLoader.load('bomb.png'),
         flag: self._textureLoader.load('flag.png'),
         question: self._textureLoader.load('question.png'),
@@ -657,7 +656,7 @@ function TMSViewer() {
          */
         this._controls = new THREE.OrbitControls(this._three_camera, this._renderer.domElement);
         this._controls.addEventListener('change', this.render);
-        this._controls.enablePan = true;
+        this._controls.enablePan = false;
         this._controls.enableKey = false;
         this._controls.autoRotate = this.objects_props.camera.autorotate;
         this._controls.maxPolarAngle = this.objects_props.camera.maxpolarangle;
@@ -1735,7 +1734,7 @@ function TMSViewer() {
         let mat = new THREE.MeshPhongMaterial({
             color: self.palette.face_color,
             emissive: self.palette.face_unhover,
-            map: self._images.unopened,
+            map: face.get_image(this),
             shininess: self.palette.face_shininess,
             specular: self.palette.face_specular,
         });

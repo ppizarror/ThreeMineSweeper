@@ -107,6 +107,13 @@ function Face(face_vertex, face_name) {
     this._mesh = null;
 
     /**
+     * Bombs in face.
+     * @type {number}
+     * @private
+     */
+    this._bomb = 0;
+
+    /**
      * Pointer to object.
      * @type {Face}
      */
@@ -909,6 +916,76 @@ function Face(face_vertex, face_name) {
      */
     this.get_mesh = function () {
         return this._mesh;
+    };
+
+    /**
+     * Put a bomb on the face.
+     *
+     * @function
+     */
+    this.place_bomb = function () {
+        self._bomb = -1;
+    };
+
+    /**
+     * Face has a bomb or not.
+     *
+     * @function
+     * @returns {boolean}
+     */
+    this.has_bomb = function () {
+        return self._bomb === -1;
+    };
+
+    /**
+     * Get bomb count.
+     *
+     * @function
+     * @returns {number}
+     */
+    this.get_bomb_count = function () {
+        return self._bomb;
+    };
+
+    /**
+     * Set bomb count.
+     *
+     * @function
+     * @param {number} bomb
+     */
+    this.set_bomb_count = function (bomb) {
+        self._bomb = bomb;
+    };
+
+    /**
+     * Get neighbours bombs.
+     *
+     * @function
+     * @returns {number}
+     */
+    this.get_neighbours_bomb_count = function () {
+        let n = this.get_neighbours();
+        let t = 0; // Total bombs
+        let f; // Face
+        for (let i = 0; i < n.length; i += 1) {
+            f = n[i];
+            if (f.has_bomb()) t += 1;
+        }
+        return t;
+    };
+
+    /**
+     * Get image of the face.
+     *
+     * @function
+     * @param {TMSViewer} viewer
+     * @returns {Texture}
+     */
+    this.get_image = function (viewer) {
+        if (this.has_bomb()) {
+            return viewer.images.bomb;
+        }
+        return viewer.images['tile' + self._bomb];
     };
 
     /**

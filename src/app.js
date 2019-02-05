@@ -154,7 +154,7 @@ $(function () {
         g.set_latitude(30);
         g.set_longitude(30);
         g.generate(-1, -1, -1, 1, 1, 1);
-        g.start();
+        g.start(0.2);
     }, 500);
 
 });

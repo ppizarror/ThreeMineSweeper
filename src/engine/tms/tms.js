@@ -69,9 +69,10 @@ function ThreeMinesSweeper() {
      *
      * @function
      * @param {Volume} volume
+     * @param {number} mines - Number of mines, if less than 1 it's treated as percentage
      */
-    this.new = function (volume) {
-        this._mines.apply(volume);
+    this.new = function (volume, mines) {
+        this._mines.apply(volume, mines);
         this._events.set_volume(volume);
         this._viewer.new(volume);
         loadingHandler(false);

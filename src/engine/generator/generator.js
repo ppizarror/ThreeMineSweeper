@@ -184,9 +184,10 @@ function Generator() {
      * Start new game based on this geometry.
      *
      * @function
+     * @param {number} mines - Number of mines, if less than 1 it's treated as percentage
      */
-    this.start = function () {
-        app_tms.new(this._volume);
+    this.start = function (mines) {
+        app_tms.new(this._volume, mines);
     };
 
 }
