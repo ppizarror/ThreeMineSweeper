@@ -46,20 +46,16 @@ function Minesweeper() {
                 name: 'flag'
             },
             {
-                name: 'gameOver',
-                preload: false
+                name: 'gameOver'
             },
             {
-                name: 'gameWin',
-                preload: false
+                name: 'gameWin'
             },
             {
-                name: 'mainmenu',
-                preload: false
+                name: 'mainmenu'
             },
             {
-                name: 'music',
-                preload: false
+                name: 'music'
             },
             {
                 name: 'unflag'
@@ -70,7 +66,7 @@ function Minesweeper() {
         ],
         volume: 0.5,
         path: 'resources/sounds/',
-        preload: true
+        preload: false
     });
 
     /**

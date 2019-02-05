@@ -191,7 +191,7 @@ function TMSViewer() {
          */
         ambientlight: {
             color: 0x141414,
-            intensity: 0.180,
+            intensity: 1.000,
         },
 
         /**
@@ -315,6 +315,13 @@ function TMSViewer() {
      */
     this._collaidableMeshes = [];
 
+
+    /**
+     * ------------------------------------------------------------------------
+     * Textures
+     * ------------------------------------------------------------------------
+     */
+
     /**
      * Texture loader.
      * @type {TextureLoader}
@@ -326,22 +333,31 @@ function TMSViewer() {
     /**
      * Store images.
      */
-    this.images = {
-        bomb: self._textureLoader.load('bomb.png'),
-        disabled: self._textureLoader.load('disabled.png'),
-        flag: self._textureLoader.load('flag.png'),
-        question: self._textureLoader.load('question.png'),
-        tile0: self._textureLoader.load('tile_0.png'),
-        tile1: self._textureLoader.load('tile_1.png'),
-        tile2: self._textureLoader.load('tile_2.png'),
-        tile3: self._textureLoader.load('tile_3.png'),
-        tile4: self._textureLoader.load('tile_4.png'),
-        tile5: self._textureLoader.load('tile_5.png'),
-        tile6: self._textureLoader.load('tile_6.png'),
-        tile7: self._textureLoader.load('tile_7.png'),
-        tile8: self._textureLoader.load('tile_8.png'),
-        unopened: self._textureLoader.load('unopened.png'),
+    this.images = {};
+
+    /**
+     * Load image.
+     *
+     * @function
+     * @param {string} image
+     * @private
+     */
+    this._load_image = function (image) {
+        let $f = function () {
+            self.render();
+        };
+        this.images[image] = self._textureLoader.load('{0}.png'.format(image), $f);
+        this.images[image + '_ambient'] = self._textureLoader.load('{0}_ambient.png'.format(image), $f);
+        this.images[image + '_normal'] = self._textureLoader.load('{0}_normal.png'.format(image), $f);
+        this.images[image + '_specular'] = self._textureLoader.load('{0}_specular.png'.format(image), $f);
     };
+    let _$textures = [
+        'bomb', 'disabled', 'flag', 'question', 'tile_0', 'tile_1', 'tile_2',
+        'tile_3', 'tile_4', 'tile_5', 'tile_6', 'tile_7', 'tile_8', 'unopened'
+    ];
+    for (let i = 0; i < _$textures.length; i += 1) {
+        this._load_image(_$textures[i]);
+    }
 
 
     /**
@@ -370,7 +386,7 @@ function TMSViewer() {
         face_hover_played: new THREE.Color(0x000000), // Emissive
         face_hover_unplayed: new THREE.Color(0x555555), // Emissive
         face_shininess_played: 0,
-        face_shininess_unplayed: 30,
+        face_shininess_unplayed: 40,
         face_specular: 0x101010,
         face_unhover_played: new THREE.Color(0x000000), // Emissive
         face_unhover_unplayed: new THREE.Color(0x050505), // Emissive
@@ -1737,6 +1753,7 @@ function TMSViewer() {
 
         // Create material
         let mat = new THREE.MeshPhongMaterial({
+            bumpScale: 0.25,
             color: self.palette.face_color_unplayed,
             emissive: self.palette.face_unhover_unplayed,
             shininess: self.palette.face_shininess_unplayed,

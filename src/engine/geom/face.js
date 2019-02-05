@@ -1099,15 +1099,17 @@ function Face(face_vertex, face_name) {
      *
      * @function
      * @param {TMSViewer} viewer
+     * @param {string=} type - Image type
      * @returns {Texture}
      */
-    this.get_image = function (viewer) {
-        if (!this.is_enabled()) return viewer.images.disabled;
-        if (this._flag === 1) return viewer.images.flag;
-        if (this._flag === 2) return viewer.images.question;
-        if (!this._played) return viewer.images.unopened;
-        if (this.has_bomb()) return viewer.images.bomb;
-        return viewer.images['tile' + self._bomb];
+    this.get_image = function (viewer, type) {
+        if (isNullUndf(type)) type = '';
+        if (!this.is_enabled()) return viewer.images['disabled' + type];
+        if (this._flag === 1) return viewer.images['flag' + type];
+        if (this._flag === 2) return viewer.images['question' + type];
+        if (!this._played) return viewer.images['unopened' + type];
+        if (this.has_bomb()) return viewer.images['bomb' + type];
+        return viewer.images['tile_' + self._bomb + type];
     };
 
     /**
@@ -1117,7 +1119,10 @@ function Face(face_vertex, face_name) {
      * @param {TMSViewer} viewer
      */
     this.place_image = function (viewer) {
-        this._mesh.material.map = this.get_image(viewer);
+        this._mesh.material.aoMap = this.get_image(viewer, '_ambient');
+        this._mesh.material.bumpMap = this.get_image(viewer, '_normal');
+        this._mesh.material.map = this.get_image(viewer, '');
+        this._mesh.material.specularMap = this.get_image(viewer, '_specular');
     };
 
     /**
