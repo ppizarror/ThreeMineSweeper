@@ -118,7 +118,7 @@ $(function () {
     deleteUrlParams();
     app_viewer.init('#viewer');
 
-    let $fig = 5; // Draw figure
+    let $fig = 3; // Draw figure
     setTimeout(function () {
         let g;
         switch ($fig) {
