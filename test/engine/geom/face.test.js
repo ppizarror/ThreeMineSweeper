@@ -10,6 +10,7 @@ describe('Test face', function () {
 
         // ID test
         f.set_name('F');
+        expect(f.get_neighbours_strlist()).toBe('');
         expect(f.get_name()).toBe('F');
         expect(f.get_id !== ft.get_id()).toBe(true);
 
@@ -21,6 +22,7 @@ describe('Test face', function () {
         expect(f.add_vertex([v2, v3, v4])).toBe(true);
         expect(f.add_vertex([v1, v2, v3, v4])).toBe(false);
         expect(f.length()).toBe(4);
+        expect(f.get_mesh()).toBe(null);
     });
 
     it('Test normal', function () {

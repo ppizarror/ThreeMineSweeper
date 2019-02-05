@@ -118,7 +118,7 @@ $(function () {
     deleteUrlParams();
     app_viewer.init('#viewer');
 
-    let $fig = 0; // Draw figure
+    let $fig = 5; // Draw figure
     setTimeout(function () {
         let g;
         switch ($fig) {
@@ -149,8 +149,8 @@ $(function () {
             default:
                 return;
         }
-        g.set_order(1);
-        g.set_face_target(500);
+        g.set_order(2);
+        g.set_face_target(20);
         g.set_latitude(30);
         g.set_longitude(30);
         g.generate(-1, -1, -1, 1, 1, 1);

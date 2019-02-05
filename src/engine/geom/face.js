@@ -100,6 +100,13 @@ function Face(face_vertex, face_name) {
     this._uv_traslate = new THREE.Vector2(0, 0);
 
     /**
+     * Stores three.js mesh object.
+     * @type {Mesh | null}
+     * @private
+     */
+    this._mesh = null;
+
+    /**
      * Pointer to object.
      * @type {Face}
      */
@@ -533,6 +540,24 @@ function Face(face_vertex, face_name) {
     };
 
     /**
+     * Return neighbours as a string list.
+     *
+     * @function
+     * @returns {string}
+     */
+    this.get_neighbours_strlist = function () {
+        let l = '';
+        let n = this.get_neighbours();
+        for (let i = 0; i < n.length; i += 1) {
+            l += n[i].get_name();
+            if (i < n.length - 1) {
+                l += ', ';
+            }
+        }
+        return l;
+    };
+
+    /**
      * Assemble face.
      *
      * @function
@@ -864,6 +889,26 @@ function Face(face_vertex, face_name) {
     this.set_uv_translate = function (x, y) {
         self._uv_traslate.setX(-x);
         self._uv_traslate.setY(-y);
+    };
+
+    /**
+     * Set three.js mesh object.
+     *
+     * @function
+     * @param {Mesh} mesh
+     */
+    this.set_mesh = function (mesh) {
+        self._mesh = mesh;
+    };
+
+    /**
+     * Get three.js mesh object.
+     *
+     * @function
+     * @returns {Mesh}
+     */
+    this.get_mesh = function () {
+        return this._mesh;
     };
 
     /**

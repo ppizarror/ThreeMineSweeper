@@ -424,7 +424,9 @@ function TMSViewer() {
      * @private
      */
     this._images = {
-        unopened: self._textureLoader.load('unopened.png'),
+        bomb: self._textureLoader.load('bomb.png'),
+        flag: self._textureLoader.load('flag.png'),
+        question: self._textureLoader.load('question.png'),
         tile0: self._textureLoader.load('tile_0.png'),
         tile1: self._textureLoader.load('tile_1.png'),
         tile2: self._textureLoader.load('tile_2.png'),
@@ -434,6 +436,37 @@ function TMSViewer() {
         tile6: self._textureLoader.load('tile_6.png'),
         tile7: self._textureLoader.load('tile_7.png'),
         tile8: self._textureLoader.load('tile_8.png'),
+        unopened: self._textureLoader.load('unopened.png'),
+    };
+
+
+    /**
+     * ------------------------------------------------------------------------
+     * Game variables
+     * ------------------------------------------------------------------------
+     */
+
+    /**
+     * Volume object.
+     * @type {Volume | null}
+     * @private
+     */
+    this._volume = null;
+
+    /**
+     * Last hovered face.
+     * @type {Face | null}
+     * @private
+     */
+    this._lastHoverFace = null;
+
+    /**
+     * Game palette.
+     * @private
+     */
+    this._palette = {
+        face_hover: new THREE.Color(0x222222), // Emissive
+        face_unhover: new THREE.Color(0x000000), // Emissive
     };
 
 
@@ -1398,31 +1431,42 @@ function TMSViewer() {
          */
         if (isNullUndf(intersects) || intersects.length === 0) {
             $show = false;
+            self._faceHover(null);
         } else { // Intersected
 
+            let faceID = ''; // Face identificator
             let $content = ''; // Tooltip content
 
-            // Check each tooltip
+            // Look for face collision
             for (let i = 0; i < self.objects_props.tooltip.modes.length; i += 1) {
-                $content += self.objects_props.tooltip.modes[i](intersects);
+                faceID += self.objects_props.tooltip.modes[i](intersects);
+            }
+
+            // Get face
+            let $face = parseInt(faceID, 10);
+            if (!isNaN($face)) {
+                let faces = this._volume.get_faces();
+                if ($face >= 0 && $face < faces.length) {
+                    $content = this._faceMouseHandler(faces[$face]);
+                }
+            } else {
+                this._faceHover(null);
             }
 
             // Write content
             self.objects_props.tooltip.obj.html($content);
 
-            // Ignore empty
+            /**
+             * Display tooltip content
+             */
             if ($content === '' && self.objects_props.tooltip.ignoreEmpty) {
                 $show = false;
             } else {
 
-                /**
-                 * Check position of tooltip
-                 */
+                // Check position of tooltip
                 $contentw = self.objects_props.tooltip.obj.outerWidth();
 
-                /**
-                 * Tooltip left
-                 */
+                // Tooltip left
                 if ($contentw !== 0 && ($contentw + e.clientX + self.objects_props.tooltip.left + app_dom.window.scrollLeft()) > app_dom.window.width()) {
 
                     // Remove classes
@@ -1435,9 +1479,7 @@ function TMSViewer() {
 
                 }
 
-                /**
-                 * Tooltip right
-                 */
+                // Tooltip right
                 else {
 
                     // Remove classes
@@ -1461,7 +1503,7 @@ function TMSViewer() {
         }
 
         /**
-         * Apply style
+         * Tooltip style
          */
         self.objects_props.tooltip.obj.css({
             display: $show ? 'block' : 'none',
@@ -1469,6 +1511,44 @@ function TMSViewer() {
             top: $ty,
         });
 
+    };
+
+    /**
+     * Handles mouse collision with a face.
+     *
+     * @function
+     * @param {Face} face
+     * @returns {string} - String to tooltip, if empty tooltip hides
+     * @private
+     */
+    this._faceMouseHandler = function (face) {
+        app_console.info('FACE: {1}. N: {0}'.format(face.get_neighbours_strlist(), face.get_name()));
+        this._faceHover(face);
+        return '';
+    };
+
+    /**
+     * Hovers face.
+     *
+     * @function
+     * @param {Face | null} face
+     * @private
+     */
+    this._faceHover = function (face) {
+        if (isNullUndf(face) && isNullUndf(self._lastHoverFace)) return;
+        if (isNullUndf(face) && notNullUndf(self._lastHoverFace) || notNullUndf(face) && notNullUndf(self._lastHoverFace) && !face.equals(self._lastHoverFace)) {
+            let $mesh = self._lastHoverFace.get_mesh();
+            $mesh.material.emissive = self._palette.face_unhover;
+            self._lastHoverFace = null;
+            if (isNullUndf(face)) {
+                this._render();
+                return;
+            }
+        }
+        let $mesh = face.get_mesh();
+        $mesh.material.emissive = self._palette.face_hover;
+        self._lastHoverFace = face;
+        this._render();
     };
 
     /**
@@ -2282,6 +2362,9 @@ function TMSViewer() {
      */
     this._draw_volume = function (volume) {
 
+        // Store volume
+        self._volume = volume;
+
         // Destroy geometry if added
         if (notNullUndf(this._viewerMesh)) this._scene.remove(this._viewerMesh);
 
@@ -2296,7 +2379,8 @@ function TMSViewer() {
         // Draw each face
         let faces = volume.get_faces();
         for (let i = 0; i < faces.length; i += 1) {
-            this._draw_face(faces[i], geometryMerge, mergeMaterials, meshNames, 0x000000);
+            this._draw_face(faces[i], geometryMerge, mergeMaterials, 0x000000);
+            meshNames.push(i);
         }
 
         // Create figure
@@ -2343,18 +2427,17 @@ function TMSViewer() {
      * @param {Face} face - Face to draw
      * @param {Object} geometry - Three.js geometry buffer
      * @param {MeshPhongMaterial[]} material - Material
-     * @param {string[]} name - Name lists
      * @param {number} contour_color - Contour color
      * @private
      */
-    this._draw_face = function (face, geometry, material, name, contour_color) {
+    this._draw_face = function (face, geometry, material, contour_color) {
 
         // Create geometry
         let geom = face.generate_geometry();
 
         // Create material
         let mat = new THREE.MeshPhongMaterial({
-            map: self._images['tile1'],
+            map: self._images.unopened,
             shininess: 50,
             specular: 0x111111,
         });
@@ -2368,11 +2451,12 @@ function TMSViewer() {
         for (let i = 0; i < $meshfaces.length; i += 1) { // Update each face index
             $mesh.geometry.faces[i].materialIndex = 0;
         }
+        $mesh.updateMatrix();
 
         // Merge geometry
         geometry.merge($mesh.geometry, $mesh.matrix, material.length);
-        name.push(face.get_name());
         material.push(mat);
+        face.set_mesh($mesh);
 
         // Create contour
         let objEdges = new THREE.EdgesGeometry(geom);

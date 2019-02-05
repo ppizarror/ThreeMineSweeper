@@ -202,10 +202,15 @@ function Volume(volume_faces, volume_name) {
      * Return volume faces.
      *
      * @function
+     * @param {boolean=} do_clone - Clones object
      * @returns {Face[]}
      */
-    this.get_faces = function () {
-        return this._faces.slice(0);
+    this.get_faces = function (do_clone) {
+        if (isNullUndf(do_clone)) do_clone = true;
+        if (do_clone) {
+            return this._faces.slice(0);
+        }
+        return this._faces;
     };
 
     /**
