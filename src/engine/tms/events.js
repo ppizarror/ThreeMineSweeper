@@ -304,6 +304,9 @@ function TMSEvents() {
                     case 56: // [8]
                         self._viewer.togglePlanes();
                         break;
+                    case 57: // [9]
+                        self._viewer.showRendererInfo();
+                        break;
                     default:
                         break;
                 }

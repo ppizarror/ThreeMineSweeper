@@ -992,6 +992,16 @@ function TMSViewer() {
     };
 
     /**
+     * Display renderer information.
+     *
+     * @function
+     */
+    this.showRendererInfo = function () {
+        let $info = self._renderer.info;
+        app_dialog.text('memory.<b>geometries</b>: {0}<br>memory.<b>textures</b>: {1}<br>render.<b>calls</b>: {2}<br>render.<b>frame</b>: {3}<br>render.<b>lines</b>: {4}<br>render.<b>points</b>: {5}<br>render.<b>triangles</b>: {6}'.format($info.memory.geometries.toLocaleString(), $info.memory.textures.toLocaleString(), $info.render.calls.toLocaleString(), $info.render.frame.toLocaleString(), $info.render.lines.toLocaleString(), $info.render.points.toLocaleString(), $info.render.triangles.toLocaleString()), lang.viewer_renderer_info);
+    };
+
+    /**
      * Return distance to origin.
      *
      * @function
