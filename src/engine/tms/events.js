@@ -277,6 +277,7 @@ function TMSEvents() {
         app_dom.window.on(self._eventID.windowmousemove, function (e) {
             // e.preventDefault();
             self._mouseMoveDrag = self._hasMousePressed && true;
+            if (self._mouseMoveDrag) self._faceHover(null);
             self._mouseHandler(e);
         });
 

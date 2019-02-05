@@ -35,6 +35,45 @@ function Minesweeper() {
     };
 
     /**
+     * Create ion sound.
+     */
+    ion.sound({ // http://ionden.com/a/plugins/ion.sound/en.html
+        sounds: [
+            {
+                name: 'click'
+            },
+            {
+                name: 'flag'
+            },
+            {
+                name: 'gameOver',
+                preload: false
+            },
+            {
+                name: 'gameWin',
+                preload: false
+            },
+            {
+                name: 'mainmenu',
+                preload: false
+            },
+            {
+                name: 'music',
+                preload: false
+            },
+            {
+                name: 'unflag'
+            },
+            {
+                name: 'wrong'
+            }
+        ],
+        volume: 0.5,
+        path: 'resources/sounds/',
+        preload: true
+    });
+
+    /**
      * Apply minesweeper rules to volume.
      *
      * @function
@@ -109,15 +148,23 @@ function Minesweeper() {
             if (face.has_question()) face.place_flag();
             face.play(viewer);
             face.place_image(viewer);
+            ion.sound.play('click');
 
-            // If face has bomb
-            if (face.has_bomb()) return;
+            // Check bomb
+            if (this._check_bomb(face)) return;
 
             // If face has zero bombs
             if (face.get_bomb_count() === 0) this._clear_zeros(face, viewer, false);
         } else {
             face.place_flag();
             face.place_image(viewer);
+            if (face.has_flag()) {
+                ion.sound.play('flag');
+            } else if (face.has_question()) {
+                ion.sound.play('unflag');
+            } else {
+                ion.sound.play('click');
+            }
         }
 
         // Render scene
@@ -140,9 +187,27 @@ function Minesweeper() {
             if (f[i].is_enabled() && !f[i].is_played() && (!f[i].has_bomb() || click_bombs) && !f[i].has_flag() && !f[i].has_question()) {
                 f[i].play(viewer);
                 f[i].place_image(viewer);
+                if (this._check_bomb(f[i])) return;
                 if (f[i].get_bomb_count() === 0) this._clear_zeros(f[i], viewer, true);
             }
         }
+    };
+
+    /**
+     * Check if user clicked on a bomb.
+     *
+     * @function
+     * @param {Face} face
+     * @private
+     */
+    this._check_bomb = function (face) {
+        if (face.has_bomb()) {
+            ion.sound.play('wrong');
+            // ion.sound.play('gameOver');
+            app_console.info(lang.game_over);
+            return true;
+        }
+        return false;
     };
 
 }

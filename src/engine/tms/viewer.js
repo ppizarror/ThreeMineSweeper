@@ -361,7 +361,7 @@ function TMSViewer() {
      * Game palette.
      */
     this.palette = {
-        contour_major_color: 0x666666,
+        contour_major_color: 0x444444,
         contour_major_opacity: 1,
         contour_minor_color: 0x000000,
         contour_minor_opacity: 1,
