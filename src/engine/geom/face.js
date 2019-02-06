@@ -1150,6 +1150,7 @@ function Face(face_vertex, face_name) {
     this.place_image = function (viewer) {
         this._mesh.material.aoMap = this.get_image(viewer, '_ambient');
         this._mesh.material.bumpMap = this.get_image(viewer, '_normal');
+        // this._mesh.material.displacementMap = this.get_image(viewer, '_displacement');
         this._mesh.material.map = this.get_image(viewer, '');
         this._mesh.material.specularMap = this.get_image(viewer, '_specular');
     };

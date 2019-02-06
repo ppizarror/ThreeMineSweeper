@@ -1,6 +1,6 @@
 /**
  VIEWER
- Implements Threejs viewer.
+ Implements Three.js viewer.
 
  @author Pablo Pizarro R. @ppizarror.com
  @license MIT
@@ -348,6 +348,7 @@ function TMSViewer() {
         };
         this.images[image] = self._textureLoader.load('{0}.png'.format(image), $f);
         this.images[image + '_ambient'] = self._textureLoader.load('{0}_ambient.png'.format(image), $f);
+        // this.images[image + '_displacement'] = self._textureLoader.load('{0}_displacement.png'.format(image), $f);
         this.images[image + '_normal'] = self._textureLoader.load('{0}_normal.png'.format(image), $f);
         this.images[image + '_specular'] = self._textureLoader.load('{0}_specular.png'.format(image), $f);
     };
@@ -1837,8 +1838,9 @@ function TMSViewer() {
 
         // Create material
         let mat = new THREE.MeshPhongMaterial({
-            bumpScale: 0.25,
+            bumpScale: 0.30,
             color: self.palette.face_color_unplayed,
+            displacementScale: 0.30,
             emissive: self.palette.face_unhover_unplayed,
             shininess: self.palette.face_shininess_unplayed,
             specular: self.palette.face_specular,

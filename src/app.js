@@ -130,7 +130,7 @@ $(function () {
     deleteUrlParams();
     app_tms.init('#viewer');
 
-    let $fig = 8; // Draw figure
+    let $fig = 3; // Draw figure
     setTimeout(function () {
         let g;
         switch ($fig) {
@@ -166,10 +166,10 @@ $(function () {
         }
         g.set_order(4);
         g.set_face_target(20);
-        g.set_latitude(20);
-        g.set_longitude(20);
+        g.set_latitude(30);
+        g.set_longitude(30);
         g.generate(-1, -1, -1, 1, 1, 1);
-        g.start(0.40);
+        g.start(0.10);
     }, 500);
 
 });
