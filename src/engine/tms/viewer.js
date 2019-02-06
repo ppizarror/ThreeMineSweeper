@@ -559,8 +559,8 @@ function TMSViewer() {
             // WebGL power preference 'high-performance', 'low-power' or 'default'
             powerPreference: 'default',
 
-            // Precision
-            precision: 'highp',
+            // Precision 'highp', 'mediump' or 'lowp'
+            precision: 'mediump',
 
             // Color have transparency
             premultipliedAlpha: true,
@@ -569,7 +569,7 @@ function TMSViewer() {
             preserveDrawingBuffer: false,
 
             // 8 bits stencil
-            stencil: false,
+            stencil: true,
 
         });
 
