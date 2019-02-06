@@ -58,18 +58,53 @@ function Square() {
         let face;
         for (let j = 0; j < this._lat - 1; j += 1) { // y
             for (let fi = 0; fi < this._lng - 1; fi += 1) { // Iterate through each face
+
+                // Create playable face
                 face = new Face([
                     v[(this._lat * j) + fi],
                     v[(this._lat * j) + fi + 1],
                     v[(this._lat * (j + 1)) + fi + 1],
                     v[(this._lat * (j + 1)) + fi]
-                ], i.toString() + ' {0} {1} {2} {3}'.format(v[(this._lat * j) + fi].get_name(), v[(this._lat * j) + fi + 1].get_name(), v[(this._lat * (j + 1)) + fi + 1].get_name(), v[(this._lat * (j + 1)) + fi].get_name()));
+                ], 'F' + i.toString());
+                face.enable_uv_flip();
+                face.set_bomb_behaviour(face.behaviour.AROUND);
+                f.push(face);
+                i += 1;
+
+            }
+        }
+
+        // Add valid faces to volume
+        this._volume.add_face(f);
+
+        // Create vertices hidden
+        zo -= 0.0005;
+        v = [];
+        for (i = 0; i < this._lng; i += 1) { // x
+            for (let j = 0; j < this._lat; j += 1) { // y
+                v.push(new Vertex(xi + (dx * i), yi + (dy * j), zo, 'V' + ((i * this._lng) + j).toString()));
+            }
+        }
+
+        // Create unplayable faces
+        f = [];
+        i = 1;
+        for (let j = 0; j < this._lat - 1; j += 1) { // y
+            for (let fi = 0; fi < this._lng - 1; fi += 1) { // Iterate through each face
+                face = new Face([
+                    v[(this._lat * j) + fi],
+                    v[(this._lat * j) + fi + 1],
+                    v[(this._lat * (j + 1)) + fi + 1],
+                    v[(this._lat * (j + 1)) + fi]
+                ], 'F' + i.toString());
+                face.disable_face();
+                face.reverse_vertices();
                 f.push(face);
                 i += 1;
             }
         }
 
-        // Add faces to volume
+        // Add unplayable faces to volume
         this._volume.add_face(f);
 
     };

@@ -85,7 +85,7 @@ function Minesweeper() {
     this.apply = function (volume, mines) {
 
         // Calculate total mines
-        let tfaces = volume.get_total_faces();
+        let tfaces = volume.get_total_faces(true);
         mines = Math.max(0, Math.min(mines, tfaces - 1));
         if (mines < 1) mines *= tfaces;
 
@@ -103,7 +103,9 @@ function Minesweeper() {
                 i -= 1;
             }
         }
-        app_console.info(lang.mines_placed.format(pm, roundNumber(100 * pm / tfaces, 1)));
+        let p = roundNumber(100 * pm / tfaces, 1);
+        if (isNaN(p)) p = 0;
+        app_console.info(lang.mines_placed.format(pm, p));
 
         // Set bomb counters
         for (let i = 0; i < tfaces; i += 1) {

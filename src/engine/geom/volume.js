@@ -542,9 +542,17 @@ function Volume(volume_faces, volume_name) {
      * Return number of faces.
      *
      * @function
+     * @param {boolean=} only_enabled - Only count valid faces
      * @returns {number}
      */
-    this.get_total_faces = function () {
+    this.get_total_faces = function (only_enabled) {
+        if (only_enabled) {
+            let t = 0;
+            for (let i = 0; i < this._faces.length; i += 1) {
+                if (this._faces[i].is_enabled()) t += 1;
+            }
+            return t;
+        }
         return this._faces.length;
     };
 
