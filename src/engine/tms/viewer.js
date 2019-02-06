@@ -383,6 +383,7 @@ function TMSViewer() {
         contour_minor_opacity: 1,
         face_color_played: new THREE.Color(0x777777),
         face_color_unplayed: new THREE.Color(0xffffff),
+        face_exploded: new THREE.Color(0xff1a1a),
         face_hover_played: new THREE.Color(0x000000), // Emissive
         face_hover_unplayed: new THREE.Color(0x555555), // Emissive
         face_shininess_played: 15,

@@ -35,6 +35,12 @@ function Minesweeper() {
     };
 
     /**
+     * Object pointer.
+     * @type {Minesweeper}
+     */
+    let self = this;
+
+    /**
      * Create ion sound.
      */
     ion.sound({ // http://ionden.com/a/plugins/ion.sound/en.html
@@ -80,7 +86,7 @@ function Minesweeper() {
 
         // Calculate total mines
         let tfaces = volume.get_total_faces();
-        mines = Math.max(0, mines);
+        mines = Math.max(0, Math.min(mines, tfaces - 1));
         if (mines < 1) mines *= tfaces;
 
         // Get volume faces
@@ -147,7 +153,7 @@ function Minesweeper() {
             ion.sound.play('click');
 
             // Check bomb
-            if (this._check_bomb(face)) return;
+            if (this._check_bomb(face, viewer)) return;
 
             // If face has zero bombs
             if (face.get_bomb_count() === 0) this._clear_zeros(face, viewer, false);
@@ -183,7 +189,7 @@ function Minesweeper() {
             if (f[i].is_enabled() && !f[i].is_played() && (!f[i].has_bomb() || click_bombs) && !f[i].has_flag() && !f[i].has_question()) {
                 f[i].play(viewer);
                 f[i].place_image(viewer);
-                if (this._check_bomb(f[i])) return;
+                if (this._check_bomb(f[i], viewer)) return;
                 if (f[i].get_bomb_count() === 0) this._clear_zeros(f[i], viewer, true);
             }
         }
@@ -194,16 +200,77 @@ function Minesweeper() {
      *
      * @function
      * @param {Face} face
+     * @param {TMSViewer} viewer
      * @private
      */
-    this._check_bomb = function (face) {
+    this._check_bomb = function (face, viewer) {
         if (face.has_bomb()) {
-            ion.sound.play('wrong');
-            // ion.sound.play('gameOver');
+            // ion.sound.play('wrong');
             app_console.info(lang.game_over);
+            this._explotion_effect([face], viewer, 0);
+            ion.sound.play('gameOver');
+            setTimeout(function () {
+                self._explotion_secondary_effect([face], viewer, 0);
+            }, 300);
             return true;
         }
         return false;
+    };
+
+    /**
+     * Explotion effect when a bomb is pressed.
+     *
+     * @function
+     * @param {Face[]} face - Target faces
+     * @param {TMSViewer} viewer - Viewer
+     * @param {number} call - Call number
+     * @private
+     */
+    this._explotion_effect = function (face, viewer, call) {
+        let $f = []; // Objective faces
+        let $f_id = [];
+        for (let i = 0; i < face.length; i += 1) {
+            face[i].explode(viewer);
+            let $ff = face[i].get_target_faces();
+            for (let j = 0; j < $ff.length; j += 1) {
+                if (!$ff[j].has_exploded() && !$f_id.includes($ff[j].get_id())) {
+                    $f.push($ff[j]);
+                    $f_id.push($ff[j].get_id());
+                }
+            }
+        }
+        viewer.render();
+        setTimeout(function () {
+            self._explotion_effect($f, viewer, call + 1);
+        }, Math.floor(30 * Math.pow((call + 1), 0.20)));
+    };
+
+    /**
+     * Explotion secondary effect when a bomb is pressed.
+     *
+     * @function
+     * @param {Face[]} face - Target faces
+     * @param {TMSViewer} viewer - Viewer
+     * @param {number} call - Call number
+     * @private
+     */
+    this._explotion_secondary_effect = function (face, viewer, call) {
+        let $f = []; // Objective faces
+        let $f_id = [];
+        for (let i = 0; i < face.length; i += 1) {
+            face[i].explode_secondary(viewer);
+            let $ff = face[i].get_target_faces();
+            for (let j = 0; j < $ff.length; j += 1) {
+                if (!$ff[j].has_exploded_secondary() && !$f_id.includes($ff[j].get_id())) {
+                    $f.push($ff[j]);
+                    $f_id.push($ff[j].get_id());
+                }
+            }
+        }
+        viewer.render();
+        setTimeout(function () {
+            self._explotion_secondary_effect($f, viewer, call + 1);
+        }, Math.floor(60 * Math.pow((call + 1), 0.25)));
     };
 
 }

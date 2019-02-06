@@ -1012,6 +1012,20 @@ function Face(face_vertex, face_name) {
     this._bomb_behaviour = this.behaviour.NEIGHBOUR;
 
     /**
+     * Face exploded.
+     * @type {boolean}
+     * @private
+     */
+    this._exploded = false;
+
+    /**
+     * Face has secondary exploded effect.
+     * @type {boolean}
+     * @private
+     */
+    this._exploded_secondary = false;
+
+    /**
      * Put a bomb on the face.
      *
      * @function
@@ -1192,6 +1206,49 @@ function Face(face_vertex, face_name) {
      */
     this.has_question = function () {
         return self._flag === 2;
+    };
+
+    /**
+     * Explode face.
+     *
+     * @function
+     * @param {TMSViewer} viewer - Viewer
+     */
+    this.explode = function (viewer) {
+        self._exploded = true;
+        self.play(viewer);
+        self.place_image(viewer);
+    };
+
+    /**
+     * Check if face exploded.
+     *
+     * @function
+     * @returns {boolean}
+     */
+    this.has_exploded = function () {
+        return this._exploded;
+    };
+
+    /**
+     * Secondary explotion effect.
+     *
+     * @function
+     * @param {TMSViewer} viewer
+     */
+    this.explode_secondary = function (viewer) {
+        self._exploded_secondary = true;
+        self._mesh.material.color = viewer.palette.face_exploded;
+    };
+
+    /**
+     * Face has secondary exploded effect.
+     *
+     * @function
+     * @returns {boolean}
+     */
+    this.has_exploded_secondary = function () {
+        return self._exploded_secondary;
     };
 
 
