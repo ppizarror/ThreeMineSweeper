@@ -722,10 +722,25 @@ function Face(face_vertex, face_name) {
             points.forEach(p => {
                 p.applyQuaternion(quaternion)
             });
+            let $x, $y, $z;
+            let $minx = 0;
+            let $miny = 0;
+            let $minz = 0;
             for (let i = 0; i < points.length; i += 1) {
-                coords.push(points[i].getComponent(0));
-                coords.push(points[i].getComponent(1));
-                coords.push(points[i].getComponent(2));
+                $x = points[i].getComponent(0);
+                $y = points[i].getComponent(1);
+                $z = points[i].getComponent(2);
+                $minx = Math.min($x, $minx);
+                $miny = Math.min($y, $miny);
+                $minz = Math.min($z, $minz);
+                coords.push($x);
+                coords.push($y);
+                coords.push($z);
+            }
+            for (let i = 0; i < points.length; i += 1) {
+                coords[3 * i] -= $minx;
+                coords[(3 * i) + 1] -= $miny;
+                coords[(3 * i) + 2] -= $minz;
             }
             let max_coord = Math.abs(getMaxOfArray(coords));
             for (let i = 0; i < coords.length; i += 1) {

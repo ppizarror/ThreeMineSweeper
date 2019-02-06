@@ -112,7 +112,7 @@ function Vertex(x, y, z, vertex_name) {
      */
     this.set_name = function (s) {
         if (isNullUndf(s)) return;
-        self._name = s;
+        self._name = s.toString();
     };
 
     /**
