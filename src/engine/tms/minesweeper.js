@@ -126,7 +126,7 @@ function Minesweeper() {
         let ts = getSecondsBetween(t, this._last_click.time); // Seconds between last click
 
         // If face played then only left click is allowed
-        if (face.is_played() && this._last_click.id === face.get_id() && ts < 0.15 && lclick && face.get_bomb_count() !== 0) {
+        if (face.is_played() && this._last_click.id === face.get_id() && ts < 0.20 && lclick && face.get_bomb_count() !== 0) {
             app_console.info(lang.mines_detected_double_lclick.format(ts));
             this._clear_zeros(face, viewer, true);
         }

@@ -141,6 +141,23 @@ function TMSViewer() {
         volume: 'VOLUME',
     };
 
+    /**
+     * World limits.
+     * @type {{x: number, y: number, z: number}}
+     */
+    this.worldsize = {
+        x: 1.000,
+        y: 1.000,
+        z: 1.000,
+    };
+
+    /**
+     * Collaidable meshes list.
+     * @type {Array}
+     * @private
+     */
+    this._collaidableMeshes = [];
+
     // noinspection JSUnusedGlobalSymbols
     /**
      * Object properties.
@@ -148,91 +165,17 @@ function TMSViewer() {
     this.objects_props = {
 
         /**
-         * Camera
-         */
-        camera: {
-            angle: 56,                          // FOV
-            autorotate: false,                  // Auto rotates the camera
-            far: 9.000,                         // Far plane
-            light: {                            // Light color on the camera
-                color: 0x7f7f7f,
-                decay: 1.400,
-                distance: 4.200,
-                intensity: 0.740,
-            },
-            maxdistance: 2.500,                 // Maximum distance
-            maxpolarangle: Math.PI,             // Max polar angle
-            near: 0.001,                        // Close plane
-            nopan: true,                        // Mouse pan
-            posx: 2.300,                        // Initial X position
-            posy: -2.30,                        // Initial Y position
-            posz: 2.000,                        // Initial Z position
-            rotationx: -1.000,                  // Initial X rotation
-            rotationy: -1.300,                  // Initial Y rotation
-            rotationz: -0.500,                  // Initial Z rotation
-            target: {                           // Camera target
-                x: 0.000,
-                y: 0.000,
-                z: 0.000,
-            },
-            targetMoveCamera: true,             // Move camera target
-            targetMoveCameraFlipByPos: true,    // Inverse camera target
-            targetSpeed: {                      // Target speed
-                angular: 0.05,
-                x: 0.020,
-                y: 0.020,
-                z: 0.020,
-            },
-            zoom: 1.000,                        // Zoom factor
-        },
-
-        /**
-         * Ambient light
-         */
-        ambientlight: {
-            color: 0x141414,
-            intensity: 1.000,
-        },
-
-        /**
-         * Puntual light
-         */
-        light: {
-            angle: 1.600,
-            color: 0xffffff,
-            decay: 1.600,
-            distance: 0.793,
-            intensity: 0.000,
-            penumbra: 0.580,
-            planeshadow: false,
-            pos: {
-                x: 0.000,
-                y: 0.000,
-                z: 1.000,
-            },
-        },
-
-        /**
-         * Fog
-         */
-        fog: {
-            color: 0x131313,
-            density: 0.00024,
-            enabled: true,
-        },
-
-        /**
          * Tooltip
          */
         tooltip: {
-            addMode: function (m) {             // Adds an mode, functions that take intersected object
+            addMode: function (m) {             // Adds a mode, functions that take intersected object
                 let $f = m.__eval;
                 if (notNullUndf($f)) self.objects_props.tooltip.modes.push($f);
             },
             container: 'viewer',                // Viewer ID
             enabled: false,                     // Check if tooltip is enabled or not
-            ignoreEmpty: true,                  // If content is empty then tooltip dont show
-            left: 20,                           // Tooltip lateral offset
+            ignoreEmpty: true,                  // If content is empty then tooltip don't show
+            left: 20,                           // Tooltip lateral offset (px)
             mode: {
 
                 // Group mode, uses faces
@@ -296,24 +239,81 @@ function TMSViewer() {
             top: -12,                           // Vertical tooltip offset
         },
 
-    };
+        /**
+         * Camera
+         */
+        camera: {
+            angle: 56,                          // FOV
+            autorotate: false,                  // Auto rotates the camera
+            far: 9.000,                         // Far plane
+            light: {                            // Light color on the camera
+                color: 0x7f7f7f,
+                decay: 2.000,
+                distance: 4.200,
+                intensity: 1.200,
+            },
+            maxdistance: 2.500,                 // Maximum distance
+            maxpolarangle: Math.PI,             // Max polar angle
+            near: 0.001,                        // Close plane
+            nopan: true,                        // Mouse pan
+            posx: 2.300,                        // Initial X position
+            posy: -2.30,                        // Initial Y position
+            posz: 2.000,                        // Initial Z position
+            rotationx: -1.000,                  // Initial X rotation
+            rotationy: -1.300,                  // Initial Y rotation
+            rotationz: -0.500,                  // Initial Z rotation
+            target: {                           // Camera target
+                x: 0.000,
+                y: 0.000,
+                z: 0.000,
+            },
+            targetMoveCamera: true,             // Move camera target
+            targetMoveCameraFlipByPos: true,    // Inverse camera target
+            targetSpeed: {                      // Target speed
+                angular: 0.05,
+                x: 0.020,
+                y: 0.020,
+                z: 0.020,
+            },
+            zoom: 1.000,                        // Zoom factor
+        },
 
-    /**
-     * World limits.
-     * @type {{x: number, y: number, z: number}}
-     */
-    this.worldsize = {
-        x: 1.000,
-        y: 1.000,
-        z: 1.000,
-    };
+        /**
+         * Ambient light
+         */
+        ambientlight: {
+            color: 0xffffff,
+            intensity: 0.15,
+        },
 
-    /**
-     * Collaidable meshes list.
-     * @type {Array}
-     * @private
-     */
-    this._collaidableMeshes = [];
+        /**
+         * Puntual light
+         */
+        light: {
+            angle: 1.600,
+            color: 0xffffff,
+            decay: 1.600,
+            distance: 0.793,
+            intensity: 0.000,
+            penumbra: 0.580,
+            planeshadow: false,
+            pos: {
+                x: 0.000,
+                y: 0.000,
+                z: 1.000,
+            },
+        },
+
+        /**
+         * Fog
+         */
+        fog: {
+            color: 0x131313,
+            density: 0.00024,
+            enabled: true,
+        },
+
+    };
 
 
     /**
@@ -385,11 +385,11 @@ function TMSViewer() {
         face_color_unplayed: new THREE.Color(0xffffff),
         face_hover_played: new THREE.Color(0x000000), // Emissive
         face_hover_unplayed: new THREE.Color(0x555555), // Emissive
-        face_shininess_played: 0,
-        face_shininess_unplayed: 40,
+        face_shininess_played: 15,
+        face_shininess_unplayed: 50,
         face_specular: 0x101010,
         face_unhover_played: new THREE.Color(0x000000), // Emissive
-        face_unhover_unplayed: new THREE.Color(0x050505), // Emissive
+        face_unhover_unplayed: new THREE.Color(0x010101), // Emissive
     };
 
 
@@ -651,6 +651,8 @@ function TMSViewer() {
         this._cameralight.distance = this.objects_props.camera.light.distance;
         this._cameralight.intensity = this.objects_props.camera.light.intensity;
         this._cameralight.castShadow = true;
+        this._cameralight.shadow.mapSize.height = 512;
+        this._cameralight.shadow.mapSize.width = 512;
         this._three_camera.add(this._cameralight);
 
         /**
@@ -1378,9 +1380,6 @@ function TMSViewer() {
      */
     this.toggleFPSMeter = function () {
 
-        // If not enabled
-        if (!self._threejs_helpers.fpsmeter) return;
-
         // If not created
         if (isNullUndf(self._helperInstances.fpsmeter)) {
             let stats = new Stats();
@@ -1667,6 +1666,106 @@ function TMSViewer() {
     };
 
     /**
+     * Create contours from a geometry.
+     *
+     * @function
+     * @protected
+     * @param {EdgesGeometry} edges - Geometry edges
+     * @param {number} color - Border color
+     * @returns {LineSegments}
+     */
+    this._createContour = function (edges, color) {
+        let material = new THREE.LineBasicMaterial({color: color});
+        return new THREE.LineSegments(edges, material);
+    };
+
+    /**
+     * Adds mesh to scene.
+     *
+     * @function
+     * @protected
+     * @param {Object3D} mesh - Mesh
+     * @param {string} name - Object name
+     * @param {boolean=} collaidable - Object is collaidable or not
+     * @param {boolean=} castShadow - Object cast shadows
+     * @param {boolean=} receiveShadow - Object can receive shadows
+     */
+    this._addMeshToScene = function (mesh, name, collaidable, castShadow, receiveShadow) {
+
+        // Apply properties
+        mesh.name = name;
+        if (isNullUndf(castShadow)) castShadow = false;
+        if (isNullUndf(receiveShadow)) receiveShadow = false;
+        mesh.castShadow = castShadow;
+        mesh.receiveShadow = receiveShadow;
+
+        // Add mesh to scene
+        self._scene.add(mesh);
+
+        // Add to collaidable
+        if (collaidable) self._addToCollidable(mesh);
+
+    };
+
+    /**
+     * Adds mesh to collaidable list.
+     *
+     * @function
+     * @protected
+     * @param {Object} mesh
+     */
+    this._addToCollidable = function (mesh) {
+        this._collaidableMeshes.push(mesh);
+    };
+
+    /**
+     * Return canvas parent.
+     *
+     * @function
+     * @returns {JQuery | jQuery | HTMLElement}
+     */
+    this.get_canvas_parent = function () {
+        return this._canvasParent;
+    };
+
+    /**
+     * Returns camera.
+     *
+     * @function
+     * @returns {THREE.PerspectiveCamera | PerspectiveCamera}
+     */
+    this.get_camera = function () {
+        return this._three_camera;
+    };
+
+    /**
+     * Returns scene.
+     *
+     * @function
+     * @returns {THREE.Scene | Scene}
+     */
+    this.get_scene = function () {
+        return this._scene;
+    };
+
+    /**
+     * Returns raycaster.
+     *
+     * @function
+     * @returns {THREE.Raycaster | Raycaster}
+     */
+    this.get_raycaster = function () {
+        return this._raycaster;
+    };
+
+
+    /**
+     * ------------------------------------------------------------------------
+     * Minesweeper based functions
+     * ------------------------------------------------------------------------
+     */
+
+    /**
      * Draw volume.
      *
      * @function
@@ -1698,8 +1797,8 @@ function TMSViewer() {
 
         // Create figure
         self._viewerMesh = new THREE.Mesh(geometryMerge, mergeMaterials);
-        this._addMeshToScene(this._viewerMesh, this._globals.volume, true);
         this.objects_props.tooltip.mode.group.addContainer(this._globals.volume, meshNames);
+        this._addMeshToScene(this._viewerMesh, this._globals.volume, true, false, true);
 
         // Adds normal helper
         if (this._threejs_helpers.normals) {
@@ -1719,20 +1818,6 @@ function TMSViewer() {
         // Render
         this.render();
 
-    };
-
-    /**
-     * Create contours from a geometry.
-     *
-     * @function
-     * @protected
-     * @param {EdgesGeometry} edges - Geometry edges
-     * @param {number} color - Border color
-     * @returns {LineSegments}
-     */
-    this._createContour = function (edges, color) {
-        let material = new THREE.LineBasicMaterial({color: color});
-        return new THREE.LineSegments(edges, material);
     };
 
     /**
@@ -1789,85 +1874,6 @@ function TMSViewer() {
             this._addMeshToScene(contour, this._globals.contour, false);
         }
 
-    };
-
-    /**
-     * Adds mesh to scene.
-     *
-     * @function
-     * @protected
-     * @param {Object3D} mesh - Mesh
-     * @param {string} name - Object name
-     * @param {boolean=} collaidable - Object is collaidable or not
-     * @param {boolean=} castShadow - Object cast shadows
-     * @param {boolean=} receiveShadow - Object can receive shadows
-     */
-    this._addMeshToScene = function (mesh, name, collaidable, castShadow, receiveShadow) {
-
-        // Apply properties
-        mesh.name = name;
-        if (isNullUndf(castShadow)) castShadow = false;
-        if (isNullUndf(receiveShadow)) receiveShadow = false;
-        mesh.castShadow = castShadow;
-        mesh.receiveShadow = receiveShadow;
-
-        // Add mesh to scene
-        self._scene.add(mesh);
-
-        // Add to collaidable
-        if (collaidable) self._addToCollidable(mesh);
-
-    };
-
-    /**
-     * Adds mesh to collaidable list.
-     *
-     * @function
-     * @protected
-     * @param {object} mesh
-     */
-    this._addToCollidable = function (mesh) {
-        this._collaidableMeshes.push(mesh);
-    };
-
-    /**
-     * Return canvas parent.
-     *
-     * @function
-     * @returns {JQuery|jQuery|HTMLElement}
-     */
-    this.get_canvas_parent = function () {
-        return this._canvasParent;
-    };
-
-    /**
-     * Returns camera.
-     *
-     * @function
-     * @returns {THREE.PerspectiveCamera|PerspectiveCamera}
-     */
-    this.get_camera = function () {
-        return this._three_camera;
-    };
-
-    /**
-     * Returns scene.
-     *
-     * @function
-     * @returns {THREE.Scene|Scene}
-     */
-    this.get_scene = function () {
-        return this._scene;
-    };
-
-    /**
-     * Returns raycaster.
-     *
-     * @function
-     * @returns {THREE.Raycaster|Raycaster}
-     */
-    this.get_raycaster = function () {
-        return this._raycaster;
     };
 
 
