@@ -283,7 +283,7 @@ function TMSViewer() {
          */
         ambientlight: {
             color: 0xffffff,
-            intensity: 0.15,
+            intensity: 0.25,
         },
 
         /**
