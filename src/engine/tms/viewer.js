@@ -706,9 +706,7 @@ function TMSViewer() {
             this._threejs_helpers.gui = false;
             this.toggleGUI();
         }
-        if (this._threejs_helpers.fpsmeter) {
-            this.toggleFPSMeter();
-        }
+        if (this._threejs_helpers.fpsmeter) this.toggleFPSMeter();
 
     };
 
@@ -1774,7 +1772,6 @@ function TMSViewer() {
         for (let i = 0; i < $meshfaces.length; i += 1) { // Update each face index
             $mesh.geometry.faces[i].materialIndex = 0;
         }
-        $mesh.updateMatrix();
 
         // Merge geometry
         geometry.merge($mesh.geometry, $mesh.matrix, material.length);

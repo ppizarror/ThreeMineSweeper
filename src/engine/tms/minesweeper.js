@@ -64,7 +64,7 @@ function Minesweeper() {
                 name: 'wrong'
             }
         ],
-        volume: 0.5,
+        volume: 1.0,
         path: 'resources/sounds/',
         preload: false
     });
