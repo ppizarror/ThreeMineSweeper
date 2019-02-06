@@ -35,6 +35,9 @@ function Cylinder() {
      */
     this._generate = function (xi, yi, zi, xf, yf, zf) {
 
+        // Update longitude
+        self._lng = Math.max(self._lng, 3);
+
         // Calculate origin
         let xo = (xf + xi) / 2;
         let yo = (yf + yi) / 2;

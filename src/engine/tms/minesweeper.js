@@ -242,7 +242,7 @@ function Minesweeper() {
         viewer.render();
         setTimeout(function () {
             self._explotion_effect($f, viewer, call + 1);
-        }, Math.floor(30 * Math.pow((call + 1), 0.20)));
+        }, Math.floor(40 * Math.pow((call + 1), 0.20)));
     };
 
     /**
@@ -270,7 +270,7 @@ function Minesweeper() {
         viewer.render();
         setTimeout(function () {
             self._explotion_secondary_effect($f, viewer, call + 1);
-        }, Math.floor(60 * Math.pow((call + 1), 0.25)));
+        }, Math.floor(80 * Math.pow((call + 1), 0.1)));
     };
 
 }

@@ -75,6 +75,7 @@ module.exports = function (config) {
             'src/engine/generator/sierpinski_cube.js',
             'src/engine/generator/sierpinski_triangle.js',
             'src/engine/generator/sphere.js',
+            'src/engine/generator/square.js',
 
             'src/engine/tms/viewer.js',
             'src/engine/tms/events.js',

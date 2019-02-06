@@ -142,7 +142,7 @@ function Generator() {
      * @param {number} lng
      */
     this.set_longitude = function (lng) {
-        self._lng = Math.max(lng, 3);
+        self._lng = Math.max(lng, 1);
     };
 
     /**
