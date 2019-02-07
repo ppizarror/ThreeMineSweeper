@@ -343,12 +343,16 @@ function TMSEvents() {
                     self._viewer.objects_props.camera.movements.right = true;
                     break;
                 case 38: // [UP ARROW}
+                    self._viewer.objects_props.camera.movements.angleup = true;
                     break;
                 case 40: // [DOWN ARROW]
+                    self._viewer.objects_props.camera.movements.angledown = true;
                     break;
                 case 37: // [LEFT ARROW]
+                    self._viewer.objects_props.camera.movements.angleleft = true;
                     break;
                 case 39: // [RIGHT ARROW]
+                    self._viewer.objects_props.camera.movements.angleright = true;
                     break;
                 case 81: // [Q]
                     self._viewer.objects_props.camera.movements.zup = true;
@@ -385,12 +389,16 @@ function TMSEvents() {
                     self._viewer.objects_props.camera.movements.right = false;
                     break;
                 case 38: // [UP ARROW}
+                    self._viewer.objects_props.camera.movements.angleup = false;
                     break;
                 case 40: // [DOWN ARROW]
+                    self._viewer.objects_props.camera.movements.angledown = false;
                     break;
                 case 37: // [LEFT ARROW]
+                    self._viewer.objects_props.camera.movements.angleleft = false;
                     break;
                 case 39: // [RIGHT ARROW]
+                    self._viewer.objects_props.camera.movements.angleright = false;
                     break;
                 case 81: // [Q]
                     self._viewer.objects_props.camera.movements.zup = false;
