@@ -287,6 +287,7 @@ function TMSEvents() {
         this._canvasParent.on(self._eventID.keydown, function (e) {
             e.preventDefault(); // Cancel all default buttons
             e.stopPropagation();
+            self._faceHover(null);
 
             // Set key pressed
             self._hasKeyPressed = true;
