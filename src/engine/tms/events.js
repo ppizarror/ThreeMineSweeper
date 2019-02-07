@@ -291,9 +291,6 @@ function TMSEvents() {
             // Set key pressed
             self._hasKeyPressed = true;
 
-            // If pressed mouse returns
-            if (self._hasMousePressed) return;
-
             // Check Alt+key events
             if (e.altKey) {
                 switch (e.which) {
@@ -333,42 +330,77 @@ function TMSEvents() {
             // Switch between single keys
             switch (e.which) {
                 case 87: // [W]
-                    self._moveForward();
+                    self._viewer.objects_props.camera.movements.forward = true;
                     break;
                 case 83: // [S]
-                    self._moveBackward();
+                    self._viewer.objects_props.camera.movements.backward = true;
                     break;
                 case 65: // [A]
-                    self._moveLeft();
+                    self._viewer.objects_props.camera.movements.left = true;
                     break;
                 case 68: // [D]
-                    self._moveRight();
+                    self._viewer.objects_props.camera.movements.right = true;
                     break;
                 case 38: // [UP ARROW}
-                    self._moveForward();
                     break;
                 case 40: // [DOWN ARROW]
-                    self._moveBackward();
                     break;
                 case 37: // [LEFT ARROW]
-                    self._rotateLeft();
                     break;
                 case 39: // [RIGHT ARROW]
-                    self._rotateRight();
                     break;
                 case 81: // [Q]
-                    self._moveDown();
+                    self._viewer.objects_props.camera.movements.zup = true;
                     break;
                 case 69: // [E]
-                    self._moveUp();
+                    self._viewer.objects_props.camera.movements.zdown = true;
                     break;
                 default: // Ignore other inputs
                     break;
             }
 
         });
-        this._canvasParent.on(self._eventID.keyup, function () {
+
+        /**
+         * Key release
+         */
+        this._canvasParent.on(self._eventID.keyup, function (e) {
+            e.preventDefault(); // Cancel all default buttons
+            e.stopPropagation();
             self._hasKeyPressed = false;
+
+            // Switch between single keys
+            switch (e.which) {
+                case 87: // [W]
+                    self._viewer.objects_props.camera.movements.forward = false;
+                    break;
+                case 83: // [S]
+                    self._viewer.objects_props.camera.movements.backward = false;
+                    break;
+                case 65: // [A]
+                    self._viewer.objects_props.camera.movements.left = false;
+                    break;
+                case 68: // [D]
+                    self._viewer.objects_props.camera.movements.right = false;
+                    break;
+                case 38: // [UP ARROW}
+                    break;
+                case 40: // [DOWN ARROW]
+                    break;
+                case 37: // [LEFT ARROW]
+                    break;
+                case 39: // [RIGHT ARROW]
+                    break;
+                case 81: // [Q]
+                    self._viewer.objects_props.camera.movements.zup = false;
+                    break;
+                case 69: // [E]
+                    self._viewer.objects_props.camera.movements.zdown = false;
+                    break;
+                default: // Ignore other inputs
+                    break;
+            }
+
         });
 
         /**
@@ -376,264 +408,6 @@ function TMSEvents() {
          */
         this._viewer.threeResize(true);
 
-    };
-
-    /**
-     * Check camera target cannot collide.
-     *
-     * @function
-     * @private
-     * @param {string} axis - Axis to evaluate
-     * @param {number} val - Value to add
-     * @returns {boolean} - Collides or not
-     */
-    this._checkCameraTargetCollision = function (axis, val) {
-        self._viewer.objects_props.camera.target[axis] += val;
-        return true;
-    };
-
-    /**
-     * Update camera target.
-     *
-     * @function
-     * @private
-     * @param {string} dir - Direction
-     * @param {number} val - Increase target
-     * @param {boolean=} flipSignPos - Change increase direction
-     * @param {boolean=} setTarget - Set camera target
-     */
-    this._updateCameraTarget = function (dir, val, flipSignPos, setTarget) {
-
-        let $factor = 1.0;
-        switch (dir) {
-            case 'x':
-                if (flipSignPos) { // Updates factor depending the position of the camera
-                    $factor = Math.sign(self._three_camera.position.z);
-                }
-                val *= $factor;
-
-                // Updates target and camera
-                if (self._checkCameraTargetCollision(dir, val) && self._checkCameraTargetLimits(dir, -self._viewer.worldsize.x, self._viewer.worldsize.x) && self._viewer.objects_props.camera.targetMoveCamera) {
-                    self._three_camera.position.z += val;
-                }
-                break;
-            case 'y':
-                if (flipSignPos) { // Updates factor depending the position of the camera
-                    $factor = Math.sign(self._three_camera.position.x);
-                }
-                val *= $factor;
-
-                // Updates target and camera
-                if (self._checkCameraTargetCollision(dir, val) && self._checkCameraTargetLimits(dir, -self._viewer.worldsize.y, self._viewer.worldsize.y) && self._viewer.objects_props.camera.targetMoveCamera) {
-                    self._three_camera.position.x += val;
-                }
-                break;
-            case 'z':
-                if (flipSignPos) { // Updates factor depending the position of the camera
-                    // noinspection JSSuspiciousNameCombination
-                    $factor = Math.sign(self._three_camera.position.y);
-                }
-                val *= $factor;
-
-                // Updates target and camera
-                if (self._checkCameraTargetCollision(dir, val) && self._checkCameraTargetLimits(dir, -self._viewer.worldsize.z, self._viewer.worldsize.z) && self._viewer.objects_props.camera.targetMoveCamera) {
-                    self._three_camera.position.y += val;
-                }
-                break;
-            default:
-                break;
-        }
-        if (setTarget) self._viewer.setCameraTarget();
-
-    };
-
-    /**
-     * Check that the camera target is inside the world limits.
-     *
-     * @function
-     * @private
-     * @param {string} axis - Updated axis
-     * @param {number} min - Min position value
-     * @param {number} max - Max position value
-     * @returns {boolean} - Camera can move
-     */
-    this._checkCameraTargetLimits = function (axis, min, max) {
-        let $pos = self._viewer.objects_props.camera.target[axis];
-        if (min <= $pos && $pos <= max) {
-            return true;
-        }
-        self._viewer.objects_props.camera.target[axis] = Math.min(max, Math.max($pos, min));
-        return false;
-    };
-
-    /**
-     * Moves camera parallel to the ray between camera and target.
-     *
-     * @function
-     * @private
-     * @param {number} direction
-     */
-    this._moveParallel = function (direction) {
-
-        // Calculates advance angle
-        let $ang = Math.atan2(self._three_camera.position.x - self._viewer.objects_props.camera.target.y, self._three_camera.position.z - self._viewer.objects_props.camera.target.x);
-
-        // Calculate displacements
-        let $dx, $dy;
-        $dx = self._viewer.objects_props.camera.targetSpeed.x * Math.cos($ang) * direction;
-        $dy = self._viewer.objects_props.camera.targetSpeed.y * Math.sin($ang) * direction;
-
-        // Adds to components
-        self._updateCameraTarget('x', $dx, false, false);
-        self._updateCameraTarget('y', $dy, false, true);
-
-    };
-
-    /**
-     * Moves camera orthogonal to the ray between camera and target.
-     *
-     * @function
-     * @private
-     * @param {number} direction
-     */
-    this._moveOrtho = function (direction) {
-
-        // Calculates advance angle
-        let $ang = Math.atan2(self._three_camera.position.x - self._viewer.objects_props.camera.target.y, self._three_camera.position.z - self._viewer.objects_props.camera.target.x);
-        $ang += Math.PI / 2;
-
-        // Calculate displacements
-        let $dx, $dy;
-        $dx = self._viewer.objects_props.camera.targetSpeed.x * Math.cos($ang) * direction;
-        $dy = self._viewer.objects_props.camera.targetSpeed.y * Math.sin($ang) * direction;
-
-        // Add to components
-        self._updateCameraTarget('x', $dx, false, false);
-        self._updateCameraTarget('y', $dy, false, true);
-
-    };
-
-    /**
-     * Moves camera in +Z axis.
-     *
-     * @function
-     * @private
-     * @param {number} direction
-     */
-    this._moveVertical = function (direction) {
-        self._updateCameraTarget('z', self._viewer.objects_props.camera.targetSpeed.z * direction, false, true);
-    };
-
-    /**
-     * Rotates objective.
-     *
-     * @function
-     * @private
-     * @param {number} direction
-     */
-    this._rotateTarget = function (direction) {
-
-        // Get angle
-        let $ang = Math.PI + Math.atan2(self._three_camera.position.x - self._viewer.objects_props.camera.target.y, self._three_camera.position.z - self._viewer.objects_props.camera.target.x);
-
-        // Add angular velocity
-        $ang += direction * self._viewer.objects_props.camera.targetSpeed.angular;
-
-        // Calcualtes radius
-        let $r = self._viewer.dist2(self._three_camera.position.x - self._viewer.objects_props.camera.target.y, self._three_camera.position.z - self._viewer.objects_props.camera.target.x);
-
-        // Calculate new position
-        self._viewer.objects_props.camera.target.x = self._three_camera.position.z + $r * Math.cos($ang);
-        self._viewer.objects_props.camera.target.y = self._three_camera.position.x + $r * Math.sin($ang);
-
-        // Check limits
-        self._checkCameraTargetLimits('x', -self._viewer.worldsize.x, self._viewer.worldsize.x);
-        self._checkCameraTargetLimits('y', -self._viewer.worldsize.y, self._viewer.worldsize.y);
-
-        // Updates camera and render
-        self._viewer.setCameraTarget();
-        self._viewer.render();
-
-    };
-
-    /**
-     * Moves camera forward.
-     *
-     * @function
-     * @private
-     */
-    this._moveForward = function () {
-        this._moveParallel(-1);
-    };
-
-    /**
-     * Moves camera backward.
-     *
-     * @function
-     * @private
-     */
-    this._moveBackward = function () {
-        this._moveParallel(1);
-    };
-
-    /**
-     * Moves camera left.
-     *
-     * @function
-     * @private
-     */
-    this._moveLeft = function () {
-        this._moveOrtho(-1);
-    };
-
-    /**
-     * Moves camera right.
-     *
-     * @function
-     * @private
-     */
-    this._moveRight = function () {
-        this._moveOrtho(1);
-    };
-
-    /**
-     * Moves camera up.
-     *
-     * @function
-     * @private
-     */
-    this._moveUp = function () {
-        this._moveVertical(1);
-    };
-
-    /**
-     * Moves camera down.
-     *
-     * @function
-     * @private
-     */
-    this._moveDown = function () {
-        this._moveVertical(-1);
-    };
-
-    /**
-     * Rotate camera left.
-     *
-     * @function
-     * @private
-     */
-    this._rotateLeft = function () {
-        this._rotateTarget(1);
-    };
-
-    /**
-     * Rotate camera right.
-     *
-     * @function
-     * @private
-     */
-    this._rotateRight = function () {
-        this._rotateTarget(-1);
     };
 
     /**

@@ -46,7 +46,8 @@ function Minesweeper() {
     ion.sound({ // http://ionden.com/a/plugins/ion.sound/en.html
         sounds: [
             {
-                name: 'click'
+                name: 'click',
+                preload: true,
             },
             {
                 name: 'flag'
@@ -70,9 +71,10 @@ function Minesweeper() {
                 name: 'wrong'
             }
         ],
-        volume: 1.0,
+        multiplay: true,
         path: 'resources/sounds/',
-        preload: false
+        preload: false,
+        volume: 1.0,
     });
 
     /**

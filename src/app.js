@@ -63,7 +63,7 @@ $(function () {
      * ------------------------------------------------------------------------
      */
     app_console.info(lang.init_app);
-    app_error.init(); // Init app errors
+    app_error.init();
 
     /**
      * ------------------------------------------------------------------------
@@ -164,7 +164,7 @@ $(function () {
             default:
                 return;
         }
-        g.set_order(4);
+        g.set_order(2);
         g.set_face_target(20);
         g.set_latitude(30);
         g.set_longitude(30);
