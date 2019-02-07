@@ -1068,7 +1068,8 @@ function TMSViewer() {
         if (self.objects_props.camera.movements.angledown) {
             $aup = 1;
         }
-        let $lookpos = self._controls.getPolarAngle() < Math.PI / 2 ? 1 : -1;
+        // let $lookpos = self._controls.getPolarAngle() < Math.PI / 2 ? 1 : -1;
+        let $lookpos = 1;
         if (self.objects_props.camera.movements.angleleft) {
             $alf = -1 * $lookpos;
         }
@@ -1227,10 +1228,13 @@ function TMSViewer() {
     this._move_parallel = function () {
 
         // Calculates advance angle
-        let $angxy = Math.atan2(self._three_camera.position.x - self.objects_props.camera.target.y, self._three_camera.position.z - self.objects_props.camera.target.x);
-        let $r = Math.sqrt(Math.pow(self.objects_props.camera.target.y - self._three_camera.position.x, 2) +
-            Math.pow(self.objects_props.camera.target.x - self._three_camera.position.z, 2));
-        let $angxz = Math.PI / 2 - Math.atan((self._three_camera.position.y - self.objects_props.camera.target.z) / $r);
+        /**
+         let $angxy = Math.atan2(self._three_camera.position.x - self.objects_props.camera.target.y, self._three_camera.position.z - self.objects_props.camera.target.x);
+         let $r = Math.sqrt(Math.pow(self.objects_props.camera.target.y - self._three_camera.position.x, 2)  Math.pow(self.objects_props.camera.target.x - self._three_camera.position.z, 2));
+         let $angxz = Math.PI / 2 - Math.atan((self._three_camera.position.y - self.objects_props.camera.target.z) / $r);
+         */
+        let $angxy = self._controls.getAzimuthalAngle();
+        let $angxz = self._controls.getPolarAngle();
 
         // Calculate displacements
         let $dx = self.objects_props.camera.targetspeed.f * Math.cos($angxy) * Math.sin($angxz);
@@ -1253,8 +1257,10 @@ function TMSViewer() {
     this._move_ortho = function () {
 
         // Calculates advance angle
-        let $ang = Math.atan2(self._three_camera.position.x - self.objects_props.camera.target.y, self._three_camera.position.z - self.objects_props.camera.target.x);
-        $ang += Math.PI / 2;
+        /**
+         * let $ang = Math.atan2(self._three_camera.position.x - self.objects_props.camera.target.y, self._three_camera.position.z - self.objects_props.camera.target.x);
+         */
+        let $ang = this._controls.getAzimuthalAngle() + Math.PI / 2;
 
         // Calculate displacements
         let $dx, $dy;
