@@ -255,8 +255,8 @@ function TMSViewer() {
                 y: 10,
                 z: 10,
             },
-            collide: false,                     // Check camera collision
-            damping: false,                     // Camera damping
+            collide: true,                      // Check camera collision
+            damping: true,                      // Camera damping
             dampingFactor: 0.10,                // Camera damping factor
             far: 9.000,                         // Far plane
             light: {                            // Light color on the camera
@@ -267,6 +267,12 @@ function TMSViewer() {
             },
             maxdistance: 2.500,                 // Maximum distance
             maxpolarangle: Math.PI,             // Max polar angle
+            maxVelocity: {                      // Maximum velocity
+                x: 0.10,
+                y: 0.10,
+                z: 0.10,
+                f: 0.12,
+            },
             movements: {                        // Camera movements vector
                 __last__: null,
                 backward: false,
@@ -431,7 +437,7 @@ function TMSViewer() {
      * @function
      * @param {boolean} type - If true add event, false deletes
      */
-    this.threeResize = function (type) {
+    this.three_resize = function (type) {
 
         /**
          * Event name
@@ -472,7 +478,7 @@ function TMSViewer() {
                 /**
                  * Redraw
                  */
-                self.animateFrame();
+                self.animate_frame();
 
             };
             app_dom.window.on($ev, $f);
@@ -494,7 +500,7 @@ function TMSViewer() {
      * @function
      * @private
      */
-    this._initThree = function () {
+    this._init_three = function () {
 
         /**
          * --------------------------------------------------------------------
@@ -533,6 +539,12 @@ function TMSViewer() {
         this.objects_props.camera.target.x *= this.worldsize.x;
         this.objects_props.camera.target.y *= this.worldsize.y;
         this.objects_props.camera.target.z *= this.worldsize.z;
+
+        // Velocity
+        this.objects_props.camera.maxVelocity.x *= this.worldsize.x;
+        this.objects_props.camera.maxVelocity.y *= this.worldsize.y;
+        this.objects_props.camera.maxVelocity.z *= this.worldsize.z;
+        this.objects_props.camera.maxVelocity.f *= this.worldsize.diagl;
 
         // Initial camera position
         self.objects_props.camera.initialTarget = {
@@ -706,7 +718,7 @@ function TMSViewer() {
          * Set initial camera position
          * --------------------------------------------------------------------
          */
-        this._setInitialCameraPosition();
+        this._set_initial_camera_position();
 
         /**
          * --------------------------------------------------------------------
@@ -714,8 +726,10 @@ function TMSViewer() {
          * --------------------------------------------------------------------
          */
         this._raycaster = new THREE.Raycaster();
-        this.objects_props.camera.ray = new THREE.Raycaster();
-        this.objects_props.camera.ray.far = 2 * this.objects_props.camera.rayCollideDist;
+        if (this.objects_props.camera.collide) {
+            this.objects_props.camera.ray = new THREE.Raycaster();
+            this.objects_props.camera.ray.far = 2 * this.objects_props.camera.rayCollideDist;
+        }
 
         /**
          * --------------------------------------------------------------------
@@ -724,9 +738,9 @@ function TMSViewer() {
          */
         if (this._threejs_helpers.gui) {
             this._threejs_helpers.gui = false;
-            this.toggleGUI();
+            this.toggle_gui();
         }
-        if (this._threejs_helpers.fpsmeter) this.toggleFPSMeter();
+        if (this._threejs_helpers.fpsmeter) this.toggle_fps_meter();
 
     };
 
@@ -736,7 +750,7 @@ function TMSViewer() {
      * @function
      * @private
      */
-    this._setInitialCameraPosition = function () {
+    this._set_initial_camera_position = function () {
 
         // Initial position
         this._three_camera.position.x = this.objects_props.camera.posy;
@@ -754,7 +768,7 @@ function TMSViewer() {
         this.objects_props.camera.target.z = self.objects_props.camera.initialTarget.z;
 
         // Updates camera
-        this.setCameraTarget();
+        this.set_camera_target();
 
     };
 
@@ -763,7 +777,7 @@ function TMSViewer() {
      *
      * @function
      */
-    this.setCameraTarget = function () {
+    this.set_camera_target = function () {
         // noinspection JSSuspiciousNameCombination
         self._controls.target.set(self.objects_props.camera.target.y, self.objects_props.camera.target.z, self.objects_props.camera.target.x);
         self._controls.update();
@@ -799,11 +813,11 @@ function TMSViewer() {
      *
      * @function
      */
-    this.animateFrame = function () {
+    this.animate_frame = function () {
 
         // Update camera speed
-        this._updateCameraSpeed();
-        this._moveCamera();
+        this._update_camera_speed();
+        this._move_camera();
 
         // Update controls
         this._controls.update();
@@ -819,10 +833,10 @@ function TMSViewer() {
      * @function
      * @private
      */
-    this._animationThread = function () {
+    this._animation_thread = function () {
         if (!self._animateThread) return;
-        requestAnimationFrame(self.initAnimate);
-        self.animateFrame();
+        requestAnimationFrame(self.init_animate);
+        self.animate_frame();
     };
 
     /**
@@ -831,9 +845,9 @@ function TMSViewer() {
      * @function
      * @protected
      */
-    this.initAnimate = function () {
+    this.init_animate = function () {
         self._animateThread = true;
-        self._animationThread();
+        self._animation_thread();
     };
 
     /**
@@ -842,16 +856,16 @@ function TMSViewer() {
      * @function
      * @private
      */
-    this._initWorldObjects = function () {
+    this._init_world_objects = function () {
 
         // Add helpers
-        this._drawHelpers();
+        this._draw_helpers();
 
         // Set camera target
-        this.setCameraTarget();
+        this.set_camera_target();
 
         // Save initial status
-        this._saveInitialStatus();
+        this._save_initial_status();
 
     };
 
@@ -861,7 +875,7 @@ function TMSViewer() {
      * @function
      * @private
      */
-    this._saveInitialStatus = function () {
+    this._save_initial_status = function () {
         self.objects_props.camera.initialTarget.x = self.objects_props.camera.target.x;
         self.objects_props.camera.initialTarget.y = self.objects_props.camera.target.y;
         self.objects_props.camera.initialTarget.z = self.objects_props.camera.target.z;
@@ -876,10 +890,10 @@ function TMSViewer() {
      * @param {number} val - Value to add
      * @returns {boolean} - Collides or not
      */
-    this._checkCameraTargetCollision = function (axis, val) {
+    this._check_camera_target_collision = function (axis, val) {
 
         // Collide with border
-        if (val < -self.objects_props.camera.bounds[axis] * self.worldsize[axis] || val > self.objects_props.camera.bounds[axis] * self.worldsize[axis]) return self._stopCamera();
+        if (val < -self.objects_props.camera.bounds[axis] * self.worldsize[axis] || val > self.objects_props.camera.bounds[axis] * self.worldsize[axis]) return self._stop_camera();
 
         // Collide with volume
         if (self.objects_props.camera.collide) {
@@ -915,7 +929,7 @@ function TMSViewer() {
              */
             let collisions = ray.intersectObjects(self._collaidableMeshes, false);
             let collides = (collisions.length > 0 && collisions[0].distance < self.objects_props.camera.rayCollideDist);
-            if (collides) return self._stopCamera();
+            if (collides) return self._stop_camera();
 
         }
 
@@ -935,7 +949,7 @@ function TMSViewer() {
      * @param {boolean=} flipSignPos - Change increase direction
      * @param {boolean=} setTarget - Set camera target
      */
-    this._updateCameraTarget = function (dir, val, flipSignPos, setTarget) {
+    this._update_camera_target = function (dir, val, flipSignPos, setTarget) {
 
         let $factor = 1.0;
         switch (dir) {
@@ -946,7 +960,7 @@ function TMSViewer() {
                 val *= $factor;
 
                 // Updates target and camera
-                if (self._checkCameraTargetCollision(dir, val) && self.objects_props.camera.targetMoveCamera) {
+                if (self._check_camera_target_collision(dir, val) && self.objects_props.camera.targetMoveCamera) {
                     self._three_camera.position.z += val;
                 }
                 break;
@@ -957,7 +971,7 @@ function TMSViewer() {
                 val *= $factor;
 
                 // Updates target and camera
-                if (self._checkCameraTargetCollision(dir, val) && self.objects_props.camera.targetMoveCamera) {
+                if (self._check_camera_target_collision(dir, val) && self.objects_props.camera.targetMoveCamera) {
                     self._three_camera.position.x += val;
                 }
                 break;
@@ -969,14 +983,14 @@ function TMSViewer() {
                 val *= $factor;
 
                 // Updates target and camera
-                if (self._checkCameraTargetCollision(dir, val) && self.objects_props.camera.targetMoveCamera) {
+                if (self._check_camera_target_collision(dir, val) && self.objects_props.camera.targetMoveCamera) {
                     self._three_camera.position.y += val;
                 }
                 break;
             default:
                 break;
         }
-        if (setTarget) self.setCameraTarget();
+        if (setTarget) self.set_camera_target();
 
     };
 
@@ -985,7 +999,7 @@ function TMSViewer() {
      *
      * @private
      */
-    this._updateCameraSpeed = function () {
+    this._update_camera_speed = function () {
 
         // FPS
         let fps = (1 / 60);
@@ -995,7 +1009,6 @@ function TMSViewer() {
         let $ay = 0; // L/R
         let $az = 0; // Z
         let $af = 0; // F/B
-
         if (self.objects_props.camera.movements.forward) {
             $af = -1;
         }
@@ -1016,6 +1029,7 @@ function TMSViewer() {
         if (self.objects_props.camera.movements.zdown) {
             $az = 1;
         }
+        if ($ax === 0 && $ay === 0 && $az === 0 && $af === 0 && !self.camera_is_moving()) return;
 
         // Update speed
         self.objects_props.camera.targetSpeed.x += ($ax * self.objects_props.camera.targetAccel * self.worldsize.x) * fps;
@@ -1048,12 +1062,22 @@ function TMSViewer() {
      * @returns {boolean}
      * @private
      */
-    this._stopCamera = function () {
+    this._stop_camera = function () {
         self.objects_props.camera.targetSpeed.x = 0;
         self.objects_props.camera.targetSpeed.y = 0;
         self.objects_props.camera.targetSpeed.z = 0;
         self.objects_props.camera.targetSpeed.f = 0;
         return false;
+    };
+
+    /**
+     * Camera is moving.
+     *
+     * @function
+     * @returns {boolean}
+     */
+    this.camera_is_moving = function () {
+        return self.objects_props.camera.targetSpeed.x !== 0 || self.objects_props.camera.targetSpeed.y !== 0 || self.objects_props.camera.targetSpeed.z !== 0 || self.objects_props.camera.targetSpeed.f !== 0;
     };
 
     /**
@@ -1075,10 +1099,11 @@ function TMSViewer() {
      * @function
      * @private
      */
-    this._moveCamera = function () {
-        self._moveParallel();
-        self._moveOrtho();
-        self._moveVertical();
+    this._move_camera = function () {
+        if (!self.camera_is_moving()) return;
+        self._move_parallel();
+        self._move_ortho();
+        self._move_vertical();
     };
 
     /**
@@ -1087,7 +1112,7 @@ function TMSViewer() {
      * @function
      * @private
      */
-    this._moveParallel = function () {
+    this._move_parallel = function () {
 
         // Calculates advance angle
         let $angxy = Math.atan2(self._three_camera.position.x - self.objects_props.camera.target.y, self._three_camera.position.z - self.objects_props.camera.target.x);
@@ -1101,9 +1126,9 @@ function TMSViewer() {
         let $dz = self.objects_props.camera.targetSpeed.f * Math.cos($angxz);
 
         // Adds to components
-        self._updateCameraTarget('x', $dx, false, false);
-        self._updateCameraTarget('y', $dy, false, false);
-        self._updateCameraTarget('z', $dz, false, true);
+        self._update_camera_target('x', $dx, false, false);
+        self._update_camera_target('y', $dy, false, false);
+        self._update_camera_target('z', $dz, false, true);
 
     };
 
@@ -1113,7 +1138,7 @@ function TMSViewer() {
      * @function
      * @private
      */
-    this._moveOrtho = function () {
+    this._move_ortho = function () {
 
         // Calculates advance angle
         let $ang = Math.atan2(self._three_camera.position.x - self.objects_props.camera.target.y, self._three_camera.position.z - self.objects_props.camera.target.x);
@@ -1125,8 +1150,8 @@ function TMSViewer() {
         $dy = self.objects_props.camera.targetSpeed.y * Math.sin($ang);
 
         // Add to components
-        self._updateCameraTarget('x', $dx, false, false);
-        self._updateCameraTarget('y', $dy, false, true);
+        self._update_camera_target('x', $dx, false, false);
+        self._update_camera_target('y', $dy, false, true);
 
     };
 
@@ -1136,8 +1161,8 @@ function TMSViewer() {
      * @function
      * @private
      */
-    this._moveVertical = function () {
-        self._updateCameraTarget('z', self.objects_props.camera.targetSpeed.z, false, true);
+    this._move_vertical = function () {
+        self._update_camera_target('z', self.objects_props.camera.targetSpeed.z, false, true);
     };
 
     /**
@@ -1170,7 +1195,7 @@ function TMSViewer() {
      * @function
      * @protected
      */
-    this._initTooltip = function () {
+    this._init_tooltip = function () {
 
         /**
          * Enable tooltip
@@ -1213,9 +1238,9 @@ function TMSViewer() {
      *
      * @function
      */
-    this.resetCamera = function () {
-        self._setInitialCameraPosition();
-        self.animateFrame();
+    this.reset_camera = function () {
+        self._set_initial_camera_position();
+        self.animate_frame();
     };
 
     /**
@@ -1224,9 +1249,9 @@ function TMSViewer() {
      * @function
      * @private
      */
-    this._toggleHelper = function () {
-        self._drawHelpers();
-        self.animateFrame();
+    this._toggle_helper = function () {
+        self._draw_helpers();
+        self.animate_frame();
         self.focus();
     };
 
@@ -1235,9 +1260,9 @@ function TMSViewer() {
      *
      * @function
      */
-    this.toggleAxis = function () {
+    this.toggle_axis = function () {
         self._threejs_helpers.axis = !self._threejs_helpers.axis;
-        self._toggleHelper();
+        self._toggle_helper();
     };
 
     /**
@@ -1245,9 +1270,9 @@ function TMSViewer() {
      *
      * @function
      */
-    this.toggleGrid = function () {
+    this.toggle_grid = function () {
         self._threejs_helpers.grid = !self._threejs_helpers.grid;
-        self._toggleHelper();
+        self._toggle_helper();
     };
 
     /**
@@ -1255,9 +1280,9 @@ function TMSViewer() {
      *
      * @function
      */
-    this.toggleWorldLimits = function () {
+    this.toggle_world_limits = function () {
         self._threejs_helpers.worldlimits = !self._threejs_helpers.worldlimits;
-        self._toggleHelper();
+        self._toggle_helper();
     };
 
     /**
@@ -1265,9 +1290,9 @@ function TMSViewer() {
      *
      * @function
      */
-    this.toggleCameraTarget = function () {
+    this.toggle_camera_target = function () {
         self._threejs_helpers.cameratarget = !self._threejs_helpers.cameratarget;
-        self._toggleHelper();
+        self._toggle_helper();
     };
 
     /**
@@ -1275,9 +1300,9 @@ function TMSViewer() {
      *
      * @function
      */
-    this.togglePlanes = function () {
+    this.toggle_planes = function () {
         self._threejs_helpers.planes = !self._threejs_helpers.planes;
-        self._toggleHelper();
+        self._toggle_helper();
     };
 
     /**
@@ -1285,12 +1310,12 @@ function TMSViewer() {
      *
      * @function
      */
-    this.toggleGUI = function () {
+    this.toggle_gui = function () {
         self._threejs_helpers.gui = !self._threejs_helpers.gui;
         if (self._threejs_helpers.gui) {
-            self._buildGUI();
+            self._build_gui();
         } else {
-            self._destroyGUI();
+            self._destroy_gui();
         }
     };
 
@@ -1299,7 +1324,7 @@ function TMSViewer() {
      *
      * @function
      */
-    this.showRendererInfo = function () {
+    this.show_renderer_info = function () {
         let $info = self._renderer.info;
         app_dialog.text('memory.<b>geometries</b>: {0}<br>memory.<b>textures</b>: {1}<br>render.<b>calls</b>: {2}<br>render.<b>frame</b>: {3}<br>render.<b>lines</b>: {4}<br>render.<b>points</b>: {5}<br>render.<b>triangles</b>: {6}'.format($info.memory.geometries.toLocaleString(), $info.memory.textures.toLocaleString(), $info.render.calls.toLocaleString(), $info.render.frame.toLocaleString(), $info.render.lines.toLocaleString(), $info.render.points.toLocaleString(), $info.render.triangles.toLocaleString()), lang.viewer_renderer_info);
     };
@@ -1314,8 +1339,7 @@ function TMSViewer() {
      * @param {number} z
      * @returns {number}
      */
-    this._distOriginxyz = function (x, y, z) {
-        // noinspection JSSuspiciousNameCombination
+    this._dist_origin_xyz = function (x, y, z) {
         return Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2) + Math.pow(z, 2));
     };
 
@@ -1325,7 +1349,7 @@ function TMSViewer() {
      * @function
      * @private
      */
-    this._buildGUI = function () {
+    this._build_gui = function () {
 
         /**
          * Creates the GUI
@@ -1415,7 +1439,7 @@ function TMSViewer() {
             posy: self._light.position.x,
             posz: self._light.position.y,
             planeshadow: self.objects_props.light.planeshadow,
-            radius: self._distOriginxyz(self._light.position.x, self._light.position.y, self._light.position.z),
+            radius: self._dist_origin_xyz(self._light.position.x, self._light.position.y, self._light.position.z),
             rotatexy: (Math.atan2(this._light.position.z, this._light.position.x) * 180 / Math.PI + 360) % 360,
             rotatexz: 0.0,
             rotateyz: 0.0,
@@ -1479,7 +1503,7 @@ function TMSViewer() {
         lightfolder.add(this._guiLightParam, 'radius', 0.01, self.worldsize.diagl).onChange(function (r) {
 
             // Radius
-            let $ract = self._distOriginxyz(self._light.position.x, self._light.position.y, self._light.position.z);
+            let $ract = self._dist_origin_xyz(self._light.position.x, self._light.position.y, self._light.position.z);
 
             // Calculate angles
             let angxy, angxyz;
@@ -1558,7 +1582,7 @@ function TMSViewer() {
             } else {
                 self._scene.fog = null;
             }
-            self.animateFrame();
+            self.animate_frame();
         });
 
         /**
@@ -1583,43 +1607,43 @@ function TMSViewer() {
         camerafolder.add(this._guiCameraParams, 'fov', 1, 179).onChange(function (val) {
             self._three_camera.fov = val;
             self._three_camera.updateProjectionMatrix();
-            self.animateFrame();
+            self.animate_frame();
         });
         camerafolder.add(this._guiCameraParams, 'far', 100, 10000).onChange(function (val) {
             self._three_camera.far = val;
             self._three_camera.updateProjectionMatrix();
-            self.animateFrame();
+            self.animate_frame();
         });
         camerafolder.add(this._guiCameraParams, 'zoom', 0.1, 10).onChange(function (val) {
             self._three_camera.zoom = val;
             self._three_camera.updateProjectionMatrix();
-            self.animateFrame();
+            self.animate_frame();
         });
         camerafolder.add(this._guiCameraParams, 'maxdistance', 100, 5 * self.worldsize.diagl).onChange(function (val) {
             self._controls.maxDistance = val;
-            self.animateFrame();
+            self.animate_frame();
         });
         camerafolder.add(this._guiCameraParams, 'maxpolarangle', 0, Math.PI).onChange(function (val) {
             self._controls.maxPolarAngle = val;
-            self.animateFrame();
+            self.animate_frame();
         });
         camerafolder.add(this._guiCameraParams, 'posx', -self.objects_props.camera.bounds.x * self.worldsize.x, self.objects_props.camera.bounds.x * self.worldsize.x).onChange(function (val) {
             self._three_camera.position.z = val;
             self.objects_props.camera.target.x = val * self.objects_props.camera.radius;
-            self.setCameraTarget();
-            self.animateFrame();
+            self.set_camera_target();
+            self.animate_frame();
         }).listen();
         camerafolder.add(this._guiCameraParams, 'posy', -self.objects_props.camera.bounds.y * self.worldsize.y, self.objects_props.camera.bounds.y * self.worldsize.y).onChange(function (val) {
             self._three_camera.position.x = val;
             self.objects_props.camera.target.y = val * self.objects_props.camera.radius;
-            self.setCameraTarget();
-            self.animateFrame();
+            self.set_camera_target();
+            self.animate_frame();
         }).listen();
         camerafolder.add(this._guiCameraParams, 'posz', -self.objects_props.camera.bounds.z * self.worldsize.z, self.objects_props.camera.bounds.z * self.worldsize.z).onChange(function (val) {
             self._three_camera.position.y = val;
             self.objects_props.camera.target.z = val * self.objects_props.camera.radius;
-            self.setCameraTarget();
-            self.animateFrame();
+            self.set_camera_target();
+            self.animate_frame();
         }).listen();
 
         /**
@@ -1642,7 +1666,7 @@ function TMSViewer() {
      * @function
      * @private
      */
-    this._destroyGUI = function () {
+    this._destroy_gui = function () {
         if (notNullUndf(self._gui)) {
             self._gui.destroy();
             self._gui = null;
@@ -1655,7 +1679,7 @@ function TMSViewer() {
      *
      * @function
      */
-    this.toggleFPSMeter = function () {
+    this.toggle_fps_meter = function () {
 
         // If not created
         if (isNullUndf(self._helperInstances.fpsmeter)) {
@@ -1682,7 +1706,7 @@ function TMSViewer() {
      * @function
      * @private
      */
-    this._drawHelpers = function () {
+    this._draw_helpers = function () {
 
         // Local variable
         let helper;
@@ -1696,7 +1720,7 @@ function TMSViewer() {
             if (isNullUndf(this._helperInstances.axis)) {
                 let $helpersize = Math.min(self.worldsize.x, self.worldsize.y, self.worldsize.z) * self._threejs_helpers.axissize;
                 helper = new THREE.AxesHelper($helpersize);
-                self._addMeshToScene(helper, this._globals.helper, false);
+                self._add_mesh_to_scene(helper, this._globals.helper, false);
                 // noinspection JSValidateTypes
                 this._helperInstances.axis = helper;
             }
@@ -1743,46 +1767,46 @@ function TMSViewer() {
                 // X plane
                 geometry = new THREE.Geometry();
                 geometry.vertices.push(
-                    this._newThreePoint(this.worldsize.x, 0, -this.worldsize.z),
-                    this._newThreePoint(-this.worldsize.x, 0, -this.worldsize.z),
-                    this._newThreePoint(-this.worldsize.x, 0, this.worldsize.z),
-                    this._newThreePoint(this.worldsize.x, 0, this.worldsize.z)
+                    this._new_three_point(this.worldsize.x, 0, -this.worldsize.z),
+                    this._new_three_point(-this.worldsize.x, 0, -this.worldsize.z),
+                    this._new_three_point(-this.worldsize.x, 0, this.worldsize.z),
+                    this._new_three_point(this.worldsize.x, 0, this.worldsize.z)
                 );
                 geometry.faces.push(new THREE.Face3(0, 1, 2));
                 geometry.faces.push(new THREE.Face3(0, 2, 3));
                 plane = new THREE.Mesh(geometry, materialx);
                 plane.position.y = 0;
-                self._addMeshToScene(plane, this._globals.helper, false);
+                self._add_mesh_to_scene(plane, this._globals.helper, false);
                 $planes.push(plane);
 
                 // Y plane
                 geometry = new THREE.Geometry();
                 geometry.vertices.push(
-                    this._newThreePoint(0, -this.worldsize.y, -this.worldsize.z),
-                    this._newThreePoint(0, this.worldsize.y, -this.worldsize.z),
-                    this._newThreePoint(0, this.worldsize.y, this.worldsize.z),
-                    this._newThreePoint(0, -this.worldsize.y, this.worldsize.z)
+                    this._new_three_point(0, -this.worldsize.y, -this.worldsize.z),
+                    this._new_three_point(0, this.worldsize.y, -this.worldsize.z),
+                    this._new_three_point(0, this.worldsize.y, this.worldsize.z),
+                    this._new_three_point(0, -this.worldsize.y, this.worldsize.z)
                 );
                 geometry.faces.push(new THREE.Face3(0, 1, 2));
                 geometry.faces.push(new THREE.Face3(0, 2, 3));
                 plane = new THREE.Mesh(geometry, materialy);
                 plane.position.y = 0;
-                self._addMeshToScene(plane, this._globals.helper, false);
+                self._add_mesh_to_scene(plane, this._globals.helper, false);
                 $planes.push(plane);
 
                 // Z plane
                 geometry = new THREE.Geometry();
                 geometry.vertices.push(
-                    this._newThreePoint(this.worldsize.x, this.worldsize.y, 0),
-                    this._newThreePoint(-this.worldsize.x, this.worldsize.y, 0),
-                    this._newThreePoint(-this.worldsize.x, -this.worldsize.y, 0),
-                    this._newThreePoint(this.worldsize.x, -this.worldsize.y, 0)
+                    this._new_three_point(this.worldsize.x, this.worldsize.y, 0),
+                    this._new_three_point(-this.worldsize.x, this.worldsize.y, 0),
+                    this._new_three_point(-this.worldsize.x, -this.worldsize.y, 0),
+                    this._new_three_point(this.worldsize.x, -this.worldsize.y, 0)
                 );
                 geometry.faces.push(new THREE.Face3(0, 1, 2));
                 geometry.faces.push(new THREE.Face3(0, 2, 3));
                 plane = new THREE.Mesh(geometry, materialz);
                 plane.position.y = 0;
-                self._addMeshToScene(plane, this._globals.helper, false);
+                self._add_mesh_to_scene(plane, this._globals.helper, false);
                 $planes.push(plane);
 
                 // noinspection JSValidateTypes
@@ -1811,7 +1835,7 @@ function TMSViewer() {
                 helper.position.y = 0;
                 helper.material.opacity = 0.5;
                 helper.material.transparent = true;
-                self._addMeshToScene(helper, this._globals.helper, false);
+                self._add_mesh_to_scene(helper, this._globals.helper, false);
                 // noinspection JSValidateTypes
                 this._helperInstances.grid = helper;
             }
@@ -1838,34 +1862,34 @@ function TMSViewer() {
                 let geometry = new THREE.Geometry();
                 geometry.vertices.push(
                     // +X
-                    this._newThreePoint(this.worldsize.x, -this.worldsize.y, -this.worldsize.z),
-                    this._newThreePoint(this.worldsize.x, this.worldsize.y, -this.worldsize.z),
-                    this._newThreePoint(this.worldsize.x, this.worldsize.y, this.worldsize.z),
-                    this._newThreePoint(this.worldsize.x, -this.worldsize.y, this.worldsize.z),
+                    this._new_three_point(this.worldsize.x, -this.worldsize.y, -this.worldsize.z),
+                    this._new_three_point(this.worldsize.x, this.worldsize.y, -this.worldsize.z),
+                    this._new_three_point(this.worldsize.x, this.worldsize.y, this.worldsize.z),
+                    this._new_three_point(this.worldsize.x, -this.worldsize.y, this.worldsize.z),
 
                     // +Y
-                    this._newThreePoint(this.worldsize.x, this.worldsize.y, -this.worldsize.z),
-                    this._newThreePoint(-this.worldsize.x, this.worldsize.y, -this.worldsize.z),
-                    this._newThreePoint(-this.worldsize.x, this.worldsize.y, this.worldsize.z),
-                    this._newThreePoint(this.worldsize.x, this.worldsize.y, this.worldsize.z),
+                    this._new_three_point(this.worldsize.x, this.worldsize.y, -this.worldsize.z),
+                    this._new_three_point(-this.worldsize.x, this.worldsize.y, -this.worldsize.z),
+                    this._new_three_point(-this.worldsize.x, this.worldsize.y, this.worldsize.z),
+                    this._new_three_point(this.worldsize.x, this.worldsize.y, this.worldsize.z),
 
                     // -X
-                    this._newThreePoint(-this.worldsize.x, -this.worldsize.y, -this.worldsize.z),
-                    this._newThreePoint(-this.worldsize.x, this.worldsize.y, -this.worldsize.z),
-                    this._newThreePoint(-this.worldsize.x, this.worldsize.y, this.worldsize.z),
-                    this._newThreePoint(-this.worldsize.x, -this.worldsize.y, this.worldsize.z),
+                    this._new_three_point(-this.worldsize.x, -this.worldsize.y, -this.worldsize.z),
+                    this._new_three_point(-this.worldsize.x, this.worldsize.y, -this.worldsize.z),
+                    this._new_three_point(-this.worldsize.x, this.worldsize.y, this.worldsize.z),
+                    this._new_three_point(-this.worldsize.x, -this.worldsize.y, this.worldsize.z),
 
                     // -Y
-                    this._newThreePoint(this.worldsize.x, -this.worldsize.y, -this.worldsize.z),
-                    this._newThreePoint(-this.worldsize.x, -this.worldsize.y, -this.worldsize.z),
-                    this._newThreePoint(-this.worldsize.x, -this.worldsize.y, this.worldsize.z),
-                    this._newThreePoint(this.worldsize.x, -this.worldsize.y, this.worldsize.z),
+                    this._new_three_point(this.worldsize.x, -this.worldsize.y, -this.worldsize.z),
+                    this._new_three_point(-this.worldsize.x, -this.worldsize.y, -this.worldsize.z),
+                    this._new_three_point(-this.worldsize.x, -this.worldsize.y, this.worldsize.z),
+                    this._new_three_point(this.worldsize.x, -this.worldsize.y, this.worldsize.z),
 
                     // Z
-                    this._newThreePoint(this.worldsize.x, -this.worldsize.y, this.worldsize.z),
-                    this._newThreePoint(this.worldsize.x, this.worldsize.y, this.worldsize.z),
-                    this._newThreePoint(-this.worldsize.x, this.worldsize.y, this.worldsize.z),
-                    this._newThreePoint(-this.worldsize.x, -this.worldsize.y, this.worldsize.z)
+                    this._new_three_point(this.worldsize.x, -this.worldsize.y, this.worldsize.z),
+                    this._new_three_point(this.worldsize.x, this.worldsize.y, this.worldsize.z),
+                    this._new_three_point(-this.worldsize.x, this.worldsize.y, this.worldsize.z),
+                    this._new_three_point(-this.worldsize.x, -this.worldsize.y, this.worldsize.z)
                 );
                 for (let j = 0; j <= 4; j += 1) {
                     geometry.faces.push(new THREE.Face3(4 * j, 4 * j + 1, 4 * j + 2));
@@ -1873,7 +1897,7 @@ function TMSViewer() {
                 }
                 let cube = new THREE.Mesh(geometry, material);
                 cube.position.y = 0;
-                self._addMeshToScene(cube, this._globals.helper, false);
+                self._add_mesh_to_scene(cube, this._globals.helper, false);
                 // noinspection JSValidateTypes
                 this._helperInstances.worldlimits = cube;
             }
@@ -1907,7 +1931,7 @@ function TMSViewer() {
                     mesh.position.z = self.objects_props.camera.target.x;
                 };
                 $update();
-                self._addMeshToScene(mesh, this._globals.helper, false);
+                self._add_mesh_to_scene(mesh, this._globals.helper, false);
                 this._helpersUpdate.push({
                     update: $update,
                 });
@@ -1938,7 +1962,7 @@ function TMSViewer() {
      * @param {number} z
      * @returns {Vector3}
      */
-    this._newThreePoint = function (x, y, z) {
+    this._new_three_point = function (x, y, z) {
         return new THREE.Vector3(y, z, x);
     };
 
@@ -1951,7 +1975,7 @@ function TMSViewer() {
      * @param {number} color - Border color
      * @returns {LineSegments}
      */
-    this._createContour = function (edges, color) {
+    this._create_contour = function (edges, color) {
         let material = new THREE.LineBasicMaterial({color: color});
         return new THREE.LineSegments(edges, material);
     };
@@ -1967,7 +1991,7 @@ function TMSViewer() {
      * @param {boolean=} castShadow - Object cast shadows
      * @param {boolean=} receiveShadow - Object can receive shadows
      */
-    this._addMeshToScene = function (mesh, name, collaidable, castShadow, receiveShadow) {
+    this._add_mesh_to_scene = function (mesh, name, collaidable, castShadow, receiveShadow) {
 
         // Apply properties
         mesh.name = name;
@@ -1980,7 +2004,7 @@ function TMSViewer() {
         self._scene.add(mesh);
 
         // Add to collaidable
-        if (collaidable) self._addToCollidable(mesh);
+        if (collaidable) self.add_to_collidable(mesh);
 
     };
 
@@ -1991,7 +2015,7 @@ function TMSViewer() {
      * @protected
      * @param {Object} mesh
      */
-    this._addToCollidable = function (mesh) {
+    this.add_to_collidable = function (mesh) {
         this._collaidableMeshes.push(mesh);
     };
 
@@ -2075,14 +2099,14 @@ function TMSViewer() {
         // Create figure
         self._viewerMesh = new THREE.Mesh(geometryMerge, mergeMaterials);
         this.objects_props.tooltip.mode.group.addContainer(this._globals.volume, meshNames);
-        this._addMeshToScene(this._viewerMesh, this._globals.volume, true, false, false);
+        this._add_mesh_to_scene(this._viewerMesh, this._globals.volume, true, false, false);
 
         // Adds normal helper
         if (this._threejs_helpers.normals) {
             let nh_size = Math.min(this.worldsize.x, this.worldsize.x, this.worldsize.z) * 0.1;
             let helper = new THREE.FaceNormalsHelper(this._viewerMesh, nh_size,
                 this._threejs_helpers.normalcolor, 1);
-            this._addMeshToScene(helper, this._globals.normals, false);
+            this._add_mesh_to_scene(helper, this._globals.normals, false);
         }
 
         // Create secondary contour
@@ -2090,7 +2114,7 @@ function TMSViewer() {
         let s_material = new THREE.LineBasicMaterial({color: this.palette.contour_major_color});
         s_material.opacity = this.palette.contour_major_opacity;
         let s_contour = new THREE.LineSegments(s_edges, s_material);
-        this._addMeshToScene(s_contour, this._globals.contour, false);
+        this._add_mesh_to_scene(s_contour, this._globals.contour, false);
 
         // Render
         this.render();
@@ -2145,11 +2169,11 @@ function TMSViewer() {
         // Create contour
         if (face.is_enabled()) {
             let objEdges = new THREE.EdgesGeometry(geom);
-            let contour = this._createContour(objEdges, this.palette.contour_minor_color);
+            let contour = this._create_contour(objEdges, this.palette.contour_minor_color);
             contour.material.opacity = this.palette.contour_minor_opacity;
             contour.position.y = 0;
             contour.material.transparent = false;
-            this._addMeshToScene(contour, this._globals.contour, false);
+            this._add_mesh_to_scene(contour, this._globals.contour, false);
         }
 
     };
@@ -2171,11 +2195,11 @@ function TMSViewer() {
     this.init = function (parentElement) {
         self.id = parentElement;
         self._canvasParent = $(parentElement);
-        self._initThree();
-        self._initWorldObjects();
-        self._initTooltip();
+        self._init_three();
+        self._init_world_objects();
+        self._init_tooltip();
         self.focus();
-        self.initAnimate();
+        self.init_animate();
     };
 
     /**

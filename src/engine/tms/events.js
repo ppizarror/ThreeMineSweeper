@@ -205,7 +205,7 @@ function TMSEvents() {
         this._canvasParent.on(self._eventID.mousewheel, function (e) {
             stopWheelEvent(e);
             e.preventDefault();
-            self._viewer.animateFrame();
+            self._viewer.animate_frame();
         });
 
         /**
@@ -214,7 +214,7 @@ function TMSEvents() {
         this._canvasParent.on(self._eventID.mousedown, function (e) {
             e.preventDefault();
             self._viewer.focus();
-            self._viewer.animateFrame();
+            self._viewer.animate_frame();
             self._hasMouseOver = true;
             self._hasMousePressed = true;
         });
@@ -295,31 +295,31 @@ function TMSEvents() {
             if (e.altKey) {
                 switch (e.which) {
                     case 49: // [1]
-                        self._viewer.resetCamera();
+                        self._viewer.reset_camera();
                         break;
                     case 50: // [2]
-                        self._viewer.toggleAxis();
+                        self._viewer.toggle_axis();
                         break;
                     case 51: // [3]
-                        self._viewer.toggleCameraTarget();
+                        self._viewer.toggle_camera_target();
                         break;
                     case 52: // [4]
-                        self._viewer.toggleFPSMeter();
+                        self._viewer.toggle_fps_meter();
                         break;
                     case 53: // [5]
-                        self._viewer.toggleGrid();
+                        self._viewer.toggle_grid();
                         break;
                     case 54: // [6]
-                        self._viewer.toggleGUI();
+                        self._viewer.toggle_gui();
                         break;
                     case 55: // [7]
-                        self._viewer.toggleWorldLimits();
+                        self._viewer.toggle_world_limits();
                         break;
                     case 56: // [8]
-                        self._viewer.togglePlanes();
+                        self._viewer.toggle_planes();
                         break;
                     case 57: // [9]
-                        self._viewer.showRendererInfo();
+                        self._viewer.show_renderer_info();
                         break;
                     default:
                         break;
@@ -406,7 +406,7 @@ function TMSEvents() {
         /**
          * Canvas resize
          */
-        this._viewer.threeResize(true);
+        this._viewer.three_resize(true);
 
     };
 
@@ -422,7 +422,7 @@ function TMSEvents() {
         /**
          * Check events
          */
-        if (self._hasMousePressed || self._hasKeyPressed || !self._hasMouseOver) {
+        if (self._hasMousePressed || self._hasKeyPressed || !self._hasMouseOver || self._viewer.camera_is_moving()) {
             self._viewer.objects_props.tooltip.obj.css('display', 'none');
             return;
         }
