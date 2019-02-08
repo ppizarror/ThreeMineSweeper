@@ -38,6 +38,9 @@ function SierpinskiCube() {
         // Apply limit
         this._apply_order_limit(2);
 
+        // Place camera
+        this._set_camera_position(1.8, -1.8, 1.8);
+
         // Create vertices
         let v1 = new Vertex(xi, yi, zi, 'V1-0');
         let v2 = new Vertex(xf, yi, zi, 'V2-0');

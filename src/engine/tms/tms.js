@@ -76,7 +76,7 @@ function ThreeMinesSweeper() {
     this.new = function (volume, mines, camera) {
         this._mines.apply(volume, mines);
         this._events.set_volume(volume);
-        this._viewer.set_camera_init_pos(camera.x, camera.y, camera.z);
+        this._viewer.set_camera_init_pos(camera.x, camera.y, camera.z, camera.az, camera.po);
         this._viewer.new(volume);
         loadingHandler(false);
     };

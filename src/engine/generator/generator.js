@@ -198,7 +198,7 @@ function Generator() {
      * @param {number} x
      * @param {number} y
      * @param {number} z
-     * @private
+     * @protected
      */
     this._set_camera_position = function (x, y, z) {
         this._camera.x = x;
