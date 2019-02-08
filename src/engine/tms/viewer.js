@@ -98,7 +98,7 @@ function TMSViewer() {
         cameratargetcolor: 0X0000ff,    // Color target
         griddist: 0.03,                 // Grid distance in percentage
         guicloseafterpopup: false,      // GUI closes after a popup is opened
-        guistartclosed: true,           // GUI starts closed
+        guistartclosed: false,          // GUI starts closed
         normalcolor: 0xff0000,          // Normal color
         planecolorx: 0X0000ff,          // X plane color
         planecolory: 0Xff0000,          // Y plane color
@@ -282,8 +282,8 @@ function TMSViewer() {
                 alf: 0.006,
                 aup: 0.006,
                 f: 0.027,
-                x: 0.027,
-                y: 0.027,
+                x: 0.057,
+                y: 0.057,
                 z: 0.035,
             },
             minspeed: 0.0001,                   // Minimum speed
@@ -317,7 +317,7 @@ function TMSViewer() {
             rotatespeed: 0.06,                  // Rotation speed
             speedfactor: {                      // Speed factor inside outside worldsize
                 inside: 0.65,
-                outside: 1.45,
+                outside: 2.45,
             },
             targetaccel: {                      // Target acceleration
                 alf: 0.008,

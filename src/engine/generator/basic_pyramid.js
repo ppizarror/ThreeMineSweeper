@@ -34,6 +34,9 @@ function BasicPyramid() {
      */
     this._generate = function (xi, yi, zi, xf, yf, zf) {
 
+        // Place camera
+        this._set_camera_position(-2.5, -1.4, 0.45);
+
         // Calculate some values
         let zm = (zf + zi) / 2;
         let a = (xf - xi + yf - yi) / 2;

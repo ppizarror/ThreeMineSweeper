@@ -34,6 +34,9 @@ function BasicCube() {
      */
     this._generate = function (xi, yi, zi, xf, yf, zf) {
 
+        // Place camera
+        this._set_camera_position(1.8, -1.8, 1.8);
+
         // Create vertices
         let v1 = new Vertex(xi, yi, zi, 'V1');
         let v2 = new Vertex(xf, yi, zi, 'V2');
