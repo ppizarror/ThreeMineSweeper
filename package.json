@@ -14,7 +14,7 @@
   },
   "devDependencies": {
     "jquery": "^3.3.1",
-    "jquery-confirm": "^3.3.3",
+    "jquery-confirm": "^3.3.4",
     "karma": "^3.1.4",
     "karma-chrome-launcher": "^2.2.0",
     "karma-coverage": "^1.1.2",
