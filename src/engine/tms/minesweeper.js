@@ -14,6 +14,7 @@
  * @constructor
  */
 function Minesweeper() {
+    /* eslint-disable arrow-parens */
     /* eslint-disable new-cap */
     /* eslint-disable no-continue */
     /* eslint-disable no-extra-parens */
@@ -326,13 +327,18 @@ function Minesweeper() {
 
         // User won
         let $time = self._timer.timer.getTimeValues().seconds;
-        self._timer.timer.stop();
+        self._timer.timer.pause();
         self._gameover = true;
         self._set_text_color('#3dff4d');
         app_console.info(lang.game_finished.format($time));
         ion.sound.play('gameWin');
 
-        // Submit score
+        // Request user info
+        /*
+        dbip.getVisitorInfo().then(info => {
+            console.log(info);
+        });
+         */
 
     };
 
