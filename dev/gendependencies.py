@@ -6,8 +6,8 @@ Generates README.md dependencies list.
 Copyright (C) MIT
 """
 
-FILE = '../../src/__version__/dependencies.js'
-README = '../../lib/README.md'
+FILE = '../src/about/dependencies.js'
+README = '../lib/README.md'
 
 """
 Get information
