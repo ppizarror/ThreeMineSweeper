@@ -35,6 +35,9 @@ function Cylinder() {
      */
     this._generate = function (xi, yi, zi, xf, yf, zf) {
 
+        // Place camera
+        this._set_camera_position(1.2, -2.2, 1.6);
+
         // Update longitude
         self._lng = Math.max(self._lng, 3);
 

@@ -38,6 +38,9 @@ function SierpinskiTriangle() {
         // Apply limit
         this._apply_order_limit(5);
 
+        // Place camera
+        this._set_camera_position(-1.6, 0.9, 0);
+
         // Disables checks
         this._disable_face_check();
         this._disable_vertex_check();

@@ -35,6 +35,9 @@ function RandomPlane() {
      */
     this._generate = function (xi, yi, zi, xf, yf, zf) {
 
+        // Place camera
+        this._set_camera_position(0, 0, 2.0);
+
         // Calculate lengths of the cube
         let lx = xf - xi;
         let ly = yf - yi;
@@ -65,6 +68,7 @@ function RandomPlane() {
         for (let i = 0; i < triangles.length / 3; i += 1) {
             face = new Face([vertices[triangles[(3 * i)]], vertices[triangles[(3 * i) + 1]], vertices[triangles[(3 * i) + 2]]], 'F-' + (i + 1).toString());
             face.enable_uv_flip();
+            face.set_uv_rotation(-90);
             faces.push(face);
         }
 

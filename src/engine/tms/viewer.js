@@ -317,7 +317,7 @@ function TMSViewer() {
             rotatespeed: 0.06,                  // Rotation speed
             speedfactor: {                      // Speed factor inside outside worldsize
                 inside: 0.65,
-                outside: 2.45,
+                outside: 1.55,
             },
             targetaccel: {                      // Target acceleration
                 alf: 0.008,

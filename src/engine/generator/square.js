@@ -35,6 +35,9 @@ function Square() {
      */
     this._generate = function (xi, yi, zi, xf, yf, zf) {
 
+        // Place camera
+        this._set_camera_position(0, 0, 2);
+
         // Calculate lengths
         let lx = Math.abs(xf - xi);
         let ly = Math.abs(yf - yi);
@@ -67,6 +70,7 @@ function Square() {
                     v[(this._lat * (j + 1)) + fi]
                 ], 'F' + i.toString());
                 face.enable_uv_flip();
+                face.set_uv_rotation(-90);
                 face.set_bomb_behaviour(face.behaviour.AROUND);
                 f.push(face);
                 i += 1;
