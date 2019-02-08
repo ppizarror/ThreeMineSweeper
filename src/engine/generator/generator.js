@@ -64,15 +64,13 @@ function Generator() {
     this._id = generateID();
 
     /**
-     * Generator properties
-     * @type {{latitude: boolean, fractal: boolean, target: boolean, longitude: boolean}}
+     * Generator properties.
      * @protected
      */
     this._genprops = {
         fractal: false,
         target: false,
-        latitude: false,
-        longitude: false,
+        latlng: false,
     };
 
     /**
@@ -253,7 +251,7 @@ function Generator() {
      * @protected
      */
     this._set_name = function (name) {
-        this._name = name.toString();
+        self._name = name.toString();
     };
 
     /**
@@ -268,7 +266,7 @@ function Generator() {
         let $latlng = '';
         if (self._genprops.fractal) $fractal = '^{0}'.format(self._order);
         if (self._genprops.target) $target = ' T({0})'.format(self._faces_target);
-        if (self._genprops.latitude || self._genprops.longitude) $latlng = ' {0}x{1}'.format(self._lat, self._lng);
+        if (self._genprops.latlng) $latlng = ' {0}x{1}'.format(self._lat, self._lng);
         return '{0}{1}{2}{3}'.format(self._name, $fractal, $target, $latlng);
     };
 

@@ -19,6 +19,7 @@ function BasicPyramid() {
      * Inherit class.
      */
     Generator.call(this);
+    this._set_name('BasicPyramid');
 
     // noinspection JSUnusedGlobalSymbols
     /**

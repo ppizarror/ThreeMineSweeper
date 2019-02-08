@@ -20,6 +20,8 @@ function Cylinder() {
      * Inherit class.
      */
     Generator.call(this);
+    this._genprops.latlng = true;
+    this._set_name('Cylinder');
 
     // noinspection JSUnusedGlobalSymbols
     /**

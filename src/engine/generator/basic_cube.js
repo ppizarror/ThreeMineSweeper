@@ -19,6 +19,7 @@ function BasicCube() {
      * Inherit class.
      */
     Generator.call(this);
+    this._set_name('BasicCube');
 
     // noinspection JSUnusedGlobalSymbols
     /**
