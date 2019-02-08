@@ -34,6 +34,8 @@ lang_db.en = {
     "errordb_themeNotExist_msg": "Selected theme could not be loaded",
     "exception": "Exception",
     "game_back_to_menu": "Back to menu",
+    "game_checking_win_condition": "Checking win condition",
+    "game_finished": "Game finished in {0} seconds",
     "game_over": "Game over!",
     "game_reset": "Reset",
     "generator_finished": "Geometry generated in {0} seconds. Faces: {1}. Vertices: {4}. Deleted faces: {2}. Duplicated vertices: {3}",

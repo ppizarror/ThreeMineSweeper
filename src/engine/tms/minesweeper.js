@@ -15,6 +15,7 @@
  */
 function Minesweeper() {
     /* eslint-disable new-cap */
+    /* eslint-disable no-continue */
     /* eslint-disable no-extra-parens */
 
     /**
@@ -48,6 +49,7 @@ function Minesweeper() {
      */
     this._game_status = {
         flags: 0,
+        mines: 0,
         played: 0,
         questions: 0,
         total: 0,
@@ -163,6 +165,8 @@ function Minesweeper() {
         self._game_status.played = 0;
         self._game_status.flags = 0;
         self._game_status.questions = 0;
+        self._game_status.mines = pm;
+        self._volume = volume;
 
     };
 
@@ -238,6 +242,9 @@ function Minesweeper() {
         viewer.render();
         self._update_counters();
 
+        // Check win
+        this._check_win();
+
     };
 
     /**
@@ -289,6 +296,44 @@ function Minesweeper() {
             return true;
         }
         return false;
+    };
+
+    /**
+     * Check user won.
+     *
+     * @function
+     * @private
+     */
+    this._check_win = function () {
+
+        // Fast check
+        if (self._game_status.played !== self._game_status.total) {
+            if (!((self._game_status.played + self._game_status.mines - self._game_status.flags - self._game_status.questions) === self._game_status.total)) return;
+        }
+        app_console.info(lang.game_checking_win_condition);
+
+        // Check all faces has been played (except if they have a bomb)
+        let $played = 0;
+        let $f = self._volume.get_faces();
+        for (let i = 0; i < $f.length; i += 1) {
+            if (!$f[i].is_enabled()) continue;
+            if ($f[i].is_played() && $f[i].has_bomb()) continue;
+            if ((!$f[i].is_played() && $f[i].has_bomb()) ||
+                ($f[i].is_played() && !$f[i].has_bomb()) ||
+                (!$f[i].is_played() && ($f[i].has_flag() || $f[i].has_question()))) $played += 1;
+        }
+        if ($played !== self._game_status.total) return;
+
+        // User won
+        let $time = self._timer.timer.getTimeValues().seconds;
+        self._timer.timer.stop();
+        self._gameover = true;
+        self._set_text_color('#3dff4d');
+        app_console.info(lang.game_finished.format($time));
+        ion.sound.play('gameWin');
+
+        // Submit score
+
     };
 
     /**
