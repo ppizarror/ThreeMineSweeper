@@ -42,6 +42,16 @@ function Minesweeper() {
     this._gameover = false;
 
     /**
+     * Timer.
+     * @type {{timer: e, dom: JQuery<HTMLElement> | jQuery | HTMLElement}}
+     * @private
+     */
+    this._timer = {
+        dom: $('#game-time-counter'),
+        timer: new easytimer.Timer(),
+    };
+
+    /**
      * Object pointer.
      * @type {Minesweeper}
      */
@@ -286,6 +296,22 @@ function Minesweeper() {
         setTimeout(function () {
             self._explotion_secondary_effect($f, viewer, call + 1);
         }, Math.floor(80 * Math.pow((call + 1), 0.10)));
+    };
+
+    /**
+     * Creates new game ui.
+     *
+     * @function
+     */
+    this.new_game_ui = function () {
+
+        // Create counter
+        this._timer.timer.reset();
+        this._timer.timer.start();
+        this._timer.timer.addEventListener('secondsUpdated', function () {
+            self._timer.dom.html(self._timer.timer.getTimeValues().toString());
+        });
+
     };
 
 }

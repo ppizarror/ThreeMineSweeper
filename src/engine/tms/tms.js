@@ -74,10 +74,11 @@ function ThreeMinesSweeper() {
      * @param {object} camera - Camera position
      */
     this.new = function (volume, mines, camera) {
+        this._mines.new_game_ui();
         this._mines.new(volume, mines);
         this._events.set_volume(volume);
         this._viewer.set_camera_init_pos(camera.x, camera.y, camera.z);
-        this._viewer.new(volume);
+        // this._viewer.new(volume);
         loadingHandler(false);
     };
 

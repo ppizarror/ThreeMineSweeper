@@ -63,8 +63,10 @@
     <script src="lib/toastr/toastr.min.js"></script>
     <script src="lib/notification.js/notification.min.js"></script>
     <script src="lib/ion.sound/ion.sound.min.js"></script>
+    <script src="lib/easytimer/easytimer.min.js"></script>
 
     <!-- Load styles -->
+    <link rel="stylesheet" type="text/css" href="src/stylesheets/game.css" media="screen">
     <link rel="stylesheet" type="text/css" href="src/stylesheets/lib.css" media="screen">
     <link rel="stylesheet" type="text/css" href="src/stylesheets/loading.css" media="screen">
     <link rel="stylesheet" type="text/css" href="src/stylesheets/root.css" media="screen">
@@ -142,5 +144,14 @@
 <div id="root"></div>
 <div id="viewer"></div>
 <div id="viewer-gui"></div>
+<div id="menu-ui">
+</div>
+<div id="game-ui">
+    <div class="game-ui-left-column"></div>
+    <div class="game-ui-middle-column">
+        <div id="game-time-counter">00:00:00</div>
+    </div>
+    <div class="game-ui-right-column"></div>
+</div>
 </body>
 </html>

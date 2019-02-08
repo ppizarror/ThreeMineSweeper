@@ -126,7 +126,7 @@ $(function () {
      * Init viewer
      * ------------------------------------------------------------------------
      */
-    loadingHandler(true);
+    // loadingHandler(true);
     deleteUrlParams();
     app_tms.init('#viewer');
 

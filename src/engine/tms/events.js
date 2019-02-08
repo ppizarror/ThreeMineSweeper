@@ -518,9 +518,7 @@ function TMSEvents() {
             let $face = parseInt(faceID, 10);
             if (!isNaN($face)) {
                 let faces = this._volume.get_faces();
-                if ($face >= 0 && $face < faces.length) {
-                    $content = this._faceMouseHandler(faces[$face]);
-                }
+                if ($face >= 0 && $face < faces.length) $content = this._faceMouseHandler(faces[$face]);
             } else {
                 this._faceHover(null);
             }
