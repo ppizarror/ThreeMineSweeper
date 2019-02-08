@@ -243,13 +243,6 @@ function TMSViewer() {
          * Camera
          */
         camera: {
-            acceleration: {                     // Camera acceleration
-                alf: 0,
-                aup: 0,
-                x: 0,
-                y: 0,
-                z: 0,
-            },
             angle: 60,                          // FOV
             autorotate: false,                  // Auto rotates the camera
             bounds: {                           // Camera limits respect to worldsize
@@ -261,6 +254,7 @@ function TMSViewer() {
                 alf: 2950,
                 aup: 3950,
                 f: 400,
+                p: 400,
                 x: 400,
                 y: 400,
                 z: 400,
@@ -282,6 +276,7 @@ function TMSViewer() {
                 alf: 0.006,
                 aup: 0.006,
                 f: 0.027,
+                p: 0.057,
                 x: 0.057,
                 y: 0.057,
                 z: 0.035,
@@ -297,6 +292,8 @@ function TMSViewer() {
                 backward: false,
                 forward: false,
                 left: false,
+                planebackward: false,
+                planeforward: false,
                 right: false,
                 zdown: false,
                 zup: false,
@@ -323,14 +320,16 @@ function TMSViewer() {
                 alf: 0.008,
                 aup: 0.008,
                 f: 0.02,
-                x: 0.03,
-                y: 0.03,
+                p: 0.03,
+                x: 0.05,
+                y: 0.05,
                 z: 0.04,
             },
             targetdamping: {                    // Camera target damping
                 alf: 0.03,
                 aup: 0.03,
                 f: 0.05,
+                p: 0.05,
                 x: 0.07,
                 y: 0.07,
                 z: 0.07,
@@ -339,6 +338,7 @@ function TMSViewer() {
                 alf: 0, // Angle left
                 aup: 0, // Angle up
                 f: 0, // Parallel
+                p: 0,
                 x: 0,
                 y: 0,
                 z: 0,
@@ -801,6 +801,7 @@ function TMSViewer() {
             z: this.objects_props.camera.target.z,
         };
 
+        // Place camera
         this._place_camera();
 
     };
@@ -1035,12 +1036,13 @@ function TMSViewer() {
         let fps = (1 / 60);
 
         // Get acceleration based on the movements
+        let $af = 0; // F/B
+        let $alf = 0; // ANGLE LEFT/RIGHT
+        let $ap = 0; // PLANAR F (FORWARD) / B (BACKWARD)
+        let $aup = 0; // ANGLE UP/DOWN
         let $ax = 0; // L/R
         let $ay = 0; // L/R
         let $az = 0; // Z
-        let $af = 0; // F/B
-        let $aup = 0; // ANGLE UP/DOWN
-        let $alf = 0; // ANGLE LEFT/RIGHT
         if (self.objects_props.camera.movements.forward) {
             $af = -1;
         }
@@ -1067,6 +1069,13 @@ function TMSViewer() {
         if (self.objects_props.camera.movements.angledown) {
             $aup = 1;
         }
+        if (self.objects_props.camera.movements.planeforward) {
+            $ap = -1;
+        }
+        if (self.objects_props.camera.movements.planebackward) {
+            $ap = 1;
+        }
+
         // let $lookpos = self._controls.getPolarAngle() < Math.PI / 2 ? 1 : -1;
         let $lookpos = 1;
         if (self.objects_props.camera.movements.angleleft) {
@@ -1090,9 +1099,12 @@ function TMSViewer() {
         if (self.objects_props.camera.movements.angleleft && self.objects_props.camera.movements.angleright) {
             $alf = 0;
         }
+        if (self.objects_props.camera.movements.planeforward && self.objects_props.camera.movements.planebackward) {
+            $ap = 0;
+        }
 
         // Camera is not moving
-        if ($ax === 0 && $ay === 0 && $az === 0 && $af === 0 && $aup === 0 && $alf === 0 && !self.camera_is_moving() && !self.camera_is_rotating()) {
+        if ($ax === 0 && $ay === 0 && $az === 0 && $af === 0 && $aup === 0 && $alf === 0 && $ap === 0 && !self.camera_is_moving() && !self.camera_is_rotating()) {
             return;
         }
 
@@ -1108,6 +1120,9 @@ function TMSViewer() {
         }
         if (self._different_sign($af, self.objects_props.camera.targetspeed.f)) {
             $af *= Math.abs(self.objects_props.camera.brakeaccel.f * self.objects_props.camera.targetspeed.f);
+        }
+        if (self._different_sign($ap, self.objects_props.camera.targetspeed.p)) {
+            $ap *= Math.abs(self.objects_props.camera.brakeaccel.p * self.objects_props.camera.targetspeed.p);
         }
         if (self._different_sign($aup, self.objects_props.camera.targetspeed.aup)) {
             $aup *= Math.abs(self.objects_props.camera.brakeaccel.aup * self.objects_props.camera.targetspeed.aup);
@@ -1125,42 +1140,48 @@ function TMSViewer() {
         }
 
         // Update speed
+        self.objects_props.camera.targetspeed.alf += ($alf * self.objects_props.camera.targetaccel.alf) * fps;
+        self.objects_props.camera.targetspeed.aup += ($aup * self.objects_props.camera.targetaccel.aup) * fps;
+        self.objects_props.camera.targetspeed.f += ($af * self.objects_props.camera.targetaccel.f * self.worldsize.diagl) * fps * $inside;
+        self.objects_props.camera.targetspeed.p += ($ap * self.objects_props.camera.targetaccel.p * self.worldsize.diagl) * fps * $inside;
         self.objects_props.camera.targetspeed.x += ($ax * self.objects_props.camera.targetaccel.x * self.worldsize.x) * fps * $inside;
         self.objects_props.camera.targetspeed.y += ($ay * self.objects_props.camera.targetaccel.y * self.worldsize.y) * fps * $inside;
         self.objects_props.camera.targetspeed.z += ($az * self.objects_props.camera.targetaccel.z * self.worldsize.z) * fps * $inside;
-        self.objects_props.camera.targetspeed.f += ($af * self.objects_props.camera.targetaccel.f * self.worldsize.diagl) * fps * $inside;
-        self.objects_props.camera.targetspeed.aup += ($aup * self.objects_props.camera.targetaccel.aup) * fps;
-        self.objects_props.camera.targetspeed.alf += ($alf * self.objects_props.camera.targetaccel.alf) * fps;
 
         // Apply damping
+        let $f = self.objects_props.camera.targetspeed.f;
+        let $lf = self.objects_props.camera.targetspeed.alf;
+        let $p = self.objects_props.camera.targetspeed.p;
+        let $up = self.objects_props.camera.targetspeed.aup;
         let $x = self.objects_props.camera.targetspeed.x;
         let $y = self.objects_props.camera.targetspeed.y;
         let $z = self.objects_props.camera.targetspeed.z;
-        let $f = self.objects_props.camera.targetspeed.f;
-        let $up = self.objects_props.camera.targetspeed.aup;
-        let $lf = self.objects_props.camera.targetspeed.alf;
+
+        if ($af === 0) self.objects_props.camera.targetspeed.f += -Math.sign(self.objects_props.camera.targetspeed.f) * self.objects_props.camera.targetdamping.f * self.worldsize.diagl * fps;
+        if ($alf === 0) self.objects_props.camera.targetspeed.alf += -Math.sign(self.objects_props.camera.targetspeed.alf) * self.objects_props.camera.targetdamping.alf * fps;
+        if ($ap === 0) self.objects_props.camera.targetspeed.p += -Math.sign(self.objects_props.camera.targetspeed.p) * self.objects_props.camera.targetdamping.p * self.worldsize.diagl * fps;
+        if ($aup === 0) self.objects_props.camera.targetspeed.aup += -Math.sign(self.objects_props.camera.targetspeed.aup) * self.objects_props.camera.targetdamping.aup * fps;
         if ($ax === 0) self.objects_props.camera.targetspeed.x += -Math.sign(self.objects_props.camera.targetspeed.x) * self.objects_props.camera.targetdamping.x * self.worldsize.x * fps;
         if ($ay === 0) self.objects_props.camera.targetspeed.y += -Math.sign(self.objects_props.camera.targetspeed.y) * self.objects_props.camera.targetdamping.y * self.worldsize.y * fps;
         if ($az === 0) self.objects_props.camera.targetspeed.z += -Math.sign(self.objects_props.camera.targetspeed.z) * self.objects_props.camera.targetdamping.z * self.worldsize.z * fps;
-        if ($af === 0) self.objects_props.camera.targetspeed.f += -Math.sign(self.objects_props.camera.targetspeed.f) * self.objects_props.camera.targetdamping.f * self.worldsize.diagl * fps;
-        if ($aup === 0) self.objects_props.camera.targetspeed.aup += -Math.sign(self.objects_props.camera.targetspeed.aup) * self.objects_props.camera.targetdamping.aup * fps;
-        if ($alf === 0) self.objects_props.camera.targetspeed.alf += -Math.sign(self.objects_props.camera.targetspeed.alf) * self.objects_props.camera.targetdamping.alf * fps;
 
         // Apply last filters
+        if (self._different_sign($f, self.objects_props.camera.targetspeed.f) || Math.abs(self.objects_props.camera.targetspeed.f) < self.objects_props.camera.minspeed) self.objects_props.camera.targetspeed.f = 0;
+        if (self._different_sign($p, self.objects_props.camera.targetspeed.p) || Math.abs(self.objects_props.camera.targetspeed.p) < self.objects_props.camera.minspeed) self.objects_props.camera.targetspeed.p = 0;
+        if (self._different_sign($lf, self.objects_props.camera.targetspeed.alf) || Math.abs(self.objects_props.camera.targetspeed.alf) < self.objects_props.camera.minspeedangle) self.objects_props.camera.targetspeed.alf = 0;
+        if (self._different_sign($up, self.objects_props.camera.targetspeed.aup) || Math.abs(self.objects_props.camera.targetspeed.aup) < self.objects_props.camera.minspeedangle) self.objects_props.camera.targetspeed.aup = 0;
         if (self._different_sign($x, self.objects_props.camera.targetspeed.x) || Math.abs(self.objects_props.camera.targetspeed.x) < self.objects_props.camera.minspeed) self.objects_props.camera.targetspeed.x = 0;
         if (self._different_sign($y, self.objects_props.camera.targetspeed.y) || Math.abs(self.objects_props.camera.targetspeed.y) < self.objects_props.camera.minspeed) self.objects_props.camera.targetspeed.y = 0;
         if (self._different_sign($z, self.objects_props.camera.targetspeed.z) || Math.abs(self.objects_props.camera.targetspeed.z) < self.objects_props.camera.minspeed) self.objects_props.camera.targetspeed.z = 0;
-        if (self._different_sign($f, self.objects_props.camera.targetspeed.f) || Math.abs(self.objects_props.camera.targetspeed.f) < self.objects_props.camera.minspeed) self.objects_props.camera.targetspeed.f = 0;
-        if (self._different_sign($up, self.objects_props.camera.targetspeed.aup) || Math.abs(self.objects_props.camera.targetspeed.aup) < self.objects_props.camera.minspeedangle) self.objects_props.camera.targetspeed.aup = 0;
-        if (self._different_sign($lf, self.objects_props.camera.targetspeed.alf) || Math.abs(self.objects_props.camera.targetspeed.alf) < self.objects_props.camera.minspeedangle) self.objects_props.camera.targetspeed.alf = 0;
 
         // Apply limits
+        self.objects_props.camera.targetspeed.alf = Math.sign(self.objects_props.camera.targetspeed.alf) * Math.min(Math.abs(self.objects_props.camera.targetspeed.alf), self.objects_props.camera.maxvelocity.alf);
+        self.objects_props.camera.targetspeed.aup = Math.sign(self.objects_props.camera.targetspeed.aup) * Math.min(Math.abs(self.objects_props.camera.targetspeed.aup), self.objects_props.camera.maxvelocity.aup);
+        self.objects_props.camera.targetspeed.f = Math.sign(self.objects_props.camera.targetspeed.f) * Math.min(Math.abs(self.objects_props.camera.targetspeed.f), self.objects_props.camera.maxvelocity.f * $inside);
+        self.objects_props.camera.targetspeed.p = Math.sign(self.objects_props.camera.targetspeed.p) * Math.min(Math.abs(self.objects_props.camera.targetspeed.p), self.objects_props.camera.maxvelocity.p * $inside);
         self.objects_props.camera.targetspeed.x = Math.sign(self.objects_props.camera.targetspeed.x) * Math.min(Math.abs(self.objects_props.camera.targetspeed.x), self.objects_props.camera.maxvelocity.x * $inside);
         self.objects_props.camera.targetspeed.y = Math.sign(self.objects_props.camera.targetspeed.y) * Math.min(Math.abs(self.objects_props.camera.targetspeed.y), self.objects_props.camera.maxvelocity.y * $inside);
         self.objects_props.camera.targetspeed.z = Math.sign(self.objects_props.camera.targetspeed.z) * Math.min(Math.abs(self.objects_props.camera.targetspeed.z), self.objects_props.camera.maxvelocity.z * $inside);
-        self.objects_props.camera.targetspeed.f = Math.sign(self.objects_props.camera.targetspeed.f) * Math.min(Math.abs(self.objects_props.camera.targetspeed.f), self.objects_props.camera.maxvelocity.f * $inside);
-        self.objects_props.camera.targetspeed.aup = Math.sign(self.objects_props.camera.targetspeed.aup) * Math.min(Math.abs(self.objects_props.camera.targetspeed.aup), self.objects_props.camera.maxvelocity.aup);
-        self.objects_props.camera.targetspeed.alf = Math.sign(self.objects_props.camera.targetspeed.alf) * Math.min(Math.abs(self.objects_props.camera.targetspeed.alf), self.objects_props.camera.maxvelocity.alf);
 
     };
 
@@ -1183,10 +1204,11 @@ function TMSViewer() {
      * @private
      */
     this._stop_camera = function () {
+        self.objects_props.camera.targetspeed.f = 0;
+        self.objects_props.camera.targetspeed.p = 0;
         self.objects_props.camera.targetspeed.x = 0;
         self.objects_props.camera.targetspeed.y = 0;
         self.objects_props.camera.targetspeed.z = 0;
-        self.objects_props.camera.targetspeed.f = 0;
         return false;
     };
 
@@ -1197,7 +1219,7 @@ function TMSViewer() {
      * @returns {boolean}
      */
     this.camera_is_moving = function () {
-        return self.objects_props.camera.targetspeed.x !== 0 || self.objects_props.camera.targetspeed.y !== 0 || self.objects_props.camera.targetspeed.z !== 0 || self.objects_props.camera.targetspeed.f !== 0;
+        return self.objects_props.camera.targetspeed.x !== 0 || self.objects_props.camera.targetspeed.y !== 0 || self.objects_props.camera.targetspeed.z !== 0 || self.objects_props.camera.targetspeed.f !== 0 || self.objects_props.camera.targetspeed.p !== 0;
     };
 
     /**
@@ -1267,7 +1289,7 @@ function TMSViewer() {
     };
 
     /**
-     * Moves camera orthogonal to the ray between camera and target.
+     * Moves camera orthogonal to the ray between camera and target, planar.
      *
      * @function
      * @private
@@ -1278,21 +1300,25 @@ function TMSViewer() {
         /**
          * let $ang = Math.atan2(self._three_camera.position.x - self.objects_props.camera.target.y, self._three_camera.position.z - self.objects_props.camera.target.x);
          */
-        let $ang = this._controls.getAzimuthalAngle() + Math.PI / 2;
+        let $ang = this._controls.getAzimuthalAngle();
 
-        // Calculate displacements
+        // Left/right
         let $dx, $dy;
-        $dx = self.objects_props.camera.targetspeed.x * Math.cos($ang);
-        $dy = self.objects_props.camera.targetspeed.y * Math.sin($ang);
+        $dx = self.objects_props.camera.targetspeed.x * Math.cos($ang + Math.PI / 2);
+        $dy = self.objects_props.camera.targetspeed.y * Math.sin($ang + Math.PI / 2);
+        self._update_camera_target('x', $dx, false);
+        self._update_camera_target('y', $dy, false);
 
-        // Add to components
+        // Forward/backward
+        $dx = self.objects_props.camera.targetspeed.p * Math.cos($ang);
+        $dy = self.objects_props.camera.targetspeed.p * Math.sin($ang);
         self._update_camera_target('x', $dx, false);
         self._update_camera_target('y', $dy, true);
 
     };
 
     /**
-     * Moves camera in +Z axis.
+     * Moves camera in Z axis.
      *
      * @function
      * @private
@@ -1333,7 +1359,7 @@ function TMSViewer() {
      */
     this._rgb2hex = function (rgb) {
         let hex = rgb.toString(16);
-        hex = hex.length === 1 ? "0" + hex : hex;
+        hex = hex.length === 1 ? '0' + hex : hex;
         return hex.toString();
     };
 
@@ -1345,37 +1371,21 @@ function TMSViewer() {
      */
     this._init_tooltip = function () {
 
-        /**
-         * Enable tooltip
-         */
+        // Enable tooltip
         this.objects_props.tooltip.enabled = true;
 
-        /**
-         * If tooltip exists then it's removed
-         */
-        if (notNullUndf(this.objects_props.tooltip.obj)) {
-            this.objects_props.tooltip.obj.remove();
-        }
+        // If tooltip exists then it's removed
+        if (notNullUndf(this.objects_props.tooltip.obj)) this.objects_props.tooltip.obj.remove();
 
-        /**
-         * Create tooltip in main content
-         * @type {string}
-         */
+        // Create tooltip in main content
         let $tooltipid = generateID();
         $('#' + this.objects_props.tooltip.container).append('<div id="{0}" class="{1}"></div>'.format($tooltipid, this.objects_props.tooltip.tooltipClass));
-        if (this.objects_props.tooltip.tooltipClass === '') {
-            app_console.warn(lang.viewer_tooltip_empty_class);
-        }
+        if (this.objects_props.tooltip.tooltipClass === '') app_console.warn(lang.viewer_tooltip_empty_class);
 
-        /**
-         * Get object
-         * @type {JQuery | jQuery | HTMLElement}
-         */
+        // Get object
         this.objects_props.tooltip.obj = $('#' + $tooltipid);
 
-        /**
-         * Configure tooltip
-         */
+        // Configure tooltip
         self.objects_props.tooltip.enabled = false;
         self.objects_props.tooltip.addMode(self.objects_props.tooltip.mode.group);
 
@@ -1500,7 +1510,9 @@ function TMSViewer() {
     this._build_gui = function () {
 
         /**
+         * --------------------------------------------------------------------
          * Creates the GUI
+         * --------------------------------------------------------------------
          */
         this._gui = new dat.GUI({autoPlace: false});
 
