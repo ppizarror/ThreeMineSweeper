@@ -146,13 +146,30 @@
 <div id="viewer">
     <div id="game-ui" class="noselect">
         <div class="game-ui-left-column">
-            <button id="game-ui-button-menu" type="button" class="btn hvr-grow-shadow game-ui-button"></button>
-            <button id="game-ui-button-reset" type="button" class="btn btn-danger hvr-shadow game-ui-button"></button>
+            <button id="game-ui-button-menu" type="button" class="btn hvr-grow-shadow game-ui-button">
+                <i class="fas fa-home"></i>
+            </button>
+            <button id="game-ui-button-reset" type="button" class="btn btn-danger hvr-shadow game-ui-button">
+                <i class="fas fa-redo-alt"></i>
+            </button>
         </div>
         <div class="game-ui-middle-column">
             <div id="game-time-counter">00:00:00</div>
         </div>
-        <div class="game-ui-right-column"></div>
+        <div class="game-ui-right-column">
+            <div class="game-ui-tilesinfo tile-shadow">
+                <img src="resources/ui/face.png" alt=""/>
+                <span id="game-ui-face-counter">0/0 (0%)</span>
+            </div>
+            <div class="game-ui-tilesinfo">
+                <img src="resources/ui/flag.png" alt=""/>
+                <span id="game-ui-flag-counter">0</span>
+            </div>
+            <div class="game-ui-tilesinfo">
+                <img src="resources/ui/question.png" alt=""/>
+                <span id="game-ui-question-counter">0</span>
+            </div>
+        </div>
     </div>
 </div>
 <div id="viewer-gui"></div>

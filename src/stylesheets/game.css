@@ -59,6 +59,12 @@ Left column, contains buttons
 	opacity: 1.0;
 }
 
+@media screen and (max-width: 800px) {
+	.game-ui-button {
+		font-size: 1rem;
+	}
+}
+
 /**
 -------------------------------------------------------------------------------
 Middle column, contains timer
@@ -74,7 +80,7 @@ Counter
 #game-time-counter {
 	color: #ffffff;
 	cursor: default;
-	font-size: 2.7rem;
+	font-size: 3rem;
 	font-weight: 400;
 	text-align: center;
 	text-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
@@ -83,7 +89,8 @@ Counter
 
 @media screen and (max-width: 800px) {
 	#game-time-counter {
-		font-size: 2rem;
+		font-size: 2.5rem;
+		margin-top: -1.5%;
 	}
 }
 
@@ -93,6 +100,46 @@ Right column, contains game information
 -------------------------------------------------------------------------------
  */
 .game-ui-right-column {
-	background-color: #0b2ef3;
+	padding-top: 1.15%;
 	width: 33.333%;
+}
+
+@media screen and (max-width: 800px) {
+	.game-ui-right-column {
+		padding-top: 1%;
+	}
+}
+
+/**
+Tile info
+ */
+.game-ui-tilesinfo {
+	color: #ffffff;
+	display: inline-block;
+	float: left;
+	font-size: 2rem;
+	font-weight: 400;
+	margin: 0 1% 1% 0;
+	padding-bottom: 1.5%;
+	padding-right: 5%;
+	text-align: right;
+	text-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+}
+
+@media screen and (max-width: 800px) {
+	.game-ui-tilesinfo {
+		font-size: 1.5rem;
+	}
+}
+
+.game-ui-tilesinfo img {
+	display: inline-block;
+	margin-right: 5%;
+	margin-top: -2%;
+	min-width: 27px;
+	width: 10%;
+}
+
+.game-ui-tilesinfo.tile-shadow img {
+	box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
 }

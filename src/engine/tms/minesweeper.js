@@ -42,6 +42,18 @@ function Minesweeper() {
     this._gameover = false;
 
     /**
+     * Game status.
+     * @type {{total: number, played: number}}
+     * @private
+     */
+    this._game_status = {
+        flags: 0,
+        played: 0,
+        questions: 0,
+        total: 0,
+    };
+
+    /**
      * Timer.
      * @type {{timer: e, dom: JQuery<HTMLElement> | jQuery | HTMLElement}}
      * @private
@@ -55,8 +67,11 @@ function Minesweeper() {
      * Stores ui objects.
      * @private
      */
-    this._buttons = {
+    this._dom = {
+        facecount: $('#game-ui-face-counter'),
+        flagcount: $('#game-ui-flag-counter'),
         menubutton: $('#game-ui-button-menu'),
+        questioncount: $('#game-ui-question-counter'),
         resetbutton: $('#game-ui-button-reset'),
     };
 
@@ -144,6 +159,10 @@ function Minesweeper() {
 
         // Change game status
         self._gameover = false;
+        self._game_status.total = tfaces;
+        self._game_status.played = 0;
+        self._game_status.flags = 0;
+        self._game_status.questions = 0;
 
     };
 
@@ -179,11 +198,18 @@ function Minesweeper() {
 
         // If left click, uncovers face
         if (lclick) {
-            if (face.has_flag()) return;
-            if (face.has_question()) face.place_flag();
+            if (face.has_flag()) {
+                ion.sound.play('wrong');
+                return;
+            }
+            if (face.has_question()) {
+                face.place_flag();
+                self._game_status.questions -= 1;
+            }
             face.play(viewer);
             face.place_image(viewer);
             ion.sound.play('click');
+            self._game_status.played += 1;
 
             // Check bomb
             if (this._check_bomb(face, viewer)) return;
@@ -195,15 +221,22 @@ function Minesweeper() {
             face.place_image(viewer);
             if (face.has_flag()) {
                 ion.sound.play('flag');
+                self._game_status.flags += 1;
+                self._game_status.played += 1;
             } else if (face.has_question()) {
                 ion.sound.play('unflag');
+                self._game_status.flags -= 1;
+                self._game_status.questions += 1;
             } else {
+                self._game_status.questions -= 1;
+                self._game_status.played -= 1;
                 ion.sound.play('click');
             }
         }
 
         // Render scene
         viewer.render();
+        self._update_counters();
 
     };
 
@@ -222,6 +255,7 @@ function Minesweeper() {
             if (f[i].is_enabled() && !f[i].is_played() && (!f[i].has_bomb() || click_bombs) && !f[i].has_flag() && !f[i].has_question()) {
                 f[i].play(viewer);
                 f[i].place_image(viewer);
+                self._game_status.played += 1;
                 if (this._check_bomb(f[i], viewer)) return;
                 if (f[i].get_bomb_count() === 0) this._clear_zeros(f[i], viewer, true);
             }
@@ -238,14 +272,19 @@ function Minesweeper() {
      */
     this._check_bomb = function (face, viewer) {
         if (face.has_bomb()) {
-            // ion.sound.play('wrong');
+
+            // Set status
             self._gameover = true;
             app_console.info(lang.game_over);
+            self._timer.timer.stop();
+
+            // Explotion effect
             this._explotion_effect([face], viewer, 0);
             ion.sound.play('gameOver');
             setTimeout(function () {
                 self._explotion_secondary_effect([face], viewer, 0);
             }, 300);
+
             return true;
         }
         return false;
@@ -322,18 +361,42 @@ function Minesweeper() {
         });
 
         // Set language
-        this._buttons.menubutton.html('<i class="fas fa-home"></i> ' + lang.game_back_to_menu);
-        this._buttons.resetbutton.html(lang.game_reset);
+        this._dom.menubutton.html('<i class="fas fa-home"></i> ' + lang.game_back_to_menu);
+        this._dom.resetbutton.html(lang.game_reset);
 
         // Set events
-        this._buttons.menubutton.off('click');
-        this._buttons.menubutton.on('click', function () {
+        this._dom.menubutton.off('click');
+        this._dom.menubutton.on('click', function () {
         });
-        this._buttons.resetbutton.off('click');
-        this._buttons.resetbutton.on('click', function () {
-            app_tms.new();
+        this._dom.resetbutton.off('click');
+        this._dom.resetbutton.on('click', function () {
+            app_dialog.confirm(lang.reset_game_title, lang.reset_game_confirm, {
+                cancel: function () {
+                },
+                confirm: function () {
+                    app_tms.new();
+                },
+                icon: 'fas fa-exclamation-triangle',
+                size: app_dialog.options.size.SMALL,
+            });
         });
 
+        // Update counters
+        self._update_counters();
+
+    };
+
+    /**
+     * Update counters.
+     *
+     * @function
+     * @private
+     */
+    this._update_counters = function () {
+        let $played = roundNumber(100 * self._game_status.played / self._game_status.total, 1);
+        self._dom.facecount.html('{0}/{1} ({2}%)'.format(self._game_status.played, self._game_status.total, $played));
+        self._dom.flagcount.html(self._game_status.flags);
+        self._dom.questioncount.html(self._game_status.questions);
     };
 
 }

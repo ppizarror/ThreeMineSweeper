@@ -8,9 +8,11 @@
 
 lang_db.en = {
     "answer_no": "No",
-    "answer_yes": "Ok",
+    "answer_ok": "Ok",
+    "answer_yes": "Yes",
     "app_dialog_unknown_size": "Cannot open dialog with unknown size <{0}>",
     "building_full_loading_layer": "Init loading layer",
+    "close": "Close",
     "dialog_error_button_function_null": "Cant associate an invalid event to the dialog button ({0}), null function has been stablished",
     "dialog_form_cancel": "Cancel",
     "dialog_form_send": "Send",
@@ -47,6 +49,8 @@ lang_db.en = {
     "mines_placed": "Placed {0} mines on volume ({1}%)",
     "page_init_load_time": "Application has been initialized in <{0}> seconds",
     "popup_theme_error_load": "Popup theme could not be loaded, using fallback",
+    "reset_game_confirm": "Are you sure?",
+    "reset_game_title": "Reset game",
     "test": "Test",
     "viewer_gui_ambientlight": "Ambient light",
     "viewer_gui_camera": "Camera",
