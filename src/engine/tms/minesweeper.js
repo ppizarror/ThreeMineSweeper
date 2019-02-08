@@ -362,7 +362,7 @@ function Minesweeper() {
 
         // Set language
         this._dom.menubutton.html('<i class="fas fa-home"></i> ' + lang.game_back_to_menu);
-        this._dom.resetbutton.html(lang.game_reset);
+        this._dom.resetbutton.html('<i class="fas fa-redo-alt"></i> ' + lang.game_reset);
 
         // Set events
         this._dom.menubutton.off('click');

@@ -190,7 +190,7 @@ function ThreeMinesSweeper() {
             self._mines.new_game_ui();
             loadingHandler(false);
 
-        }, 400);
+        }, 450);
     };
 
 }
