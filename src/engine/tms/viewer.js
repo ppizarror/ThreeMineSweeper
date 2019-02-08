@@ -96,7 +96,6 @@ function TMSViewer() {
          */
         axissize: 0.40,                 // Axis sizes
         cameratargetcolor: 0X0000ff,    // Color target
-        cameratargetsize: 0.05,         // Size target
         griddist: 0.03,                 // Grid distance in percentage
         guicloseafterpopup: false,      // GUI closes after an popup
         guistartclosed: true,           // GUI starts closed
@@ -250,7 +249,7 @@ function TMSViewer() {
                 y: 0,
                 z: 0,
             },
-            angle: 56,                          // FOV
+            angle: 60,                          // FOV
             autorotate: false,                  // Auto rotates the camera
             bounds: {                           // Camera limits respect to worldsize
                 x: 6,
@@ -258,8 +257,8 @@ function TMSViewer() {
                 z: 6,
             },
             brakeaccel: {                       // Brake acceleration constant
-                alf: 220,
-                aup: 220,
+                alf: 2950,
+                aup: 3950,
                 f: 200,
                 x: 200,
                 y: 200,
@@ -279,12 +278,12 @@ function TMSViewer() {
             maxdistance: 2.500,                 // Maximum distance
             maxpolarangle: Math.PI,             // Max polar angle
             maxvelocity: {                      // Maximum velocity
-                alf: 0.01,
-                aup: 0.01,
-                f: 0.03,
-                x: 0.03,
-                y: 0.03,
-                z: 0.03,
+                alf: 0.006,
+                aup: 0.006,
+                f: 0.027,
+                x: 0.027,
+                y: 0.027,
+                z: 0.035,
             },
             minspeed: 0.0001,                   // Minimum speed
             minspeedangle: 0.00001,             // Minimum angle speed
@@ -313,15 +312,19 @@ function TMSViewer() {
             posz: 2.000,                        // Initial Z position
             radius: 0.995,                      // Radius coefficient
             ray: null,                          // Camera collision raycaster
-            raycollidedist: 1.000,              // Collide distance
+            raycollidedist: 0.08,               // Collide distance
             rotatespeed: 0.06,                  // Rotation speed
+            speedfactor: {                      // Speed factor inside outside worldsize
+                inside: 0.65,
+                outside: 1.45,
+            },
             targetaccel: {                      // Target acceleration
-                alf: 0.006,
-                aup: 0.004,
+                alf: 0.008,
+                aup: 0.008,
                 f: 0.02,
                 x: 0.03,
                 y: 0.03,
-                z: 0.03,
+                z: 0.04,
             },
             targetdamping: {                    // Camera target damping
                 alf: 0.03,
@@ -927,7 +930,7 @@ function TMSViewer() {
         }
 
         // Collide with volume
-        if (self.objects_props.camera.collidevolume) {
+        if (self.objects_props.camera.collidevolume && self._camera_inside()) {
 
             /**
              * Get camera raycaster
@@ -977,52 +980,23 @@ function TMSViewer() {
      * @private
      * @param {string} dir - Direction
      * @param {number} val - Increase target
-     * @param {boolean=} flipSignPos - Change increase direction
-     * @param {boolean=} setTarget - Set camera target
+     * @param {boolean} setTarget - Set camera target
      */
-    this._update_camera_target = function (dir, val, flipSignPos, setTarget) {
-
-        let $factor = 1.0;
+    this._update_camera_target = function (dir, val, setTarget) {
         switch (dir) {
             case 'x':
-                if (flipSignPos) { // Updates factor depending the position of the camera
-                    $factor = Math.sign(self._three_camera.position.z);
-                }
-                val *= $factor;
-
-                // Updates target and camera
-                if (self._check_camera_target_collision(dir, val)) {
-                    self._three_camera.position.z += val;
-                }
+                if (self._check_camera_target_collision(dir, val)) self._three_camera.position.z += val;
                 break;
             case 'y':
-                if (flipSignPos) { // Updates factor depending the position of the camera
-                    $factor = Math.sign(self._three_camera.position.x);
-                }
-                val *= $factor;
-
-                // Updates target and camera
-                if (self._check_camera_target_collision(dir, val)) {
-                    self._three_camera.position.x += val;
-                }
+                if (self._check_camera_target_collision(dir, val)) self._three_camera.position.x += val;
                 break;
             case 'z':
-                if (flipSignPos) { // Updates factor depending the position of the camera
-                    // noinspection JSSuspiciousNameCombination
-                    $factor = Math.sign(self._three_camera.position.y);
-                }
-                val *= $factor;
-
-                // Updates target and camera
-                if (self._check_camera_target_collision(dir, val)) {
-                    self._three_camera.position.y += val;
-                }
+                if (self._check_camera_target_collision(dir, val)) self._three_camera.position.y += val;
                 break;
             default:
                 break;
         }
         if (setTarget) self.set_camera_target();
-
     };
 
     /**
@@ -1114,14 +1088,22 @@ function TMSViewer() {
             $aup *= Math.abs(self.objects_props.camera.brakeaccel.aup * self.objects_props.camera.targetspeed.aup);
         }
         if (self._different_sign($alf, self.objects_props.camera.targetspeed.alf)) {
-            $aup *= Math.abs(self.objects_props.camera.brakeaccel.alf * self.objects_props.camera.targetspeed.alf);
+            $alf *= Math.abs(self.objects_props.camera.brakeaccel.alf * self.objects_props.camera.targetspeed.alf);
+        }
+
+        // Check if camera inside
+        let $inside;
+        if (self._camera_inside()) {
+            $inside = self.objects_props.camera.speedfactor.inside;
+        } else {
+            $inside = self.objects_props.camera.speedfactor.outside
         }
 
         // Update speed
-        self.objects_props.camera.targetspeed.x += ($ax * self.objects_props.camera.targetaccel.x * self.worldsize.x) * fps;
-        self.objects_props.camera.targetspeed.y += ($ay * self.objects_props.camera.targetaccel.y * self.worldsize.y) * fps;
-        self.objects_props.camera.targetspeed.z += ($az * self.objects_props.camera.targetaccel.z * self.worldsize.z) * fps;
-        self.objects_props.camera.targetspeed.f += ($af * self.objects_props.camera.targetaccel.f * self.worldsize.diagl) * fps;
+        self.objects_props.camera.targetspeed.x += ($ax * self.objects_props.camera.targetaccel.x * self.worldsize.x) * fps * $inside;
+        self.objects_props.camera.targetspeed.y += ($ay * self.objects_props.camera.targetaccel.y * self.worldsize.y) * fps * $inside;
+        self.objects_props.camera.targetspeed.z += ($az * self.objects_props.camera.targetaccel.z * self.worldsize.z) * fps * $inside;
+        self.objects_props.camera.targetspeed.f += ($af * self.objects_props.camera.targetaccel.f * self.worldsize.diagl) * fps * $inside;
         self.objects_props.camera.targetspeed.aup += ($aup * self.objects_props.camera.targetaccel.aup) * fps;
         self.objects_props.camera.targetspeed.alf += ($alf * self.objects_props.camera.targetaccel.alf) * fps;
 
@@ -1148,13 +1130,24 @@ function TMSViewer() {
         if (self._different_sign($lf, self.objects_props.camera.targetspeed.alf) || Math.abs(self.objects_props.camera.targetspeed.alf) < self.objects_props.camera.minspeedangle) self.objects_props.camera.targetspeed.alf = 0;
 
         // Apply limits
-        self.objects_props.camera.targetspeed.x = Math.sign(self.objects_props.camera.targetspeed.x) * Math.min(Math.abs(self.objects_props.camera.targetspeed.x), self.objects_props.camera.maxvelocity.x);
-        self.objects_props.camera.targetspeed.y = Math.sign(self.objects_props.camera.targetspeed.y) * Math.min(Math.abs(self.objects_props.camera.targetspeed.y), self.objects_props.camera.maxvelocity.y);
-        self.objects_props.camera.targetspeed.z = Math.sign(self.objects_props.camera.targetspeed.z) * Math.min(Math.abs(self.objects_props.camera.targetspeed.z), self.objects_props.camera.maxvelocity.z);
-        self.objects_props.camera.targetspeed.f = Math.sign(self.objects_props.camera.targetspeed.f) * Math.min(Math.abs(self.objects_props.camera.targetspeed.f), self.objects_props.camera.maxvelocity.f);
+        self.objects_props.camera.targetspeed.x = Math.sign(self.objects_props.camera.targetspeed.x) * Math.min(Math.abs(self.objects_props.camera.targetspeed.x), self.objects_props.camera.maxvelocity.x * $inside);
+        self.objects_props.camera.targetspeed.y = Math.sign(self.objects_props.camera.targetspeed.y) * Math.min(Math.abs(self.objects_props.camera.targetspeed.y), self.objects_props.camera.maxvelocity.y * $inside);
+        self.objects_props.camera.targetspeed.z = Math.sign(self.objects_props.camera.targetspeed.z) * Math.min(Math.abs(self.objects_props.camera.targetspeed.z), self.objects_props.camera.maxvelocity.z * $inside);
+        self.objects_props.camera.targetspeed.f = Math.sign(self.objects_props.camera.targetspeed.f) * Math.min(Math.abs(self.objects_props.camera.targetspeed.f), self.objects_props.camera.maxvelocity.f * $inside);
         self.objects_props.camera.targetspeed.aup = Math.sign(self.objects_props.camera.targetspeed.aup) * Math.min(Math.abs(self.objects_props.camera.targetspeed.aup), self.objects_props.camera.maxvelocity.aup);
         self.objects_props.camera.targetspeed.alf = Math.sign(self.objects_props.camera.targetspeed.alf) * Math.min(Math.abs(self.objects_props.camera.targetspeed.alf), self.objects_props.camera.maxvelocity.alf);
 
+    };
+
+    /**
+     * Camera inside world.
+     *
+     * @function
+     * @returns {boolean}
+     * @private
+     */
+    this._camera_inside = function () {
+        return Math.abs(this._controls.target.x) < this.worldsize.x || Math.abs(this._controls.target.y) < this.worldsize.y || Math.abs(this._controls.target.z) < this.worldsize.z;
     };
 
     /**
@@ -1242,9 +1235,9 @@ function TMSViewer() {
         let $dz = self.objects_props.camera.targetspeed.f * Math.cos($angxz);
 
         // Adds to components
-        self._update_camera_target('x', $dx, false, false);
-        self._update_camera_target('y', $dy, false, false);
-        self._update_camera_target('z', $dz, false, true);
+        self._update_camera_target('x', $dx, false);
+        self._update_camera_target('y', $dy, false);
+        self._update_camera_target('z', $dz, true);
 
     };
 
@@ -1268,8 +1261,8 @@ function TMSViewer() {
         $dy = self.objects_props.camera.targetspeed.y * Math.sin($ang);
 
         // Add to components
-        self._update_camera_target('x', $dx, false, false);
-        self._update_camera_target('y', $dy, false, true);
+        self._update_camera_target('x', $dx, false);
+        self._update_camera_target('y', $dy, true);
 
     };
 
@@ -1280,7 +1273,7 @@ function TMSViewer() {
      * @private
      */
     this._move_vertical = function () {
-        self._update_camera_target('z', self.objects_props.camera.targetspeed.z, false, true);
+        self._update_camera_target('z', self.objects_props.camera.targetspeed.z, true);
     };
 
     /**
@@ -2042,8 +2035,7 @@ function TMSViewer() {
          */
         if (this._threejs_helpers.cameratarget) {
             if (isNullUndf(this._helperInstances.cameratarget)) {
-                let $targetsize = Math.min(self.worldsize.x, self.worldsize.y, self.worldsize.z) * self._threejs_helpers.cameratargetsize / 2;
-                let sphereGeometry = new THREE.SphereGeometry($targetsize, 16, 8);
+                let sphereGeometry = new THREE.SphereGeometry(this.objects_props.camera.raycollidedist, 16, 8);
                 let wireframeMaterial = new THREE.MeshBasicMaterial(
                     {
                         color: self._threejs_helpers.cameratargetcolor,
