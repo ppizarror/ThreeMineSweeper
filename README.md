@@ -12,8 +12,6 @@
 <a href="https://lgtm.com/projects/g/ppizarror/ThreeMinesSweeper/context:python"><img alt="Language grade: Python" src="https://img.shields.io/lgtm/grade/python/g/ppizarror/ThreeMinesSweeper.svg?logo=lgtm&logoWidth=18" /></a>
 </div><br />
 
-## Description
-
 <p align="center">
   <img src="https://ppizarror.com/ThreeMinesSweeper/resources/web/game-1.jpg" alt="Sierpinski cube generator" width="60%" />
 </p>
