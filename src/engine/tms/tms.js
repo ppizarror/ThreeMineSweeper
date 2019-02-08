@@ -174,7 +174,6 @@ function ThreeMinesSweeper() {
 
             // Generate the figure
             let gen = self._generate();
-            console.log(gen.get_name());
             let volume = gen.get_volume();
             let camera = gen.get_camera();
 

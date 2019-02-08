@@ -125,6 +125,7 @@ function Generator() {
         let _yf = Math.max(yi, yf);
         let _zi = Math.min(zi, zf);
         let _zf = Math.max(zi, zf);
+        app_console.info(lang.generator_start.format(self.get_name()));
         self._generate(_xi, _yi, _zi, _xf, _yf, _zf);
         this._volume.assemble();
         let tf = getSecondsFrom(ti);

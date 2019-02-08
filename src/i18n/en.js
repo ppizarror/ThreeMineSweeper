@@ -36,6 +36,7 @@ lang_db.en = {
     "game_reset": "Reset",
     "generator_finished": "Geometry generated in {0} seconds. Faces: {1}. Vertices: {4}. Deleted faces: {2}. Duplicated vertices: {3}",
     "generator_order_exceeded": "Generator order {0} exceeded maximum limit {1}",
+    "generator_start": "Generator <{0}> started",
     "gui_button_close": "Close Menu",
     "gui_button_open": "Open Menu",
     "init_app": "Initializing application",

@@ -451,7 +451,7 @@ function TMSViewer() {
         contour_major: true,
         contour_major_color: 0x444444,
         contour_major_opacity: 1,
-        contour_minor: true,
+        contour_minor: false,
         contour_minor_color: 0x000000,
         contour_minor_opacity: 1,
         face_color_played: new THREE.Color(0x777777),
