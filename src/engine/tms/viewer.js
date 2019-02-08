@@ -97,7 +97,7 @@ function TMSViewer() {
         axissize: 0.40,                 // Axis sizes
         cameratargetcolor: 0X0000ff,    // Color target
         griddist: 0.03,                 // Grid distance in percentage
-        guicloseafterpopup: false,      // GUI closes after an popup
+        guicloseafterpopup: false,      // GUI closes after a popup is opened
         guistartclosed: true,           // GUI starts closed
         normalcolor: 0xff0000,          // Normal color
         planecolorx: 0X0000ff,          // X plane color
@@ -142,9 +142,10 @@ function TMSViewer() {
 
     /**
      * World limits.
-     * @type {{x: number, y: number, z: number}}
+     * @type {{diagl: number, x: number, y: number, z: number}}
      */
     this.worldsize = {
+        diagl: 0, // Do not modify
         x: 1.000,
         y: 1.000,
         z: 1.000,
@@ -259,10 +260,10 @@ function TMSViewer() {
             brakeaccel: {                       // Brake acceleration constant
                 alf: 2950,
                 aup: 3950,
-                f: 200,
-                x: 200,
-                y: 200,
-                z: 200,
+                f: 400,
+                x: 400,
+                y: 400,
+                z: 400,
             },
             collidevolume: false,               // Check camera collision
             collidelimits: false,               // Collide with world limits
@@ -350,7 +351,7 @@ function TMSViewer() {
          */
         ambientlight: {
             color: 0xffffff,
-            intensity: 0.20,
+            intensity: 0.40,
         },
 
         /**
@@ -532,6 +533,38 @@ function TMSViewer() {
     };
 
     /**
+     * Set initial camera position.
+     *
+     * @function
+     * @param {number} x
+     * @param {number} y
+     * @param {number} z
+     */
+    this.set_camera_init_pos = function (x, y, z) {
+        if (x === -1 || y === -1 || z === -1) {
+            x = this.objects_props.camera.posx;
+            y = this.objects_props.camera.posy;
+            z = this.objects_props.camera.posz;
+        }
+        x *= this.worldsize.x;
+        y *= this.worldsize.y;
+        z *= this.worldsize.z;
+        this.objects_props.camera.target = {
+            x: x * this.objects_props.camera.radius,
+            y: y * this.objects_props.camera.radius,
+            z: z * this.objects_props.camera.radius,
+        };
+        this.objects_props.camera.target.x *= this.worldsize.x;
+        this.objects_props.camera.target.y *= this.worldsize.y;
+        this.objects_props.camera.target.z *= this.worldsize.z;
+        self.objects_props.camera.initialTarget = {
+            x: this.objects_props.camera.target.x,
+            y: this.objects_props.camera.target.y,
+            z: this.objects_props.camera.target.z,
+        };
+    };
+
+    /**
      * Init Three.js.
      *
      * @function
@@ -562,21 +595,6 @@ function TMSViewer() {
         this.objects_props.camera.maxdistance *= this.worldsize.diagl;
         this.objects_props.camera.maxpolarangle *= Math.PI / 2;
 
-        // Initial position
-        this.objects_props.camera.posx *= this.worldsize.x;
-        this.objects_props.camera.posy *= this.worldsize.y;
-        this.objects_props.camera.posz *= this.worldsize.z;
-
-        // Camera target
-        this.objects_props.camera.target = {
-            x: this.objects_props.camera.posx * this.objects_props.camera.radius,
-            y: this.objects_props.camera.posy * this.objects_props.camera.radius,
-            z: this.objects_props.camera.posz * this.objects_props.camera.radius,
-        };
-        this.objects_props.camera.target.x *= this.worldsize.x;
-        this.objects_props.camera.target.y *= this.worldsize.y;
-        this.objects_props.camera.target.z *= this.worldsize.z;
-
         // Velocity
         this.objects_props.camera.maxvelocity.f *= this.worldsize.diagl;
         this.objects_props.camera.maxvelocity.x *= this.worldsize.x;
@@ -584,12 +602,6 @@ function TMSViewer() {
         this.objects_props.camera.maxvelocity.z *= this.worldsize.z;
         this.objects_props.camera.minspeed *= this.worldsize.diagl;
 
-        // Initial camera position
-        self.objects_props.camera.initialTarget = {
-            x: this.objects_props.camera.target.x,
-            y: this.objects_props.camera.target.y,
-            z: this.objects_props.camera.target.z,
-        };
 
         /**
          * --------------------------------------------------------------------
@@ -717,6 +729,7 @@ function TMSViewer() {
         this._cameralight.shadow.mapSize.height = 512;
         this._cameralight.shadow.mapSize.width = 512;
         this._three_camera.add(this._cameralight);
+        this.set_camera_init_pos(self.objects_props.camera.posx, self.objects_props.camera.posy, self.objects_props.camera.posz);
 
         /**
          * --------------------------------------------------------------------
@@ -755,7 +768,7 @@ function TMSViewer() {
          * Set initial camera position
          * --------------------------------------------------------------------
          */
-        this._set_initial_camera_position();
+        this._place_camera();
 
         /**
          * --------------------------------------------------------------------
@@ -782,12 +795,12 @@ function TMSViewer() {
     };
 
     /**
-     * Set camera position.
+     * Place camera.
      *
      * @function
      * @private
      */
-    this._set_initial_camera_position = function () {
+    this._place_camera = function () {
 
         // Initial position
         this._three_camera.position.x = this.objects_props.camera.posy;
@@ -1362,7 +1375,7 @@ function TMSViewer() {
      * @function
      */
     this.reset_camera = function () {
-        self._set_initial_camera_position();
+        self._place_camera();
         self.animate_frame();
     };
 

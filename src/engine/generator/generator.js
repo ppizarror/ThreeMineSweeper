@@ -64,6 +64,17 @@ function Generator() {
     this._volume = new Volume();
 
     /**
+     * Camera initial position.
+     * @type {{x: number, y: number, z: number}}
+     * @private
+     */
+    this._camera = {
+        x: -1,
+        y: -1,
+        z: -1,
+    };
+
+    /**
      * Generate element, space volume goes from (xi,yi,zi) to (xf,yf,zf).
      *
      * @function
@@ -181,13 +192,28 @@ function Generator() {
     };
 
     /**
+     * Set camera position.
+     *
+     * @function
+     * @param {number} x
+     * @param {number} y
+     * @param {number} z
+     * @private
+     */
+    this._set_camera_position = function (x, y, z) {
+        this._camera.x = x;
+        this._camera.y = y;
+        this._camera.z = z;
+    };
+
+    /**
      * Start new game based on this geometry.
      *
      * @function
      * @param {number} mines - Number of mines, if less than 1 it's treated as percentage
      */
     this.start = function (mines) {
-        app_tms.new(this._volume, mines);
+        app_tms.new(this._volume, mines, this._camera);
     };
 
 }

@@ -71,10 +71,12 @@ function ThreeMinesSweeper() {
      * @function
      * @param {Volume} volume
      * @param {number} mines - Number of mines, if less than 1 it's treated as percentage
+     * @param {object} camera - Camera position
      */
-    this.new = function (volume, mines) {
+    this.new = function (volume, mines, camera) {
         this._mines.apply(volume, mines);
         this._events.set_volume(volume);
+        this._viewer.set_camera_init_pos(camera.x, camera.y, camera.z);
         this._viewer.new(volume);
         loadingHandler(false);
     };

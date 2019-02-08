@@ -130,7 +130,7 @@ $(function () {
     deleteUrlParams();
     app_tms.init('#viewer');
 
-    let $fig = 8; // Draw figure
+    let $fig = 3; // Draw figure
     setTimeout(function () {
         let g;
         switch ($fig) {
