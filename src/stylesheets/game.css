@@ -73,6 +73,7 @@ Counter
  */
 #game-time-counter {
 	color: #ffffff;
+	cursor: default;
 	font-size: 2.7rem;
 	font-weight: 400;
 	text-align: center;

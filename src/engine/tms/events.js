@@ -372,6 +372,12 @@ function TMSEvents() {
                 case 69: // [E]
                     self._viewer.objects_props.camera.movements.zdown = true;
                     break;
+                case 16: // [SPACEBAR]
+                    self._viewer.objects_props.camera.movements.zup = true;
+                    break;
+                case 32: // [SHIFT]
+                    self._viewer.objects_props.camera.movements.zdown = true;
+                    break;
                 default: // Ignore other inputs
                     break;
             }
@@ -428,6 +434,12 @@ function TMSEvents() {
                     self._viewer.objects_props.camera.movements.zup = false;
                     break;
                 case 69: // [E]
+                    self._viewer.objects_props.camera.movements.zdown = false;
+                    break;
+                case 16: // [SPACEBAR]
+                    self._viewer.objects_props.camera.movements.zup = false;
+                    break;
+                case 32: // [SHIFT]
                     self._viewer.objects_props.camera.movements.zdown = false;
                     break;
                 default: // Ignore other inputs

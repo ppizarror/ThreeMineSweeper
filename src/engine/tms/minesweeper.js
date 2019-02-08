@@ -52,6 +52,15 @@ function Minesweeper() {
     };
 
     /**
+     * Stores ui objects.
+     * @private
+     */
+    this._buttons = {
+        menubutton: $('#game-ui-button-menu'),
+        resetbutton: $('#game-ui-button-reset'),
+    };
+
+    /**
      * Object pointer.
      * @type {Minesweeper}
      */
@@ -313,7 +322,17 @@ function Minesweeper() {
         });
 
         // Set language
-        $('#game-ui-button-menu').html('<i class="fas fa-home"></i> ' + lang.game_back_to_menu);
+        this._buttons.menubutton.html('<i class="fas fa-home"></i> ' + lang.game_back_to_menu);
+        this._buttons.resetbutton.html(lang.game_reset);
+
+        // Set events
+        this._buttons.menubutton.off('click');
+        this._buttons.menubutton.on('click', function () {
+        });
+        this._buttons.resetbutton.off('click');
+        this._buttons.resetbutton.on('click', function () {
+            app_tms.new();
+        });
 
     };
 

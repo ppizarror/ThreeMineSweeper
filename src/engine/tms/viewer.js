@@ -52,13 +52,6 @@ function TMSViewer() {
      */
     this._guiID = 'viewer-gui';
 
-    /**
-     * Viewer mesh.
-     * @type {Mesh | null}
-     * @private
-     */
-    this._viewerMesh = null;
-
 
     /**
      * ------------------------------------------------------------------------
@@ -153,7 +146,7 @@ function TMSViewer() {
 
     /**
      * Collaidable meshes list.
-     * @type {Array}
+     * @type {Object3D[]}
      * @private
      */
     this._collaidableMeshes = [];
@@ -183,6 +176,15 @@ function TMSViewer() {
                     addContainer: function (container, name) { // Adds an group
                         self.objects_props.tooltip.mode.group.__groups.push(container);
                         self.objects_props.tooltip.mode.group.__names[container] = name;
+                    },
+                    removeContainer: function (container) {
+                        for (let i = 0; i < self.objects_props.tooltip.mode.group.__groups.length; i += 1) {
+                            if (self.objects_props.tooltip.mode.group.__groups[i] === container) {
+                                self.objects_props.tooltip.mode.group.__groups.splice(i, 1);
+                                break;
+                            }
+                        }
+                        delete self.objects_props.tooltip.mode.group.__names[container];
                     },
                     __names: {}, // Store names
                     __groups: [], // Store groups
@@ -446,8 +448,10 @@ function TMSViewer() {
      * Game palette.
      */
     this.palette = {
+        contour_major: true,
         contour_major_color: 0x444444,
         contour_major_opacity: 1,
+        contour_minor: true,
         contour_minor_color: 0x000000,
         contour_minor_opacity: 1,
         face_color_played: new THREE.Color(0x777777),
@@ -460,6 +464,17 @@ function TMSViewer() {
         face_specular: 0x101010,
         face_unhover_played: new THREE.Color(0x000000), // Emissive
         face_unhover_unplayed: new THREE.Color(0x010101), // Emissive
+    };
+
+    /**
+     * Volume meshes.
+     * @private
+     */
+    this._volume_meshes = {
+        contourmajor: null,
+        contourminor: [],
+        helper: null,
+        volume: null,
     };
 
 
@@ -2160,7 +2175,7 @@ function TMSViewer() {
         self._scene.add(mesh);
 
         // Add to collaidable
-        if (collaidable) self.add_to_collidable(mesh);
+        if (collaidable) self._add_to_collidable(mesh);
 
     };
 
@@ -2168,11 +2183,29 @@ function TMSViewer() {
      * Adds mesh to collaidable list.
      *
      * @function
-     * @protected
-     * @param {Object} mesh
+     * @param {Object3D} mesh
+     * @private
      */
-    this.add_to_collidable = function (mesh) {
+    this._add_to_collidable = function (mesh) {
         this._collaidableMeshes.push(mesh);
+    };
+
+    /**
+     * Remove mesh from scene.
+     *
+     * @function
+     * @param {Object3D} mesh
+     * @private
+     */
+    this._remove_mesh_from_scene = function (mesh) {
+        if (isNullUndf(mesh)) return;
+        self._scene.remove(mesh);
+        for (let i = 0; i < self._collaidableMeshes.length; i += 1) {
+            if (self._collaidableMeshes[i] === mesh) {
+                self._collaidableMeshes.splice(i, 1);
+                break;
+            }
+        }
     };
 
     /**
@@ -2223,6 +2256,35 @@ function TMSViewer() {
      */
 
     /**
+     * Delete last volume.
+     *
+     * @function
+     * @private
+     */
+    this._delete_last_volume = function () {
+
+        // Remove volume mesh
+        if (notNullUndf(self._volume_meshes.volume)) {
+            self._remove_mesh_from_scene(self._volume_meshes.volume);
+            this.objects_props.tooltip.mode.group.removeContainer(this._globals.volume);
+        }
+        self._volume_meshes.volume = null;
+
+        // Remove helpers
+        self._remove_mesh_from_scene(self._volume_meshes.helper);
+        self._volume_meshes.helper = null;
+
+        // Remove contour
+        self._remove_mesh_from_scene(self._volume_meshes.contourmajor);
+        self._volume_meshes.contourmajor = null;
+        for (let i = 0; i < self._volume_meshes.contourminor.length; i += 1) {
+            self._remove_mesh_from_scene(self._volume_meshes.contourminor[i]);
+        }
+        if (self._volume_meshes.contourminor.length > 0) self._volume_meshes.contourminor = [];
+
+    };
+
+    /**
      * Draw volume.
      *
      * @function
@@ -2233,9 +2295,6 @@ function TMSViewer() {
 
         // Store volume
         self._volume = volume;
-
-        // Destroy geometry if added
-        if (notNullUndf(this._viewerMesh)) this._scene.remove(this._viewerMesh);
 
         // Scale volume
         volume.scale(1, this.worldsize.x, this.worldsize.y, this.worldsize.z);
@@ -2253,24 +2312,27 @@ function TMSViewer() {
         }
 
         // Create figure
-        self._viewerMesh = new THREE.Mesh(geometryMerge, mergeMaterials);
+        self._volume_meshes.volume = new THREE.Mesh(geometryMerge, mergeMaterials);
         this.objects_props.tooltip.mode.group.addContainer(this._globals.volume, meshNames);
-        this._add_mesh_to_scene(this._viewerMesh, this._globals.volume, true, false, false);
+        this._add_mesh_to_scene(self._volume_meshes.volume, this._globals.volume, true, false, false);
 
         // Adds normal helper
         if (this._threejs_helpers.normals) {
             let nh_size = Math.min(this.worldsize.x, this.worldsize.x, this.worldsize.z) * 0.1;
-            let helper = new THREE.FaceNormalsHelper(this._viewerMesh, nh_size,
+            let helper = new THREE.FaceNormalsHelper(self._volume_meshes.volume, nh_size,
                 this._threejs_helpers.normalcolor, 1);
+            self._volume_meshes.helper = helper;
             this._add_mesh_to_scene(helper, this._globals.normals, false);
         }
 
         // Create secondary contour
-        let s_edges = new THREE.EdgesGeometry(geometryMerge);
-        let s_material = new THREE.LineBasicMaterial({color: this.palette.contour_major_color});
-        s_material.opacity = this.palette.contour_major_opacity;
-        let s_contour = new THREE.LineSegments(s_edges, s_material);
-        this._add_mesh_to_scene(s_contour, this._globals.contour, false);
+        if (self.palette.contour_major) {
+            let s_edges = new THREE.EdgesGeometry(geometryMerge);
+            let s_material = new THREE.LineBasicMaterial({color: this.palette.contour_major_color});
+            s_material.opacity = this.palette.contour_major_opacity;
+            self._volume_meshes.contourmajor = new THREE.LineSegments(s_edges, s_material);
+            this._add_mesh_to_scene(self._volume_meshes.contourmajor, this._globals.contour, false);
+        }
 
         // Render
         this.render();
@@ -2323,13 +2385,14 @@ function TMSViewer() {
         face.place_image(this);
 
         // Create contour
-        if (face.is_enabled()) {
+        if (face.is_enabled() && self.palette.contour_minor) {
             let objEdges = new THREE.EdgesGeometry(geom);
             let contour = this._create_contour(objEdges, this.palette.contour_minor_color);
             contour.material.opacity = this.palette.contour_minor_opacity;
             contour.position.y = 0;
             contour.material.transparent = false;
             this._add_mesh_to_scene(contour, this._globals.contour, false);
+            self._volume_meshes.contourminor.push(contour);
         }
 
     };
@@ -2365,8 +2428,8 @@ function TMSViewer() {
      * @param {Volume} volume
      */
     this.new = function (volume) {
+        this._delete_last_volume();
         this._draw_volume(volume);
-        loadingHandler(false);
     };
 
 }

@@ -126,12 +126,12 @@ $(function () {
      * Init viewer
      * ------------------------------------------------------------------------
      */
-    loadingHandler(true);
     deleteUrlParams();
     app_tms.init('#viewer');
 
     // New game
     app_tms.set_generator(2, 2, 20, 40, 40);
-    app_tms.new(0.1);
+    app_tms.set_mines(0.1);
+    app_tms.new();
 
 });

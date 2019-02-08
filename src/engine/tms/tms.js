@@ -47,6 +47,7 @@ function ThreeMinesSweeper() {
         facetarget: null,
         latitude: null,
         longitude: null,
+        mines: 0,
         order: null,
         type: 0,
     };
@@ -94,6 +95,16 @@ function ThreeMinesSweeper() {
         this._generator.facetarget = face_target;
         this._generator.latitude = latitude;
         this._generator.longitude = longitude;
+    };
+
+    /**
+     * Set mines number or percentage.
+     *
+     * @function
+     * @param {number} mines - Number of mines, if less than 1 it's treated as percentage
+     */
+    this.set_mines = function (mines) {
+        this._generator.mines = mines;
     };
 
     /**
@@ -156,27 +167,30 @@ function ThreeMinesSweeper() {
      * Creates new game.
      *
      * @function
-     * @param {number} mines - Number of mines, if less than 1 it's treated as percentage
      */
-    this.new = function (mines) {
+    this.new = function () {
+        loadingHandler(true);
+        setTimeout(function () {
 
-        // Generate the figure
-        let gen = this._generate();
-        let volume = gen.get_volume();
-        let camera = gen.get_camera();
+            // Generate the figure
+            let gen = self._generate();
+            let volume = gen.get_volume();
+            let camera = gen.get_camera();
 
-        // Creates new minesweeper game instance
-        this._mines.new_game_ui();
-        this._mines.new(volume, mines);
+            // Creates new minesweeper game instance
+            self._mines.new_game_ui();
+            self._mines.new(volume, self._generator.mines);
 
-        // Init events
-        this._events.set_volume(volume);
+            // Init events
+            self._events.set_volume(volume);
 
-        // Init viewer
-        this._viewer.set_camera_init_pos(camera.x, camera.y, camera.z);
-        this._viewer.new(volume);
-        loadingHandler(false);
+            // Init viewer
+            self._viewer.set_camera_init_pos(camera.x, camera.y, camera.z);
+            self._viewer.new(volume);
+            self._mines.new_game_ui();
+            loadingHandler(false);
 
+        }, 400);
     };
 
 }

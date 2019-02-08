@@ -39,7 +39,7 @@ function CrossFractal() {
         this._apply_order_limit(2);
 
         // Place camera
-        this._set_camera_position(1.3, 1.3, 0.05);
+        this._set_camera_position(-1.3, -1.3, 0.05);
 
         // Create vertices
         let v1 = new Vertex(xi, yi, zi, 'V1-0');
@@ -106,6 +106,8 @@ function CrossFractal() {
             f2.set_uv_rotation(90);
             f3.enable_uv_flip();
             f3.set_uv_rotation(90);
+            f5.enable_uv_flip();
+            f5.set_uv_rotation(90);
 
             // Add faces to volume
             this._volume.add_face([f1, f2, f3, f4, f5, f6]);

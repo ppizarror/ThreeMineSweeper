@@ -80,15 +80,6 @@ const cfg_ajax_cors = false;
  */
 const cfg_href_ajax_timeout = 45000;
 
-/**
- * Total queries before error
- * @type {number}
- * @const
- * @global
- * @ignore
- */
-const cfg_retry_sync = 5;
-
 
 /**
  * ----------------------------------------------------------------------------
@@ -140,15 +131,6 @@ const cfg_cookie_local = false;
 const cfg_total_console_messages_until_wipe = 1000;
 
 /**
- * Mobile pixel width
- * @type {number}
- * @const
- * @global
- * @ignore
- */
-const cfg_width_enable_mobile = 576;
-
-/**
  * Maximum loading layer time
  * @type {number}
  * @const
@@ -164,7 +146,7 @@ const cfg_max_time_loading_layer = 60;
  * @global
  * @ignore
  */
-const cfg_init_loading_layer_after = 350;
+const cfg_init_loading_layer_after = 150;
 
 
 /**
