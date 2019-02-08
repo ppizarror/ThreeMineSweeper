@@ -312,6 +312,9 @@ function Minesweeper() {
             self._timer.dom.html(self._timer.timer.getTimeValues().toString());
         });
 
+        // Set language
+        $('#game-ui-button-menu').html('<i class="fas fa-home"></i> ' + lang.game_back_to_menu);
+
     };
 
 }

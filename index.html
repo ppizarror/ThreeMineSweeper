@@ -107,6 +107,7 @@
     <script src="src/engine/generator/basic_pyramid.js"></script>
     <script src="src/engine/generator/cross_fractal.js"></script>
     <script src="src/engine/generator/cylinder.js"></script>
+    <script src="src/engine/generator/empty.js"></script>
     <script src="src/engine/generator/random_plane.js"></script>
     <script src="src/engine/generator/sierpinski_cube.js"></script>
     <script src="src/engine/generator/sierpinski_triangle.js"></script>
@@ -142,16 +143,20 @@
 <body>
 <div id="header"></div>
 <div id="root"></div>
-<div id="viewer"></div>
+<div id="viewer">
+    <div id="game-ui">
+        <div class="game-ui-left-column">
+            <button id="game-ui-button-menu" type="button" class="btn hvr-grow-shadow game-ui-button"></button>
+            <button id="game-ui-button-reset" type="button" class="btn btn-danger hvr-shadow game-ui-button">Reset</button>
+        </div>
+        <div class="game-ui-middle-column">
+            <div id="game-time-counter">00:00:00</div>
+        </div>
+        <div class="game-ui-right-column"></div>
+    </div>
+</div>
 <div id="viewer-gui"></div>
 <div id="menu-ui">
-</div>
-<div id="game-ui">
-    <div class="game-ui-left-column"></div>
-    <div class="game-ui-middle-column">
-        <div id="game-time-counter">00:00:00</div>
-    </div>
-    <div class="game-ui-right-column"></div>
 </div>
 </body>
 </html>

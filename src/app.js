@@ -126,50 +126,12 @@ $(function () {
      * Init viewer
      * ------------------------------------------------------------------------
      */
-    // loadingHandler(true);
+    loadingHandler(true);
     deleteUrlParams();
     app_tms.init('#viewer');
 
-    let $fig = 8; // Draw figure
-    setTimeout(function () {
-        let g;
-        switch ($fig) {
-            case 0:
-                g = new BasicCube();
-                break;
-            case 1:
-                g = new BasicPyramid();
-                break;
-            case 2:
-                g = new CrossFractal();
-                break;
-            case 3:
-                g = new SierpinskiCube();
-                break;
-            case 4:
-                g = new SierpinskiTriangle();
-                break;
-            case 5:
-                g = new RandomPlane();
-                break;
-            case 6:
-                g = new Sphere();
-                break;
-            case 7:
-                g = new Cylinder();
-                break;
-            case 8:
-                g = new Square();
-                break;
-            default:
-                return;
-        }
-        g.set_order(2);
-        g.set_face_target(20);
-        g.set_latitude(30);
-        g.set_longitude(30);
-        g.generate(-1, -1, -1, 1, 1, 1);
-        g.start(0.10);
-    }, 650);
+    // New game
+    app_tms.set_generator(2, 2, 20, 40, 40);
+    app_tms.new(0.1);
 
 });

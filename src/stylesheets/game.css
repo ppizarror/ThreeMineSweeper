@@ -27,8 +27,36 @@ Left column, contains buttons
 -------------------------------------------------------------------------------
  */
 .game-ui-left-column {
-	background-color: #0b2e13;
 	width: 33.333%;
+}
+
+#game-ui-button-menu {
+	float: left;
+	left: 0;
+	margin-left: 1%;
+	margin-top: 1%;
+}
+
+#game-ui-button-reset {
+	bottom: 0;
+	margin-bottom: 1%;
+	margin-left: 1%;
+}
+
+.game-ui-button {
+	display: flex;
+	font-size: 1.2rem;
+	opacity: 0.8;
+	position: absolute;
+}
+
+.game-ui-button .fas {
+	line-height: inherit !important;
+	padding-right: 10px;
+}
+
+.game-ui-button:hover {
+	opacity: 1.0;
 }
 
 /**
@@ -37,7 +65,6 @@ Middle column, contains timer
 -------------------------------------------------------------------------------
  */
 .game-ui-middle-column {
-	background-color: #f12e33;
 	width: 33.333%;
 }
 
@@ -46,8 +73,8 @@ Counter
  */
 #game-time-counter {
 	color: #ffffff;
-	font-size: 2.5rem;
-	font-weight: 300;
+	font-size: 2.7rem;
+	font-weight: 400;
 	text-align: center;
 	text-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
 	width: 100%;

@@ -84,7 +84,7 @@ function TMSViewer() {
          */
         axis: false,                    // Show axis
         cameratarget: false,            // Show camera target
-        fpsmeter: true,                 // Show fps
+        fpsmeter: false,                // Show fps
         grid: false,                    // Show grid plane
         gui: false,                     // Show GUI
         normals: false,                 // Show normals
@@ -719,7 +719,7 @@ function TMSViewer() {
          * Create controls
          * --------------------------------------------------------------------
          */
-        this._controls = new THREE.OrbitControls(this._three_camera, this._renderer.domElement);
+        this._controls = new THREE.OrbitControls(this._three_camera, $('#game-ui')[0]);
         this._controls.autoRotate = this.objects_props.camera.autorotate;
         this._controls.dampingFactor = this.objects_props.camera.dampingfactor;
         this._controls.enableDamping = true;

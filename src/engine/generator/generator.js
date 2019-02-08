@@ -207,13 +207,23 @@ function Generator() {
     };
 
     /**
-     * Start new game based on this geometry.
+     * Returns volume.
      *
      * @function
-     * @param {number} mines - Number of mines, if less than 1 it's treated as percentage
+     * @returns {Volume}
      */
-    this.start = function (mines) {
-        app_tms.new(this._volume, mines, this._camera);
+    this.get_volume = function () {
+        return this._volume;
+    };
+
+    /**
+     * Returns camera.
+     *
+     * @function
+     * @returns {{x: number, y: number, z: number}}
+     */
+    this.get_camera = function () {
+        return this._camera;
     };
 
 }
