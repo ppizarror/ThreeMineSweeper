@@ -20,6 +20,8 @@ function SierpinskiTriangle() {
      * Inherit class.
      */
     Generator.call(this);
+    this._genprops.fractal = true;
+    this._set_name('SierpinskiTriangle');
 
     // noinspection JSUnusedGlobalSymbols
     /**

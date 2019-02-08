@@ -20,6 +20,8 @@ function Sphere() {
      * Inherit class.
      */
     Generator.call(this);
+    this._genprops.latlng = true;
+    this._set_name('Sphere');
 
     // noinspection JSUnusedGlobalSymbols
     /**

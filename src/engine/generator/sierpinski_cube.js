@@ -20,6 +20,8 @@ function SierpinskiCube() {
      * Inherit class.
      */
     Generator.call(this);
+    this._genprops.fractal = true;
+    this._set_name('SierpinskiCube');
 
     // noinspection JSUnusedGlobalSymbols
     /**

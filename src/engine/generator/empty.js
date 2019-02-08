@@ -19,6 +19,7 @@ function EmptyGenerator() {
      * Inherit class.
      */
     Generator.call(this);
+    this._set_name('Empty');
 
     // noinspection JSUnusedLocalSymbols, JSUnusedGlobalSymbols
     /**

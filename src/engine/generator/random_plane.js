@@ -20,6 +20,8 @@ function RandomPlane() {
      * Inherit class.
      */
     Generator.call(this);
+    this._genprops.target = true;
+    this._set_name('RandomPlane');
 
     // noinspection JSUnusedGlobalSymbols
     /**
