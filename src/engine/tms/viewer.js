@@ -694,8 +694,8 @@ function TMSViewer() {
         this._cameralight.distance = this.objects_props.camera.light.distance;
         this._cameralight.intensity = this.objects_props.camera.light.intensity;
         this._cameralight.castShadow = true;
-        this._cameralight.shadow.mapSize.height = 512;
-        this._cameralight.shadow.mapSize.width = 512;
+        this._cameralight.shadow.mapSize.height = 256;
+        this._cameralight.shadow.mapSize.width = 256;
         this._three_camera.add(this._cameralight);
 
         /**

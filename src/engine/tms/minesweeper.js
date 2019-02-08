@@ -35,6 +35,13 @@ function Minesweeper() {
     };
 
     /**
+     * Game over.
+     * @type {boolean}
+     * @private
+     */
+    this._gameover = false;
+
+    /**
      * Object pointer.
      * @type {Minesweeper}
      */
@@ -84,7 +91,7 @@ function Minesweeper() {
      * @param {Volume} volume - Volume
      * @param {number} mines - Number of mines, if less than 1 it's treated as percentage
      */
-    this.apply = function (volume, mines) {
+    this.new = function (volume, mines) {
 
         // Calculate total mines
         let tfaces = volume.get_total_faces(true);
@@ -116,6 +123,9 @@ function Minesweeper() {
             }
         }
 
+        // Change game status
+        self._gameover = false;
+
     };
 
     /**
@@ -129,7 +139,7 @@ function Minesweeper() {
     this.play = function (face, lclick, viewer) {
 
         // Not valid conditions
-        if (isNullUndf(face)) return;
+        if (isNullUndf(face) || self._gameover) return;
 
         // Click time
         let t = new Date();
@@ -210,6 +220,7 @@ function Minesweeper() {
     this._check_bomb = function (face, viewer) {
         if (face.has_bomb()) {
             // ion.sound.play('wrong');
+            self._gameover = true;
             app_console.info(lang.game_over);
             this._explotion_effect([face], viewer, 0);
             ion.sound.play('gameOver');
