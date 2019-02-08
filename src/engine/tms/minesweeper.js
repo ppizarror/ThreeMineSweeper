@@ -279,6 +279,7 @@ function Minesweeper() {
             self._timer.timer.stop();
 
             // Explotion effect
+            this._set_text_color('#ff1111');
             this._explotion_effect([face], viewer, 0);
             ion.sound.play('gameOver');
             setTimeout(function () {
@@ -347,11 +348,28 @@ function Minesweeper() {
     };
 
     /**
+     * Set text color.
+     *
+     * @function
+     * @param {string} color
+     * @private
+     */
+    this._set_text_color = function (color) {
+        self._timer.dom.css('color', color);
+        self._dom.facecount.css('color', color);
+        self._dom.flagcount.css('color', color);
+        self._dom.questioncount.css('color', color);
+    };
+
+    /**
      * Creates new game ui.
      *
      * @function
      */
     this.new_game_ui = function () {
+
+        // Refresh style
+        this._set_text_color('#ffffff');
 
         // Create counter
         this._timer.timer.reset();

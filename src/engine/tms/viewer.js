@@ -313,7 +313,7 @@ function TMSViewer() {
             radius: 0.995,                      // Radius coefficient
             ray: null,                          // Camera collision raycaster
             raycollidedist: 0.08,               // Collide distance
-            rotatespeed: 0.06,                  // Rotation speed
+            rotatespeed: 0.075,                 // Rotation speed
             speedfactor: {                      // Speed factor inside outside worldsize
                 inside: 0.65,
                 outside: 1.55,
@@ -1147,12 +1147,7 @@ function TMSViewer() {
         }
 
         // Check if camera inside
-        let $inside;
-        if (self._camera_inside()) {
-            $inside = self.objects_props.camera.speedfactor.inside;
-        } else {
-            $inside = self.objects_props.camera.speedfactor.outside
-        }
+        let $inside = self._camera_inside() ? self.objects_props.camera.speedfactor.inside : self.objects_props.camera.speedfactor.outside;
 
         // Update speed
         self.objects_props.camera.targetspeed.alf += ($alf * self.objects_props.camera.targetaccel.alf) * fps;

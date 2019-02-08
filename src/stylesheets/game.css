@@ -44,6 +44,7 @@ Left column, contains buttons
 }
 
 .game-ui-button {
+	box-shadow: 0 0 7px rgba(0, 0, 0, 0.4);
 	display: flex;
 	font-size: 1.2rem;
 	opacity: 0.8;
@@ -134,7 +135,7 @@ Tile info
 
 .game-ui-tilesinfo img {
 	display: inline-block;
-	margin-right: 5%;
+	margin-left: 5%;
 	margin-top: -2%;
 	min-width: 27px;
 	width: 10%;
