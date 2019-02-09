@@ -34,7 +34,6 @@ function FullPageLoadingSpinner() {
      * Maximum duration of the event.
      * @type {number}
      * @private
-     * @ignore
      */
     this._maxDurationSpinner = cfg_max_time_loading_layer;
 
@@ -42,7 +41,6 @@ function FullPageLoadingSpinner() {
      * Thread ID.
      * @type {number}
      * @private
-     * @ignore
      */
     this._maxDurationThread = 0;
 
@@ -50,7 +48,6 @@ function FullPageLoadingSpinner() {
      * Change function, is enabled after {@link cfg_init_loading_layer_after} miliseconds.
      * @type {number}
      * @private
-     * @ignore
      */
     this._threadChange = -1;
 
@@ -58,7 +55,6 @@ function FullPageLoadingSpinner() {
      * Object pointer.
      * @type {FullPageLoadingSpinner}
      * @private
-     * @ignore
      */
     let self = this;
 
@@ -66,7 +62,6 @@ function FullPageLoadingSpinner() {
      * Show spinner.
      *
      * @function
-     * @public
      */
     this.start = function () {
 
@@ -88,7 +83,6 @@ function FullPageLoadingSpinner() {
      * Stop spinner.
      *
      * @function
-     * @public
      */
     this.stop = function () {
         if (self._threadChange !== -1) {
@@ -102,10 +96,9 @@ function FullPageLoadingSpinner() {
      * Show loading panel.
      *
      * @function
-     * @private
      * @param {boolean} checker - Set status
      * @param {Function=} callback - Callback function
-     * @ignore
+     * @private
      */
     this._loadFullpageSpinner = function (checker, callback) {
         /* eslint callback-return:"off" */
@@ -291,7 +284,6 @@ function FullPageLoadingSpinner() {
 /**
  * Init loading object.
  * @type {FullPageLoadingSpinner}
- * @ignore
  * @private
  */
 const _app_loading_layer = new FullPageLoadingSpinner();

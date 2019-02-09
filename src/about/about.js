@@ -9,7 +9,6 @@
 /**
  * Application info.
  * @global
- * @ignore
  */
 let aboutinfo = {
     "productname": "ThreeMinesSweeper",

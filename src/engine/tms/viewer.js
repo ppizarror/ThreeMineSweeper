@@ -955,10 +955,10 @@ function TMSViewer() {
      * Check camera target cannot collide.
      *
      * @function
-     * @private
      * @param {string} axis - Axis to evaluate
      * @param {number} val - Value to add
      * @returns {boolean} - Collides or not
+     * @private
      */
     this._check_camera_target_collision = function (axis, val) {
 
@@ -1018,10 +1018,10 @@ function TMSViewer() {
      * Update camera target.
      *
      * @function
-     * @private
      * @param {string} dir - Direction
      * @param {number} val - Increase target
      * @param {boolean} setTarget - Set camera target
+     * @private
      */
     this._update_camera_target = function (dir, val, setTarget) {
         switch (dir) {
@@ -1501,11 +1501,11 @@ function TMSViewer() {
      * Return distance to origin.
      *
      * @function
-     * @private
      * @param {number} x
      * @param {number} y
      * @param {number} z
      * @returns {number}
+     * @private
      */
     this._dist_origin_xyz = function (x, y, z) {
         return Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2) + Math.pow(z, 2));
@@ -2122,11 +2122,11 @@ function TMSViewer() {
      * Add a point in (x,y,z).
      *
      * @function
-     * @private
      * @param {number} x
      * @param {number} y
      * @param {number} z
      * @returns {Vector3}
+     * @private
      */
     this._new_three_point = function (x, y, z) {
         return new THREE.Vector3(y, z, x);
@@ -2150,12 +2150,12 @@ function TMSViewer() {
      * Adds mesh to scene.
      *
      * @function
-     * @protected
      * @param {Object3D} mesh - Mesh
      * @param {string} name - Object name
      * @param {boolean=} collaidable - Object is collaidable or not
      * @param {boolean=} castShadow - Object cast shadows
      * @param {boolean=} receiveShadow - Object can receive shadows
+     * @protected
      */
     this._add_mesh_to_scene = function (mesh, name, collaidable, castShadow, receiveShadow) {
 
@@ -2403,7 +2403,6 @@ function TMSViewer() {
      * Init viewer.
      *
      * @function
-     * @public
      * @param {string} parentElement - Container
      */
     this.init = function (parentElement) {

@@ -21,7 +21,6 @@ function AppConsole() {
      * Stores total messages before wipe.
      * @type {int}
      * @private
-     * @ignore
      */
     this._consoleMessages = 0;
 
@@ -29,7 +28,6 @@ function AppConsole() {
      * Total console messages.
      * @type {int}
      * @private
-     * @ignore
      */
     this._totalConsoleMessages = 0;
 
@@ -37,7 +35,6 @@ function AppConsole() {
      * Format string.
      * @type {string}
      * @private
-     * @ignore
      */
     this._msgDateFormat = cfg_date_format_public_d + ' ' + cfg_date_format_public_h;
 
@@ -45,7 +42,6 @@ function AppConsole() {
      * Object pointer.
      * @type {AppConsole}
      * @private
-     * @ignore
      */
     let self = this;
 
@@ -55,7 +51,6 @@ function AppConsole() {
      * @function
      * @private
      * @param {string} msg - Message
-     * @ignore
      */
     this._format = function (msg) {
         if (isNullUndf(msg)) return '';
@@ -72,7 +67,6 @@ function AppConsole() {
      *
      * @function
      * @private
-     * @ignore
      */
     this._resetMessages = function () {
         self._consoleMessages += 1;
@@ -88,7 +82,6 @@ function AppConsole() {
      * Information message.
      *
      * @function
-     * @public
      * @param {string} msg - Message
      */
     this.info = function (msg) {
@@ -107,7 +100,6 @@ function AppConsole() {
      * Writes object on console.
      *
      * @function
-     * @public
      * @param {Object} obj - Object
      */
     this.writeObj = function (obj) {
@@ -120,7 +112,6 @@ function AppConsole() {
      * Writes an error message.
      *
      * @function
-     * @public
      * @param {string} msg - Message
      * @param {boolean=} w - Writes header
      */
@@ -146,7 +137,6 @@ function AppConsole() {
      * Writes an formatless error message.
      *
      * @function
-     * @public
      * @param {object} obj - Object
      */
     this.errorf = function (obj) {
@@ -157,7 +147,6 @@ function AppConsole() {
      * Writes an error on console.
      *
      * @function
-     * @public
      * @param {Error} exceptionmsg - Exception message
      * @param {boolean=} w - Writes header
      */
@@ -184,7 +173,6 @@ function AppConsole() {
      * Writes a generic warning message.
      *
      * @function
-     * @public
      * @param {string} msg - Message
      * @param {boolean=} w - Writes header
      */
@@ -210,7 +198,6 @@ function AppConsole() {
      * Write formatless object into console.
      *
      * @function
-     * @public
      * @param {object} obj - Object to write
      */
     this.warnf = function (obj) {
@@ -221,8 +208,6 @@ function AppConsole() {
      * Prints about info.
      *
      * @function
-     * @public
-     * @ignore
      */
     this.aboutInfo = function () {
         console.log('{0} v{1} ({2})'.format(aboutinfo.productname, aboutinfo.v.version, aboutinfo.v.date));

@@ -16,6 +16,7 @@
 function Minesweeper() {
     /* eslint-disable arrow-parens */
     /* eslint-disable new-cap */
+    /* eslint-disable no-console */
     /* eslint-disable no-continue */
     /* eslint-disable no-extra-parens */
 
@@ -58,11 +59,11 @@ function Minesweeper() {
 
     /**
      * Timer.
-     * @type {{timer: e, dom: JQuery<HTMLElement> | jQuery | HTMLElement}}
      * @private
      */
     this._timer = {
         dom: $('#game-time-counter'),
+        init: null,
         timer: new easytimer.Timer(),
     };
 
@@ -76,6 +77,17 @@ function Minesweeper() {
         menubutton: $('#game-ui-button-menu'),
         questioncount: $('#game-ui-question-counter'),
         resetbutton: $('#game-ui-button-reset'),
+    };
+
+    /**
+     * User information.
+     * @private
+     */
+    this._user = {
+        id: '',
+        location: '',
+        name: '',
+        time: 0,
     };
 
     /**
@@ -127,8 +139,9 @@ function Minesweeper() {
      * @function
      * @param {Volume} volume - Volume
      * @param {number} mines - Number of mines, if less than 1 it's treated as percentage
+     * @param {string} id - Generator id
      */
-    this.new = function (volume, mines) {
+    this.new = function (volume, mines, id) {
 
         // Calculate total mines
         let tfaces = volume.get_total_faces(true);
@@ -168,6 +181,7 @@ function Minesweeper() {
         self._game_status.questions = 0;
         self._game_status.mines = pm;
         self._volume = volume;
+        self._user.id = id;
 
     };
 
@@ -326,19 +340,16 @@ function Minesweeper() {
         if ($played !== self._game_status.total) return;
 
         // User won
-        let $time = self._timer.timer.getTimeValues().seconds;
-        self._timer.timer.pause();
+        let $time = getSecondsFrom(this._timer.init);
+        self._user.time = $time;
+        self._timer.timer.stop();
         self._gameover = true;
         self._set_text_color('#3dff4d');
         app_console.info(lang.game_finished.format($time));
         ion.sound.play('gameWin');
 
         // Request user info
-        /*
-        dbip.getVisitorInfo().then(info => {
-            console.log(info);
-        });
-         */
+        self._request_username();
 
     };
 
@@ -423,6 +434,7 @@ function Minesweeper() {
         this._set_text_color('#ffffff');
 
         // Create counter
+        this._timer.init = new Date();
         this._timer.timer.reset();
         this._timer.timer.start();
         this._timer.timer.addEventListener('secondsUpdated', function () {
@@ -453,6 +465,9 @@ function Minesweeper() {
         // Update counters
         self._update_counters();
 
+        // Get score from server
+        self._get_score();
+
     };
 
     /**
@@ -466,6 +481,124 @@ function Minesweeper() {
         self._dom.facecount.html('{0}/{1} ({2}%)'.format(self._game_status.played, self._game_status.total, $played));
         self._dom.flagcount.html(self._game_status.flags);
         self._dom.questioncount.html(self._game_status.questions);
+    };
+
+    /**
+     * Request user name.
+     *
+     * @function
+     * @private
+     */
+    this._request_username = function () {
+
+        // Generate ID
+        let $id = generateID();
+
+        // Get last added name from cookies if exists
+        let $lastname = sessionCookie.username;
+        if (isNullUndf($lastname)) $lastname = '';
+
+        // Create dialog
+        app_dialog.form(lang.game_won_title, '{2}.<br><br><form action="" class="formName"><div class="form-group"><label for="{0}">{1}:</label><input type="text" class="form-control" id="{0}" minlength="4" maxlength="20" autofocus value="{3}"></div></form>'.format($id, lang.game_won_name, lang.game_won_content.format(roundNumber(self._user.time, 2)), $lastname),
+            function () {
+
+                // Get name
+                let $name = self._sanitize_text($('#' + $id).val());
+                if ($name.length >= 4 && $name.length <= 20) {
+                    sessionCookie.username = $name;
+                    updateSessionCookie();
+                    self._submit_score($name);
+                }
+
+            }, null, {
+                cancelText: lang.dialog_form_cancel,
+                icon: 'fas fa-trophy',
+                submitText: lang.dialog_form_send,
+            }
+        );
+
+    };
+
+    /**
+     * Sanitize string.
+     *
+     * @function
+     * @param {string} str
+     * @returns {string}
+     * @private
+     */
+    this._sanitize_text = function (str) {
+        str = str.toString();
+        str = str.replace(/[^a-z0-9áéíóúñü .,_-]/gim, '');
+        return str.trim();
+    };
+
+    /**
+     * Submits score.
+     *
+     * @function
+     * @param {string} name
+     * @private
+     */
+    this._submit_score = function (name) {
+        dbip.getVisitorInfo().then(info => {
+            self._user.name = name;
+            // noinspection JSUnresolvedVariable
+            self._user.location = info.countryCode.toLowerCase();
+            self._push_server();
+        });
+    };
+
+    /**
+     * Push game information to server.
+     *
+     * @function
+     * @private
+     */
+    this._push_server = function () {
+        console.log(self._user);
+    };
+
+    /**
+     * Get score from server.
+     *
+     * @function
+     */
+    this._get_score = function () {
+
+        // noinspection JSUnresolvedFunction
+        /**
+         * Create query
+         * @type {JQuery.jqXHR}
+         */
+        let $query = $.ajax({
+            crossOrigin: cfg_ajax_cors,
+            data: 'm=get&id={0}'.format(self._user.id),
+            timeout: cfg_href_ajax_timeout,
+            type: 'get',
+            url: cfg_href_score,
+        });
+
+        /**
+         * Query done
+         */
+        $query.done(function (response) {
+            try {
+                let $data = JSON.parse(response);
+                if (Object.keys($data).indexOf('error') === -1) {
+                    console.log($data)
+                }
+            } catch ($e) {
+                app_console.exception($e);
+            } finally {
+            }
+        });
+
+        /**
+         * Fail connection
+         */
+        $query.fail(function (response, textStatus, jqXHR) {
+        });
     };
 
 }

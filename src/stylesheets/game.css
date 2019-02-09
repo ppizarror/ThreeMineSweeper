@@ -121,7 +121,7 @@ Tile info
 	font-size: 2rem;
 	font-weight: 400;
 	margin: 0 1% 1% 0;
-	padding-bottom: 1.5%;
+	padding-bottom: 1%;
 	padding-right: 5%;
 	text-align: right;
 	text-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
@@ -130,6 +130,7 @@ Tile info
 @media screen and (max-width: 800px) {
 	.game-ui-tilesinfo {
 		font-size: 1.5rem;
+		padding-bottom: 1.5%;
 	}
 }
 

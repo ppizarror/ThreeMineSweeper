@@ -19,7 +19,6 @@ function AppError() {
 
     /**
      * Error database.
-     * @public
      */
     this.error = {
         "langNotExist": {
@@ -51,8 +50,6 @@ function AppError() {
      * Set error messages after lang loaded, used by @src/app.js.
      *
      * @function
-     * @public
-     * @ignore
      */
     this.init = function () {
 
@@ -85,7 +82,6 @@ function AppError() {
      * Writes an generic error with an exception.
      *
      * @function
-     * @public
      * @param {object} errorid - app_error.error object
      * @param {Error=} exceptionmsg - Exception object
      */
@@ -99,7 +95,6 @@ function AppError() {
      * Writes an error ID.
      *
      * @function
-     * @public
      * @param {object} errorid - app_error.error object
      */
     this.errorID = function (errorid) {
@@ -111,7 +106,6 @@ function AppError() {
      * Throws an error notification.
      *
      * @function
-     * @public
      * @param {object} errorid - app_error.error object
      */
     this.errorMessage = function (errorid) {

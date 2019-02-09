@@ -16,7 +16,6 @@
  * App theme
  * @type {string}
  * @global
- * @ignore
  */
 let cfg_app_theme = 'default';
 
@@ -24,7 +23,6 @@ let cfg_app_theme = 'default';
  * Popup themes <bootstrap, dark, light, material, modern, supervan> {@link sessionCookie}
  * @type {string}
  * @global
- * @ignore
  */
 let cfg_popup_theme = 'material';
 
@@ -33,7 +31,6 @@ let cfg_popup_theme = 'material';
  * @type {boolean}
  * @const
  * @global
- * @ignore
  */
 const cfg_verbose = true;
 
@@ -42,7 +39,6 @@ const cfg_verbose = true;
  * @type {boolean}
  * @const
  * @global
- * @ignore
  */
 const show_console_total_messages = true;
 
@@ -58,25 +54,29 @@ const show_console_total_messages = true;
  * @type {string}
  * @global
  * @const
- * @private
- * @ignore
  */
 const cfg_href_host = window.location.protocol + '//' + window.location.host + '/';
+
+/**
+ * Href score server.
+ * @type {string}
+ * @global
+ * @const
+ */
+const cfg_href_score = 'http://127.0.0.1/ThreeMineSweeperServer/score.php';
 
 /**
  * Enables CORS (Cross-domain)
  * @type {boolean}
  * @const
  * @global
- * @ignore
  */
-const cfg_ajax_cors = false;
+const cfg_ajax_cors = true;
 
 /**
  * Ajax timeout
  * @type {number}
  * @global
- * @ignore
  */
 const cfg_href_ajax_timeout = 45000;
 
@@ -92,7 +92,6 @@ const cfg_href_ajax_timeout = 45000;
  * @type {number}
  * @const
  * @global
- * @ignore
  */
 const cfg_cookie_expire_days = 14;
 
@@ -101,7 +100,6 @@ const cfg_cookie_expire_days = 14;
  * @type {string}
  * @const
  * @global
- * @ignore
  */
 const cfg_cookie_session_id = 'R43R6yAZyk';
 
@@ -110,7 +108,6 @@ const cfg_cookie_session_id = 'R43R6yAZyk';
  * @type {boolean}
  * @const
  * @global
- * @ignore
  */
 const cfg_cookie_local = false;
 
@@ -126,7 +123,6 @@ const cfg_cookie_local = false;
  * @type {int}
  * @const
  * @global
- * @ignore
  */
 const cfg_total_console_messages_until_wipe = 1000;
 
@@ -135,7 +131,6 @@ const cfg_total_console_messages_until_wipe = 1000;
  * @type {number}
  * @const
  * @global
- * @ignore
  */
 const cfg_max_time_loading_layer = 60;
 
@@ -144,7 +139,6 @@ const cfg_max_time_loading_layer = 60;
  * @type {number}
  * @const
  * @global
- * @ignore
  */
 const cfg_init_loading_layer_after = 150;
 
@@ -160,7 +154,6 @@ const cfg_init_loading_layer_after = 150;
  * @type {string}
  * @const
  * @global
- * @ignore
  */
 const cfg_notification_core = 'toastr';
 
@@ -169,7 +162,6 @@ const cfg_notification_core = 'toastr';
  * @type {boolean}
  * @const
  * @global
- * @ignore
  */
 const cfg_notification_enabled = true;
 
@@ -178,7 +170,6 @@ const cfg_notification_enabled = true;
  * @type {number}
  * @const
  * @global
- * @ignore
  */
 const cfg_max_notification_stack = 3;
 
@@ -187,7 +178,6 @@ const cfg_max_notification_stack = 3;
  * @type {boolean}
  * @const
  * @global
- * @ignore
  */
 const cfg_always_show_err_notification = true;
 
@@ -196,7 +186,6 @@ const cfg_always_show_err_notification = true;
  * @type {number}
  * @global
  * @const
- * @ignore
  */
 const cfg_notification_timeout = 10000;
 
@@ -212,7 +201,6 @@ const cfg_notification_timeout = 10000;
  * @type {string}
  * @const
  * @global
- * @ignore
  */
 const cfg_date_format_public_d = 'dd/MM/yyyy';
 
@@ -221,6 +209,5 @@ const cfg_date_format_public_d = 'dd/MM/yyyy';
  * @type {string}
  * @const
  * @global
- * @ignore
  */
 const cfg_date_format_public_h = 'HH:mm:ss';

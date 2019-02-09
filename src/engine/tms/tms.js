@@ -179,7 +179,7 @@ function ThreeMinesSweeper() {
 
             // Creates new minesweeper game instance
             self._mines.new_game_ui();
-            self._mines.new(volume, self._generator.mines);
+            self._mines.new(volume, self._generator.mines, gen.get_genid());
 
             // Init events
             self._events.set_volume(volume);

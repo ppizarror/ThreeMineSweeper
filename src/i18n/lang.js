@@ -16,7 +16,6 @@
  * Application language
  * @type {string}
  * @global
- * @ignore
  */
 let cfg_lang = 'en';
 
@@ -24,7 +23,6 @@ let cfg_lang = 'en';
  * Available languages
  * @const
  * @private
- * @ignore
  */
 const lang_available = ['en'];
 

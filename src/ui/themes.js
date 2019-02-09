@@ -50,7 +50,6 @@ popupThemes = {
  *
  * @function
  * @returns {boolean}
- * @ignore
  */
 function initThemes() {
 
@@ -108,7 +107,6 @@ function initThemes() {
  * Apply the selected theme, used by @src/app.js.
  *
  * @function
- * @ignore
  */
 function applyTheme() {
 

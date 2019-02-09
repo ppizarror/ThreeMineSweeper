@@ -17,9 +17,7 @@
 function AppDialog() {
 
     /**
-     * Stores all configurations
-     * @public
-     * @ignore
+     * Stores all configurations.
      */
     this.options = {
         animation: {
@@ -80,7 +78,6 @@ function AppDialog() {
     /**
      * Stores last popup content.
      * @private
-     * @ignore
      */
     this._last = {
         destroyed: true,
@@ -93,7 +90,6 @@ function AppDialog() {
      * Object pointer.
      * @type {AppDialog}
      * @private
-     * @ignore
      */
     let self = this;
 
@@ -101,7 +97,6 @@ function AppDialog() {
      * Text dialog and close button (confirmButton).
      *
      * @function
-     * @public
      * @param {string} text
      * @param {string=} title
      * @param {object=} options
@@ -151,7 +146,6 @@ function AppDialog() {
      * Error dialog
      *
      * @function
-     * @public
      * @param {string} title
      * @param {string} content
      * @param {object=} options
@@ -164,7 +158,6 @@ function AppDialog() {
      * Information dialog.
      *
      * @function
-     * @public
      * @param {string} title
      * @param {string} content
      * @param {object=} options
@@ -177,7 +170,6 @@ function AppDialog() {
      * Warning dialog.
      *
      * @function
-     * @public
      * @param {string} title
      * @param {string} content
      * @param {object=} options
@@ -190,7 +182,6 @@ function AppDialog() {
      * Success dialog.
      *
      * @function
-     * @public
      * @param {string} title
      * @param {string} content
      * @param {object=} options
@@ -203,7 +194,6 @@ function AppDialog() {
      * Other dialog.
      *
      * @function
-     * @public
      * @param {string} title
      * @param {string} content
      * @param {object=} options
@@ -216,14 +206,13 @@ function AppDialog() {
      * Trows and (E)rror, (W)arning, (S)uccess, (I)nfo, (O)ther dialog.
      *
      * @function
-     * @private
      * @param {string} title
      * @param {string} content
      * @param {string} type
      * @param {string} icon
      * @param {string} buttonClass
      * @param {object=} options
-     * @ignore
+     * @private
      */
     this._ewsioType = function (title, content, type, icon, buttonClass, options) {
 
@@ -273,7 +262,6 @@ function AppDialog() {
      * Throws an information popup.
      *
      * @function
-     * @public
      * @param {string} title
      * @param {string} content
      * @param {object=} options
@@ -309,7 +297,6 @@ function AppDialog() {
      * (submit) or cancelled (cancel).
      *
      * @function
-     * @public
      * @param {string} title
      * @param {string} content
      * @param {function} submit
@@ -395,10 +382,12 @@ function AppDialog() {
 
             // If null returns
             if (isNullUndf($cnt)) return;
-            $cnt.find('form').on('submit', function (e) {
+            let $form = $cnt.find('form');
+            $form.on('submit', function (e) {
                 e.preventDefault();
+                if (isNullUndf(jc)) return;
                 // noinspection JSUnresolvedVariable
-                jc.$$confirm.trigger(app_event.common.click);
+                jc.$$confirm.trigger('click');
             });
         };
 
@@ -413,11 +402,10 @@ function AppDialog() {
      * Creates a dialog.
      *
      * @function
-     * @private
      * @param {string} title
      * @param {string} content
      * @param {object} $options
-     * @ignore
+     * @private
      */
     this._createDialog = function (title, content, $options) {
 
@@ -721,7 +709,6 @@ function AppDialog() {
      * Close last dialog.
      *
      * @function
-     * @public
      */
     this.closeLast = function () {
         if (notNullUndf(self._last.object)) self._last.object.close();
@@ -732,7 +719,6 @@ function AppDialog() {
      * Open last dialog.
      *
      * @function
-     * @public
      */
     this.openLast = function () {
         if (notNullUndf(self._last.object)) self._last.object.open();
