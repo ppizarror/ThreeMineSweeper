@@ -16,7 +16,6 @@
 function Minesweeper() {
     /* eslint-disable arrow-parens */
     /* eslint-disable new-cap */
-    /* eslint-disable no-console */
     /* eslint-disable no-continue */
     /* eslint-disable no-extra-parens */
 
@@ -84,10 +83,19 @@ function Minesweeper() {
      * @private
      */
     this._user = {
-        id: '',
         location: '',
         name: '',
         time: 0,
+    };
+
+    /**
+     * Generator properties.
+     * @type {{name: string, id: string}}
+     * @private
+     */
+    this._generator = {
+        id: '',
+        name: '',
     };
 
     /**
@@ -140,8 +148,9 @@ function Minesweeper() {
      * @param {Volume} volume - Volume
      * @param {number} mines - Number of mines, if less than 1 it's treated as percentage
      * @param {string} id - Generator id
+     * @param {string} name - Generator name
      */
-    this.new = function (volume, mines, id) {
+    this.new = function (volume, mines, id, name) {
 
         // Calculate total mines
         let tfaces = volume.get_total_faces(true);
@@ -181,7 +190,8 @@ function Minesweeper() {
         self._game_status.questions = 0;
         self._game_status.mines = pm;
         self._volume = volume;
-        self._user.id = id;
+        self._generator.id = id;
+        self._generator.name = name;
 
     };
 
@@ -466,7 +476,9 @@ function Minesweeper() {
         self._update_counters();
 
         // Get score from server
-        self._get_score();
+        setTimeout(function () {
+            self._get_score();
+        }, 500);
 
     };
 
@@ -498,8 +510,8 @@ function Minesweeper() {
         let $lastname = sessionCookie.username;
         if (isNullUndf($lastname)) $lastname = '';
 
-        // Create dialog
-        app_dialog.form(lang.game_won_title, '{2}.<br><br><form action="" class="formName"><div class="form-group"><label for="{0}">{1}:</label><input type="text" class="form-control" id="{0}" minlength="4" maxlength="20" autofocus value="{3}"></div></form>'.format($id, lang.game_won_name, lang.game_won_content.format(roundNumber(self._user.time, 2)), $lastname),
+        // noinspection HtmlUnknownAttribute
+        app_dialog.form(lang.game_won_title, '{2}.<br><br><form action="" class="formName"><div class="form-group"><label for="{0}">{1}:</label><input type="text" class="form-control" id="{0}" minlength="4" maxlength="20" value="{3}" {4} ></div></form>'.format($id, lang.game_won_name, lang.game_won_content.format(roundNumber(self._user.time, 2), $lastname !== '' ? 'autofocus' : ''), $lastname),
             function () {
 
                 // Get name
@@ -556,7 +568,39 @@ function Minesweeper() {
      * @private
      */
     this._push_server = function () {
-        console.log(self._user);
+
+        // noinspection JSUnresolvedFunction
+        /**
+         * Create query
+         * @type {JQuery.jqXHR}
+         */
+        let $query = $.ajax({
+            crossOrigin: cfg_ajax_cors,
+            data: 'm=upload&id={0}&u={1}&c={2}&t={3}'.format(self._generator.id, self._user.name, self._user.location, self._user.time),
+            timeout: cfg_href_ajax_timeout,
+            type: 'get',
+            url: cfg_href_score,
+        });
+
+        /**
+         * Query done
+         */
+        $query.done(function (response) {
+            try {
+                let $data = JSON.parse(response);
+                if (Object.keys($data).indexOf('error') === -1) {
+                }
+            } catch ($e) {
+                app_console.exception($e);
+            } finally {
+            }
+        });
+
+        /**
+         * Fail connection
+         */
+        $query.fail(function (response, textStatus, jqXHR) {
+        });
     };
 
     /**
@@ -573,7 +617,7 @@ function Minesweeper() {
          */
         let $query = $.ajax({
             crossOrigin: cfg_ajax_cors,
-            data: 'm=get&id={0}'.format(self._user.id),
+            data: 'm=get&id={0}'.format(self._generator.id),
             timeout: cfg_href_ajax_timeout,
             type: 'get',
             url: cfg_href_score,
@@ -586,7 +630,7 @@ function Minesweeper() {
             try {
                 let $data = JSON.parse(response);
                 if (Object.keys($data).indexOf('error') === -1) {
-                    console.log($data)
+                    self._write_scores($data);
                 }
             } catch ($e) {
                 app_console.exception($e);
@@ -599,6 +643,17 @@ function Minesweeper() {
          */
         $query.fail(function (response, textStatus, jqXHR) {
         });
+    };
+
+    /**
+     * Write server score.
+     *
+     * @function
+     * @param {object} score
+     * @private
+     */
+    this._write_scores = function (score) {
+        console.log(score);
     };
 
 }
