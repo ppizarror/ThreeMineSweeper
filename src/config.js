@@ -50,14 +50,6 @@ const show_console_total_messages = true;
  */
 
 /**
- * Application host
- * @type {string}
- * @global
- * @const
- */
-const cfg_href_host = window.location.protocol + '//' + window.location.host + '/';
-
-/**
  * Href score server.
  * @type {string}
  * @global

@@ -131,7 +131,7 @@ $(function () {
 
     // New game
     app_tms.set_generator(3, 2, 20, 20, 20);
-    app_tms.set_mines(0.0015);
+    app_tms.set_mines(0.10);
     app_tms.new();
 
 });

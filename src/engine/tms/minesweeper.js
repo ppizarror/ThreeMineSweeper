@@ -437,13 +437,15 @@ function Minesweeper() {
      * Creates new game ui.
      *
      * @function
+     * @param {boolean=} download_score
      */
-    this.new_game_ui = function () {
+    this.new_game_ui = function (download_score) {
 
         // Refresh style
         this._set_text_color('#ffffff');
 
         // Create counter
+        self._timer.dom.html('00:00:00');
         this._timer.init = new Date();
         this._timer.timer.reset();
         this._timer.timer.start();
@@ -476,9 +478,11 @@ function Minesweeper() {
         self._update_counters();
 
         // Get score from server
-        setTimeout(function () {
-            self._get_score();
-        }, 500);
+        if (download_score) {
+            setTimeout(function () {
+                self._get_score();
+            }, 500);
+        }
 
     };
 
@@ -490,6 +494,7 @@ function Minesweeper() {
      */
     this._update_counters = function () {
         let $played = roundNumber(100 * self._game_status.played / self._game_status.total, 1);
+        if (isNaN($played)) $played = 0;
         self._dom.facecount.html('{0}/{1} ({2}%)'.format(self._game_status.played, self._game_status.total, $played));
         self._dom.flagcount.html(self._game_status.flags);
         self._dom.questioncount.html(self._game_status.questions);

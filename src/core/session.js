@@ -138,23 +138,3 @@ function loadSessionCookies() {
 function getSessionCookie() {
     return loadSessionCookies();
 }
-
-/**
- * Remove cookies.
- *
- * @function
- * @returns {boolean}
- */
-function clearSessionCookie() {
-    try {
-        if (!cfg_cookie_local) {
-            Cookies.remove(cfg_cookie_session_id);
-        } else {
-            localStorage.removeItem(cfg_cookie_session_id);
-        }
-        return true;
-    } catch ($e) {
-    } finally {
-    }
-    return false;
-}

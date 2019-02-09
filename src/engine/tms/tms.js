@@ -170,6 +170,7 @@ function ThreeMinesSweeper() {
      */
     this.new = function () {
         loadingHandler(true);
+        self._mines.new_game_ui(false);
         setTimeout(function () {
 
             // Generate the figure
@@ -186,7 +187,7 @@ function ThreeMinesSweeper() {
             // Init viewer
             self._viewer.set_camera_init_pos(camera.x, camera.y, camera.z);
             self._viewer.new(volume);
-            self._mines.new_game_ui();
+            self._mines.new_game_ui(true);
             loadingHandler(false);
 
         }, 450);
