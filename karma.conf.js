@@ -79,10 +79,11 @@ module.exports = function (config) {
             'src/engine/generator/sphere.js',
             'src/engine/generator/square.js',
 
-            'src/engine/tms/viewer.js',
             'src/engine/tms/events.js',
+            'src/engine/tms/menu.js',
             'src/engine/tms/minesweeper.js',
             'src/engine/tms/tms.js',
+            'src/engine/tms/viewer.js',
 
             'src/ui/globals.js',
             'src/ui/dialogs.js',

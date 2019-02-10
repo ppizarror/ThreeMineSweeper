@@ -39,6 +39,13 @@ function ThreeMinesSweeper() {
     this._mines = null;
 
     /**
+     * Stores menu.
+     * @type {TMSMenu}
+     * @private
+     */
+    this._menu = null;
+
+    /**
      * Generator properties.
      * @type {{facetarget: number|null, latitude: number|null, type: number, longitude: number|null, order: number|null}}
      * @private
@@ -70,12 +77,22 @@ function ThreeMinesSweeper() {
         self._viewer = new TMSViewer();
         self._events = new TMSEvents();
         self._mines = new Minesweeper();
+        self._menu = new TMSMenu();
 
         // Init viewer
         self._viewer.init(parentElement);
+
+        // Init events
         self._events.set_viewer(self._viewer);
         self._events.set_minesweeper(self._mines);
         self._events.initEvents();
+
+        // Init minesweeper
+        self._mines.set_menu(self._menu);
+
+        // Init menu
+        self._menu.set_minesweeper(self._mines);
+        self._menu.main_menu();
 
     };
 

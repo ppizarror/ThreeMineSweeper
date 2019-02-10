@@ -67,6 +67,13 @@ function Minesweeper() {
     };
 
     /**
+     * Stores menu.
+     * @type {TMSMenu}
+     * @private
+     */
+    this._menu = null;
+
+    /**
      * Stores ui objects.
      * @private
      */
@@ -782,6 +789,16 @@ function Minesweeper() {
         self._dom.scoreboard_content.append('<div class="game-scoreboard-entry"><div class="game-scoreboard-user"><div class="game-scoreboard-username">{0}</div><div class="game-scoreboard-userdata"><div class="game-scoreboard-userdata-position">#{1}</div>{2}<div class="game-scoreboard-userdata-date">{3}</div></div></div><div class="game-scoreboard-time">{4}</div></div>'.format(name, position, country, date_display, $time));
         return true;
 
+    };
+
+    /**
+     * Stores menu object reference.
+     *
+     * @function
+     * @param {TMSMenu} menu
+     */
+    this.set_menu = function (menu) {
+        self._menu = menu;
     };
 
 }
