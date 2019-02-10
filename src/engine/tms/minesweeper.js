@@ -110,42 +110,6 @@ function Minesweeper() {
      */
     let self = this;
 
-    /**
-     * Create ion sound.
-     */
-    ion.sound({ // http://ionden.com/a/plugins/ion.sound/en.html
-        sounds: [
-            {
-                name: 'click',
-                preload: true,
-            },
-            {
-                name: 'flag'
-            },
-            {
-                name: 'gameOver'
-            },
-            {
-                name: 'gameWin'
-            },
-            {
-                name: 'mainmenu'
-            },
-            {
-                name: 'music'
-            },
-            {
-                name: 'unflag'
-            },
-            {
-                name: 'wrong'
-            }
-        ],
-        multiplay: true,
-        path: 'resources/sounds/',
-        preload: false,
-        volume: 1.0,
-    });
 
     /**
      * Apply minesweeper rules to volume.
@@ -235,7 +199,7 @@ function Minesweeper() {
         // If left click, uncovers face
         if (lclick) {
             if (face.has_flag()) {
-                ion.sound.play('wrong');
+                app_sound.play(app_sound.sound.WRONG);
                 return;
             }
             if (face.has_question()) {
@@ -244,7 +208,7 @@ function Minesweeper() {
             }
             face.play(viewer);
             face.place_image(viewer);
-            ion.sound.play('click');
+            app_sound.play(app_sound.sound.CLICK);
             self._game_status.played += 1;
 
             // Check bomb
@@ -256,17 +220,17 @@ function Minesweeper() {
             face.place_flag();
             face.place_image(viewer);
             if (face.has_flag()) {
-                ion.sound.play('flag');
+                app_sound.play(app_sound.sound.FLAG);
                 self._game_status.flags += 1;
                 self._game_status.played += 1;
             } else if (face.has_question()) {
-                ion.sound.play('unflag');
+                app_sound.play(app_sound.sound.UNFLAG);
                 self._game_status.flags -= 1;
                 self._game_status.questions += 1;
             } else {
                 self._game_status.questions -= 1;
                 self._game_status.played -= 1;
-                ion.sound.play('click');
+                app_sound.play(app_sound.sound.CLICK);
             }
         }
 
@@ -320,7 +284,7 @@ function Minesweeper() {
             // Explotion effect
             this._set_text_color('#ff1111');
             this._explotion_effect([face], viewer, 0);
-            ion.sound.play('gameOver');
+            app_sound.play(app_sound.sound.GAMEOVER);
             setTimeout(function () {
                 self._explotion_secondary_effect([face], viewer, 0);
             }, 300);
@@ -363,7 +327,7 @@ function Minesweeper() {
         self._gameover = true;
         self._set_text_color('#3dff4d');
         app_console.info(lang.game_finished.format($time));
-        ion.sound.play('gameWin');
+        app_sound.play(app_sound.sound.GAMEWIN);
 
         // Request user info
         self._request_username();
@@ -490,9 +454,11 @@ function Minesweeper() {
 
         // Set events
         this._dom.menubutton.on('click', function () {
+            app_sound.play(app_sound.sound.BUTTON);
             app_tms.new()
         });
         this._dom.resetbutton.on('click', function () {
+            app_sound.play(app_sound.sound.BUTTON);
             app_dialog.confirm(lang.reset_game_title, lang.reset_game_confirm, {
                 cancel: function () {
                 },

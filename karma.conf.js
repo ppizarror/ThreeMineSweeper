@@ -82,6 +82,7 @@ module.exports = function (config) {
             'src/engine/tms/events.js',
             'src/engine/tms/menu.js',
             'src/engine/tms/minesweeper.js',
+            'src/engine/tms/sounds.js',
             'src/engine/tms/tms.js',
             'src/engine/tms/viewer.js',
 
