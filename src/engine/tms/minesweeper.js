@@ -606,6 +606,7 @@ function Minesweeper() {
          */
         $query.fail(function (response, textStatus, jqXHR) {
         });
+
     };
 
     /**
@@ -648,6 +649,7 @@ function Minesweeper() {
          */
         $query.fail(function (response, textStatus, jqXHR) {
         });
+
     };
 
     /**

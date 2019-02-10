@@ -30,20 +30,20 @@ Left column, contains buttons
 	width: 33.333%;
 }
 
-#game-ui-button-menu {
+.game-ui-left-column #game-ui-button-menu {
 	float: left;
 	left: 0;
 	margin-left: 1%;
 	margin-top: 1%;
 }
 
-#game-ui-button-reset {
+.game-ui-left-column #game-ui-button-reset {
 	bottom: 0;
 	margin-bottom: 1%;
 	margin-left: 1%;
 }
 
-.game-ui-button {
+.game-ui-left-column .game-ui-button {
 	box-shadow: 0 0 7px rgba(0, 0, 0, 0.4);
 	display: flex;
 	font-size: 1.2rem;
@@ -51,17 +51,17 @@ Left column, contains buttons
 	position: absolute;
 }
 
-.game-ui-button .fas {
+.game-ui-left-column .game-ui-button .fas {
 	line-height: inherit !important;
 	padding-right: 10px;
 }
 
-.game-ui-button:hover {
+.game-ui-left-column .game-ui-button:hover {
 	opacity: 1.0;
 }
 
 @media screen and (max-width: 800px) {
-	.game-ui-button {
+	.game-ui-left-column .game-ui-button {
 		font-size: 1rem;
 	}
 }
@@ -78,7 +78,7 @@ Middle column, contains timer
 /**
 Counter
  */
-#game-time-counter {
+.game-ui-middle-column #game-time-counter {
 	color: #ffffff;
 	cursor: default;
 	font-size: 3rem;
@@ -89,7 +89,7 @@ Counter
 }
 
 @media screen and (max-width: 800px) {
-	#game-time-counter {
+	.game-ui-middle-column #game-time-counter {
 		font-size: 2.5rem;
 		margin-top: -1.5%;
 	}
@@ -106,7 +106,7 @@ Right column, contains game information
 }
 
 @media screen and (max-width: 800px) {
-	.game-ui-right-column {
+	.game-ui-right-column .game-ui-right-column {
 		padding-top: 1%;
 	}
 }
@@ -114,7 +114,7 @@ Right column, contains game information
 /**
 Tile info
  */
-.game-ui-tilesinfo {
+.game-ui-right-column .game-ui-tilesinfo {
 	color: #ffffff;
 	display: inline-block;
 	float: left;
@@ -128,13 +128,13 @@ Tile info
 }
 
 @media screen and (max-width: 800px) {
-	.game-ui-tilesinfo {
+	.game-ui-right-column .game-ui-tilesinfo {
 		font-size: 1.5rem;
 		padding-bottom: 1.5%;
 	}
 }
 
-.game-ui-tilesinfo img {
+.game-ui-right-column .game-ui-tilesinfo img {
 	display: inline-block;
 	margin-left: 5%;
 	margin-top: -2%;
@@ -142,6 +142,188 @@ Tile info
 	width: 10%;
 }
 
-.game-ui-tilesinfo.tile-shadow img {
+.game-ui-right-column .game-ui-tilesinfo.tile-shadow img {
 	box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+/**
+Scoreboard
+ */
+.game-ui-right-column #game-bookmarks-container {
+	background-color: rgba(16, 16, 16, 0.70);
+	border-radius: 10px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.49);
+	color: #ffffff;
+	display: inline-block;
+	float: right;
+	font-size: 1rem;
+	font-weight: 300;
+	height: 60%;
+	margin-right: 6%;
+	margin-top: 5%;
+	max-width: 230px;
+	text-align: left;
+	width: 69%;
+}
+
+/**
+Header, contains title of the bookmarks
+ */
+.game-ui-right-column #game-bookmark-header {
+	background-color: rgba(0, 0, 0, 0.73);
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+	font-weight: 600;
+	padding: 5px 5px 10px 10px;
+}
+
+.game-ui-right-column #game-bookmark-title {
+	font-size: 1.5rem;
+}
+
+.game-ui-right-column #game-bookmark-name {
+	font-size: 1.1rem;
+	margin-top: -5px;
+}
+
+@media screen and (max-width: 800px) {
+	.game-ui-right-column #game-bookmark-header {
+		padding: 4px 4px 4px 10px;
+	}
+
+	.game-ui-right-column #game-bookmark-title {
+		font-size: 1.1rem;
+	}
+
+	.game-ui-right-column #game-bookmark-name {
+		font-size: 0.9rem;
+		margin-top: -2px;
+	}
+}
+
+.game-ui-right-column #game-bookmark-content {
+	overflow-x: hidden;
+	overflow-y: auto;
+	height: 352px;
+}
+
+.game-ui-right-column #game-bookmark-content::-webkit-scrollbar-track {
+	/* -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3); */
+	/* border-radius: 0 0 10px 10px; */
+	border-radius: 10px;
+}
+
+.game-ui-right-column #game-bookmark-content::-webkit-scrollbar {
+	width: 10px;
+}
+
+.game-ui-right-column #game-bookmark-content::-webkit-scrollbar-thumb {
+	/* -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3); */
+	/* border-radius: 0 0 10px 10px; */
+	background-color: #474747;
+	border-radius: 10px;
+}
+
+/**
+Boomark entry
+ */
+.game-ui-right-column .game-bookmark-entry {
+	border-bottom: 1px solid rgba(97, 97, 97, 0.55);
+	display: flex;
+	padding-bottom: 3px;
+	width: 100%;
+}
+
+.game-ui-right-column .game-bookmark-entry:hover {
+	background-color: rgba(68, 68, 68, 0.25);
+}
+
+@media screen and (max-width: 800px) {
+	.game-ui-right-column .game-bookmark-entry {
+		padding-bottom: 0;
+	}
+}
+
+.game-ui-right-column .game-bookmark-user {
+	float: left;
+	overflow-x: hidden;
+	padding-left: 10px;
+	width: 70%;
+}
+
+.game-ui-right-column .game-bookmark-username {
+	font-size: 1.1rem;
+	font-weight: 400;
+	overflow-x: hidden;
+	overflow-y: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	word-break: break-word;
+	word-spacing: inherit;
+}
+
+@media screen and (max-width: 800px) {
+	.game-ui-right-column .game-bookmark-username {
+		font-size: 1rem;
+	}
+}
+
+/**
+Bookmark user data
+ */
+.game-ui-right-column .game-bookmark-userdata {
+	display: flex;
+}
+
+.game-ui-right-column #game-bookmark-content .game-bookmark-userdata .game-bookmark-userdata-position {
+	padding-right: 15px;
+	font-weight: 400;
+	font-size: 0.9rem;
+}
+
+.game-ui-right-column #game-bookmark-content .game-bookmark-userdata .game-bookmark-userdata-img img {
+	box-shadow: 0 0 5px rgba(0, 0, 0, 0.34);
+	display: inline-block;
+	filter: grayscale(0.5);
+	margin-right: 0.5rem;
+	margin-top: -0.4rem;
+	max-height: 0.9rem;
+}
+
+.game-ui-right-column #game-bookmark-content .game-bookmark-userdata .game-bookmark-userdata-date {
+	font-size: 0.9rem;
+	color: #cfcfcf;
+}
+
+@media screen and (max-width: 800px) {
+	.game-ui-right-column #game-bookmark-content .game-bookmark-userdata .game-bookmark-userdata-position {
+		padding-right: 5px;
+		font-size: 0.8rem;
+	}
+
+	.game-ui-right-column #game-bookmark-content .game-bookmark-userdata .game-bookmark-userdata-img img {
+		margin-top: -0.6rem;
+		max-height: 0.7rem;
+	}
+
+	.game-ui-right-column #game-bookmark-content .game-bookmark-userdata .game-bookmark-userdata-date {
+		font-size: 0.7rem;
+	}
+}
+
+.game-ui-right-column .game-bookmark-time {
+	float: left;
+	font-weight: 400;
+	padding-right: 10px;
+	padding-top: 13px;
+	text-align: right;
+	width: 30%;
+}
+
+@media screen and (max-width: 800px) {
+	.game-ui-right-column .game-bookmark-time {
+		font-size: 0.9rem;
+		padding-right: 5px;
+		padding-top: 10px;
+	}
 }
