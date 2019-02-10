@@ -76,6 +76,11 @@ function Minesweeper() {
         menubutton: $('#game-ui-button-menu'),
         questioncount: $('#game-ui-question-counter'),
         resetbutton: $('#game-ui-button-reset'),
+        scoreboard_container: $('#game-scoreboard-container'),
+        scoreboard_content: $('#game-scoreboard-content'),
+        scoreboard_header: $('#game-scoreboard-header'),
+        scoreboard_name: $('#game-scoreboard-name'),
+        scoreboard_title: $('#game-scoreboard-title'),
     };
 
     /**
@@ -90,11 +95,11 @@ function Minesweeper() {
 
     /**
      * Generator properties.
-     * @type {{name: string, id: string}}
      * @private
      */
     this._generator = {
         id: '',
+        mines: 0,
         name: '',
     };
 
@@ -155,6 +160,7 @@ function Minesweeper() {
         // Calculate total mines
         let tfaces = volume.get_total_faces(true);
         mines = Math.max(0, Math.min(mines, tfaces - 1));
+        self._generator.mines = mines;
         if (mines < 1) mines *= tfaces;
 
         // Get volume faces
@@ -190,7 +196,7 @@ function Minesweeper() {
         self._game_status.questions = 0;
         self._game_status.mines = pm;
         self._volume = volume;
-        self._generator.id = id;
+        self._generator.id = md5(md5(id) + md5(pm));
         self._generator.name = name;
 
     };
@@ -478,12 +484,22 @@ function Minesweeper() {
         self._update_counters();
 
         // Get score from server
-        if (download_score) {
-            setTimeout(function () {
-                self._get_score();
-            }, 500);
-        }
+        if (download_score) self._load_score();
+        self._scoreboard_setup();
 
+    };
+
+    /**
+     * Load game scores.
+     *
+     * @function
+     * @private
+     */
+    this._load_score = function () {
+        self._scoreboard_setup();
+        setTimeout(function () {
+            self._get_score();
+        }, 1000);
     };
 
     /**
@@ -594,6 +610,7 @@ function Minesweeper() {
             try {
                 let $data = JSON.parse(response);
                 if (Object.keys($data).indexOf('error') === -1) {
+                    self._load_score();
                 }
             } catch ($e) {
                 app_console.exception($e);
@@ -660,7 +677,111 @@ function Minesweeper() {
      * @private
      */
     this._write_scores = function (score) {
-        console.log(score);
+        self._dom.scoreboard_content.empty();
+        let w = 0; // Effective writes
+        for (let i = 0; i < score.length; i += 1) {
+            if (self._write_user_scoreboard(score[i].user, i + 1, score[i].country, score[i].date, score[i].time)) w += 1;
+        }
+        if (w === 0) self._dom.scoreboard_content.html('<div class="game-scoreboard-empty" style="line-height: {1}px">{0} <i class="fas fa-smile-wink"></i></div>'.format(lang.scoreboard_empty, self._get_scoreboard_height()));
+    };
+
+    /**
+     * Setup scoreboard panel.
+     *
+     * @function
+     * @private
+     */
+    this._scoreboard_setup = function () {
+
+        // Clear scoreboard
+        self._dom.scoreboard_content.empty();
+        self._dom.scoreboard_title.html(lang.scoreboard);
+        let $mines = '';
+        if (self._generator.mines < 1) {
+            $mines = roundNumber(self._generator.mines * 100, 2).toString() + '%';
+        } else {
+            $mines = roundNumber(self._generator.mines, 0).toString();
+        }
+        if ($mines !== '0' && $mines !== '0%') {
+            $mines = '{0} ({1})'.format(self._generator.name, $mines);
+        } else {
+            $mines = '';
+        }
+        self._dom.scoreboard_name.html($mines);
+
+        // Scoreboard content autosize
+        let $f = function () {
+            self._dom.scoreboard_content.css('height', self._get_scoreboard_height());
+        };
+        app_dom.window.off('resize.scoreboard');
+        app_dom.window.on('resize.scoreboard', $f);
+        $f();
+
+        // Write loading
+        self._dom.scoreboard_content.html('<div class="game-scoreboard-loading" style="line-height: {0}px"><i class="fa fa-spinner fa-spin fa-3x fa-fw"></i></div>'.format(self._get_scoreboard_height()));
+
+    };
+
+    /**
+     * Get scoreboard height.
+     *
+     * @function
+     * @returns {number}
+     * @private
+     */
+    this._get_scoreboard_height = function () {
+        let $height = getElementHeight(self._dom.scoreboard_container);
+        let $header = getElementHeight(self._dom.scoreboard_header);
+        return $height - $header - 6;
+    };
+
+    /**
+     * Write user into scoreboard.
+     *
+     * @function
+     * @param {string} name
+     * @param {string} position
+     * @param {string} country
+     * @param {string} date
+     * @param {string} time
+     * @returns {boolean}
+     * @private
+     */
+    this._write_user_scoreboard = function (name, position, country, date, time) {
+
+        // Format time
+        let $time = parseFloat(time);
+        $time = roundNumber($time, 3);
+        if ($time > 1e1) $time = roundNumber($time, 2);
+        if ($time > 1e2) $time = roundNumber($time, 1);
+        if ($time > 1e3) $time = roundNumber($time, 0);
+        if ($time > 86400) return false;
+
+        // Invalid data
+        if (isNaN($time) || time <= 0) return false;
+
+        // Format country
+        if (isNullUndf(country)) country = '';
+        if (country !== '') {
+            let country_name = ''; // Find country name
+            for (let i = 0; i < country_list.length; i += 1) {
+                if (country_list[i].code.toLowerCase() === country) {
+                    country_name = country_list[i].name;
+                    break;
+                }
+            }
+
+            // noinspection HtmlUnknownTarget
+            country = '<div class="game-scoreboard-userdata-img"><img src="resources/flags/{0}.png" alt="" title="{1}" /></div>'.format(country, country_name);
+        }
+
+        // Format date
+        let date_display = dateFormat(new Date(date), cfg_date_format_public_d);
+
+        // Write content
+        self._dom.scoreboard_content.append('<div class="game-scoreboard-entry"><div class="game-scoreboard-user"><div class="game-scoreboard-username">{0}</div><div class="game-scoreboard-userdata"><div class="game-scoreboard-userdata-position">#{1}</div>{2}<div class="game-scoreboard-userdata-date">{3}</div></div></div><div class="game-scoreboard-time">{4}</div></div>'.format(name, position, country, date_display, $time));
+        return true;
+
     };
 
 }
