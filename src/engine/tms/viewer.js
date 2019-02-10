@@ -2254,9 +2254,8 @@ function TMSViewer() {
      * Delete last volume.
      *
      * @function
-     * @private
      */
-    this._delete_last_volume = function () {
+    this.delete_last_volume = function () {
 
         // Remove volume mesh
         if (notNullUndf(self._volume_meshes.volume)) {
@@ -2422,7 +2421,7 @@ function TMSViewer() {
      * @param {Volume} volume
      */
     this.new = function (volume) {
-        this._delete_last_volume();
+        this.delete_last_volume();
         this._draw_volume(volume);
     };
 

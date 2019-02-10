@@ -128,5 +128,6 @@ $(function () {
      */
     deleteUrlParams();
     app_tms.init('#viewer');
+    app_tms.load_menu();
 
 });

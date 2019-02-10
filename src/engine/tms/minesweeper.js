@@ -67,13 +67,6 @@ function Minesweeper() {
     };
 
     /**
-     * Stores menu.
-     * @type {TMSMenu}
-     * @private
-     */
-    this._menu = null;
-
-    /**
      * Stores ui objects.
      * @private
      */
@@ -88,6 +81,7 @@ function Minesweeper() {
         scoreboard_header: $('#game-scoreboard-header'),
         scoreboard_name: $('#game-scoreboard-name'),
         scoreboard_title: $('#game-scoreboard-title'),
+        viewer: $('#viewer'),
     };
 
     /**
@@ -447,6 +441,31 @@ function Minesweeper() {
     };
 
     /**
+     * Stops current game ui.
+     *
+     * @function
+     */
+    this.reset_game_ui = function () {
+
+        // Refresh style
+        this._set_text_color('#ffffff');
+
+        // Counter
+        self._timer.dom.html('00:00:00');
+        this._timer.timer.stop();
+        this._timer.timer.removeEventListener('secondsUpdated');
+
+        // Remove events
+        this._dom.menubutton.off('click');
+        this._dom.resetbutton.off('click');
+        app_dom.window.off('resize.scoreboard');
+
+        // Hide
+        this._dom.viewer.hide();
+
+    };
+
+    /**
      * Creates new game ui.
      *
      * @function
@@ -454,11 +473,10 @@ function Minesweeper() {
      */
     this.new_game_ui = function (download_score) {
 
-        // Refresh style
-        this._set_text_color('#ffffff');
+        // Reset event
+        this.reset_game_ui();
 
-        // Create counter
-        self._timer.dom.html('00:00:00');
+        // Timer
         this._timer.init = new Date();
         this._timer.timer.reset();
         this._timer.timer.start();
@@ -471,10 +489,9 @@ function Minesweeper() {
         this._dom.resetbutton.html('<i class="fas fa-redo-alt"></i> ' + lang.game_reset);
 
         // Set events
-        this._dom.menubutton.off('click');
         this._dom.menubutton.on('click', function () {
+            app_tms.new()
         });
-        this._dom.resetbutton.off('click');
         this._dom.resetbutton.on('click', function () {
             app_dialog.confirm(lang.reset_game_title, lang.reset_game_confirm, {
                 cancel: function () {
@@ -492,6 +509,9 @@ function Minesweeper() {
 
         // Get score from server
         if (download_score) self._load_score();
+
+        // Show
+        this._dom.viewer.show();
         self._scoreboard_setup();
 
     };
@@ -689,7 +709,7 @@ function Minesweeper() {
         for (let i = 0; i < score.length; i += 1) {
             if (self._write_user_scoreboard(score[i].user, i + 1, score[i].country, score[i].date, score[i].time)) w += 1;
         }
-        if (w === 0) self._dom.scoreboard_content.html('<div class="game-scoreboard-empty" style="line-height: {1}px">{0} <i class="fas fa-smile-wink"></i></div>'.format(lang.scoreboard_empty, self._get_scoreboard_height()));
+        if (w === 0) self._dom.scoreboard_content.html('<div class="game-scoreboard-empty" style="line-height: {1}px;">{0} <i class="fas fa-smile-wink"></i></div>'.format(lang.scoreboard_empty, self._get_scoreboard_height()));
     };
 
     /**
@@ -719,13 +739,13 @@ function Minesweeper() {
         // Scoreboard content autosize
         let $f = function () {
             self._dom.scoreboard_content.css('height', self._get_scoreboard_height());
+            console.log('k');
         };
-        app_dom.window.off('resize.scoreboard');
         app_dom.window.on('resize.scoreboard', $f);
         $f();
 
         // Write loading
-        self._dom.scoreboard_content.html('<div class="game-scoreboard-loading" style="line-height: {0}px"><i class="fa fa-spinner fa-spin fa-3x fa-fw"></i></div>'.format(self._get_scoreboard_height()));
+        self._dom.scoreboard_content.html('<div class="game-scoreboard-loading" style="line-height: {0}px;"><i class="fa fa-spinner fa-spin fa-3x fa-fw"></i></div>'.format(self._get_scoreboard_height()));
 
     };
 
@@ -789,16 +809,6 @@ function Minesweeper() {
         self._dom.scoreboard_content.append('<div class="game-scoreboard-entry"><div class="game-scoreboard-user"><div class="game-scoreboard-username">{0}</div><div class="game-scoreboard-userdata"><div class="game-scoreboard-userdata-position">#{1}</div>{2}<div class="game-scoreboard-userdata-date">{3}</div></div></div><div class="game-scoreboard-time">{4}</div></div>'.format(name, position, country, date_display, $time));
         return true;
 
-    };
-
-    /**
-     * Stores menu object reference.
-     *
-     * @function
-     * @param {TMSMenu} menu
-     */
-    this.set_menu = function (menu) {
-        self._menu = menu;
     };
 
 }

@@ -24,15 +24,11 @@ function TMSMenu() {
      * @private
      */
     this._dom = {
+        content: $('#menu-content'),
+        footer: $('#menu-footer'),
+        header: $('#menu-header'),
         menu: $('#menu'),
     };
-
-    /**
-     * Stores viewer reference.
-     * @type {Minesweeper}
-     * @private
-     */
-    this._mines = null;
 
     /**
      * Object pointer.
@@ -47,6 +43,29 @@ function TMSMenu() {
      */
     this.main_menu = function () {
 
+        // Reset menu
+        self.reset_menu();
+
+        // Open menu
+        self._dom.menu.fadeIn();
+
+    };
+
+    /**
+     * Reset menu.
+     *
+     * @function
+     */
+    this.reset_menu = function () {
+
+        // Hide menu
+        self._dom.menu.hide();
+
+        // Delete content
+        self._dom.content.empty();
+        self._dom.footer.empty();
+        self._dom.header.empty();
+
     };
 
     /**
@@ -56,19 +75,10 @@ function TMSMenu() {
      * @private
      */
     this._load_new = function () {
+        self.reset_menu();
         app_tms.set_generator(3, 2, 20, 20, 20);
         app_tms.set_mines(0.1);
         app_tms.new();
-    };
-
-    /**
-     * Set minesweeper reference.
-     *
-     * @function
-     * @param {Minesweeper} mines
-     */
-    this.set_minesweeper = function (mines) {
-        self._mines = mines;
     };
 
 }

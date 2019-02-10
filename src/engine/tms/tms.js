@@ -87,12 +87,8 @@ function ThreeMinesSweeper() {
         self._events.set_minesweeper(self._mines);
         self._events.initEvents();
 
-        // Init minesweeper
-        self._mines.set_menu(self._menu);
-
         // Init menu
         self._menu.set_minesweeper(self._mines);
-        self._menu.main_menu();
 
     };
 
@@ -181,13 +177,32 @@ function ThreeMinesSweeper() {
     };
 
     /**
+     * Abort current game.
+     *
+     * @function
+     */
+    this.abort = function () {
+        self._viewer.delete_last_volume();
+        self._mines.reset_game_ui();
+    };
+
+    /**
+     * Load menu.
+     *
+     * @function
+     */
+    this.load_menu = function () {
+        self.abort();
+        self._menu.main_menu();
+    };
+
+    /**
      * Creates new game.
      *
      * @function
      */
     this.new = function () {
         loadingHandler(true);
-        self._mines.new_game_ui(false);
         setTimeout(function () {
 
             // Generate the figure

@@ -8,5 +8,40 @@ License MIT
 */
 
 #menu {
-	display: none;
+	display: flex;
+	height: 100%;
+	width: 100%;
+}
+
+/**
+Menu root container
+ */
+#menu-container {
+	background-color: rgba(0, 0, 0, 0.70);
+	border-radius: 15px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.40);
+	color: #ffffff;
+	height: 50%;
+	margin: auto;
+	width: 50%;
+}
+
+/**
+Header
+ */
+#menu-header {
+	display: block;
+	height: 20%;
+}
+
+#menu-header .menu-header-icon {
+
+}
+
+#menu-header .menu-header-icon img {
+
+}
+
+#menu-header .menu-header-title {
+
 }
