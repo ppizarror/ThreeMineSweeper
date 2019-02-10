@@ -44,12 +44,21 @@ Header
 }
 
 #menu-header .menu-header-icon img {
-	animation-delay: 2s;
+	animation: menuicon 15s 0s cubic-bezier(0.78, 0.03, 0, 0.9) infinite;
 	float: right;
 	margin-top: -15%;
 	max-width: 100px;
 	min-width: 60px;
 	width: 70%;
+}
+
+@keyframes menuicon {
+	0% {
+		transform: rotate(-360deg);
+	}
+	50% {
+		transform: rotate(-360deg);
+	}
 }
 
 #menu-header .menu-header-title {
