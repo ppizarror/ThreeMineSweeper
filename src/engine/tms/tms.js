@@ -87,8 +87,11 @@ function ThreeMinesSweeper() {
         self._events.set_minesweeper(self._mines);
         self._events.initEvents();
 
-        // Init menu
-        self._menu.set_minesweeper(self._mines);
+        setTimeout(function () {
+            window.onbeforeunload = function () {
+                return lang.reload_alert;
+            }
+        }, 500);
 
     };
 
@@ -184,6 +187,7 @@ function ThreeMinesSweeper() {
     this.abort = function () {
         self._viewer.delete_last_volume();
         self._mines.reset_game_ui();
+        app_console.info(lang.reset_game);
     };
 
     /**

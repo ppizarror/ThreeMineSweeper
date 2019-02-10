@@ -426,6 +426,7 @@ function Minesweeper() {
 
         // Hide
         this._dom.viewer.hide();
+        app_console.info(lang.reset_ui);
 
     };
 
@@ -439,6 +440,7 @@ function Minesweeper() {
 
         // Reset event
         this.reset_game_ui();
+        app_console.info(lang.load_ui);
 
         // Timer
         this._timer.init = new Date();
@@ -455,7 +457,16 @@ function Minesweeper() {
         // Set events
         this._dom.menubutton.on('click', function () {
             app_sound.play(app_sound.sound.BUTTON);
-            app_tms.new()
+            app_dialog.confirm(lang.leave_game_title, lang.leave_game_confirm, {
+                cancel: function () {
+                },
+                confirm: function () {
+                    app_tms.load_menu();
+                },
+                confirmButtonClass: app_dialog.options.buttons.INFO,
+                icon: 'fas fa-home',
+                size: app_dialog.options.size.SMALL,
+            });
         });
         this._dom.resetbutton.on('click', function () {
             app_sound.play(app_sound.sound.BUTTON);
@@ -465,6 +476,7 @@ function Minesweeper() {
                 confirm: function () {
                     app_tms.new();
                 },
+                confirmButtonClass: app_dialog.options.buttons.ERROR,
                 icon: 'fas fa-exclamation-triangle',
                 size: app_dialog.options.size.SMALL,
             });
@@ -705,7 +717,6 @@ function Minesweeper() {
         // Scoreboard content autosize
         let $f = function () {
             self._dom.scoreboard_content.css('height', self._get_scoreboard_height());
-            console.log('k');
         };
         app_dom.window.on('resize.scoreboard', $f);
         $f();

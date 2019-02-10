@@ -49,9 +49,11 @@ function TMSSound() {
             {
                 name: this.sound.CLICK,
                 preload: true,
+                volume: 0.8,
             },
             {
-                name: this.sound.FLAG
+                name: this.sound.FLAG,
+                volume: 0.8,
             },
             {
                 name: this.sound.GAMEOVER
@@ -69,13 +71,14 @@ function TMSSound() {
                 name: this.sound.UNFLAG
             },
             {
-                name: this.sound.WRONG
+                name: this.sound.WRONG,
+                volume: 0.5,
             }
         ],
         multiplay: true,
         path: 'resources/sounds/',
         preload: false,
-        volume: 1.0,
+        volume: 0.6,
     });
 
     /**
@@ -87,7 +90,10 @@ function TMSSound() {
      * @private
      */
     this._check_sound = function (sound) {
-        return this._soundkeys.includes(sound);
+        for (let i = 0; i < this._soundkeys.length; i += 1) {
+            if (this.sound[this._soundkeys[i]] === sound) return true;
+        }
+        return false;
     };
 
     /**
@@ -122,7 +128,6 @@ function TMSSound() {
         if (!this._check_sound(sound)) return;
         ion.sound.pause(sound);
     };
-
 }
 
 /**

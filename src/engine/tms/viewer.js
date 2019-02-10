@@ -2275,6 +2275,7 @@ function TMSViewer() {
             self._remove_mesh_from_scene(self._volume_meshes.contourminor[i]);
         }
         if (self._volume_meshes.contourminor.length > 0) self._volume_meshes.contourminor = [];
+        app_console.info(lang.reset_view);
 
     };
 
@@ -2289,6 +2290,7 @@ function TMSViewer() {
 
         // Store volume
         self._volume = volume;
+        app_console.info(lang.load_view);
 
         // Scale volume
         volume.scale(1, this.worldsize.x, this.worldsize.y, this.worldsize.z);

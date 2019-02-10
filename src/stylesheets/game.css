@@ -54,7 +54,7 @@ Left column, contains buttons
 	background-color: #000000;
 	color: #ffffff;
 	float: left;
-	font-weight: 300;
+	font-weight: 400;
 	left: 0;
 	margin-left: 1%;
 	margin-top: 1%;
@@ -230,7 +230,6 @@ Header, contains title of the bookmarks
 .game-ui-right-column #game-scoreboard-content {
 	overflow-x: hidden;
 	overflow-y: auto;
-	height: 352px;
 }
 
 .game-ui-right-column #game-scoreboard-content::-webkit-scrollbar-track {

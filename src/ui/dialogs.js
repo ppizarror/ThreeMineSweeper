@@ -41,7 +41,7 @@ function AppDialog() {
             ERROR: 'btn-default', // btn-red
             DEFAULT: 'btn-default',
             INFO: 'btn-blue',
-            NONE: 'btn-defauñt',
+            NONE: '',
             OTHER: 'btn-default',
             PURPLE: 'btn-purple',
             SUCCESS: 'btn-success',

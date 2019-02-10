@@ -12,4 +12,5 @@
  */
 let aboutinfo = {
     "productname": "ThreeMinesSweeper",
+    "productwebsite": "https://github.com/ppizarror/ThreeMinesSweeper",
 };
