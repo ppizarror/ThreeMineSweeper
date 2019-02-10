@@ -12,12 +12,7 @@
  */
 theme_db = {
     "default": {
-        "backToTopScrollPxTrigger": 300, // Pixel to show back to top button
-        "backToTopShow": true, // Show back to top button
-        "backToTopSize": [50, 65], // Size back to top button
-        "headerBgColor": "#24292e", // Header background color
-        "headerFontColor": "#ffffff", // Text header color
-        "headerPosition": "fixed", // Header position <fixed, absolute>
+        "headerBgColor": "#85c6f8", // Header background color
         "spinColor": "#ffffff", // Spinner color
         "spinLines": 11, // Spinner number of lines
         "spinScale": 0.23, // Spinner scale
@@ -109,26 +104,6 @@ function initThemes() {
  * @function
  */
 function applyTheme() {
-
-    /**
-     * ------------------------------------------------------------------------
-     * Apply CSS
-     * ------------------------------------------------------------------------
-     */
-    app_dom.root.css({});
-    app_dom.header.css({
-        'background-color': theme.headerBgColor,
-        'position': theme.headerPosition,
-    });
-
-    /**
-     * ------------------------------------------------------------------------
-     * Change header opacity
-     * ------------------------------------------------------------------------
-     */
-    setTimeout(function () {
-        app_dom.header.css('opacity', 1.0);
-    }, 1500);
 
     /**
      * ------------------------------------------------------------------------

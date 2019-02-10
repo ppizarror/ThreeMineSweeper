@@ -16,18 +16,14 @@ let app_dom = {
     body: null,
     document: $(document),
     head: null,
-    header: null,
     html: null,
-    root: null,
     window: $(window),
 };
 
 $(function () {
     app_dom.body = $('body');
     app_dom.head = $('head');
-    app_dom.header = $('#header');
     app_dom.html = $('html');
-    app_dom.root = $('#root');
 });
 
 /**
