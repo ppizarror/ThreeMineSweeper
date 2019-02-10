@@ -44,7 +44,7 @@ Header
 }
 
 #menu-header .menu-header-icon img {
-	animation: menuicon 15s 0s cubic-bezier(0.78, 0.03, 0, 0.9) infinite;
+	animation: menuicon 15s 0s cubic-bezier(0.79, 0.99, 0, 1.04) infinite;
 	float: right;
 	margin-top: -15%;
 	max-width: 100px;
@@ -127,12 +127,21 @@ Footer
 #menu-footer {
 	color: #868686;
 	display: flex;
-	font-size: 0.8rem;
+	font-size: 1rem;
 	font-weight: 300;
 }
 
+@media screen and (max-width: 800px) {
+	#menu-footer {
+		font-size: 0.8rem;
+	}
+}
+
 #menu-footer .menu-footer-item {
+	overflow: hidden;
+	white-space: nowrap;
 	width: 33.333%;
+	word-break: break-word;
 }
 
 #menu-footer .menu-footer-item.menu-footer-item-author {
@@ -169,4 +178,34 @@ Footer
 #menu-footer .menu-footer-item.menu-footer-item-version {
 	padding-right: 2.5%;
 	text-align: right;
+}
+
+/**
+Language selector on footer
+ */
+#menu-footer .menu-footer-lang-selector {
+	margin-top: 2.2rem;
+	max-width: 640px;
+	min-width: 400px;
+	padding-left: 1.2%;
+	padding-right: 1.2%;
+	position: fixed;
+	text-align: right;
+	width: 50%;
+}
+
+#menu-footer .menu-footer-lang-selector img {
+	box-shadow: 0 0 3px rgba(0, 0, 0, 0.55);
+	filter: grayscale(0.4);
+	height: 1.3rem;
+	margin-left: 10px;
+	opacity: 0.5;
+	padding: 0;
+	width: 2.3rem;
+}
+
+#menu-footer .menu-footer-lang-selector img:hover {
+	cursor: pointer;
+	filter: grayscale(0);
+	opacity: 1.0;
 }

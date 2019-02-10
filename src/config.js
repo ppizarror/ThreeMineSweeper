@@ -13,21 +13,21 @@
  */
 
 /**
- * App theme
+ * App theme.
  * @type {string}
  * @global
  */
 let cfg_app_theme = 'default';
 
 /**
- * Popup themes <bootstrap, dark, light, material, modern, supervan> {@link sessionCookie}
+ * Popup themes <bootstrap, dark, light, material, modern, supervan> {@link sessionCookie}.
  * @type {string}
  * @global
  */
 let cfg_popup_theme = 'material';
 
 /**
- * Enable console logging
+ * Enable console logging.
  * @type {boolean}
  * @const
  * @global
@@ -35,7 +35,7 @@ let cfg_popup_theme = 'material';
 const cfg_verbose = true;
 
 /**
- * Show total messages on console
+ * Show total messages on console.
  * @type {boolean}
  * @const
  * @global
@@ -58,7 +58,7 @@ const show_console_total_messages = true;
 const cfg_href_score = 'http://127.0.0.1/ThreeMineSweeperServer/score.php';
 
 /**
- * Enables CORS (Cross-domain)
+ * Enables CORS (Cross-domain).
  * @type {boolean}
  * @const
  * @global
@@ -66,7 +66,7 @@ const cfg_href_score = 'http://127.0.0.1/ThreeMineSweeperServer/score.php';
 const cfg_ajax_cors = true;
 
 /**
- * Ajax timeout
+ * Ajax timeout.
  * @type {number}
  * @global
  */
@@ -80,7 +80,7 @@ const cfg_href_ajax_timeout = 45000;
  */
 
 /**
- * Days before cookie expire
+ * Days before cookie expire.
  * @type {number}
  * @const
  * @global
@@ -88,12 +88,12 @@ const cfg_href_ajax_timeout = 45000;
 const cfg_cookie_expire_days = 14;
 
 /**
- * Cookies ID {@link sessionCookie}
+ * Cookies ID {@link sessionCookie}.
  * @type {string}
  * @const
  * @global
  */
-const cfg_cookie_session_id = 'R43R6yAZyk';
+const cfg_cookie_session_id = 'R43R65AZyk';
 
 /**
  * Only local cookies.
@@ -111,7 +111,7 @@ const cfg_cookie_local = false;
  */
 
 /**
- * Total messages on console after wipe
+ * Total messages on console after wipe.
  * @type {int}
  * @const
  * @global
@@ -119,7 +119,7 @@ const cfg_cookie_local = false;
 const cfg_total_console_messages_until_wipe = 1000;
 
 /**
- * Maximum loading layer time
+ * Maximum loading layer time.
  * @type {number}
  * @const
  * @global
@@ -127,7 +127,7 @@ const cfg_total_console_messages_until_wipe = 1000;
 const cfg_max_time_loading_layer = 60;
 
 /**
- * Time before loading layer appears
+ * Time before loading layer appears.
  * @type {number}
  * @const
  * @global
@@ -142,7 +142,7 @@ const cfg_init_loading_layer_after = 150;
  */
 
 /**
- * Notification core (amaranjs,jquery-toast-plugin,toastr)
+ * Notification core (amaranjs,jquery-toast-plugin,toastr).
  * @type {string}
  * @const
  * @global
@@ -150,7 +150,7 @@ const cfg_init_loading_layer_after = 150;
 const cfg_notification_core = 'toastr';
 
 /**
- * Notification are or not avaiable
+ * Notification are or not avaiable.
  * @type {boolean}
  * @const
  * @global
@@ -158,7 +158,7 @@ const cfg_notification_core = 'toastr';
 const cfg_notification_enabled = true;
 
 /**
- * Maximum notifications on screen (jquery.toast,toastr)
+ * Maximum notifications on screen (jquery.toast,toastr).
  * @type {number}
  * @const
  * @global
@@ -166,7 +166,7 @@ const cfg_notification_enabled = true;
 const cfg_max_notification_stack = 3;
 
 /**
- * Show always notifications
+ * Show always notifications.
  * @type {boolean}
  * @const
  * @global
@@ -174,7 +174,7 @@ const cfg_max_notification_stack = 3;
 const cfg_always_show_err_notification = true;
 
 /**
- * Notification time life in miliseconds
+ * Notification time life in miliseconds.
  * @type {number}
  * @global
  * @const
@@ -189,7 +189,7 @@ const cfg_notification_timeout = 10000;
  */
 
 /**
- * Public date format
+ * Public date format.
  * @type {string}
  * @const
  * @global
@@ -197,7 +197,7 @@ const cfg_notification_timeout = 10000;
 const cfg_date_format_public_d = 'dd/MM/yyyy';
 
 /**
- * Public hour format
+ * Public hour format.
  * @type {string}
  * @const
  * @global

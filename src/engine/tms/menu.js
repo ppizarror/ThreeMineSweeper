@@ -38,6 +38,49 @@ function TMSMenu() {
     let self = this;
 
     /**
+     * Init menu.
+     *
+     * @function
+     */
+    this.init_menu = function () {
+
+        // Write header title
+        self._dom.header.find('.menu-header-title').html(aboutinfo.productname);
+
+        // Write footer
+        let $langid = generateID();
+
+        // noinspection HtmlUnknownTarget
+        self._dom.footer.html('<div class="menu-footer-item menu-footer-item-author">{0}: <a href="{2}" target="_blank" title="{6}">{1}</a></div><div class="menu-footer-item menu-footer-item-other"><a href="{5}" target="_blank" title="{7}"><i class="fab fa-github"></i></a></div><div class="menu-footer-item menu-footer-item-version">v{3} ({4})</div><div class="menu-footer-lang-selector" id="{8}"></div>'.format(lang.author, aboutinfo.author.tag, aboutinfo.author.website, aboutinfo.v.version, aboutinfo.v.date, aboutinfo.productwebsite, lang.footer_author, lang.footer_github, $langid));
+
+        // Write langs
+        let langcontainer = $('#' + $langid);
+        self._write_lang(langcontainer, 'es', lang.lang_es);
+        self._write_lang(langcontainer, 'en', lang.lang_en);
+
+    };
+
+    /**
+     * Write lang.
+     *
+     * @function
+     * @param {JQuery<HTMLElement> | jQuery | HTMLElement} container
+     * @param {string} code
+     * @param {string} langname
+     * @private
+     */
+    this._write_lang = function (container, code, langname) {
+        let $langid = generateID();
+        let $langtooltip = lang.lang_load_title.format(langname);
+        // noinspection HtmlUnknownTarget
+        container.append('<img src="resources/langs/{1}.png" id="{0}" title="{2}" alt="" class="hvr-grow-shadow" />'.format($langid, code, $langtooltip));
+        let $btn = $('#' + $langid);
+        $btn.on('click', function () {
+            self._load_lang(code);
+        });
+    };
+
+    /**
      * Open main menu.
      *
      * @function
@@ -52,27 +95,60 @@ function TMSMenu() {
         self._dom.container.fadeIn();
 
         // Create events
-        let $f = function () {
-            self._dom.content.css('height', self._get_content_height());
-        };
-        app_dom.window.on('resize.menucontainer', $f);
+        app_dom.window.on('resize.menucontainer', self._set_content_height);
 
         // Write buttons
-        self._add_button(lang.menu_new_game, function () {
-            self._load_new();
-        });
-        self._add_button(lang.menu_how_to_play);
-        self._add_button(lang.menu_about);
-
-        // noinspection HtmlUnknownTarget
-        self._dom.footer.html('<div class="menu-footer-item menu-footer-item-author">{0}: <a href="{2}" target="_blank" title="{6}">{1}</a></div><div class="menu-footer-item menu-footer-item-other"><a href="{5}" target="_blank" title="{7}"><i class="fab fa-github"></i></a></div><div class="menu-footer-item menu-footer-item-version">v{3} ({4})</div>'.format(lang.author, aboutinfo.author.tag, aboutinfo.author.website, aboutinfo.v.version, aboutinfo.v.date, aboutinfo.productwebsite, lang.footer_author, lang.footer_github));
+        self._add_button(lang.menu_new_game, self._menu_new);
+        self._add_button(lang.menu_how_to_play, self._menu_htp);
+        self._add_button(lang.menu_about, self._menu_about);
 
         // Apply rippler effect
         self._apply_rippler();
 
         // Set height
-        $f();
+        self._set_content_height();
 
+    };
+
+    /**
+     * Set content height.
+     *
+     * @function
+     * @private
+     */
+    this._set_content_height = function () {
+        self._dom.content.css('height', self._get_content_height());
+    };
+
+    /**
+     * Create new game menu.
+     *
+     * @function
+     * @private
+     */
+    this._menu_new = function () {
+
+        // Wipe content
+        self._dom.content.empty();
+
+    };
+
+    /**
+     * Create menu how to play.
+     *
+     * @function
+     * @private
+     */
+    this._menu_htp = function () {
+    };
+
+    /**
+     * About menu.
+     *
+     * @function
+     * @private
+     */
+    this._menu_about = function () {
     };
 
     /**
@@ -120,7 +196,7 @@ function TMSMenu() {
      * @private
      */
     this._get_content_height = function () {
-        return getElementHeight(self._dom.container) - getElementHeight(self._dom.header) - getElementHeight(self._dom.footer) - 6;
+        return self._dom.container.innerHeight() - getElementHeight(self._dom.header) - getElementHeight(self._dom.footer) - 6;
     };
 
     /**
@@ -138,7 +214,6 @@ function TMSMenu() {
 
         // Delete content
         self._dom.content.empty();
-        self._dom.footer.empty();
         app_console.info(lang.reset_menu);
 
     };
@@ -154,6 +229,24 @@ function TMSMenu() {
         app_tms.set_generator(3, 2, 20, 20, 20);
         app_tms.set_mines(0.1);
         app_tms.new();
+    };
+
+    /**
+     * Load language.
+     *
+     * @function
+     * @param {string} $lang
+     * @private
+     */
+    this._load_lang = function ($lang) {
+        if (sessionCookie.lang === $lang) return;
+        if (!lang_available.includes($lang)) return;
+        sessionCookie.lang = $lang;
+        updateSessionCookie();
+        app_console.info(lang.load_lang.format($lang));
+        lang = lang_db[$lang]; // Reload lang
+        self.init_menu();
+        self._menu_new(); // Reload menu
     };
 
 }

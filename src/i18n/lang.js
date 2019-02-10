@@ -13,16 +13,16 @@
  */
 
 /**
- * Application language
+ * Application language.
  * @type {string}
  * @global
  */
 let cfg_lang = 'en';
 
 /**
- * Available languages
+ * Available languages.
  * @const
- * @private
+ * @global
  */
 const lang_available = ['en'];
 

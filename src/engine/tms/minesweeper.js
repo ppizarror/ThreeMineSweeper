@@ -734,7 +734,7 @@ function Minesweeper() {
      * @private
      */
     this._get_scoreboard_height = function () {
-        let $height = getElementHeight(self._dom.scoreboard_container);
+        let $height = self._dom.scoreboard_container.innerHeight();
         let $header = getElementHeight(self._dom.scoreboard_header);
         return $height - $header - 6;
     };

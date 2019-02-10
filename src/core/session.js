@@ -41,6 +41,7 @@ function extendDefaultSessionValues($session) {
         /**
          * App settings
          */
+        lang: cfg_lang,                 // App lang
         theme_app: cfg_app_theme,       // App theme
         theme_popup: cfg_popup_theme,   // Popups theme
 

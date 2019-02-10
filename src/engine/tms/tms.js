@@ -87,11 +87,15 @@ function ThreeMinesSweeper() {
         self._events.set_minesweeper(self._mines);
         self._events.initEvents();
 
+        // Set window events
         setTimeout(function () {
             window.onbeforeunload = function () {
                 return lang.reload_alert;
             }
         }, 500);
+
+        // Init menu
+        self._menu.init_menu();
 
     };
 
