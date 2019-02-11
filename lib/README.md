@@ -2,7 +2,7 @@
 
 ## lib/
 
-This directory contains the libraries used by TMS (27 in total):
+This directory contains the libraries used by TMS (29 in total):
 
 | Library | Version | Link |
 | :-- | :--: | :-- |
@@ -19,6 +19,7 @@ This directory contains the libraries used by TMS (27 in total):
 | jquery | 3.3.1 | <a href="https://github.com/jquery/jquery">github.com/jquery/jquery</a> |
 | jquery-confirm | 3.3.4 | <a href="https://github.com/craftpip/jquery-confirm">github.com/craftpip/jquery-confirm</a> |
 | jquery-dateFormat | 1.0.2 | <a href="https://github.com/phstc/jquery-dateFormat">github.com/phstc/jquery-dateFormat</a> |
+| jquery-nice-select | 1.1.0 | <a href="https://github.com/hernansartorio/jquery-nice-select">github.com/hernansartorio/jquery-nice-select</a> |
 | jquery-scrollLock | 3.1.3 | <a href="https://github.com/MohammadYounes/jquery-scrollLock">github.com/MohammadYounes/jquery-scrollLock</a> |
 | jquery-timeago | 1.6.3 | <a href="https://github.com/rmm5t/jquery-timeago">github.com/rmm5t/jquery-timeago</a> |
 | jquery.toast | 1.3.2 | <a href="https://github.com/kamranahmedse/jquery-toast-plugin">github.com/kamranahmedse/jquery-toast-plugin</a> |
@@ -26,6 +27,7 @@ This directory contains the libraries used by TMS (27 in total):
 | md5 | 2.10.0 | <a href="https://github.com/blueimp/JavaScript-MD5">github.com/blueimp/JavaScript-MD5</a> |
 | normalize | 8.0.0 | <a href="https://github.com/necolas/normalize.css">github.com/necolas/normalize.css</a> |
 | notification.js | 0.1.3 | <a href="https://github.com/ppizarror/notification.js">github.com/ppizarror/notification.js</a> |
+| pace | 1.0.0 | <a href="https://github.com/HubSpot/pace">github.com/HubSpot/pace</a> |
 | parallax | 1.5.0 | <a href="https://github.com/pixelcog/parallax.js">github.com/pixelcog/parallax.js</a> |
 | rippler | 0.1.1 | <a href="https://github.com/blivesta/rippler">github.com/blivesta/rippler</a> |
 | spin.js | 4.0.0 | <a href="https://github.com/fgnass/spin.js">github.com/fgnass/spin.js</a> |
