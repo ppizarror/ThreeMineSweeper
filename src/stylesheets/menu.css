@@ -21,9 +21,9 @@ Menu root container
 	border-radius: 15px;
 	box-shadow: 0 0 10px rgba(0, 0, 0, 0.40);
 	color: #ffffff;
-	height: 55%;
+	height: 60%;
 	margin: auto;
-	max-height: 380px;
+	max-height: 420px;
 	max-width: 640px;
 	min-height: 250px;
 	min-width: 400px;
@@ -286,22 +286,24 @@ Menu input
 	font-weight: 600;
 	line-height: 200%;
 	overflow: hidden;
-	padding-left: 2rem;
+	padding-right: 2rem;
+	text-align: right;
 	text-overflow: ellipsis;
 	white-space: nowrap;
-	width: 30%;
+	width: 45%;
 }
 
 @media screen and (max-width: 800px) {
 	#menu-content .menu-content-input .menu-content-input-child.menu-content-input-label {
 		font-size: 1.05rem;
-		padding-left: 1rem;
+		padding-right: 1rem;
 	}
 }
 
 #menu-content .menu-content-input .menu-content-input-child.menu-content-input-content {
+	padding-right: 1rem;
 	vertical-align: middle;
-	width: 70%;
+	width: 55%;
 }
 
 #menu-content .menu-content-input .menu-content-input-child.menu-content-input-content .nice-select {
@@ -321,6 +323,26 @@ Generator container options
  */
 #menu-content .menu-generator-options {
 	display: flex;
+	flex-flow: column;
 	padding-bottom: 1rem;
 	width: 100%;
+}
+
+@media screen and (max-width: 800px) {
+	#menu-content .menu-generator-options {
+		padding-bottom: 1rem;
+	}
+}
+
+#menu-content .menu-generator-options .menu-generator-latlng {
+	display: flex;
+}
+
+#menu-content .menu-generator-options .menu-generator-latlng .irs {
+	float: left;
+	width: 100%;
+}
+
+#menu-content .menu-generator-options .menu-generator-latlng .menu-generator-latlng-sep {
+	padding-left: 1rem;
 }

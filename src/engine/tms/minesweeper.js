@@ -460,11 +460,14 @@ function Minesweeper() {
                 app_tms.load_menu();
             };
             app_sound.play(app_sound.sound.BUTTON);
-            if (self._game_status.played === 0) $loadmenu();
+            if (self._game_status.played === 0) {
+                $loadmenu();
+                return;
+            }
             app_dialog.confirm(lang.leave_game_title, lang.leave_game_confirm, {
                 cancel: function () {
                 },
-                confirm: $loadmenu(),
+                confirm: $loadmenu,
                 confirmButtonClass: app_dialog.options.buttons.INFO,
                 icon: 'fas fa-home',
                 size: app_dialog.options.size.SMALL,
@@ -475,7 +478,10 @@ function Minesweeper() {
                 app_tms.new();
             };
             app_sound.play(app_sound.sound.BUTTON);
-            if (self._game_status.played === 0) $reset();
+            if (self._game_status.played === 0) {
+                $reset();
+                return;
+            }
             app_dialog.confirm(lang.reset_game_title, lang.reset_game_confirm, {
                 cancel: function () {
                 },

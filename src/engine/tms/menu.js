@@ -20,19 +20,6 @@ function TMSMenu() {
     /* eslint-disable no-extra-parens */
 
     /**
-     * Store dom objects.
-     * @private
-     */
-    this._dom = {
-        container: $('#menu-container'),
-        content: $('#menu-content'),
-        footer: $('#menu-footer'),
-        header: $('#menu-header'),
-        menu: $('#menu'),
-        subheader: $('#menu-subheader'),
-    };
-
-    /**
      * Get game modes.
      * @private
      */
@@ -56,28 +43,48 @@ function TMSMenu() {
             maxorder: 5,
         },
         5: { // RandomPlane
-            inc: 100,
+            from: 300,
             max: 1200,
+            min: 50,
+            step: 50,
             target: true,
         },
         6: { // Sphere
-            inc: 5,
             latlng: true,
-            max: 40
+            from: 20,
+            max: 40,
+            min: 5,
+            step: 5,
         },
         7: { // Cylinder
             latlng: true,
-            inc: 5,
-            max: 40
+            from: 20,
+            max: 40,
+            min: 5,
+            step: 5,
         },
         8: { // Square
-            inc: 5,
             latlng: true,
-            max: 40
+            from: 10,
+            max: 40,
+            min: 5,
+            step: 5,
         },
         9: { // EmptyGenerator
             enabled: false,
         },
+    };
+
+    /**
+     * Configure mines.
+     * @type {{min: number, max: number, step: number}}
+     * @private
+     */
+    this._mines = {
+        from: 30,
+        max: 95,
+        min: 5,
+        step: 5,
     };
 
     /**
@@ -100,11 +107,41 @@ function TMSMenu() {
     this._rippler = false;
 
     /**
-     * Generator options container.
-     * @type {JQuery<HTMLElement> | jQuery | HTMLElement}
+     * Dom objects.
+     * @type {{
+     *      container: JQuery<HTMLElement> | jQuery | HTMLElement,
+     *      content: JQuery<HTMLElement> | jQuery | HTMLElement,
+     *      footer: JQuery<HTMLElement> | jQuery | HTMLElement,
+     *      gen_lat: JQuery<HTMLElement> | jQuery | HTMLElement,
+     *      gen_lng: JQuery<HTMLElement> | jQuery | HTMLElement,
+     *      gen_mines: JQuery<HTMLElement> | jQuery | HTMLElement
+     *      gen_order: JQuery<HTMLElement> | jQuery | HTMLElement,
+     *      gen_target: JQuery<HTMLElement> | jQuery | HTMLElement,
+     *      generator: JQuery<HTMLElement> | jQuery | HTMLElement,
+     *      header: JQuery<HTMLElement> | jQuery | HTMLElement,
+     *      menu: JQuery<HTMLElement> | jQuery | HTMLElement,
+     *      playbutton: JQuery<HTMLElement> | jQuery | HTMLElement,
+     *      subheader: JQuery<HTMLElement> | jQuery | HTMLElement,
+     * }}
      * @private
      */
-    this._generator_options = null;
+    this._dom = {
+        container: $('#menu-container'),
+        content: $('#menu-content'),
+        footer: $('#menu-footer'),
+        gen_lat: null,
+        gen_lng: null,
+        gen_order: null,
+        gen_selector: null,
+        gen_mines: null,
+        gen_target: null,
+        generator: null,
+        header: $('#menu-header'),
+        menu: $('#menu'),
+        mines: null,
+        playbutton: null,
+        subheader: $('#menu-subheader'),
+    };
 
     /**
      * Object pointer.
@@ -216,6 +253,11 @@ function TMSMenu() {
         // Set height
         self._set_content_height();
 
+        // Delete animation of main icon
+        setTimeout(function () {
+            $('.menu-header-icon').removeClass('slideInDown')
+        }, 2500);
+
     };
 
     /**
@@ -245,29 +287,86 @@ function TMSMenu() {
         // Write selector
         let $selector = generateID();
         self._write_input(lang.new_game_generator, '<select id="{0}"></select>'.format($selector));
-        $selector = $('#' + $selector);
-        $selector.append('<option value="-1" disabled selected>{0}</option>'.format(lang.new_game_generator_select));
+        self._dom.gen_selector = $('#' + $selector);
+        self._dom.gen_selector.append('<option value="-1" disabled selected>{0}</option>'.format(lang.new_game_generator_select));
         for (let i = 0; i < self._gamekeys.length; i += 1) {
             if (self._games[self._gamekeys[i]].enabled) {
-                $selector.append('<option value="{0}">{1}</option>'.format(self._gamekeys[i], self._games[self._gamekeys[i]].name));
+                self._dom.gen_selector.append('<option value="{0}">{1}</option>'.format(self._gamekeys[i], self._games[self._gamekeys[i]].name));
             }
         }
-        $selector.niceSelect();
-        $selector.on('change', function (e) {
+        self._dom.gen_selector.niceSelect();
+        self._dom.gen_selector.on('change', function (e) {
             self._load_generator_options(e.target.value);
+            self._set_content_height();
+            self._dom.gen_selector.niceSelect('update');
         });
 
         // Create container
         let $gencontainer = generateID();
         self._dom.content.append('<div class="menu-generator-options" id="{0}"></div>'.format($gencontainer));
-        self._generator_options = $('#' + $gencontainer);
+        self._dom.generator = $('#' + $gencontainer);
 
         // Add play button
-        self._add_button('play', 'btn-primary');
+        self._dom.playbutton = self._add_button(lang.new_game_start, 'btn-primary', self._play);
+        self._dom.playbutton.attr('disabled', 'disabled');
 
         // Apply button effect
         self._set_content_height();
         self._apply_rippler();
+        self._dom.gen_selector.niceSelect('update');
+
+    };
+
+    /**
+     * Create new game.
+     *
+     * @function
+     * @private
+     */
+    this._play = function () {
+
+        // Load game
+        let $gen = self._dom.gen_selector.val();
+        if (!self._gamekeys.includes($gen)) return;
+        $gen = parseInt($gen, 10);
+        let game = self._games[$gen];
+        if (isNullUndf(game)) return;
+
+        // Load options
+        let $order = null;
+        let $target = null;
+        let $lat = null;
+        let $lng = null;
+        let $mines;
+
+        if (game.fractal) {
+            $order = self._dom.gen_order.val();
+            if (isNullUndf($order)) return;
+            $order = parseInt($order, 10);
+        }
+        if (game.target) {
+            $target = self._dom.gen_target.val();
+            if (isNullUndf($target)) return;
+            $target = parseInt($target, 10);
+        }
+        if (game.latlng) {
+            $lat = self._dom.gen_lat.val();
+            $lng = self._dom.gen_lng.val();
+            if (isNullUndf($lat) || isNullUndf($lng)) return;
+            $lat = parseInt($lat, 10);
+            $lng = parseInt($lng, 10);
+        }
+        $mines = self._dom.gen_mines.val();
+        if (isNullUndf($mines)) return;
+        $mines = parseInt($mines, 10);
+        $mines *= 0.01;
+        if ($mines > 1 || $mines <= 0) return;
+
+        // Init new game
+        self.reset_menu();
+        app_tms.set_generator($gen, $order, $target, $lat, $lng);
+        app_tms.set_mines($mines);
+        app_tms.new();
 
     };
 
@@ -281,11 +380,95 @@ function TMSMenu() {
     this._load_generator_options = function (option) {
 
         // Empty generator
-        self._generator_options.empty();
+        self._dom.generator.empty();
+        self._dom.generator.removeClass('animated');
+        self._dom.generator.removeClass('bounceInUp');
+        self._dom.generator.hide();
 
         // Get object
         let game = self._games[option];
-        console.log(game);
+        if (isNullUndf(game)) return;
+
+        // Write options
+        let $id, $id2;
+        if (game.fractal) {
+            $id = generateID();
+            self._write_input(lang.new_game_order, '<select id="{0}"></select>'.format($id), self._dom.generator);
+            self._dom.gen_order = $('#' + $id);
+            for (let i = 1; i <= game.maxorder; i += 1) {
+                self._dom.gen_order.append('<option value="{0}">{1}</option>'.format(i, i));
+            }
+            self._dom.gen_order[0].selectedIndex = game.maxorder - 1;
+            self._dom.gen_order.niceSelect();
+        }
+        if (game.target) {
+            $id = generateID();
+
+            /*
+            let $inc, j;
+            self._write_input(lang.new_game_target_face, '<select id="{0}"></select>'.format($id), self._dom.generator);
+            self._dom.gen_target = $('#' + $id);
+            $inc = Math.floor((game.max - game.min) / game.step);
+            j = game.min;
+            for (let i = 0; i <= $inc; i += 1) {
+                self._dom.gen_target.append('<option value="{0}">{1}</option>'.format(j, j));
+                j += game.inc;
+            }
+            self._dom.gen_target[0].selectedIndex = 0;
+            self._dom.gen_target.niceSelect();
+            */
+
+            self._write_input(lang.new_game_target_face, '<input id="{0}" />'.format($id), self._dom.generator);
+            self._dom.gen_target = $('#' + $id);
+            self._dom.gen_target.ionRangeSlider({
+                from: game.from,
+                max: game.max,
+                min: game.min,
+                skin: 'round',
+                step: game.step,
+            });
+        }
+        if (game.latlng) {
+            $id = generateID();
+            $id2 = generateID();
+            self._write_input(lang.new_game_latlng, '<div class="menu-generator-latlng"><input id="{0}" /><div class="menu-generator-latlng-sep"></div><input id="{1}" /></div>'.format($id, $id2), self._dom.generator);
+            self._dom.gen_lat = $('#' + $id);
+            self._dom.gen_lng = $('#' + $id2);
+            self._dom.gen_lat.ionRangeSlider({
+                from: game.from,
+                max: game.max,
+                min: game.min,
+                skin: 'round',
+                step: game.step,
+            });
+            self._dom.gen_lng.ionRangeSlider({
+                from: game.from,
+                max: game.max,
+                min: game.min,
+                skin: 'round',
+                step: game.step,
+            });
+        }
+
+        // Write mines
+        $id = generateID();
+        self._write_input(lang.new_game_mines, '<input id="{0}" />'.format($id), self._dom.generator);
+        // noinspection JSJQueryEfficiency
+        self._dom.gen_mines = $('#' + $id);
+        self._dom.gen_mines.ionRangeSlider({
+            from: self._mines.from,
+            max: self._mines.max,
+            min: self._mines.min,
+            skin: 'round',
+            step: self._mines.step,
+        });
+
+        // Add animation
+        self._dom.generator.addClass('animated');
+        self._dom.generator.fadeIn();
+
+        // Enable button
+        self._dom.playbutton.removeAttr('disabled');
 
     };
 
@@ -313,10 +496,12 @@ function TMSMenu() {
      * @function
      * @param {string | HTMLElement} label
      * @param {string | HTMLElement} selector
+     * @param {JQuery<HTMLElement> | jQuery | HTMLElement=} container
      * @private
      */
-    this._write_input = function (label, selector) {
-        self._dom.content.append('<div class="menu-content-input"><div class="menu-content-input-child menu-content-input-label ">{0}</div><div class="menu-content-input-child menu-content-input-content">{1}</div></div>'.format(label, selector));
+    this._write_input = function (label, selector, container) {
+        if (isNullUndf(container)) container = self._dom.content;
+        container.append('<div class="menu-content-input"><div class="menu-content-input-child menu-content-input-label ">{0}</div><div class="menu-content-input-child menu-content-input-content">{1}</div></div>'.format(label, selector));
     };
 
     /**
@@ -353,6 +538,7 @@ function TMSMenu() {
      * @param {string} text
      * @param {string | null} theme
      * @param {function=} callback
+     * @returns {JQuery<HTMLElement> | jQuery | HTMLElement}
      * @private
      */
     this._add_button = function (text, theme, callback) {
@@ -367,7 +553,9 @@ function TMSMenu() {
         if (isNullUndf(theme)) theme = 'btn-default';
         let $id = generateID();
         self._dom.content.append('<div class="menu-main-button"><button type="button" class="btn {2} rippler rippler-inverse hvr-shadow" id="{0}">{1}</button></div>'.format($id, text, theme));
-        $('#' + $id).on('click', $callback);
+        let btn = $('#' + $id);
+        btn.on('click', $callback);
+        return btn;
     };
 
     /**
@@ -416,19 +604,6 @@ function TMSMenu() {
         self._dom.content.empty();
         app_console.info(lang.reset_menu);
 
-    };
-
-    /**
-     * Load new game.
-     *
-     * @function
-     * @private
-     */
-    this._load_new = function () {
-        self.reset_menu();
-        app_tms.set_generator(3, 2, 20, 20, 20);
-        app_tms.set_mines(0.1);
-        app_tms.new();
     };
 
     /**
