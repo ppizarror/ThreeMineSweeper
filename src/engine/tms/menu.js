@@ -51,7 +51,7 @@ function TMSMenu() {
         let $langid = generateID();
 
         // noinspection HtmlUnknownTarget
-        self._dom.footer.html('<div class="menu-footer-item menu-footer-item-author">{0}: <a href="{2}" target="_blank" title="{6}">{1}</a></div><div class="menu-footer-item menu-footer-item-other"><a href="{5}" target="_blank" title="{7}"><i class="fab fa-github"></i></a></div><div class="menu-footer-item menu-footer-item-version">v{3} ({4})</div><div class="menu-footer-lang-selector" id="{8}"></div>'.format(lang.author, aboutinfo.author.tag, aboutinfo.author.website, aboutinfo.v.version, aboutinfo.v.date, aboutinfo.productwebsite, lang.footer_author, lang.footer_github, $langid));
+        self._dom.footer.html('<div class="menu-footer-item menu-footer-item-author">{0}: <a href="{2}" target="_blank" title="{5}">@{1}</a></div><div class="menu-footer-item menu-footer-item-other"><a href="{4}" target="_blank" title="{6}"><i class="fab fa-github"></i></a></div><div class="menu-footer-item menu-footer-item-version">v{3}</div><div class="menu-footer-lang-selector" id="{7}"></div>'.format(lang.author, aboutinfo.author.tag, aboutinfo.author.website, aboutinfo.v.version, aboutinfo.productwebsite, aboutinfo.author.name, lang.footer_github, $langid));
 
         // Write langs
         let langcontainer = $('#' + $langid);

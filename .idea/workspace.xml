@@ -2,16 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5aabf641-1bfc-4f9e-bd89-dad61f629de5" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/config.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/config.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/core/session.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/session.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/engine/tms/menu.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/engine/tms/menu.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/engine/tms/minesweeper.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/engine/tms/minesweeper.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/engine/tms/tms.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/engine/tms/tms.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/i18n/en.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/i18n/en.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/i18n/lang.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/i18n/lang.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/stylesheets/menu.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/stylesheets/menu.css" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -35,7 +26,7 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/app.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="523">
@@ -93,11 +84,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/engine/tms/menu.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="294">
-              <caret line="75" column="77" selection-start-line="75" selection-start-column="77" selection-end-line="75" selection-end-column="77" />
+            <state relative-caret-position="386">
+              <caret line="53" column="537" selection-start-line="53" selection-start-column="537" selection-end-line="53" selection-end-column="537" />
             </state>
           </provider>
         </entry>
@@ -237,10 +228,10 @@
         <option value="$PROJECT_DIR$/src/i18n/lang.js" />
         <option value="$PROJECT_DIR$/src/engine/tms/tms.js" />
         <option value="$PROJECT_DIR$/index.html" />
-        <option value="$PROJECT_DIR$/src/engine/tms/menu.js" />
         <option value="$PROJECT_DIR$/src/i18n/en.js" />
         <option value="$PROJECT_DIR$/src/stylesheets/menu.css" />
         <option value="$PROJECT_DIR$/src/app.js" />
+        <option value="$PROJECT_DIR$/src/engine/tms/menu.js" />
       </list>
     </option>
   </component>
@@ -405,7 +396,7 @@
       <workItem from="1549399365819" duration="39067000" />
       <workItem from="1549584340041" duration="9025000" />
       <workItem from="1549596882228" duration="31294000" />
-      <workItem from="1549812217633" duration="27981000" />
+      <workItem from="1549812217633" duration="28225000" />
     </task>
     <servers />
   </component>
@@ -442,7 +433,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="296854000" />
+    <option name="totallyTimeSpent" value="297098000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -783,13 +774,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/engine/tms/menu.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="294">
-          <caret line="75" column="77" selection-start-line="75" selection-start-column="77" selection-end-line="75" selection-end-column="77" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/core/session.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="102">
@@ -822,6 +806,13 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/app.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="523">
+          <caret line="57" column="37" selection-start-line="57" selection-start-column="37" selection-end-line="57" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/engine/tms/tms.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="544">
@@ -829,10 +820,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/app.js">
+    <entry file="file://$PROJECT_DIR$/src/engine/tms/menu.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="523">
-          <caret line="57" column="37" selection-start-line="57" selection-start-column="37" selection-end-line="57" selection-end-column="37" />
+        <state relative-caret-position="386">
+          <caret line="53" column="537" selection-start-line="53" selection-start-column="537" selection-end-line="53" selection-end-column="537" />
         </state>
       </provider>
     </entry>
