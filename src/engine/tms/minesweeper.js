@@ -456,26 +456,30 @@ function Minesweeper() {
 
         // Set events
         this._dom.menubutton.on('click', function () {
+            let $loadmenu = function () {
+                app_tms.load_menu();
+            };
             app_sound.play(app_sound.sound.BUTTON);
+            if (self._game_status.played === 0) $loadmenu();
             app_dialog.confirm(lang.leave_game_title, lang.leave_game_confirm, {
                 cancel: function () {
                 },
-                confirm: function () {
-                    app_tms.load_menu();
-                },
+                confirm: $loadmenu(),
                 confirmButtonClass: app_dialog.options.buttons.INFO,
                 icon: 'fas fa-home',
                 size: app_dialog.options.size.SMALL,
             });
         });
         this._dom.resetbutton.on('click', function () {
+            let $reset = function () {
+                app_tms.new();
+            };
             app_sound.play(app_sound.sound.BUTTON);
+            if (self._game_status.played === 0) $reset();
             app_dialog.confirm(lang.reset_game_title, lang.reset_game_confirm, {
                 cancel: function () {
                 },
-                confirm: function () {
-                    app_tms.new();
-                },
+                confirm: $reset,
                 confirmButtonClass: app_dialog.options.buttons.DANGER,
                 icon: 'fas fa-exclamation-triangle',
                 size: app_dialog.options.size.SMALL,

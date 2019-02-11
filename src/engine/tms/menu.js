@@ -56,20 +56,28 @@ function TMSMenu() {
             maxorder: 5,
         },
         5: { // RandomPlane
+            inc: 100,
+            max: 1200,
             target: true,
         },
         6: { // Sphere
+            inc: 5,
             latlng: true,
+            max: 40
         },
         7: { // Cylinder
             latlng: true,
+            inc: 5,
+            max: 40
         },
         8: { // Square
+            inc: 5,
             latlng: true,
+            max: 40
         },
         9: { // EmptyGenerator
             enabled: false,
-        }
+        },
     };
 
     /**
@@ -83,6 +91,13 @@ function TMSMenu() {
         if (isNullUndf(this._games[this._gamekeys[i]]['enabled'])) this._games[this._gamekeys[i]]['enabled'] = true;
         this._games[this._gamekeys[i]]['name'] = lang['gen_' + this._gamekeys[i].toString()];
     }
+
+    /**
+     * Enable or disable rippler effect.
+     * @type {boolean}
+     * @private
+     */
+    this._rippler = false;
 
     /**
      * Object pointer.
@@ -165,15 +180,20 @@ function TMSMenu() {
      * Open main menu.
      *
      * @function
+     * @param {boolean=} disable_fade - Disable fade effect
      */
-    this.main_menu = function () {
+    this.main_menu = function (disable_fade) {
 
         // Reset menu
         self.reset_menu();
         app_console.info(lang.load_menu);
 
         // Open menu
-        self._dom.container.fadeIn();
+        if (disable_fade) {
+            self._dom.container.show();
+        } else {
+            self._dom.container.fadeIn();
+        }
 
         // Create events
         app_dom.window.on('resize.menucontainer', self._set_content_height);
@@ -214,6 +234,20 @@ function TMSMenu() {
 
         // Write generator selector
         self._write_menuback(lang.menu_new_game);
+
+        // Write selector
+        let $selector = generateID();
+        self._write_input(lang.new_game_generator, '<select id="{0}"></select>'.format($selector));
+        $selector = $('#' + $selector);
+        for (let i = 0; i < self._gamekeys.length; i += 1) {
+            if (self._games[self._gamekeys[i]].enabled) {
+                $selector.append('<option value="{0}">{1}</option>'.format(self._gamekeys[i], self._games[self._gamekeys[i]].name));
+            }
+        }
+        $selector.niceSelect();
+
+        // Apply button effect
+        self._set_content_height();
         self._apply_rippler();
 
     };
@@ -234,6 +268,18 @@ function TMSMenu() {
      * @private
      */
     this._menu_about = function () {
+    };
+
+    /**
+     * Write input on content.
+     *
+     * @function
+     * @param {string | HTMLElement} label
+     * @param {string | HTMLElement} selector
+     * @private
+     */
+    this._write_input = function (label, selector) {
+        self._dom.content.append('<div class="menu-content-input"><div class="menu-content-input-child menu-content-input-label ">{0}</div><div class="menu-content-input-child menu-content-input-content">{1}</div></div>'.format(label, selector));
     };
 
     /**
@@ -258,7 +304,7 @@ function TMSMenu() {
         });
         $btn.on('click', function () {
             app_sound.play(app_sound.sound.BUTTON);
-            self.main_menu();
+            self.main_menu(true);
         });
         self._set_content_height();
     };
@@ -292,6 +338,7 @@ function TMSMenu() {
      * @private
      */
     this._apply_rippler = function () {
+        if (!self._rippler) return;
         $('.rippler').rippler({
             effectClass: 'rippler-effect',
             effectSize: 16,      // Default size (width & height)
