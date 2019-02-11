@@ -58,13 +58,11 @@ module.exports = function (config) {
             'src/core/console.js',
             'src/core/country.js',
             'src/core/dom.js',
-            'src/core/file.js',
             'src/core/hash.js',
             'src/core/logic.js',
             'src/core/math.js',
             'src/core/polyfills.js',
             'src/core/session.js',
-            'src/core/string.js',
             'src/core/url.js',
 
             'src/engine/geom/face.js',

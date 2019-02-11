@@ -112,28 +112,6 @@ if (!String.prototype.format) {
     };
 }
 
-/**
- * Replace.
- *
- * @function
- * @returns {string}
- */
-String.prototype.replaceAll = function (search, replacement) {
-    let target = this;
-    if (replacement === null || replacement === undefined) replacement = '';
-    return target.replace(new RegExp(search, 'g'), replacement);
-};
-
-/**
- * Capitalize string.
- *
- * @function
- * @returns {string}
- */
-String.prototype.capitalize = function () {
-    return this.charAt(0).toUpperCase() + this.slice(1);
-};
-
 
 /**
  * ----------------------------------------------------------------------------
@@ -154,27 +132,4 @@ Array.prototype.pushUnique = function (item) {
         return true;
     }
     return false;
-};
-
-
-/**
- * ----------------------------------------------------------------------------
- * Date
- * ----------------------------------------------------------------------------
- */
-
-/**
- * Get number of the week.
- *
- * @function
- * @returns {number} - Week number
- */
-Date.prototype.getWeekNumber = function () {
-    /* eslint no-extend-native:"off" */
-    /* eslint no-extra-parens:"off" */
-    let d = new Date(Date.UTC(this.getFullYear(), this.getMonth(), this.getDate()));
-    let dayNum = d.getUTCDay() || 7;
-    d.setUTCDate(d.getUTCDate() + 4 - dayNum);
-    let yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
-    return Math.ceil((((d - yearStart) / 86400000) + 1) / 7)
 };
