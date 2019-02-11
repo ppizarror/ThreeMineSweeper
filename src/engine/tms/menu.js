@@ -100,6 +100,20 @@ function TMSMenu() {
     }
 
     /**
+     * Cookies ID.
+     * @type {{gen: string, mines: string, lng: string, lat: string, order: string}}
+     * @private
+     */
+    this._cookies = {
+        gen: 'newgame.gen',
+        lat: 'newgame.lat',
+        lng: 'newgame.lng',
+        mines: 'newgame.mines',
+        order: 'newgame.order',
+        target: 'newgame.target',
+    };
+
+    /**
      * Enable or disable rippler effect.
      * @type {boolean}
      * @private
@@ -271,6 +285,42 @@ function TMSMenu() {
     };
 
     /**
+     * Get value from cookie.
+     *
+     * @function
+     * @param {string} id
+     * @param {number} min
+     * @param {number} max
+     * @param {number} other
+     * @param {boolean} force_int
+     * @returns {number}
+     * @private
+     */
+    this._get_cookie_val = function (id, min, max, other, force_int) {
+        let $val = sessionCookie[id];
+        if (isNullUndf($val)) return other;
+        $val = parseFloat($val);
+        if (isNaN($val)) return other;
+        $val = Math.max(min, Math.min(max, $val));
+        if (force_int) $val = parseInt($val, 10);
+        return $val;
+    };
+
+    /**
+     * Store cookie value, null values are not stored.
+     *
+     * @function
+     * @param {string} id
+     * @param {number | null} value
+     * @private
+     */
+    this._save_cookie_val = function (id, value) {
+        if (isNullUndf(value)) return;
+        sessionCookie[id] = value;
+        updateSessionCookie();
+    };
+
+    /**
      * Create new game menu.
      *
      * @function
@@ -284,22 +334,29 @@ function TMSMenu() {
         // Write generator selector
         self._write_menuback(lang.menu_new_game);
 
-        // Write selector
+        // Write generator selector
         let $selector = generateID();
         self._write_input(lang.new_game_generator, '<select id="{0}"></select>'.format($selector));
         self._dom.gen_selector = $('#' + $selector);
-        self._dom.gen_selector.append('<option value="-1" disabled selected>{0}</option>'.format(lang.new_game_generator_select));
+        self._dom.gen_selector.append('<option value="-1" disabled>{0}</option>'.format(lang.new_game_generator_select));
         for (let i = 0; i < self._gamekeys.length; i += 1) {
             if (self._games[self._gamekeys[i]].enabled) {
                 self._dom.gen_selector.append('<option value="{0}">{1}</option>'.format(self._gamekeys[i], self._games[self._gamekeys[i]].name));
             }
         }
+        self._dom.gen_selector[0].selectedIndex = self._get_cookie_val(self._cookies.gen, 0, self._gamekeys.length - 1, 0, true);
         self._dom.gen_selector.niceSelect();
         self._dom.gen_selector.on('change', function (e) {
             self._load_generator_options(e.target.value);
-            self._set_content_height();
-            self._dom.gen_selector.niceSelect('update');
+            self._save_cookie_val(self._cookies.gen, self._dom.gen_selector[0].selectedIndex);
         });
+
+        // If selected then apply
+        if (self._dom.gen_selector[0].selectedIndex !== 0) {
+            setTimeout(function () {
+                self._dom.gen_selector.trigger('change');
+            }, 250);
+        }
 
         // Create container
         let $gencontainer = generateID();
@@ -343,11 +400,13 @@ function TMSMenu() {
             $order = self._dom.gen_order.val();
             if (isNullUndf($order)) return;
             $order = parseInt($order, 10);
+            self._save_cookie_val(self._cookies.order, self._dom.gen_order[0].selectedIndex);
         }
         if (game.target) {
             $target = self._dom.gen_target.val();
             if (isNullUndf($target)) return;
             $target = parseInt($target, 10);
+            self._save_cookie_val(self._cookies.target, $target);
         }
         if (game.latlng) {
             $lat = self._dom.gen_lat.val();
@@ -355,17 +414,21 @@ function TMSMenu() {
             if (isNullUndf($lat) || isNullUndf($lng)) return;
             $lat = parseInt($lat, 10);
             $lng = parseInt($lng, 10);
+            self._save_cookie_val(self._cookies.lat, $lat);
+            self._save_cookie_val(self._cookies.lng, $lng);
         }
         $mines = self._dom.gen_mines.val();
         if (isNullUndf($mines)) return;
         $mines = parseInt($mines, 10);
-        $mines *= 0.01;
-        if ($mines > 1 || $mines <= 0) return;
+        if ($mines < 0 || $mines > 100) return;
+
+        // Save to cookies
+        self._save_cookie_val(self._cookies.mines, $mines);
 
         // Init new game
         self.reset_menu();
         app_tms.set_generator($gen, $order, $target, $lat, $lng);
-        app_tms.set_mines($mines);
+        app_tms.set_mines($mines * 0.01);
         app_tms.new();
 
     };
@@ -391,6 +454,8 @@ function TMSMenu() {
 
         // Write options
         let $id, $id2;
+
+        // Fractal order
         if (game.fractal) {
             $id = generateID();
             self._write_input(lang.new_game_order, '<select id="{0}"></select>'.format($id), self._dom.generator);
@@ -398,9 +463,11 @@ function TMSMenu() {
             for (let i = 1; i <= game.maxorder; i += 1) {
                 self._dom.gen_order.append('<option value="{0}">{1}</option>'.format(i, i));
             }
-            self._dom.gen_order[0].selectedIndex = game.maxorder - 1;
+            self._dom.gen_order[0].selectedIndex = this._get_cookie_val(self._cookies.order, 0, game.maxorder, game.maxorder - 1, true);
             self._dom.gen_order.niceSelect();
         }
+
+        // Face target
         if (game.target) {
             $id = generateID();
 
@@ -421,13 +488,15 @@ function TMSMenu() {
             self._write_input(lang.new_game_target_face, '<input id="{0}" />'.format($id), self._dom.generator);
             self._dom.gen_target = $('#' + $id);
             self._dom.gen_target.ionRangeSlider({
-                from: game.from,
+                from: self._get_cookie_val(self._cookies.target, game.min, game.max, game.from, true),
                 max: game.max,
                 min: game.min,
                 skin: 'round',
                 step: game.step,
             });
         }
+
+        // Latitude/longitude
         if (game.latlng) {
             $id = generateID();
             $id2 = generateID();
@@ -435,14 +504,14 @@ function TMSMenu() {
             self._dom.gen_lat = $('#' + $id);
             self._dom.gen_lng = $('#' + $id2);
             self._dom.gen_lat.ionRangeSlider({
-                from: game.from,
+                from: self._get_cookie_val(self._cookies.lat, game.min, game.max, game.from, true),
                 max: game.max,
                 min: game.min,
                 skin: 'round',
                 step: game.step,
             });
             self._dom.gen_lng.ionRangeSlider({
-                from: game.from,
+                from: self._get_cookie_val(self._cookies.lng, game.min, game.max, game.from, true),
                 max: game.max,
                 min: game.min,
                 skin: 'round',
@@ -456,7 +525,7 @@ function TMSMenu() {
         // noinspection JSJQueryEfficiency
         self._dom.gen_mines = $('#' + $id);
         self._dom.gen_mines.ionRangeSlider({
-            from: self._mines.from,
+            from: self._get_cookie_val(self._cookies.mines, self._mines.min, self._mines.max, self._mines.from, true),
             max: self._mines.max,
             min: self._mines.min,
             skin: 'round',
@@ -469,6 +538,10 @@ function TMSMenu() {
 
         // Enable button
         self._dom.playbutton.removeAttr('disabled');
+
+        // Others
+        self._set_content_height();
+        self._dom.gen_selector.niceSelect('update');
 
     };
 
