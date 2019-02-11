@@ -55,7 +55,7 @@ const show_console_total_messages = true;
  * @global
  * @const
  */
-const cfg_href_score = 'http://127.0.0.1/ThreeMineSweeperServer/score.php';
+const cfg_href_score = 'https://ppizarror.000webhostapp.com/tms/score.php';
 
 /**
  * Enables CORS (Cross-domain).

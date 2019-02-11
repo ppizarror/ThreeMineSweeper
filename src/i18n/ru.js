@@ -100,6 +100,7 @@ lang_db.ru = {
     "reset_view": "Удаленный просмотр содержимого",
     "scoreboard_empty": "Этот список пуст, будь первым!",
     "scoreboard_title": "Табло",
+    "start_new_game": "Хотите начать новую игру?",
     "viewer_gui_ambientlight": "Окружающий свет",
     "viewer_gui_camera": "Камера",
     "viewer_gui_cameralight": "Свет камеры",

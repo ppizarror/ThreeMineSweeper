@@ -38,12 +38,14 @@ function AppDialog() {
             ZOOM: 'zoom',
         },
         buttons: {
+            BLUE: 'btn-blue',
             DANGER: 'btn-danger',
             DEFAULT: 'btn-default',
             ERROR: 'btn-default', // btn-red
-            INFO: 'btn-blue',
+            INFO: 'btn-info',
             NONE: '',
             OTHER: 'btn-default',
+            PRIMARY: 'btn-primary',
             PURPLE: 'btn-purple',
             SUCCESS: 'btn-success',
             WARNING: 'btn-warning',

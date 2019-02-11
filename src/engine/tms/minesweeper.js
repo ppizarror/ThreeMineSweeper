@@ -344,7 +344,9 @@ function Minesweeper() {
      * @private
      */
     this._explotion_effect = function (face, viewer, call) {
-        let $f = []; // Objective faces
+
+        // Objective faces
+        let $f = [];
         let $f_id = [];
         for (let i = 0; i < face.length; i += 1) {
             face[i].explode(viewer);
@@ -356,10 +358,14 @@ function Minesweeper() {
                 }
             }
         }
+
+        // Recursive call
+        if ($f.length === 0) return;
         viewer.render();
         setTimeout(function () {
             self._explotion_effect($f, viewer, call + 1);
         }, Math.floor(30 * Math.pow((call + 1), 0.20)));
+
     };
 
     /**
@@ -372,7 +378,9 @@ function Minesweeper() {
      * @private
      */
     this._explotion_secondary_effect = function (face, viewer, call) {
-        let $f = []; // Objective faces
+
+        // Objective faces
+        let $f = [];
         let $f_id = [];
         for (let i = 0; i < face.length; i += 1) {
             face[i].explode_secondary(viewer);
@@ -384,10 +392,30 @@ function Minesweeper() {
                 }
             }
         }
+
+        // Animation ended, show dialog to restart
+        if ($f.length === 0) {
+            setTimeout(function () {
+                app_dialog.confirm(lang.game_over, lang.start_new_game, {
+                    cancel: function () {
+                    },
+                    confirm: function () {
+                        app_tms.new();
+                    },
+                    confirmButtonClass: app_dialog.options.buttons.BLUE,
+                    icon: 'fas fa-bomb',
+                    size: app_dialog.options.size.SMALL,
+                });
+            }, 200);
+            return;
+        }
+
+        // Recursive call
         viewer.render();
         setTimeout(function () {
             self._explotion_secondary_effect($f, viewer, call + 1);
         }, Math.floor(80 * Math.pow((call + 1), 0.10)));
+
     };
 
     /**
@@ -468,7 +496,7 @@ function Minesweeper() {
                 cancel: function () {
                 },
                 confirm: $loadmenu,
-                confirmButtonClass: app_dialog.options.buttons.INFO,
+                confirmButtonClass: app_dialog.options.buttons.BLUE,
                 icon: 'fas fa-home',
                 size: app_dialog.options.size.SMALL,
             });
