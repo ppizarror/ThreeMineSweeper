@@ -124,7 +124,7 @@ Buttons
 }
 
 #menu-content .menu-main-button .btn { /*  Modify bootstrap buttons */
-	background-color: rgba(209, 209, 209, 0.71);
+	/* background-color: rgba(209, 209, 209, 0.71); */
 	font-size: 1.2rem;
 	min-width: 150px;
 	width: 40%;
@@ -233,11 +233,15 @@ Menu back
 #menu-subheader .menu-menuback-button {
 	box-shadow: inset 0 0 13px 2px rgba(0, 0, 0, 0.29);
 	max-width: 85px;
-	padding-left: 2%;
-	padding-right: 2%;
-	padding-top: 0.15rem;
+	padding: 0.35rem 2%;
 	text-align: center;
 	width: 20%;
+}
+
+@media screen and (max-width: 800px) {
+	#menu-subheader .menu-menuback-button {
+		padding: 0;
+	}
 }
 
 #menu-subheader .menu-menuback-button .btn {
@@ -250,7 +254,7 @@ Menu back
 
 #menu-subheader .menu-menuback-title {
 	border-left: 1px solid #ffffff;
-	font-size: 1.3rem;
+	font-size: 1.5rem;
 	font-weight: 400;
 	padding-left: 2%;
 	text-align: left;
@@ -268,6 +272,7 @@ Menu input
  */
 #menu-content .menu-content-input {
 	display: flex;
+	margin-top: 0.5rem;
 	width: 100%;
 }
 
@@ -290,6 +295,7 @@ Menu input
 @media screen and (max-width: 800px) {
 	#menu-content .menu-content-input .menu-content-input-child.menu-content-input-label {
 		font-size: 1.05rem;
+		padding-left: 1rem;
 	}
 }
 
@@ -300,4 +306,21 @@ Menu input
 
 #menu-content .menu-content-input .menu-content-input-child.menu-content-input-content .nice-select {
 	color: #000000;
+}
+
+@media screen and (max-width: 800px) {
+	#menu-content .menu-content-input .menu-content-input-child.menu-content-input-content .nice-select {
+		font-size: 12px;
+		height: 32px;
+		line-height: 30px;
+	}
+}
+
+/**
+Generator container options
+ */
+#menu-content .menu-generator-options {
+	display: flex;
+	padding-bottom: 1rem;
+	width: 100%;
 }

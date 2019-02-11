@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5aabf641-1bfc-4f9e-bd89-dad61f629de5" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/engine/tms/menu.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/engine/tms/menu.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/engine/tms/minesweeper.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/engine/tms/minesweeper.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/i18n/en.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/i18n/en.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/stylesheets/menu.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/stylesheets/menu.css" afterDir="false" />
     </list>
@@ -33,8 +31,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/i18n/en.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="364">
-              <caret line="78" column="59" lean-forward="true" selection-start-line="78" selection-start-column="59" selection-end-line="78" selection-end-column="59" />
+            <state relative-caret-position="356">
+              <caret line="83" column="30" lean-forward="true" selection-start-line="83" selection-start-column="5" selection-end-line="83" selection-end-column="30" />
             </state>
           </provider>
         </entry>
@@ -48,20 +46,20 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/engine/tms/menu.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="10">
-              <caret line="357" column="162" selection-start-line="357" selection-start-column="162" selection-end-line="357" selection-end-column="162" />
+            <state relative-caret-position="-8">
+              <caret line="266" lean-forward="true" selection-start-line="266" selection-end-line="266" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/stylesheets/menu.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="228">
-              <caret line="229" column="16" lean-forward="true" selection-start-line="226" selection-start-column="4" selection-end-line="229" selection-end-column="16" />
+            <state relative-caret-position="548">
+              <caret line="324" column="16" lean-forward="true" selection-start-line="322" selection-start-column="4" selection-end-line="324" selection-end-column="16" />
             </state>
           </provider>
         </entry>
@@ -221,8 +219,8 @@
         <option value="$PROJECT_DIR$/src/about/dependencies.js" />
         <option value="$PROJECT_DIR$/src/engine/generator/generator.js" />
         <option value="$PROJECT_DIR$/src/engine/tms/minesweeper.js" />
-        <option value="$PROJECT_DIR$/src/i18n/en.js" />
         <option value="$PROJECT_DIR$/index.html" />
+        <option value="$PROJECT_DIR$/src/i18n/en.js" />
         <option value="$PROJECT_DIR$/src/engine/tms/menu.js" />
         <option value="$PROJECT_DIR$/src/stylesheets/menu.css" />
       </list>
@@ -402,7 +400,7 @@
       <workItem from="1549399365819" duration="39067000" />
       <workItem from="1549584340041" duration="9025000" />
       <workItem from="1549596882228" duration="31294000" />
-      <workItem from="1549812217633" duration="39083000" />
+      <workItem from="1549812217633" duration="40651000" />
     </task>
     <servers />
   </component>
@@ -439,7 +437,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="307956000" />
+    <option name="totallyTimeSpent" value="309524000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -454,7 +452,7 @@
     <frame x="-7" y="-7" width="1550" height="848" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.65363127" visible="true" weight="0.2261745" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.65363127" visible="true" weight="0.2261745" />
       <window_info id="Structure" order="1" sideWeight="0.3463687" side_tool="true" weight="0.22281879" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -787,20 +785,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/engine/tms/tms.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="279">
-          <caret line="178" column="12" selection-start-line="178" selection-start-column="12" selection-end-line="178" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/i18n/en.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="364">
-          <caret line="78" column="59" lean-forward="true" selection-start-line="78" selection-start-column="59" selection-end-line="78" selection-end-column="59" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="320">
@@ -811,17 +795,31 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/engine/tms/menu.js">
+    <entry file="file://$PROJECT_DIR$/src/engine/tms/tms.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="10">
-          <caret line="357" column="162" selection-start-line="357" selection-start-column="162" selection-end-line="357" selection-end-column="162" />
+        <state relative-caret-position="279">
+          <caret line="178" column="12" selection-start-line="178" selection-start-column="12" selection-end-line="178" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/i18n/en.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="356">
+          <caret line="83" column="30" lean-forward="true" selection-start-line="83" selection-start-column="5" selection-end-line="83" selection-end-column="30" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/stylesheets/menu.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="228">
-          <caret line="229" column="16" lean-forward="true" selection-start-line="226" selection-start-column="4" selection-end-line="229" selection-end-column="16" />
+        <state relative-caret-position="548">
+          <caret line="324" column="16" lean-forward="true" selection-start-line="322" selection-start-column="4" selection-end-line="324" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/engine/tms/menu.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-8">
+          <caret line="266" lean-forward="true" selection-start-line="266" selection-end-line="266" />
         </state>
       </provider>
     </entry>

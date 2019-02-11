@@ -100,6 +100,13 @@ function TMSMenu() {
     this._rippler = false;
 
     /**
+     * Generator options container.
+     * @type {JQuery<HTMLElement> | jQuery | HTMLElement}
+     * @private
+     */
+    this._generator_options = null;
+
+    /**
      * Object pointer.
      * @type {TMSMenu}
      */
@@ -199,9 +206,9 @@ function TMSMenu() {
         app_dom.window.on('resize.menucontainer', self._set_content_height);
 
         // Write buttons
-        self._add_button(lang.menu_new_game, self._menu_new);
-        self._add_button(lang.menu_how_to_play, self._menu_htp);
-        self._add_button(lang.menu_about, self._menu_about);
+        self._add_button(lang.menu_new_game, null, self._menu_new);
+        self._add_button(lang.menu_how_to_play, null, self._menu_htp);
+        self._add_button(lang.menu_about, null, self._menu_about);
 
         // Apply rippler effect
         self._apply_rippler();
@@ -239,16 +246,46 @@ function TMSMenu() {
         let $selector = generateID();
         self._write_input(lang.new_game_generator, '<select id="{0}"></select>'.format($selector));
         $selector = $('#' + $selector);
+        $selector.append('<option value="-1" disabled selected>{0}</option>'.format(lang.new_game_generator_select));
         for (let i = 0; i < self._gamekeys.length; i += 1) {
             if (self._games[self._gamekeys[i]].enabled) {
                 $selector.append('<option value="{0}">{1}</option>'.format(self._gamekeys[i], self._games[self._gamekeys[i]].name));
             }
         }
         $selector.niceSelect();
+        $selector.on('change', function (e) {
+            self._load_generator_options(e.target.value);
+        });
+
+        // Create container
+        let $gencontainer = generateID();
+        self._dom.content.append('<div class="menu-generator-options" id="{0}"></div>'.format($gencontainer));
+        self._generator_options = $('#' + $gencontainer);
+
+        // Add play button
+        self._add_button('play', 'btn-primary');
 
         // Apply button effect
         self._set_content_height();
         self._apply_rippler();
+
+    };
+
+    /**
+     * Load generator options.
+     *
+     * @function
+     * @param {number} option
+     * @private
+     */
+    this._load_generator_options = function (option) {
+
+        // Empty generator
+        self._generator_options.empty();
+
+        // Get object
+        let game = self._games[option];
+        console.log(game);
 
     };
 
@@ -314,10 +351,11 @@ function TMSMenu() {
      *
      * @function
      * @param {string} text
+     * @param {string | null} theme
      * @param {function=} callback
      * @private
      */
-    this._add_button = function (text, callback) {
+    this._add_button = function (text, theme, callback) {
         if (isNullUndf(callback)) {
             callback = function () {
             };
@@ -326,8 +364,9 @@ function TMSMenu() {
             app_sound.play(app_sound.sound.BUTTON);
             callback();
         };
+        if (isNullUndf(theme)) theme = 'btn-default';
         let $id = generateID();
-        self._dom.content.append('<div class="menu-main-button"><button type="button" class="btn btn-default rippler rippler-inverse hvr-shadow" id="{0}">{1}</button></div>'.format($id, text));
+        self._dom.content.append('<div class="menu-main-button"><button type="button" class="btn {2} rippler rippler-inverse hvr-shadow" id="{0}">{1}</button></div>'.format($id, text, theme));
         $('#' + $id).on('click', $callback);
     };
 

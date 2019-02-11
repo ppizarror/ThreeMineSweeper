@@ -81,6 +81,7 @@ lang_db.en = {
     "new_game_generator": "Generator",
     "new_game_latlng": "Latitude/Longitude",
     "new_game_order": "Fractal order",
+    "new_game_generator_select": "Select a generator",
     "new_game_target_face": "Target faces",
     "page_init_load_time": "Application has been initialized in <{0}> seconds",
     "popup_theme_error_load": "Popup theme could not be loaded, using fallback",
