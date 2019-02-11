@@ -1,6 +1,7 @@
 /**
  LANG-FR
- Langue française.
+ French language.
+ Created with https://translate.google.com.
 
  @author Pablo Pizarro R. @ppizarror.com
  @license MIT
@@ -11,10 +12,10 @@ lang_db.fr = {
     "answer_ok": "Ok",
     "answer_yes": "Oui",
     "app_dialog_unknown_size": "Impossible d'ouvrir la boîte de dialogue avec une taille inconnue <{0}>",
-    "author_message": "auteur",
-    "back_to_menu": "retour au menu principal",
+    "author_message": "Auteur",
+    "back_to_menu": "Retour au menu principal",
     "building_full_loading_layer": "Couche de chargement init",
-    "close_message": "fermer",
+    "close_message": "Fermer",
     "dialog_error_button_function_null": "Impossible d'associer un événement non valide au bouton de dialogue ({0}), la fonction null a été établie",
     "dialog_form_cancel": "Annuler",
     "dialog_form_send": "Envoyer",
@@ -25,7 +26,7 @@ lang_db.fr = {
     "error_errordb_langinit_defaultmsg": "Contacter l'administrateur",
     "error_errordb_langinit_moreinfo": "L'entrée de langue <moreinfo> de l'erreur <{0}> n'existe pas dans langs",
     "error_errordb_langinit_msg": "La saisie de langue <msg> de l'erreur <{0}> n'existe pas dans la définition de la langue",
-    "error_message": "erreur",
+    "error_message": "Erreur",
     "errordb_errorTemplate_moreinfo": "",
     "errordb_errorTemplate_msg": "",
     "errordb_errorThemeApply_moreinfo": "Contacter l'administrateur",
@@ -59,8 +60,8 @@ lang_db.fr = {
     "generator_order_exceeded": "L'ordre du générateur {0} a dépassé la limite maximale {1}",
     "generator_start": "Le générateur <{0}> a commencé",
     "gui_button_close": "Fermer le menu",
-    "gui_button_open": "Open Menu",
-    "init_app": "Initializing application",
+    "gui_button_open": "Ouvrir le menu",
+    "init_app": "Initialisation du l'application",
     "init_test_mode": "Initialisation du mode test",
     "init_themes": "Thème d'initialisation",
     "lang_en": "Anglais",
@@ -77,13 +78,13 @@ lang_db.fr = {
     "menu_about": "À propos de",
     "menu_how_to_play": "Comment jouer",
     "menu_new_game": "Nouveau jeu",
-    "mines_detected_double_lclick": "double-clic détecté en {0} secondes",
+    "mines_detected_double_lclick": "Double-clic détecté en {0} secondes",
     "mines_placed": "{0} mines placées sur un volume ({1}%)",
     "new_game_generator": "Générateur",
     "new_game_generator_select": "Sélectionnez un générateur",
     "new_game_latlng": "Latitude / Longitude",
     "new_game_mines": "Mines (%)",
-    "new_game_order": "ordre fractal",
+    "new_game_order": "Ordre fractal",
     "new_game_start": "Démarrer",
     "new_game_target_face": "Visages cibles",
     "page_init_load_time": "L'application a été initialisée en <{0}> secondes",
@@ -96,7 +97,7 @@ lang_db.fr = {
     "reset_ui": "UI reset",
     "reset_view": "Contenu de la vue supprimé",
     "scoreboard_empty": "Cette liste est vide, soyez le premier!",
-    "scoreboard_title": "tableau de bord",
+    "scoreboard_title": "Tableau de bord",
     "test": "Test",
     "viewer_gui_ambientlight": "Lumière ambiante",
     "viewer_gui_camera": "Caméra",

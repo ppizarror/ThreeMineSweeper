@@ -1,6 +1,6 @@
 /**
  LANG-ES
- Idioma español
+ Spanish language.
 
  @author Pablo Pizarro R. @ppizarror.com
  @license MIT
