@@ -90,14 +90,34 @@ function TMSMenu() {
 
         // Write footer
         let $langid = generateID();
+        let $githubid = generateID();
+        let $authorid = generateID();
 
         // noinspection HtmlUnknownTarget
-        self._dom.footer.html('<div class="menu-footer-item menu-footer-item-author">{0}: <a href="{2}" target="_blank" title="{5}">@{1}</a></div><div class="menu-footer-item menu-footer-item-other"><a href="{4}" target="_blank" title="{6}"><i class="fab fa-github"></i></a></div><div class="menu-footer-item menu-footer-item-version">v{3}</div><div class="menu-footer-lang-selector" id="{7}"></div>'.format(lang.author, aboutinfo.author.tag, aboutinfo.author.website, aboutinfo.v.version, aboutinfo.productwebsite, aboutinfo.author.name, lang.footer_github, $langid));
+        self._dom.footer.html('<div class="menu-footer-item menu-footer-item-author" id="{5}">{0}: <a href="{2}" target="_blank">@{1}</a></div><div class="menu-footer-item menu-footer-item-other"><a href="{4}" target="_blank" id="{6}"><i class="fab fa-github"></i></a></div><div class="menu-footer-item menu-footer-item-version">v{3}</div><div class="menu-footer-lang-selector" id="{7}"></div>'.format(lang.author, aboutinfo.author.tag, aboutinfo.author.website, aboutinfo.v.version, aboutinfo.productwebsite, $authorid, $githubid, $langid));
 
         // Write langs
         let langcontainer = $('#' + $langid);
         self._write_lang(langcontainer, 'en', lang.lang_en);
         self._write_lang(langcontainer, 'es', lang.lang_es);
+
+        // Write github tooltip
+        $('#' + $githubid).tooltipster({
+            content: lang.footer_github,
+            contentAsHTML: false,
+            delay: [1200, 200],
+            side: 'bottom',
+            theme: theme.tooltipTheme,
+        });
+
+        // Write author tooltip
+        $('#' + $authorid).tooltipster({
+            content: aboutinfo.author.name,
+            contentAsHTML: false,
+            delay: [1200, 200],
+            side: 'bottom',
+            theme: theme.tooltipTheme,
+        });
 
     };
 
