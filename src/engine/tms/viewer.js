@@ -1389,7 +1389,6 @@ function TMSViewer() {
         // Create tooltip in main content
         let $tooltipid = generateID();
         $('#' + this.objects_props.tooltip.container).append('<div id="{0}" class="{1}"></div>'.format($tooltipid, this.objects_props.tooltip.tooltipClass));
-        if (this.objects_props.tooltip.tooltipClass === '') app_console.warn(lang.viewer_tooltip_empty_class);
 
         // Get object
         this.objects_props.tooltip.obj = $('#' + $tooltipid);

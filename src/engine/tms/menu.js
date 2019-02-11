@@ -695,7 +695,7 @@ function TMSMenu() {
         app_console.info(lang.load_lang.format($lang));
         lang = lang_db[$lang]; // Reload lang
         self.init_menu();
-        self._menu_new(); // Reload menu
+        self.main_menu(true);
     };
 
 }

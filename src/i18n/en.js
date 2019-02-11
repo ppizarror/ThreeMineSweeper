@@ -62,8 +62,8 @@ lang_db.en = {
     "gui_button_open": "Open Menu",
     "init_app": "Initializing application",
     "init_test_mode": "Initializing test mode",
-    "init_themes": "Initializing themes",
-    "lang_en": "English",
+    "init_themes": "Initializing theme",
+    "lang_en": "English (current)",
     "lang_es": "Spanish",
     "lang_load_title": "Load {0} language",
     "leave_game_confirm": "Are you sure?",
@@ -104,5 +104,4 @@ lang_db.en = {
     "viewer_gui_fog": "Fog",
     "viewer_gui_light": "Static light",
     "viewer_renderer_info": "Renderer info",
-    "viewer_tooltip_empty_class": "Viewer tooltip class cannot be empty",
 };

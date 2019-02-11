@@ -17,14 +17,14 @@
  * @type {string}
  * @global
  */
-let cfg_lang = 'en';
+let cfg_lang = 'es';
 
 /**
  * Available languages.
  * @const
  * @global
  */
-const lang_available = ['en'];
+const lang_available = ['en', 'es'];
 
 
 /**
@@ -61,6 +61,28 @@ $(function () {
         cfg_lang = $lang_value;
     } else {
         Cookies.set('lang', cfg_lang);
+    }
+
+    /**
+     * Autocomplete languages
+     */
+    let $lng;
+    let $en_keys = Object.keys(lang_db.en);
+    let $keys;
+    for (let i = 0; i < lang_available.length; i += 1) {
+        $lng = lang_available[i];
+
+        // eslint-disable-next-line no-continue
+        if ($lng === 'en') continue;
+
+        // Autocomplete language
+        $keys = Object.keys(lang_db[$lng]);
+        for (let j = 0; j < $en_keys.length; j += 1) {
+            if (!$keys.includes($en_keys[j])) {
+                lang_db[$lng][$en_keys[j]] = lang_db.en[$en_keys[j]];
+            }
+        }
+
     }
 
 });
