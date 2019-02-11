@@ -2,7 +2,7 @@
 
 ## lib/
 
-This directory contains the libraries used by TMS (29 in total):
+This directory contains the libraries used by TMS (30 in total):
 
 | Library | Version | Link |
 | :-- | :--: | :-- |
@@ -15,6 +15,7 @@ This directory contains the libraries used by TMS (29 in total):
 | easytimer | 3.0.1 | <a href="https://github.com/albert-gonzalez/easytimer.js">github.com/albert-gonzalez/easytimer.js</a> |
 | fontawesome | 5.2.0 | <a href="https://fontawesome.com">fontawesome.com</a> |
 | hover | 2.3.1 | <a href="https://github.com/IanLunn/Hover">github.com/IanLunn/Hover</a> |
+| ion.rangeSlider | 2.3.0 | <a href="https://github.com/IonDen/ion.rangeSlider">github.com/IonDen/ion.rangeSlider</a> |
 | ion.sound | 3.0.7 | <a href="https://github.com/IonDen/ion.sound">github.com/IonDen/ion.sound</a> |
 | jquery | 3.3.1 | <a href="https://github.com/jquery/jquery">github.com/jquery/jquery</a> |
 | jquery-confirm | 3.3.4 | <a href="https://github.com/craftpip/jquery-confirm">github.com/craftpip/jquery-confirm</a> |
