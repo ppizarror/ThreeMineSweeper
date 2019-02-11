@@ -81,7 +81,7 @@ function TMSMenu() {
      * @private
      */
     this._mines = {
-        from: 30,
+        from: 10,
         max: 95,
         min: 5,
         step: 5,
@@ -96,7 +96,6 @@ function TMSMenu() {
         if (isNullUndf(this._games[this._gamekeys[i]]['latlng'])) this._games[this._gamekeys[i]]['latlng'] = false;
         if (isNullUndf(this._games[this._gamekeys[i]]['target'])) this._games[this._gamekeys[i]]['target'] = false;
         if (isNullUndf(this._games[this._gamekeys[i]]['enabled'])) this._games[this._gamekeys[i]]['enabled'] = true;
-        this._games[this._gamekeys[i]]['name'] = lang['gen_' + this._gamekeys[i].toString()];
     }
 
     /**
@@ -179,7 +178,7 @@ function TMSMenu() {
         let $authorid = generateID();
 
         // noinspection HtmlUnknownTarget
-        self._dom.footer.html('<div class="menu-footer-item menu-footer-item-author" id="{5}">{0}: <a href="{2}" target="_blank">@{1}</a></div><div class="menu-footer-item menu-footer-item-other"><a href="{4}" target="_blank" id="{6}"><i class="fab fa-github"></i></a></div><div class="menu-footer-item menu-footer-item-version">v{3}</div><div class="menu-footer-lang-selector" id="{7}"></div>'.format(lang.author, aboutinfo.author.tag, aboutinfo.author.website, aboutinfo.v.version, aboutinfo.productwebsite, $authorid, $githubid, $langid));
+        self._dom.footer.html('<div class="menu-footer-item menu-footer-item-author" id="{5}">{0}: <a href="{2}" target="_blank">@{1}</a></div><div class="menu-footer-item menu-footer-item-other"><a href="{4}" target="_blank" id="{6}"><i class="fab fa-github"></i></a></div><div class="menu-footer-item menu-footer-item-version">v{3}</div><div class="menu-footer-lang-selector" id="{7}"></div>'.format(lang.author_message, aboutinfo.author.tag, aboutinfo.author.website, aboutinfo.v.version, aboutinfo.productwebsite, $authorid, $githubid, $langid));
 
         // Write langs
         let langcontainer = $('#' + $langid);
@@ -341,7 +340,7 @@ function TMSMenu() {
         self._dom.gen_selector.append('<option value="-1" disabled>{0}</option>'.format(lang.new_game_generator_select));
         for (let i = 0; i < self._gamekeys.length; i += 1) {
             if (self._games[self._gamekeys[i]].enabled) {
-                self._dom.gen_selector.append('<option value="{0}">{1}</option>'.format(self._gamekeys[i], self._games[self._gamekeys[i]].name));
+                self._dom.gen_selector.append('<option value="{0}">{1}</option>'.format(self._gamekeys[i], lang['gen_' + self._gamekeys[i].toString()]));
             }
         }
         self._dom.gen_selector[0].selectedIndex = self._get_cookie_val(self._cookies.gen, 0, self._gamekeys.length - 1, 0, true);
@@ -446,7 +445,7 @@ function TMSMenu() {
         self._dom.generator.empty();
         self._dom.generator.removeClass('animated');
         self._dom.generator.removeClass('bounceInUp');
-        self._dom.generator.hide();
+        // self._dom.generator.hide();
 
         // Get object
         let game = self._games[option];
@@ -534,7 +533,7 @@ function TMSMenu() {
 
         // Add animation
         self._dom.generator.addClass('animated');
-        self._dom.generator.fadeIn();
+        // self._dom.generator.fadeIn();
 
         // Enable button
         self._dom.playbutton.removeAttr('disabled');

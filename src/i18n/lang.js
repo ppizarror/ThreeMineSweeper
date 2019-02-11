@@ -24,7 +24,7 @@ let cfg_lang = 'es';
  * @const
  * @global
  */
-const lang_available = ['en', 'es'];
+const lang_available = ['en', 'es', 'fr'];
 
 
 /**
@@ -80,6 +80,8 @@ $(function () {
         for (let j = 0; j < $en_keys.length; j += 1) {
             if (!$keys.includes($en_keys[j])) {
                 lang_db[$lng][$en_keys[j]] = lang_db.en[$en_keys[j]];
+                // eslint-disable-next-line no-console
+                console.warn('Language {0} does not contain key {1}, extending from english'.format($lng, $en_keys[j]));
             }
         }
 

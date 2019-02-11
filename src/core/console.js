@@ -108,7 +108,7 @@ function AppConsole() {
             msg = self._format(msg);
             let $m;
             if (w) {
-                $m = 'ERROR: ';
+                $m = lang.error_message;
             } else {
                 $m = '';
             }
@@ -132,7 +132,7 @@ function AppConsole() {
         if (cfg_verbose) {
             let $m;
             if (w) {
-                $m = 'EXCEPTION: ';
+                $m = lang.exception_title;
             } else {
                 $m = '';
             }
@@ -159,7 +159,7 @@ function AppConsole() {
             msg = self._format(msg);
             let $m;
             if (w) {
-                $m = 'ERROR: ';
+                $m = lang.error_message;
             } else {
                 $m = '';
             }

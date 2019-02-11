@@ -105,7 +105,7 @@ $(function () {
     NotificationJS.init({
         'core': cfg_notification_core,
         'enabled': cfg_notification_enabled,
-        'exceptionTitle': lang.exception,
+        'exceptionTitle': lang.exception_title,
         'maxStack': cfg_max_notification_stack,
         'timeout': cfg_notification_timeout,
     });

@@ -46,7 +46,6 @@ module.exports = function (config) {
 
             'src/i18n/lang.js',
             'src/i18n/en.js',
-            'src/i18n/es.js',
 
             'src/core/env/mode_test.js',
             'src/core/globals.js',

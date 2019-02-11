@@ -710,7 +710,7 @@ function Minesweeper() {
 
         // Clear scoreboard
         self._dom.scoreboard_content.empty();
-        self._dom.scoreboard_title.html(lang.scoreboard);
+        self._dom.scoreboard_title.html(lang.scoreboard_title);
         let $mines = '';
         if (self._generator.mines < 1) {
             $mines = roundNumber(self._generator.mines * 100, 2).toString() + '%';

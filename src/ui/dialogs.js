@@ -116,7 +116,7 @@ function AppDialog() {
         let $defaults = {
             close: null,
             closeButtonClass: this.options.buttons.DEFAULT,
-            closeText: lang.close,
+            closeText: lang.close_message,
         };
         options = $.extend($defaults, options);
 
@@ -228,7 +228,7 @@ function AppDialog() {
         let $defaults = {
             close: null,                        // Close function
             closeButtonClass: buttonClass,      // Button class
-            closeText: lang.close,              // Confirm text
+            closeText: lang.close_message,      // Confirm text
             icon: icon,                         // Icon
             size: this.options.size.SMALL,      // Dialog size
             type: type,                         // Dialog type

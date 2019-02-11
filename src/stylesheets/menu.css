@@ -66,7 +66,7 @@ Header
 #menu-header .menu-header-title {
 	font-size: 2rem;
 	overflow: hidden;
-	padding: 10px 10px 0 5%;
+	padding: 10px 10px 0 4%;
 	text-align: left;
 	width: 70%;
 }
@@ -206,7 +206,7 @@ Language selector on footer
 
 #menu-footer .menu-footer-lang-selector img {
 	box-shadow: 0 0 3px rgba(0, 0, 0, 0.55);
-	filter: grayscale(0.4);
+	filter: grayscale(0);
 	height: 1.3rem;
 	margin-left: 10px;
 	opacity: 0.5;
