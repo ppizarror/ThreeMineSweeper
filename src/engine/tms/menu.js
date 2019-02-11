@@ -183,8 +183,9 @@ function TMSMenu() {
         // Write langs
         let langcontainer = $('#' + $langid);
         self._write_lang(langcontainer, 'en', lang.lang_en);
-        self._write_lang(langcontainer, 'fr', lang.lang_fr);
         self._write_lang(langcontainer, 'es', lang.lang_es);
+        self._write_lang(langcontainer, 'fr', lang.lang_fr);
+        self._write_lang(langcontainer, 'ru', lang.lang_ru);
 
         // Write github tooltip
         $('#' + $githubid).tooltipster({
