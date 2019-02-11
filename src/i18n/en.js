@@ -87,4 +87,13 @@ lang_db.en = {
     "viewer_gui_light": "Static light",
     "viewer_renderer_info": "Renderer info",
     "viewer_tooltip_empty_class": "Viewer tooltip class cannot be empty",
+    "gen_0": "Basic Cube",
+    "gen_1": "Basic Pyramid",
+    "gen_2": "Cross Fractal",
+    "gen_3": "Sierpinski Cube",
+    "gen_4": "Sierpinski Triangle",
+    "gen_5": "Random Plane",
+    "gen_6": "Sphere",
+    "gen_7": "Cylinder",
+    "gen_8": "Square",
 };

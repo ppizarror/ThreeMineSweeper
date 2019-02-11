@@ -23,7 +23,9 @@ Menu root container
 	color: #ffffff;
 	height: 50%;
 	margin: auto;
+	max-height: 350px;
 	max-width: 640px;
+	min-height: 250px;
 	min-width: 400px;
 	width: 50%;
 }

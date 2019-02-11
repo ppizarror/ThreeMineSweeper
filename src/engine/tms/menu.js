@@ -32,6 +32,47 @@ function TMSMenu() {
     };
 
     /**
+     * Get game modes.
+     * @private
+     */
+    this._games = {
+        0: {},
+        1: {},
+        2: {
+            fractal: true,
+        },
+        3: {
+            fractal: true,
+        },
+        4: {
+            fractal: true,
+        },
+        5: {
+            target: true,
+        },
+        6: {
+            latlng: true,
+        },
+        7: {
+            latlng: true,
+        },
+        8: {
+            latlng: true,
+        }
+    };
+
+    /**
+     * Fill modes
+     */
+    this._gamekeys = Object.keys(this._games);
+    for (let i = 0; i < this._gamekeys.length; i += 1) {
+        if (isNullUndf(this._games[this._gamekeys[i]]['fractal'])) this._games[this._gamekeys[i]]['fractal'] = false;
+        if (isNullUndf(this._games[this._gamekeys[i]]['latlng'])) this._games[this._gamekeys[i]]['latlng'] = false;
+        if (isNullUndf(this._games[this._gamekeys[i]]['target'])) this._games[this._gamekeys[i]]['target'] = false;
+        this._games[this._gamekeys[i]]['name'] = lang['gen_' + this._gamekeys[i].toString()];
+    }
+
+    /**
      * Object pointer.
      * @type {TMSMenu}
      */
@@ -55,8 +96,8 @@ function TMSMenu() {
 
         // Write langs
         let langcontainer = $('#' + $langid);
-        self._write_lang(langcontainer, 'es', lang.lang_es);
         self._write_lang(langcontainer, 'en', lang.lang_en);
+        self._write_lang(langcontainer, 'es', lang.lang_es);
 
     };
 
@@ -73,11 +114,19 @@ function TMSMenu() {
         let $langid = generateID();
         let $langtooltip = lang.lang_load_title.format(langname);
         // noinspection HtmlUnknownTarget
-        container.append('<img src="resources/langs/{1}.png" id="{0}" title="{2}" alt="" class="hvr-grow-shadow" />'.format($langid, code, $langtooltip));
+        container.append('<img src="resources/langs/{1}.png" id="{0}" alt="" class="hvr-grow-shadow" />'.format($langid, code));
         let $btn = $('#' + $langid);
         $btn.on('click', function () {
             self._load_lang(code);
         });
+        $btn.tooltipster({
+            content: $langtooltip,
+            contentAsHTML: false,
+            delay: [1200, 200],
+            side: 'bottom',
+            theme: theme.tooltipTheme,
+        });
+        if (sessionCookie.lang === code) $btn.css('opacity', 1);
     };
 
     /**
@@ -130,6 +179,9 @@ function TMSMenu() {
 
         // Wipe content
         self._dom.content.empty();
+
+        // Write generator selector
+
 
     };
 

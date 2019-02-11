@@ -35,6 +35,8 @@ module.exports = function (config) {
             'lib/toastr/toastr.min.js',
             'lib/notification.js/notification.min.js',
             'lib/ion.sound/ion.sound.min.js',
+            'lib/rippler/rippler.min.js',
+            'lib/tooltipster/tooltipster.bundle.min.js',
 
             // Load application
             'src/about/about.js',
