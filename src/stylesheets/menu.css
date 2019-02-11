@@ -21,13 +21,13 @@ Menu root container
 	border-radius: 15px;
 	box-shadow: 0 0 10px rgba(0, 0, 0, 0.40);
 	color: #ffffff;
-	height: 50%;
+	height: 55%;
 	margin: auto;
-	max-height: 350px;
+	max-height: 380px;
 	max-width: 640px;
 	min-height: 250px;
 	min-width: 400px;
-	width: 50%;
+	width: 55%;
 }
 
 /**
@@ -81,6 +81,13 @@ Header
 		padding: 8px 5px 0 6%;
 		width: 75%;
 	}
+}
+
+/**
+Menu subheader
+ */
+#menu-subheader {
+	display: flex;
 }
 
 /**
@@ -193,7 +200,7 @@ Language selector on footer
 	padding-right: 1.2%;
 	position: fixed;
 	text-align: right;
-	width: 50%;
+	width: 55%;
 }
 
 #menu-footer .menu-footer-lang-selector img {
@@ -210,4 +217,43 @@ Language selector on footer
 	cursor: pointer;
 	filter: grayscale(0);
 	opacity: 1.0;
+}
+
+/**
+Menu back
+ */
+#menu-subheader .menu-subheader-container {
+	display: flex;
+	padding: 10px;
+	width: 100%;
+}
+
+#menu-subheader .menu-menuback-button {
+	max-width: 80px;
+	padding-right: 2%;
+	text-align: left;
+	width: 20%;
+}
+
+#menu-subheader .menu-menuback-button .btn {
+	background-color: rgba(155, 155, 155, 0.37);
+	color: #ffffff;
+	padding-bottom: 0;
+	padding-top: 0;
+	width: 85%;
+}
+
+#menu-subheader .menu-menuback-title {
+	border-left: 1px solid #ffffff;
+	font-size: 1.3rem;
+	font-weight: 400;
+	padding-left: 2%;
+	text-align: left;
+	width: 80%;
+}
+
+@media screen and (max-width: 800px) {
+	#menu-subheader .menu-menuback-title {
+		font-size: 1.1rem;
+	}
 }

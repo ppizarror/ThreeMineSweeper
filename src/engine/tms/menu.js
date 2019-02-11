@@ -29,6 +29,7 @@ function TMSMenu() {
         footer: $('#menu-footer'),
         header: $('#menu-header'),
         menu: $('#menu'),
+        subheader: $('#menu-subheader'),
     };
 
     /**
@@ -36,8 +37,12 @@ function TMSMenu() {
      * @private
      */
     this._games = {
-        0: {}, // BasicCube
-        1: {}, // BasicPyramid
+        0: { // BasicCube
+            enabled: false,
+        },
+        1: { // BasicPyramid
+            enabled: false,
+        },
         2: { // CrossFractal
             fractal: true,
             maxorder: 2,
@@ -61,6 +66,9 @@ function TMSMenu() {
         },
         8: { // Square
             latlng: true,
+        },
+        9: { // EmptyGenerator
+            enabled: false,
         }
     };
 
@@ -72,6 +80,7 @@ function TMSMenu() {
         if (isNullUndf(this._games[this._gamekeys[i]]['fractal'])) this._games[this._gamekeys[i]]['fractal'] = false;
         if (isNullUndf(this._games[this._gamekeys[i]]['latlng'])) this._games[this._gamekeys[i]]['latlng'] = false;
         if (isNullUndf(this._games[this._gamekeys[i]]['target'])) this._games[this._gamekeys[i]]['target'] = false;
+        if (isNullUndf(this._games[this._gamekeys[i]]['enabled'])) this._games[this._gamekeys[i]]['enabled'] = true;
         this._games[this._gamekeys[i]]['name'] = lang['gen_' + this._gamekeys[i].toString()];
     }
 
@@ -204,7 +213,8 @@ function TMSMenu() {
         self._dom.content.empty();
 
         // Write generator selector
-        self._load_new();
+        self._write_menuback(lang.menu_new_game);
+        self._apply_rippler();
 
     };
 
@@ -224,6 +234,33 @@ function TMSMenu() {
      * @private
      */
     this._menu_about = function () {
+    };
+
+    /**
+     * Write menu back and a title.
+     *
+     * @function
+     * @param {string} title
+     * @private
+     */
+    this._write_menuback = function (title) {
+        let $btn = generateID();
+        self._dom.subheader.empty();
+        self._dom.subheader.html('<div class="menu-subheader-container"><div class="menu-menuback-button"><button type="button" class="btn hvr-shadow rippler rippler-inverse animated fadeInLeft" id="{1}"><i class="fas fa-arrow-left"></i></button></div><div class="menu-menuback-title">{0}</div></div>'.format(title, $btn));
+        $btn = $('#' + $btn);
+        self._dom.subheader.show();
+        $btn.tooltipster({
+            content: lang.back_to_menu,
+            contentAsHTML: false,
+            delay: [1200, 200],
+            side: 'bottom',
+            theme: theme.tooltipTheme,
+        });
+        $btn.on('click', function () {
+            app_sound.play(app_sound.sound.BUTTON);
+            self.main_menu();
+        });
+        self._set_content_height();
     };
 
     /**
@@ -271,7 +308,7 @@ function TMSMenu() {
      * @private
      */
     this._get_content_height = function () {
-        return self._dom.container.innerHeight() - getElementHeight(self._dom.header) - getElementHeight(self._dom.footer) - 6;
+        return self._dom.container.innerHeight() - self._dom.header.innerHeight() - getElementHeight(self._dom.subheader) - getElementHeight(self._dom.footer) - 6;
     };
 
     /**
@@ -283,6 +320,8 @@ function TMSMenu() {
 
         // Hide menu
         self._dom.container.hide();
+        self._dom.subheader.empty();
+        self._dom.subheader.hide();
 
         // Destroy events
         app_dom.window.off('resize.menucontainer');
