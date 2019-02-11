@@ -228,6 +228,7 @@ function ThreeMinesSweeper() {
             self._viewer.set_camera_init_pos(camera.x, camera.y, camera.z);
             self._viewer.new(volume);
             self._mines.new_game_ui(true);
+            self._viewer.focus();
             loadingHandler(false);
 
         }, 450);

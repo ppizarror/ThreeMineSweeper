@@ -1353,7 +1353,6 @@ function TMSViewer() {
      * Force focus.
      *
      * @function
-     * @private
      */
     this.focus = function () {
         self._canvasParent.trigger('focus');

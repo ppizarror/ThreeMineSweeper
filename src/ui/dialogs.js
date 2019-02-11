@@ -38,8 +38,9 @@ function AppDialog() {
             ZOOM: 'zoom',
         },
         buttons: {
-            ERROR: 'btn-default', // btn-red
+            DANGER: 'btn-danger',
             DEFAULT: 'btn-default',
+            ERROR: 'btn-default', // btn-red
             INFO: 'btn-blue',
             NONE: '',
             OTHER: 'btn-default',

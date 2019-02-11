@@ -144,6 +144,13 @@ function TMSEvents() {
     this._minesweeper = null;
 
     /**
+     * Enable or disable alt events.
+     * @type {boolean}
+     * @private
+     */
+    this._altevents = false;
+
+    /**
      * Stores object reference.
      * @type {TMSEvents}
      */
@@ -293,7 +300,7 @@ function TMSEvents() {
             self._hasKeyPressed = true;
 
             // Check Alt+key events
-            if (e.altKey) {
+            if (e.altKey && self._altevents) {
                 switch (e.which) {
                     case 49: // [1]
                         self._viewer.reset_camera();

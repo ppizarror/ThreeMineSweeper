@@ -72,7 +72,7 @@ function TMSSound() {
             },
             {
                 name: this.sound.WRONG,
-                volume: 0.5,
+                volume: 0.4,
             }
         ],
         multiplay: true,

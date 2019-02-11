@@ -181,7 +181,7 @@ function TMSMenu() {
         self._dom.content.empty();
 
         // Write generator selector
-
+        self._load_new();
 
     };
 
@@ -291,6 +291,7 @@ function TMSMenu() {
      * @private
      */
     this._load_lang = function ($lang) {
+        app_sound.play(app_sound.sound.BUTTON);
         if (sessionCookie.lang === $lang) return;
         if (!lang_available.includes($lang)) return;
         sessionCookie.lang = $lang;

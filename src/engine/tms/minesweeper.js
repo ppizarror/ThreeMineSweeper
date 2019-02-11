@@ -476,7 +476,7 @@ function Minesweeper() {
                 confirm: function () {
                     app_tms.new();
                 },
-                confirmButtonClass: app_dialog.options.buttons.ERROR,
+                confirmButtonClass: app_dialog.options.buttons.DANGER,
                 icon: 'fas fa-exclamation-triangle',
                 size: app_dialog.options.size.SMALL,
             });
