@@ -194,7 +194,7 @@ const cfg_notification_timeout = 10000;
  * @const
  * @global
  */
-const cfg_date_format_public_d = 'dd/MM/yyyy';
+const cfg_date_format_public_d = getLocaleDateString();
 
 /**
  * Public hour format.

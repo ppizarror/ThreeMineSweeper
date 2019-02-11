@@ -46,15 +46,17 @@ module.exports = function (config) {
 
             'src/i18n/lang.js',
             'src/i18n/en.js',
+            'src/i18n/es.js',
 
-            'src/config.js',
             'src/core/env/mode_test.js',
             'src/core/globals.js',
+            'src/core/date.js',
+            'src/config.js',
+
             'src/core/errors.js',
             'src/core/color.js',
             'src/core/console.js',
             'src/core/country.js',
-            'src/core/date.js',
             'src/core/dom.js',
             'src/core/file.js',
             'src/core/hash.js',

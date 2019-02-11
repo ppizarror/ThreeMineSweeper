@@ -97,18 +97,6 @@ function AppConsole() {
     };
 
     /**
-     * Writes object on console.
-     *
-     * @function
-     * @param {Object} obj - Object
-     */
-    this.writeObj = function (obj) {
-        if (cfg_verbose) {
-            console.log(obj);
-        }
-    };
-
-    /**
      * Writes an error message.
      *
      * @function
@@ -131,16 +119,6 @@ function AppConsole() {
                 console.error('[{0}] {2}{1}'.format(dateFormat(new Date(), this._msgDateFormat), msg, $m));
             }
         }
-    };
-
-    /**
-     * Writes an formatless error message.
-     *
-     * @function
-     * @param {object} obj - Object
-     */
-    this.errorf = function (obj) {
-        console.error(obj);
     };
 
     /**
@@ -192,16 +170,6 @@ function AppConsole() {
                 console.warn('[{0}] {2}{1}'.format(dateFormat(new Date(), this._msgDateFormat), msg, $m));
             }
         }
-    };
-
-    /**
-     * Write formatless object into console.
-     *
-     * @function
-     * @param {object} obj - Object to write
-     */
-    this.warnf = function (obj) {
-        console.warn(obj);
     };
 
     /**
