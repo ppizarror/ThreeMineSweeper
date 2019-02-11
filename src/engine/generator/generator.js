@@ -141,7 +141,7 @@ function Generator() {
      * @param {number} order
      */
     this.set_order = function (order) {
-        self._order = Math.max(order, 0);
+        self._order = Math.max(Math.floor(order), 1);
     };
 
     /**
@@ -151,7 +151,7 @@ function Generator() {
      * @param {number} target
      */
     this.set_face_target = function (target) {
-        self._faces_target = Math.max(target, 1);
+        self._faces_target = Math.max(Math.floor(target), 1);
     };
 
     /**
@@ -161,7 +161,7 @@ function Generator() {
      * @param {number} lat
      */
     this.set_latitude = function (lat) {
-        self._lat = Math.max(lat, 1);
+        self._lat = Math.max(Math.floor(lat), 1);
     };
 
     /**
@@ -171,7 +171,7 @@ function Generator() {
      * @param {number} lng
      */
     this.set_longitude = function (lng) {
-        self._lng = Math.max(lng, 1);
+        self._lng = Math.max(Math.floor(lng), 1);
     };
 
     /**
@@ -182,7 +182,7 @@ function Generator() {
      * @protected
      */
     this._apply_order_limit = function (max_order) {
-        self._order = Math.max(self._order, 0);
+        self._order = Math.max(self._order, 1);
         if (self._order > max_order) {
             app_console.info(lang.generator_order_exceeded.format(self._order, max_order));
             self._order = max_order;

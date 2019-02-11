@@ -36,27 +36,30 @@ function TMSMenu() {
      * @private
      */
     this._games = {
-        0: {},
-        1: {},
-        2: {
+        0: {}, // BasicCube
+        1: {}, // BasicPyramid
+        2: { // CrossFractal
             fractal: true,
+            maxorder: 2,
         },
-        3: {
+        3: { // SierpinskiCube
             fractal: true,
+            maxorder: 2,
         },
-        4: {
+        4: { // SierpinskiTriangle
             fractal: true,
+            maxorder: 5,
         },
-        5: {
+        5: { // RandomPlane
             target: true,
         },
-        6: {
+        6: { // Sphere
             latlng: true,
         },
-        7: {
+        7: { // Cylinder
             latlng: true,
         },
-        8: {
+        8: { // Square
             latlng: true,
         }
     };

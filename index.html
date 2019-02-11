@@ -34,8 +34,25 @@
           content="TMS is an experimental 3D minesweeper game capable to render advanced geometric maps"/>
 
     <!-- Load libraries -->
+    <link rel="stylesheet" type="text/css" href="lib/animate/animate.min.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="lib/bootstrap/bootstrap.min.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="lib/font-awesome/css/all.min.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="lib/hover/hover.min.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="lib/jquery-confirm/jquery-confirm.min.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="lib/normalize/normalize.min.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="lib/spin/spin.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="lib/dat.gui/dat.gui.min.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="lib/toastr/toastr.min.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="lib/notification.js/notification.min.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="lib/rippler/rippler.min.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="lib/tooltipster/tooltipster.bundle.min.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="lib/jquery-nice-select/nice-select.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="lib/pace/blue/pace-theme-flash.min.css" media="screen">
 
+    <!-- Init libraries -->
     <script src="init.js"></script>
+    <script src="lib/pace/pace.min.js"></script>
+
     <script src="lib/jquery/jquery-3.3.1.js"></script>
     <script src="lib/jquery-confirm/jquery-confirm.min.js"></script>
     <script src="lib/jquery-dateFormat/jquery-dateFormat.min.js"></script>
@@ -58,20 +75,6 @@
     <script src="lib/rippler/rippler.min.js"></script>
     <script src="lib/tooltipster/tooltipster.bundle.min.js"></script>
     <script src="lib/jquery-nice-select/jquery.nice-select.min.js"></script>
-
-    <link rel="stylesheet" type="text/css" href="lib/animate/animate.min.css" media="screen">
-    <link rel="stylesheet" type="text/css" href="lib/bootstrap/bootstrap.min.css" media="screen">
-    <link rel="stylesheet" type="text/css" href="lib/font-awesome/css/all.min.css" media="screen">
-    <link rel="stylesheet" type="text/css" href="lib/hover/hover.min.css" media="screen">
-    <link rel="stylesheet" type="text/css" href="lib/jquery-confirm/jquery-confirm.min.css" media="screen">
-    <link rel="stylesheet" type="text/css" href="lib/normalize/normalize.min.css" media="screen">
-    <link rel="stylesheet" type="text/css" href="lib/spin/spin.css" media="screen">
-    <link rel="stylesheet" type="text/css" href="lib/dat.gui/dat.gui.min.css" media="screen">
-    <link rel="stylesheet" type="text/css" href="lib/toastr/toastr.min.css" media="screen">
-    <link rel="stylesheet" type="text/css" href="lib/notification.js/notification.min.css" media="screen">
-    <link rel="stylesheet" type="text/css" href="lib/rippler/rippler.min.css" media="screen">
-    <link rel="stylesheet" type="text/css" href="lib/tooltipster/tooltipster.bundle.min.css" media="screen">
-    <link rel="stylesheet" type="text/css" href="lib/jquery-nice-select/nice-select.css" media="screen">
 
     <!-- Load styles -->
     <link rel="stylesheet" type="text/css" href="src/stylesheets/game.css" media="screen">
@@ -181,15 +184,15 @@
         </div>
         <div class="game-ui-right-column">
             <div class="game-ui-tilesinfo tile-shadow">
-                <span id="game-ui-face-counter">0/0 (0%)</span>
+                <span id="game-ui-face-counter"></span>
                 <img src="resources/ui/face.png" alt=""/>
             </div>
             <div class="game-ui-tilesinfo">
-                <span id="game-ui-flag-counter">0</span>
+                <span id="game-ui-flag-counter"></span>
                 <img src="resources/ui/flag.png" alt=""/>
             </div>
             <div class="game-ui-tilesinfo">
-                <span id="game-ui-question-counter">0</span>
+                <span id="game-ui-question-counter"></span>
                 <img src="resources/ui/question.png" alt=""/>
             </div>
             <div id="game-scoreboard-container">
