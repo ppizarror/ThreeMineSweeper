@@ -33,14 +33,17 @@ function TMSMenu() {
         2: { // CrossFractal
             fractal: true,
             maxorder: 2,
+            minorder: 1,
         },
         3: { // SierpinskiCube
             fractal: true,
             maxorder: 2,
+            minorder: 1,
         },
         4: { // SierpinskiTriangle
             fractal: true,
             maxorder: 5,
+            minorder: 2,
         },
         5: { // RandomPlane
             from: 300,
@@ -65,7 +68,7 @@ function TMSMenu() {
         },
         8: { // Square
             latlng: true,
-            from: 10,
+            from: 20,
             max: 40,
             min: 10,
             step: 5,
@@ -466,10 +469,10 @@ function TMSMenu() {
             $id = generateID();
             self._write_input(lang.new_game_order, '<select id="{0}"></select>'.format($id), self._dom.generator);
             self._dom.gen_order = $('#' + $id);
-            for (let i = 1; i <= game.maxorder; i += 1) {
+            for (let i = game.minorder; i <= game.maxorder; i += 1) {
                 self._dom.gen_order.append('<option value="{0}">{1}</option>'.format(i, i));
             }
-            self._dom.gen_order[0].selectedIndex = this._get_cookie_val(self._cookies.order, 0, game.maxorder, game.maxorder - 1, true);
+            self._dom.gen_order[0].selectedIndex = this._get_cookie_val(self._cookies.order, 0, game.maxorder - game.minorder, game.maxorder - game.maxorder, true);
             self._dom.gen_order.niceSelect();
         }
 
