@@ -58,7 +58,7 @@ const show_console_total_messages = true;
 const cfg_href_score = 'https://ppizarror.000webhostapp.com/tms/score.php';
 
 /**
- * Enables CORS (Cross-domain).
+ * Enables CORS (Cross-Domain).
  * @type {boolean}
  * @const
  * @global
@@ -150,7 +150,7 @@ const cfg_init_loading_layer_after = 150;
 const cfg_notification_core = 'amaranjs';
 
 /**
- * Notification are or not avaiable.
+ * Notification enabled.
  * @type {boolean}
  * @const
  * @global
