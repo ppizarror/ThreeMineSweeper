@@ -8,19 +8,19 @@
 "use strict";
 
 /**
- * Selected theme
+ * Selected theme.
  * @global
  */
 let theme;
 
 /**
- * Database themes
+ * Database themes.
  * @global
  */
 let theme_db;
 
 /**
- * Popup themes
+ * Popup themes.
  * @global
  */
 let popup_themes;

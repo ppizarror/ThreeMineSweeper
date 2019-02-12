@@ -289,7 +289,7 @@ function FullPageLoadingSpinner() {
 const _app_loading_layer = new FullPageLoadingSpinner();
 
 /**
- * Loading handler
+ * Loading handler.
  *
  * @function
  * @param {boolean} status - Show or hide loading layer

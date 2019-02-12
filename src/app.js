@@ -11,8 +11,9 @@
  * App game.
  * @type {ThreeMinesSweeper}
  * @global
+ * @const
  */
-let app_tms = new ThreeMinesSweeper();
+const app_tms = new ThreeMinesSweeper();
 
 /**
  * Pointer to loaded language {@link lang_db}.
@@ -27,7 +28,7 @@ let lang;
 let sessionCookie;
 
 /**
- * App init
+ * App init.
  */
 $(function () {
 

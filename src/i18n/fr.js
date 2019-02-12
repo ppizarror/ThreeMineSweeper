@@ -6,6 +6,7 @@
  @author Pablo Pizarro R. @ppizarror.com
  @license MIT
  */
+"use strict";
 
 lang_db.fr = {
     "answer_no": "Non",
