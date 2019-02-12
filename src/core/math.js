@@ -12,12 +12,13 @@
  *
  * @function
  * @param {number} num - Number
- * @param {number} scale - Scale
+ * @param {number=} scale - Scale
  * @returns {number}
  */
 function roundNumber(num, scale) {
     /* eslint no-implicit-coercion:"off" */
 
+    if (isNullUndf(scale)) scale = 0;
     if (!('' + num).includes('e')) {
         // noinspection JSCheckFunctionSignatures
         return +Number(Math.round(num + 'e+' + scale) + 'e-' + scale);

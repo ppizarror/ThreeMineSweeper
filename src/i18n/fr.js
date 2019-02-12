@@ -16,6 +16,8 @@ lang_db.fr = {
     "author_message": "Auteur",
     "back_to_menu": "Retour au menu principal",
     "building_full_loading_layer": "Couche de chargement init",
+    "check_window_size_info": "L'écran de votre appareil {0} x {1} est trop petit pour cette application (Min requis {0} x {1}). Essayez d'augmenter la taille de la fenêtre",
+    "check_window_size_title": "Trop petit!",
     "close_message": "Fermer",
     "dialog_error_button_function_null": "Impossible d'associer un événement non valide au bouton de dialogue ({0}), la fonction null a été établie",
     "dialog_form_cancel": "Annuler",

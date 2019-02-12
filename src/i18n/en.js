@@ -16,6 +16,8 @@ lang_db.en = {
     "author_message": "Author",
     "back_to_menu": "Back to main menu",
     "building_full_loading_layer": "Init loading layer",
+    "check_window_size_info": "Your device screen {0}x{1} is too small for this application (Min required {0}x{1}). Try to increase the window size",
+    "check_window_size_title": "Too small!",
     "close_message": "Close",
     "dialog_error_button_function_null": "Cant associate an invalid event to the dialog button ({0}), null function has been stablished",
     "dialog_form_cancel": "Cancel",

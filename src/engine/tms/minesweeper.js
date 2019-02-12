@@ -106,6 +106,18 @@ function Minesweeper() {
     };
 
     /**
+     * Check for min window size, display dialog if false.
+     * @type {{width: number, opened: boolean, enabled: boolean, height: number}}
+     * @private
+     */
+    this._check_size = {
+        enabled: true,
+        height: 520,
+        opened: false,
+        width: 640,
+    };
+
+    /**
      * Game reset.
      * @type {boolean}
      * @private
@@ -451,6 +463,7 @@ function Minesweeper() {
         this._dom.menubutton.off('click');
         this._dom.resetbutton.off('click');
         app_dom.window.off('resize.scoreboard');
+        if (self._check_size.enabled) app_dom.window.off('resize.checksize');
 
         // Hide
         this._dom.viewer.hide();
@@ -530,6 +543,13 @@ function Minesweeper() {
             self._load_score();
         }
 
+        // Check window size
+        self._check_size.opened = false;
+        if (self._check_size.enabled) {
+            app_dom.window.on('resize.checksize', self._check_window_size);
+            self._check_window_size();
+        }
+
         // Show
         this._dom.viewer.show();
         self._scoreboard_setup();
@@ -537,6 +557,34 @@ function Minesweeper() {
         // Disable reset status
         self._reset = false;
 
+    };
+
+    /**
+     * Check window size popup.
+     *
+     * @function
+     * @private
+     */
+    this._check_window_size = function () {
+        let $w = app_dom.window.outerWidth();
+        let $h = app_dom.window.outerHeight();
+        if ($w >= self._check_size.width && $h >= self._check_size.height) {
+            app_dialog.close_last();
+            return;
+        }
+        if (self._check_size.opened) return;
+        self._check_size.opened = true;
+        app_dialog.confirm(lang.check_window_size_title, lang.check_window_size_info.format(roundNumber($w), roundNumber($h), roundNumber(self._check_size.width), roundNumber(self._check_size.height)), {
+            cancelText: null,
+            confirm: function () {
+                self._check_size.opened = false;
+                self._check_window_size();
+            },
+            confirmButtonClass: app_dialog.options.buttons.BLUE,
+            confirmText: lang.answer_ok,
+            icon: 'fas fa-desktop',
+            size: app_dialog.options.size.NORMAL,
+        });
     };
 
     /**

@@ -23,13 +23,13 @@ Menu root container
 	color: #ffffff;
 	height: 55%;
 	margin: auto;
-	max-height: 500px;
+	max-height: 550px;
 	min-height: 430px;
 }
 
 .menu-container-width {
-	max-width: 650px;
-	min-width: 450px;
+	max-width: 680px;
+	min-width: 520px;
 	width: 61.875%;
 }
 

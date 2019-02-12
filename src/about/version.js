@@ -11,5 +11,5 @@
  */
 aboutinfo.v = {
     "date": "12/02/2019",
-    "version": "0.9.4",
+    "version": "0.9.5",
 };
