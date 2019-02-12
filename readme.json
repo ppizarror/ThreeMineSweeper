@@ -1,14 +1,14 @@
 {
   "PROJECT": {
-    "NAME": "ThreeMinesSweeper",
+    "NAME": "ThreeMineSweeper",
     "ICON": {
-      "IMAGE": "https://ppizarror.com/ThreeMinesSweeper/resources/favicon/android-chrome-512x512.png",
-      "ALT": "ThreeMinesSweeper",
+      "IMAGE": "https://ppizarror.com/ThreeMineSweeper/resources/favicon/android-chrome-512x512.png",
+      "ALT": "ThreeMineSweeper",
       "WIDTH": 200,
       "HEIGHT": 200
     },
-    "URL": "https://ppizarror.com/ThreeMinesSweeper/",
-    "URL_TITLE": "ThreeMinesSweeper"
+    "URL": "https://ppizarror.com/ThreeMineSweeper/",
+    "URL_TITLE": "ThreeMineSweeper"
   },
   "AUTHOR": {
     "NAME": "Pablo Pizarro R.",
@@ -36,18 +36,18 @@
       "NEWLINE": true
     },
     "3": {
-      "IMAGE": "https://img.shields.io/lgtm/alerts/g/ppizarror/ThreeMinesSweeper.svg?logo=lgtm&logoWidth=18",
-      "HREF": "https://lgtm.com/projects/g/ppizarror/ThreeMinesSweeper/alerts/",
+      "IMAGE": "https://img.shields.io/lgtm/alerts/g/ppizarror/ThreeMineSweeper.svg?logo=lgtm&logoWidth=18",
+      "HREF": "https://lgtm.com/projects/g/ppizarror/ThreeMineSweeper/alerts/",
       "ALT": "Total alerts"
     },
     "4": {
-      "IMAGE": "https://img.shields.io/lgtm/grade/javascript/g/ppizarror/ThreeMinesSweeper.svg?logo=lgtm&logoWidth=18",
-      "HREF": "https://lgtm.com/projects/g/ppizarror/ThreeMinesSweeper/context:javascript",
+      "IMAGE": "https://img.shields.io/lgtm/grade/javascript/g/ppizarror/ThreeMineSweeper.svg?logo=lgtm&logoWidth=18",
+      "HREF": "https://lgtm.com/projects/g/ppizarror/ThreeMineSweeper/context:javascript",
       "ALT": "Language grade: JavaScript"
     },
     "5": {
-      "IMAGE": "https://img.shields.io/lgtm/grade/python/g/ppizarror/ThreeMinesSweeper.svg?logo=lgtm&logoWidth=18",
-      "HREF": "https://lgtm.com/projects/g/ppizarror/ThreeMinesSweeper/context:python",
+      "IMAGE": "https://img.shields.io/lgtm/grade/python/g/ppizarror/ThreeMineSweeper.svg?logo=lgtm&logoWidth=18",
+      "HREF": "https://lgtm.com/projects/g/ppizarror/ThreeMineSweeper/context:python",
       "ALT": "Language grade: Python"
     }
   },
