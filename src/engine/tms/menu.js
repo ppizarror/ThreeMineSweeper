@@ -330,6 +330,17 @@ function TMSMenu() {
     };
 
     /**
+     * Wipe content.
+     *
+     * @function
+     * @private
+     */
+    this._wipe_content = function () {
+        self._dom.content.empty();
+        self._dom.content.css('display', 'block');
+    };
+
+    /**
      * Create new game menu.
      *
      * @function
@@ -338,7 +349,7 @@ function TMSMenu() {
     this._menu_new = function () {
 
         // Wipe content
-        self._dom.content.empty();
+        self._wipe_content();
 
         // Write generator selector
         self._write_menuback(lang.menu_new_game);
@@ -561,6 +572,19 @@ function TMSMenu() {
      * @private
      */
     this._menu_htp = function () {
+
+        // Wipe content
+        self._wipe_content();
+        self._write_menuback(lang.menu_how_to_play);
+
+        // Apply button effect
+        self._set_content_height();
+        self._apply_rippler();
+
+    };
+    
+    this._write_htp_entry = function () {
+
     };
 
     /**
@@ -570,6 +594,15 @@ function TMSMenu() {
      * @private
      */
     this._menu_about = function () {
+
+        // Wipe content
+        self._wipe_content();
+        self._write_menuback(lang.menu_about);
+
+        // Apply button effect
+        self._set_content_height();
+        self._apply_rippler();
+
     };
 
     /**
@@ -666,7 +699,7 @@ function TMSMenu() {
      * @private
      */
     this._get_content_height = function () {
-        return self._dom.container.innerHeight() - self._dom.header.innerHeight() - getElementHeight(self._dom.subheader) - getElementHeight(self._dom.footer) - 6;
+        return self._dom.container.innerHeight() - self._dom.header.innerHeight() - self._dom.subheader.innerHeight() - getElementHeight(self._dom.footer) - 6;
     };
 
     /**
@@ -686,6 +719,7 @@ function TMSMenu() {
 
         // Delete content
         self._dom.content.empty();
+        self._dom.content.css('display', 'inline-table');
         app_console.info(lang.reset_menu);
 
     };

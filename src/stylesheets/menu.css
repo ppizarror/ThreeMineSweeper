@@ -99,7 +99,6 @@ Content
 #menu-content {
 	/* overflow-x: hidden; */
 	/* overflow-y: auto; */
-	display: inline-table;
 	padding: 10px;
 	width: 100%;
 }
