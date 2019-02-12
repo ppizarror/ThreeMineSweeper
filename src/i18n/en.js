@@ -1,6 +1,7 @@
 /**
  LANG-EN
  English language.
+ Native lang.
 
  @author Pablo Pizarro R. @ppizarror.com
  @license MIT
@@ -21,11 +22,11 @@ lang_db.en = {
     "dialog_form_submit_null": "Submit function cannot be null",
     "dialog_last_closed_equal_opened": "The last dialog has been closed because the new one is identical",
     "dialog_popup_created": "Opening dialog <{0}>",
-    "error_message": "Error",
     "error_cookie_load": "Cookies cannot be loaded",
     "error_errordb_langinit_defaultmsg": "Contact admin",
     "error_errordb_langinit_moreinfo": "Language entry <moreinfo> of error <{0}> does not exist in langs",
     "error_errordb_langinit_msg": "Language entry <msg> of error <{0}> does not exist in lang definition",
+    "error_message": "Error",
     "errordb_errorTemplate_moreinfo": "",
     "errordb_errorTemplate_msg": "",
     "errordb_errorThemeApply_moreinfo": "Contact the administrator",
@@ -96,6 +97,8 @@ lang_db.en = {
     "reset_menu": "Deleted menu",
     "reset_ui": "UI reset",
     "reset_view": "Deleted view content",
+    "score_error_get": "An error has ocurred while trying to download the scores from the server",
+    "score_error_submit": "An error has occurred while trying to upload the score to the server",
     "scoreboard_empty": "This list is empty, be the first!",
     "scoreboard_title": "Scoreboard",
     "start_new_game": "Do you want to start a new game?",

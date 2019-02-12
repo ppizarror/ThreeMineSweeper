@@ -90,6 +90,13 @@ function AppDialog() {
     };
 
     /**
+     * Close last after opening a new dialog.
+     * @type {boolean}
+     * @private
+     */
+    this._close_last = false;
+
+    /**
      * Object pointer.
      * @type {AppDialog}
      * @private
@@ -141,7 +148,7 @@ function AppDialog() {
         /**
          * Crate text
          */
-        this._createDialog(title, text, options);
+        this._create_dialog(title, text, options);
 
     };
 
@@ -154,7 +161,7 @@ function AppDialog() {
      * @param {object=} options
      */
     this.error = function (title, content, options) {
-        this._ewsioType(title, content, this.options.type.ERROR, this.options.icons.ERROR, this.options.buttons.ERROR, options);
+        this._ewsio_type(title, content, this.options.type.ERROR, this.options.icons.ERROR, this.options.buttons.ERROR, options);
     };
 
     /**
@@ -166,7 +173,7 @@ function AppDialog() {
      * @param {object=} options
      */
     this.info = function (title, content, options) {
-        this._ewsioType(title, content, this.options.type.INFO, this.options.icons.INFO, this.options.buttons.INFO, options);
+        this._ewsio_type(title, content, this.options.type.INFO, this.options.icons.INFO, this.options.buttons.INFO, options);
     };
 
     /**
@@ -178,7 +185,7 @@ function AppDialog() {
      * @param {object=} options
      */
     this.warning = function (title, content, options) {
-        this._ewsioType(title, content, this.options.type.WARNING, this.options.icons.WARNING, this.options.buttons.WARNING, options);
+        this._ewsio_type(title, content, this.options.type.WARNING, this.options.icons.WARNING, this.options.buttons.WARNING, options);
     };
 
     /**
@@ -190,7 +197,7 @@ function AppDialog() {
      * @param {object=} options
      */
     this.success = function (title, content, options) {
-        this._ewsioType(title, content, this.options.type.SUCCESS, this.options.icons.SUCCESS, this.options.buttons.SUCCESS, options);
+        this._ewsio_type(title, content, this.options.type.SUCCESS, this.options.icons.SUCCESS, this.options.buttons.SUCCESS, options);
     };
 
     /**
@@ -202,7 +209,7 @@ function AppDialog() {
      * @param {object=} options
      */
     this.other = function (title, content, options) {
-        this._ewsioType(title, content, this.options.type.OTHER, this.options.icons.OTHER, this.options.buttons.OTHER, options);
+        this._ewsio_type(title, content, this.options.type.OTHER, this.options.icons.OTHER, this.options.buttons.OTHER, options);
     };
 
     /**
@@ -217,7 +224,7 @@ function AppDialog() {
      * @param {object=} options
      * @private
      */
-    this._ewsioType = function (title, content, type, icon, buttonClass, options) {
+    this._ewsio_type = function (title, content, type, icon, buttonClass, options) {
 
         /**
          * Default params
@@ -257,7 +264,7 @@ function AppDialog() {
         /**
          * Creates dialog
          */
-        this._createDialog(title, content, options);
+        this._create_dialog(title, content, options);
 
     };
 
@@ -291,7 +298,7 @@ function AppDialog() {
         /**
          * Confirm dialog
          */
-        this._createDialog(title, content, options);
+        this._create_dialog(title, content, options);
 
     };
 
@@ -334,7 +341,7 @@ function AppDialog() {
             closeIcon: false,
             closeAfterSubmit: true,
             escapeCancelKey: false,
-            submitButtonClass: this.options.buttons.INFO,
+            submitButtonClass: this.options.buttons.BLUE,
             submitText: lang.dialog_form_send,
         };
         options = $.extend($defaults, options);
@@ -397,7 +404,7 @@ function AppDialog() {
         /**
          * Create confirm dialog
          */
-        this._createDialog(title, content, options);
+        this._create_dialog(title, content, options);
 
     };
 
@@ -410,7 +417,12 @@ function AppDialog() {
      * @param {object} $options
      * @private
      */
-    this._createDialog = function (title, content, $options) {
+    this._create_dialog = function (title, content, $options) {
+
+        /**
+         * If close last
+         */
+        if (self._close_last) self.close_last();
 
         /**
          * Creation dialogs build parameters
@@ -428,7 +440,7 @@ function AppDialog() {
             closeAnimation: this.options.animation.ZOOM, // Close animation
             closeIcon: true,                        // Close icon
             confirm: null,                          // Confirm function
-            confirmButtonClass: this.options.buttons.INFO, // Confirm button style
+            confirmButtonClass: this.options.buttons.BLUE, // Confirm button style
             confirmText: lang.answer_yes,           // Confirm text
             disableSelect: false,                   // Disables text select
             draggable: true,                        // Popup can be dragged
@@ -436,7 +448,7 @@ function AppDialog() {
             escapeCancelKey: true,                  // Escape button event
             forceCursorDefault: false,              // Force cursor focus
             icon: this.options.icons.DEFAULT,       // Title icon
-            lazyOpen: false,                        // If true opens .openLast()
+            lazyOpen: false,                        // If true opens .open_last()
             onClose: null,                          // Triggered after close popup
             onContentReady: null,                   // Trigerred after content is ready
             onDestroy: null,                        // Triggered after destroy popup
@@ -581,7 +593,7 @@ function AppDialog() {
         /**
          * Set popup size
          */
-        self._dialogSize($options);
+        self._dialog_size($options);
 
         /**
          * Check md5
@@ -597,7 +609,7 @@ function AppDialog() {
         // noinspection JSValidateTypes
         if (notNullUndf(this._last.object) && this._last.md5 === $md5 && !this._last.object.isClosed()) {
             app_console.info(lang.dialog_last_closed_equal_opened);
-            self.closeLast();
+            self.close_last();
         }
 
         /**
@@ -624,7 +636,7 @@ function AppDialog() {
      * @private
      * @param {Object} $options
      */
-    this._dialogSize = function ($options) {
+    this._dialog_size = function ($options) {
 
         /**
          * Get page width
@@ -713,7 +725,7 @@ function AppDialog() {
      *
      * @function
      */
-    this.closeLast = function () {
+    this.close_last = function () {
         if (notNullUndf(self._last.object)) self._last.object.close();
     };
 
@@ -723,8 +735,17 @@ function AppDialog() {
      *
      * @function
      */
-    this.openLast = function () {
+    this.open_last = function () {
         if (notNullUndf(self._last.object)) self._last.object.open();
+    };
+
+    /**
+     * Enable close last after opening a new dialog.
+     *
+     * @function
+     */
+    this.enable_close_last = function () {
+        self._close_last = true;
     };
 
 }
@@ -736,3 +757,4 @@ function AppDialog() {
  * @global
  */
 const app_dialog = new AppDialog();
+app_dialog.enable_close_last();

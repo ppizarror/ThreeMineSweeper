@@ -31,7 +31,7 @@ theme_db = {
 /**
  * Jquery-confirm themes.
  */
-popupThemes = {
+popup_themes = {
     "bootstrap": "Bootstrap",
     "dark": "Dark Theme",
     "light": "Light Theme",

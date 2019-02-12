@@ -23,4 +23,4 @@ let theme_db;
  * Popup themes
  * @global
  */
-let popupThemes;
+let popup_themes;

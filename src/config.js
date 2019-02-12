@@ -32,7 +32,7 @@ let cfg_popup_theme = 'material';
  * @const
  * @global
  */
-const cfg_verbose = false;
+const cfg_verbose = true;
 
 /**
  * Show total messages on console.
@@ -93,7 +93,7 @@ const cfg_cookie_expire_days = 14;
  * @const
  * @global
  */
-const cfg_cookie_session_id = 'R43R65AZyk';
+const cfg_cookie_session_id = 'e43y65AZDB';
 
 /**
  * Only local cookies.

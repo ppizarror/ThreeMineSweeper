@@ -17,7 +17,7 @@
  * @type {string}
  * @global
  */
-let cfg_lang = 'es';
+let cfg_lang = 'en';
 
 /**
  * Available languages.

@@ -1,6 +1,7 @@
 /**
  LANG-ES
  Spanish language.
+ Native lang.
 
  @author Pablo Pizarro R. @ppizarror.com
  @license MIT
@@ -96,6 +97,8 @@ lang_db.es = {
     "reset_menu": "Reiniciando el menú",
     "reset_ui": "Reiniciando la interfaz gráfica",
     "reset_view": "Borrando el contenido de la vista",
+    "score_error_get": "Un error ocurrió mientras se descargaban los marcadores desde el servidor",
+    "score_error_submit": "Un error ocurrió mientras se cargaba el puntaje al servidor",
     "scoreboard_empty": "La lista está vacía, ¡Sé el primero!",
     "scoreboard_title": "Marcadores",
     "start_new_game": "¿Quieres empezar un nuevo juego?",

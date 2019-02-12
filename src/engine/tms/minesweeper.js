@@ -395,18 +395,7 @@ function Minesweeper() {
 
         // Animation ended, show dialog to restart
         if ($f.length === 0) {
-            setTimeout(function () {
-                app_dialog.confirm(lang.game_over, lang.start_new_game, {
-                    cancel: function () {
-                    },
-                    confirm: function () {
-                        app_tms.new();
-                    },
-                    confirmButtonClass: app_dialog.options.buttons.BLUE,
-                    icon: 'fas fa-bomb',
-                    size: app_dialog.options.size.SMALL,
-                });
-            }, 200);
+            self._new_game_after_lose();
             return;
         }
 
@@ -577,16 +566,14 @@ function Minesweeper() {
         // noinspection HtmlUnknownAttribute
         app_dialog.form(lang.game_won_title, '{2}.<br><br><form action="" class="formName"><div class="form-group"><label for="{0}">{1}:</label><input type="text" class="form-control" id="{0}" minlength="4" maxlength="20" value="{3}" {4} ></div></form>'.format($id, lang.game_won_name, lang.game_won_content.format(roundNumber(self._user.time, 2), $lastname !== '' ? 'autofocus' : ''), $lastname),
             function () {
-
-                // Get name
-                let $name = self._sanitize_text($('#' + $id).val());
+                let $name = self._sanitize_text($('#' + $id).val()); // Get name
                 if ($name.length >= 4 && $name.length <= 20) {
                     sessionCookie.username = $name;
                     updateSessionCookie();
                     self._submit_score($name);
                 }
-
-            }, null, {
+            }, self._new_game_after_win
+            , {
                 cancelText: lang.dialog_form_cancel,
                 icon: 'fas fa-trophy',
                 submitText: lang.dialog_form_send,
@@ -654,6 +641,9 @@ function Minesweeper() {
                 let $data = JSON.parse(response);
                 if (Object.keys($data).indexOf('error') === -1) {
                     self._load_score();
+                } else {
+                    NotificationJS.error(lang.score_error_submit);
+                    app_console.exception(response);
                 }
             } catch ($e) {
                 app_console.exception($e);
@@ -661,12 +651,60 @@ function Minesweeper() {
             }
         });
 
+        // noinspection JSUnusedLocalSymbols
         /**
          * Fail connection
          */
         $query.fail(function (response, textStatus, jqXHR) {
+            NotificationJS.error(lang.score_error_submit);
+            app_console.exception(response + ' ' + textStatus);
         });
 
+        // Show dialog
+        self._new_game_after_win();
+
+    };
+
+    /**
+     * Dialog after wining.
+     *
+     * @function
+     * @private
+     */
+    this._new_game_after_win = function () {
+        setTimeout(function () {
+            app_dialog.confirm(lang.game_won_title, lang.start_new_game, {
+                cancel: function () {
+                },
+                confirm: function () {
+                    app_tms.new();
+                },
+                confirmButtonClass: app_dialog.options.buttons.SUCCESS,
+                icon: 'fas fa-trophy',
+                size: app_dialog.options.size.SMALL,
+            });
+        }, 200);
+    };
+
+    /**
+     * Dialog after losing.
+     *
+     * @function
+     * @private
+     */
+    this._new_game_after_lose = function () {
+        setTimeout(function () {
+            app_dialog.confirm(lang.game_over, lang.start_new_game, {
+                cancel: function () {
+                },
+                confirm: function () {
+                    app_tms.new();
+                },
+                confirmButtonClass: app_dialog.options.buttons.DANGER,
+                icon: 'fas fa-bomb',
+                size: app_dialog.options.size.SMALL,
+            });
+        }, 200);
     };
 
     /**
@@ -697,6 +735,9 @@ function Minesweeper() {
                 let $data = JSON.parse(response);
                 if (Object.keys($data).indexOf('error') === -1) {
                     self._write_scores($data);
+                } else {
+                    NotificationJS.error(lang.score_error_get);
+                    app_console.error(response);
                 }
             } catch ($e) {
                 app_console.exception($e);
@@ -704,10 +745,13 @@ function Minesweeper() {
             }
         });
 
+        // noinspection JSUnusedLocalSymbols
         /**
          * Fail connection
          */
         $query.fail(function (response, textStatus, jqXHR) {
+            NotificationJS.error(lang.score_error_get);
+            app_console.exception(response + ' ' + textStatus);
         });
 
     };
@@ -792,15 +836,25 @@ function Minesweeper() {
     this._write_user_scoreboard = function (name, position, country, date, time) {
 
         // Format time
+        let $timestr = '';
         let $time = parseFloat(time);
         $time = roundNumber($time, 3);
-        if ($time > 1e1) $time = roundNumber($time, 2);
-        if ($time > 1e2) $time = roundNumber($time, 1);
-        if ($time > 1e3) $time = roundNumber($time, 0);
-        if ($time > 86400) return false;
-
-        // Invalid data
         if (isNaN($time) || time <= 0) return false;
+
+        // Format number
+        if ($time > 1e1) {
+            $time = roundNumber($time, 2);
+            $timestr = $time.toString().padEnd(5, '0');
+        }
+        if ($time > 1e2) {
+            $time = roundNumber($time, 1);
+            $timestr = $time.toString().padEnd(5, '0');
+        }
+        if ($time > 1e3) {
+            $time = roundNumber($time, 0);
+            $timestr = $time.toString();
+        }
+        if ($time > 86400) return false;
 
         // Format country
         if (isNullUndf(country)) country = '';
@@ -821,7 +875,7 @@ function Minesweeper() {
         let date_display = dateFormat(new Date(date), cfg_date_format_public_d);
 
         // Write content
-        self._dom.scoreboard_content.append('<div class="game-scoreboard-entry"><div class="game-scoreboard-user"><div class="game-scoreboard-username">{0}</div><div class="game-scoreboard-userdata"><div class="game-scoreboard-userdata-position">#{1}</div>{2}<div class="game-scoreboard-userdata-date">{3}</div></div></div><div class="game-scoreboard-time">{4}</div></div>'.format(name, position, country, date_display, $time));
+        self._dom.scoreboard_content.append('<div class="game-scoreboard-entry"><div class="game-scoreboard-user"><div class="game-scoreboard-username">{0}</div><div class="game-scoreboard-userdata"><div class="game-scoreboard-userdata-position">#{1}</div>{2}<div class="game-scoreboard-userdata-date">{3}</div></div></div><div class="game-scoreboard-time">{4}</div></div>'.format(name, position, country, date_display, $timestr));
         return true;
 
     };

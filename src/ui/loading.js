@@ -73,7 +73,7 @@ function FullPageLoadingSpinner() {
 
         // Create new thread
         self._threadChange = setTimeout(function () {
-            if (!self._enabled) self._loadFullpageSpinner(true);
+            if (!self._enabled) self._load_fullpage_spinner(true);
             self._threadChange = -1;
         }, cfg_init_loading_layer_after);
 
@@ -89,7 +89,7 @@ function FullPageLoadingSpinner() {
             clearTimeout(self._threadChange);
             self._threadChange = -1;
         }
-        self._loadFullpageSpinner(false)
+        self._load_fullpage_spinner(false)
     };
 
     /**
@@ -100,7 +100,7 @@ function FullPageLoadingSpinner() {
      * @param {Function=} callback - Callback function
      * @private
      */
-    this._loadFullpageSpinner = function (checker, callback) {
+    this._load_fullpage_spinner = function (checker, callback) {
         /* eslint callback-return:"off" */
         let h, hh, w, posX, posY;
 
