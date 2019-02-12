@@ -96,7 +96,9 @@ Content
 #menu-content {
 	/* overflow-x: hidden; */
 	/* overflow-y: auto; */
+	display: inline-table;
 	padding: 10px;
+	width: 100%;
 }
 
 #menu-content::-webkit-scrollbar-track {
@@ -249,6 +251,7 @@ Menu back
 	}
 }
 
+/* noinspection Stylelint */
 #menu-subheader .menu-menuback-button .btn {
 	background-color: rgba(155, 155, 155, 0.37);
 	color: #ffffff;
@@ -350,4 +353,12 @@ Generator container options
 
 #menu-content .menu-generator-options .menu-generator-latlng .menu-generator-latlng-sep {
 	padding-left: 1rem;
+}
+
+/**
+Main menu button container
+ */
+#menu-container .main-button-container {
+	display: table-cell;
+	vertical-align: middle;
 }

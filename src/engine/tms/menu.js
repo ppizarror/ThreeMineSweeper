@@ -53,21 +53,21 @@ function TMSMenu() {
             latlng: true,
             from: 20,
             max: 40,
-            min: 5,
+            min: 10,
             step: 5,
         },
         7: { // Cylinder
             latlng: true,
             from: 20,
             max: 40,
-            min: 5,
+            min: 10,
             step: 5,
         },
         8: { // Square
             latlng: true,
             from: 10,
             max: 40,
-            min: 5,
+            min: 10,
             step: 5,
         },
         9: { // EmptyGenerator
@@ -83,7 +83,7 @@ function TMSMenu() {
     this._mines = {
         from: 10,
         max: 95,
-        min: 5,
+        min: 10,
         step: 5,
     };
 
@@ -258,9 +258,12 @@ function TMSMenu() {
         app_dom.window.on('resize.menucontainer', self._set_content_height);
 
         // Write buttons
-        self._add_button(lang.menu_new_game, null, self._menu_new);
-        self._add_button(lang.menu_how_to_play, null, self._menu_htp);
-        self._add_button(lang.menu_about, null, self._menu_about);
+        let $buttons = generateID();
+        self._dom.content.html('<div id="{0}" class="main-button-container"></div>'.format($buttons));
+        let $btncontainer = $('#' + $buttons);
+        self._add_button(lang.menu_new_game, null, $btncontainer, self._menu_new);
+        self._add_button(lang.menu_how_to_play, null, $btncontainer, self._menu_htp);
+        self._add_button(lang.menu_about, null, $btncontainer, self._menu_about);
 
         // Apply rippler effect
         self._apply_rippler();
@@ -365,7 +368,7 @@ function TMSMenu() {
         self._dom.generator = $('#' + $gencontainer);
 
         // Add play button
-        self._dom.playbutton = self._add_button(lang.new_game_start, 'btn-primary', self._play);
+        self._dom.playbutton = self._add_button(lang.new_game_start, 'btn-primary', null, self._play);
         self._dom.playbutton.attr('disabled', 'disabled');
 
         // Apply button effect
@@ -606,16 +609,17 @@ function TMSMenu() {
     };
 
     /**
-     * Addd button.
+     * Adds button.
      *
      * @function
      * @param {string} text
      * @param {string | null} theme
+     * @param {JQuery<HTMLElement> | jQuery | HTMLElement | null} container
      * @param {function=} callback
      * @returns {JQuery<HTMLElement> | jQuery | HTMLElement}
      * @private
      */
-    this._add_button = function (text, theme, callback) {
+    this._add_button = function (text, theme, container, callback) {
         if (isNullUndf(callback)) {
             callback = function () {
             };
@@ -625,8 +629,9 @@ function TMSMenu() {
             callback();
         };
         if (isNullUndf(theme)) theme = 'btn-default';
+        if (isNullUndf(container)) container = self._dom.content;
         let $id = generateID();
-        self._dom.content.append('<div class="menu-main-button"><button type="button" class="btn {2} rippler rippler-inverse hvr-shadow" id="{0}">{1}</button></div>'.format($id, text, theme));
+        container.append('<div class="menu-main-button"><button type="button" class="btn {2} rippler rippler-inverse hvr-shadow" id="{0}">{1}</button></div>'.format($id, text, theme));
         let btn = $('#' + $id);
         btn.on('click', $callback);
         return btn;

@@ -20,7 +20,7 @@
 let cfg_app_theme = 'default';
 
 /**
- * Popup themes <bootstrap, dark, light, material, modern, supervan> {@link sessionCookie}.
+ * Popup themes (bootstrap,dark,light,material,modern,supervan) {@link sessionCookie}.
  * @type {string}
  * @global
  */
@@ -32,7 +32,7 @@ let cfg_popup_theme = 'material';
  * @const
  * @global
  */
-const cfg_verbose = true;
+const cfg_verbose = false;
 
 /**
  * Show total messages on console.
@@ -147,7 +147,7 @@ const cfg_init_loading_layer_after = 150;
  * @const
  * @global
  */
-const cfg_notification_core = 'toastr';
+const cfg_notification_core = 'amaranjs';
 
 /**
  * Notification are or not avaiable.
