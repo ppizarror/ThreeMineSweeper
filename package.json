@@ -1,6 +1,6 @@
 {
-  "name": "threeminessweeper",
-  "version": "0.9.5",
+  "name": "threeminesweeper",
+  "version": "0.9.6",
   "description": "TMS is an experimental 3D minesweeper game capable to render advanced geometric maps",
   "main": "index.html",
   "directories": {
@@ -27,7 +27,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ppizarror/ThreeMinesSweeper.git"
+    "url": "git+https://github.com/ppizarror/ThreeMineSweeper.git"
   },
   "keywords": [
     "threejs",
@@ -38,7 +38,7 @@
   "author": "ppizarror",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/ppizarror/ThreeMinesSweeper/issues"
+    "url": "https://github.com/ppizarror/ThreeMineSweeper/issues"
   },
-  "homepage": "https://github.com/ppizarror/ThreeMinesSweeper#readme"
+  "homepage": "https://github.com/ppizarror/ThreeMineSweeper#readme"
 }
