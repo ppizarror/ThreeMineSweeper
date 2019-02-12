@@ -52,14 +52,14 @@ function TMSMenu() {
         6: { // Sphere
             latlng: true,
             from: 20,
-            max: 40,
-            min: 10,
+            max: 50,
+            min: 20,
             step: 5,
         },
         7: { // Cylinder
             latlng: true,
             from: 20,
-            max: 40,
+            max: 50,
             min: 10,
             step: 5,
         },
@@ -81,10 +81,10 @@ function TMSMenu() {
      * @private
      */
     this._mines = {
-        from: 10,
-        max: 95,
-        min: 10,
-        step: 5,
+        from: 5,
+        max: 25,
+        min: 5,
+        step: 1,
     };
 
     /**
@@ -178,7 +178,7 @@ function TMSMenu() {
         let $authorid = generateID();
 
         // noinspection HtmlUnknownTarget
-        self._dom.footer.html('<div class="menu-footer-item menu-footer-item-author" id="{5}">{0}: <a href="{2}" target="_blank">@{1}</a></div><div class="menu-footer-item menu-footer-item-other"><a href="{4}" target="_blank" id="{6}"><i class="fab fa-github"></i></a></div><div class="menu-footer-item menu-footer-item-version">v{3}</div><div class="menu-footer-lang-selector" id="{7}"></div>'.format(lang.author_message, aboutinfo.author.tag, aboutinfo.author.website, aboutinfo.v.version, aboutinfo.productwebsite, $authorid, $githubid, $langid));
+        self._dom.footer.html('<div class="menu-footer-item menu-footer-item-author" id="{5}">{0}: <a href="{2}" target="_blank">@{1}</a></div><div class="menu-footer-item menu-footer-item-other"><a href="{4}" target="_blank" id="{6}"><i class="fab fa-github"></i></a></div><div class="menu-footer-item menu-footer-item-version">v{3}</div><div class="menu-footer-lang-selector menu-container-width" id="{7}"></div>'.format(lang.author_message, aboutinfo.author.tag, aboutinfo.author.website, aboutinfo.v.version, aboutinfo.productwebsite, $authorid, $githubid, $langid));
 
         // Write langs
         let langcontainer = $('#' + $langid);
@@ -246,6 +246,7 @@ function TMSMenu() {
         // Reset menu
         self.reset_menu();
         app_console.info(lang.load_menu);
+        // app_dom.body.css('overflow', 'auto');
 
         // Open menu
         if (disable_fade) {

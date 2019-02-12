@@ -86,25 +86,12 @@ Hide outline form
 	box-shadow: inherit !important;
 }
 
-@media screen and (max-width: 576px) {
-	.form-control {
-		font-size: 0.8rem !important;
-	}
-}
-
 /**
 Buttons
  */
 .btn.focus,
 .btn:focus {
 	box-shadow: inherit !important;
-}
-
-@media screen and (max-width: 576px) {
-	.btn {
-		font-size: 0.80rem !important;
-		padding: 0.2rem 0.4rem !important;
-	}
 }
 
 /**
@@ -209,6 +196,10 @@ Icon fix
  */
 .jconfirm .jconfirm-box div.jconfirm-title-c .jconfirm-title {
 	display: inline-block !important;
+}
+
+.jconfirm.jconfirm-material .jconfirm-box .jconfirm-title-c .jconfirm-icon-c {
+	display: inline-flex;
 }
 
 /**

@@ -40,20 +40,24 @@ function Square() {
         // Place camera
         this._set_camera_position(0, 0, 2);
 
+        // Define lat and lng
+        let lat = this._lat + 1;
+        let lng = this._lng + 1;
+
         // Calculate lengths
         let lx = Math.abs(xf - xi);
         let ly = Math.abs(yf - yi);
         let zo = (zf + zi) / 2;
 
         // Calculate displacements
-        let dx = lx / (this._lng - 1);
-        let dy = ly / (this._lat - 1);
+        let dx = lx / (lng - 1);
+        let dy = ly / (lat - 1);
 
         // Create vertices
         let v = [];
-        for (let i = 0; i < this._lng; i += 1) { // x
-            for (let j = 0; j < this._lat; j += 1) { // y
-                v.push(new Vertex(xi + (dx * i), yi + (dy * j), zo, 'V' + ((i * this._lng) + j).toString()));
+        for (let i = 0; i < lng; i += 1) { // x
+            for (let j = 0; j < lat; j += 1) { // y
+                v.push(new Vertex(xi + (dx * i), yi + (dy * j), zo, 'V' + ((i * lng) + j).toString()));
             }
         }
 
@@ -61,15 +65,15 @@ function Square() {
         let f = [];
         let i = 1;
         let face;
-        for (let j = 0; j < this._lat - 1; j += 1) { // y
-            for (let fi = 0; fi < this._lng - 1; fi += 1) { // Iterate through each face
+        for (let j = 0; j < lat - 1; j += 1) { // y
+            for (let fi = 0; fi < lng - 1; fi += 1) { // Iterate through each face
 
                 // Create playable face
                 face = new Face([
-                    v[(this._lat * j) + fi],
-                    v[(this._lat * j) + fi + 1],
-                    v[(this._lat * (j + 1)) + fi + 1],
-                    v[(this._lat * (j + 1)) + fi]
+                    v[(lat * j) + fi],
+                    v[(lat * j) + fi + 1],
+                    v[(lat * (j + 1)) + fi + 1],
+                    v[(lat * (j + 1)) + fi]
                 ], 'F' + i.toString());
                 face.enable_uv_flip();
                 face.set_uv_rotation(-90);
@@ -86,22 +90,22 @@ function Square() {
         // Create vertices hidden
         zo -= 0.0005;
         v = [];
-        for (i = 0; i < this._lng; i += 1) { // x
-            for (let j = 0; j < this._lat; j += 1) { // y
-                v.push(new Vertex(xi + (dx * i), yi + (dy * j), zo, 'V' + ((i * this._lng) + j).toString()));
+        for (i = 0; i < lng; i += 1) { // x
+            for (let j = 0; j < lat; j += 1) { // y
+                v.push(new Vertex(xi + (dx * i), yi + (dy * j), zo, 'V' + ((i * lng) + j).toString()));
             }
         }
 
         // Create unplayable faces
         f = [];
         i = 1;
-        for (let j = 0; j < this._lat - 1; j += 1) { // y
-            for (let fi = 0; fi < this._lng - 1; fi += 1) { // Iterate through each face
+        for (let j = 0; j < lat - 1; j += 1) { // y
+            for (let fi = 0; fi < lng - 1; fi += 1) { // Iterate through each face
                 face = new Face([
-                    v[(this._lat * j) + fi],
-                    v[(this._lat * j) + fi + 1],
-                    v[(this._lat * (j + 1)) + fi + 1],
-                    v[(this._lat * (j + 1)) + fi]
+                    v[(lat * j) + fi],
+                    v[(lat * j) + fi + 1],
+                    v[(lat * (j + 1)) + fi + 1],
+                    v[(lat * (j + 1)) + fi]
                 ], 'F' + i.toString());
                 face.disable_face();
                 face.reverse_vertices();

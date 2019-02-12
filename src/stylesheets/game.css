@@ -17,6 +17,7 @@ Generic container
 	bottom: 0;
 	float: right;
 	height: 100%;
+	min-height: 520px;
 	min-width: 640px;
 	outline: none;
 	padding: 0;

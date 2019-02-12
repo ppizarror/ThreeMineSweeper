@@ -74,6 +74,7 @@ function Minesweeper() {
         facecount: $('#game-ui-face-counter'),
         flagcount: $('#game-ui-flag-counter'),
         menubutton: $('#game-ui-button-menu'),
+        minecount: $('#game-ui-mine-counter'),
         questioncount: $('#game-ui-question-counter'),
         resetbutton: $('#game-ui-button-reset'),
         scoreboard_container: $('#game-scoreboard-container'),
@@ -468,6 +469,7 @@ function Minesweeper() {
         // Reset event
         this.reset_game_ui();
         app_console.info(lang.load_ui);
+        // app_dom.body.css('overflow', 'hidden');
 
         // Timer
         this._timer.init = new Date();
@@ -559,8 +561,11 @@ function Minesweeper() {
     this._update_counters = function () {
         let $played = roundNumber(100 * self._game_status.played / self._game_status.total, 1);
         if (isNaN($played)) $played = 0;
+
+        // Update
         self._dom.facecount.html('{0}/{1} ({2}%)'.format(self._game_status.played, self._game_status.total, $played));
         self._dom.flagcount.html(self._game_status.flags);
+        self._dom.minecount.html(self._game_status.mines);
         self._dom.questioncount.html(self._game_status.questions);
     };
 
@@ -832,6 +837,9 @@ function Minesweeper() {
         // Scoreboard content autosize
         let $f = function () {
             self._dom.scoreboard_content.css('height', self._get_scoreboard_height());
+            let $child = self._dom.scoreboard_content.find('.game-scoreboard-empty');
+            if (isNullUndf($child) || $child.length === 0) return;
+            $child.css('line-height', self._get_scoreboard_height() + 'px');
         };
         app_dom.window.on('resize.scoreboard', $f);
         $f();

@@ -16,18 +16,21 @@ License MIT
 /**
 Menu root container
  */
-#menu-container {
-	background-color: rgba(0, 0, 0, 0.70);
+#menu-container { /* Also modify #menu-footer .menu-footer-lang-selector */
+	background-color: rgba(0, 0, 0, 0.75);
 	border-radius: 15px;
-	box-shadow: 0 0 10px rgba(0, 0, 0, 0.40);
+	box-shadow: 0 0 12px rgba(0, 0, 0, 0.40);
 	color: #ffffff;
-	height: 60%;
+	height: 55%;
 	margin: auto;
-	max-height: 420px;
-	max-width: 640px;
-	min-height: 250px;
-	min-width: 400px;
-	width: 55%;
+	max-height: 500px;
+	min-height: 430px;
+}
+
+.menu-container-width {
+	max-width: 650px;
+	min-width: 450px;
+	width: 61.875%;
 }
 
 /**
@@ -133,6 +136,12 @@ Buttons
 	width: 40%;
 }
 
+@media screen and (max-width: 800px) {
+	#menu-content .menu-main-button .btn {
+		font-size: 1rem;
+	}
+}
+
 #menu-content .menu-main-button .btn:hover {
 	opacity: 1.0;
 }
@@ -177,7 +186,16 @@ Footer
 }
 
 #menu-footer .menu-footer-item.menu-footer-item-other {
+	font-size: 1.6rem;
+	line-height: 0.2rem;
+	margin-top: -0.2rem;
 	text-align: center;
+}
+
+@media screen and (max-width: 800px) {
+	#menu-footer .menu-footer-item.menu-footer-item-other {
+		font-size: 1.4rem;
+	}
 }
 
 /* noinspection Stylelint */
@@ -201,14 +219,17 @@ Footer
 Language selector on footer
  */
 #menu-footer .menu-footer-lang-selector {
-	margin-top: 2.2rem;
-	max-width: 640px;
-	min-width: 400px;
-	padding-left: 1.2%;
-	padding-right: 1.2%;
+	margin-top: 2.3rem;
+	padding-left: 1.3%;
+	padding-right: 1.3%;
 	position: fixed;
 	text-align: right;
-	width: 55%;
+}
+
+@media screen and (max-width: 800px) {
+	#menu-footer .menu-footer-lang-selector {
+		margin-top: 2rem;
+	}
 }
 
 #menu-footer .menu-footer-lang-selector img {
@@ -280,8 +301,14 @@ Menu input
  */
 #menu-content .menu-content-input {
 	display: flex;
-	margin-top: 0.5rem;
+	margin-top: 0.7rem;
 	width: 100%;
+}
+
+@media screen and (max-width: 800px) {
+	#menu-content .menu-content-input {
+		margin-top: 0.5rem;
+	}
 }
 
 #menu-content .menu-content-input .menu-content-input-child {
