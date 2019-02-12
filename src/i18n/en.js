@@ -99,6 +99,7 @@ lang_db.en = {
     "reset_ui": "UI reset",
     "reset_view": "Deleted view content",
     "score_error_get": "An error has ocurred while trying to download the scores from the server",
+    "score_error_location": "An error has occurred while trying to get the user location",
     "score_error_submit": "An error has occurred while trying to upload the score to the server",
     "scoreboard_empty": "This list is empty, be the first!",
     "scoreboard_title": "Scoreboard",

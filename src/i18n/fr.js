@@ -99,6 +99,7 @@ lang_db.fr = {
     "reset_ui": "Réinitialisation de l'interface utilisateur",
     "reset_view": "Contenu de la vue supprimé",
     "score_error_get": "Une erreur est survenue lors de la tentative de téléchargement des partitions depuis le serveur",
+    "score_error_location": "Une erreur s'est produite lors de la tentative d'obtention de l'emplacement de l'utilisateur",
     "score_error_submit": "Une erreur s'est produite lors de la tentative de téléchargement de la partition sur le serveur",
     "scoreboard_empty": "Cette liste est vide, soyez le premier!",
     "scoreboard_title": "Tableau de bord",

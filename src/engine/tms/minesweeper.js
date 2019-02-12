@@ -195,6 +195,7 @@ function Minesweeper() {
             app_console.info(lang.mines_detected_double_lclick.format(ts));
             this._clear_zeros(face, viewer, true);
             self._update_counters();
+            this._check_win();
         }
 
         // Stores last click
@@ -213,6 +214,7 @@ function Minesweeper() {
             if (face.has_question()) {
                 face.place_flag();
                 self._game_status.questions -= 1;
+                self._game_status.played -= 1;
             }
             face.play(viewer);
             face.place_image(viewer);
@@ -313,7 +315,7 @@ function Minesweeper() {
 
         // Fast check
         if (self._game_status.played !== self._game_status.total) {
-            if (!((self._game_status.played + self._game_status.mines - self._game_status.flags - self._game_status.questions) === self._game_status.total)) return;
+            if (!((self._game_status.played + self._game_status.mines) === self._game_status.total)) return;
         }
         app_console.info(lang.game_checking_win_condition);
 
@@ -618,10 +620,16 @@ function Minesweeper() {
      * @private
      */
     this._submit_score = function (name) {
-        dbip.getVisitorInfo().then(info => {
+        let location = dbip.getVisitorInfo();
+        location.then(info => {
             self._user.name = name;
             // noinspection JSUnresolvedVariable
             self._user.location = info.countryCode.toLowerCase();
+            self._push_server();
+        });
+        location.catch(function () {
+            NotificationJS.error(lang.score_error_location);
+            self._user.location = 'none';
             self._push_server();
         });
     };
@@ -882,6 +890,7 @@ function Minesweeper() {
         if ($time > 86400) return false;
 
         // Format country
+        country = country.toString();
         if (isNullUndf(country)) country = '';
         if (country !== '') {
             let country_name = ''; // Find country name
@@ -894,6 +903,8 @@ function Minesweeper() {
 
             // noinspection HtmlUnknownTarget
             country = '<div class="game-scoreboard-userdata-img"><img src="resources/flags/{0}.png" alt="" title="{1}" /></div>'.format(country, country_name);
+        } else if (country === 'none' || country === 'null') {
+            country = '<div class="game-scoreboard-userdata-img-null"></div>'.format();
         }
 
         // Format date

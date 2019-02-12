@@ -310,14 +310,19 @@ Bookmark user data
 	box-shadow: 0 0 5px rgba(0, 0, 0, 0.34);
 	display: inline-block;
 	filter: grayscale(0.5);
+	height: 0.85rem;
 	margin-right: 0.5rem;
 	margin-top: -0.4rem;
-	max-height: 0.9rem;
+	width: 1.3rem;
 }
 
 .game-ui-right-column #game-scoreboard-content .game-scoreboard-userdata .game-scoreboard-userdata-date {
 	font-size: 0.9rem;
 	color: #cfcfcf;
+}
+
+.game-ui-right-column #game-scoreboard-content .game-scoreboard-userdata .game-scoreboard-userdata-img-null {
+	width: 1.8rem;
 }
 
 @media screen and (max-width: 800px) {
@@ -327,12 +332,16 @@ Bookmark user data
 	}
 
 	.game-ui-right-column #game-scoreboard-content .game-scoreboard-userdata .game-scoreboard-userdata-img img {
-		margin-top: -0.6rem;
-		max-height: 0.7rem;
+		margin-left: 0.2rem;
+		margin-top: -0.7rem;
 	}
 
 	.game-ui-right-column #game-scoreboard-content .game-scoreboard-userdata .game-scoreboard-userdata-date {
 		font-size: 0.7rem;
+	}
+
+	.game-ui-right-column #game-scoreboard-content .game-scoreboard-userdata .game-scoreboard-userdata-img-null {
+		width: 2.0rem;
 	}
 }
 
