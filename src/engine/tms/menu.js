@@ -577,14 +577,30 @@ function TMSMenu() {
         self._wipe_content();
         self._write_menuback(lang.menu_how_to_play);
 
+        // Write help info
+        self._write_htp_entry(['Keyboard_White_Mouse_Left'], 'Click and hold, rotate camera around position');
+
         // Apply button effect
         self._set_content_height();
         self._apply_rippler();
 
     };
-    
-    this._write_htp_entry = function () {
 
+    /**
+     * Write how to play entry line.
+     *
+     * @function
+     * @param {string[]} keys
+     * @param {string} text
+     * @private
+     */
+    this._write_htp_entry = function (keys, text) {
+        let $keys = '';
+        for (let i = 0; i < keys.length; i += 1) {
+            // noinspection HtmlUnknownTarget
+            $keys += '<img src="resources/keys/{0}.png" alt="" />'.format(keys[i]);
+        }
+        self._dom.content.append('<div class="menu-htp-entry-line"><div class="menu-htp-keys">{0}</div><div class="menu-htp-text">{1}</div></div>'.format($keys, text));
     };
 
     /**

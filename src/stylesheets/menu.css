@@ -388,3 +388,41 @@ Main menu button container
 	display: table-cell;
 	vertical-align: middle;
 }
+
+/**
+How to play
+ */
+#menu-content .menu-htp-entry-line {
+	display: flex;
+	flex-direction: row;
+	padding: 0.6rem;
+	width: 100%;
+}
+
+#menu-content .menu-htp-entry-line .menu-htp-keys {
+	width: 40%;
+}
+
+#menu-content .menu-htp-entry-line .menu-htp-keys img {
+	height: 3rem;
+}
+
+#menu-content .menu-htp-entry-line .menu-htp-text {
+	font-size: 1rem;
+	font-weight: 300;
+	line-height: 3rem;
+	text-align: left;
+	width: 60%;
+}
+
+@media screen and (max-width: 800px) {
+	#menu-content .menu-htp-entry-line .menu-htp-keys img {
+		height: 2.5rem;
+	}
+
+	#menu-content .menu-htp-entry-line .menu-htp-text {
+		font-size: 0.85rem;
+		font-weight: 400;
+		line-height: 2.5rem;
+	}
+}
