@@ -438,10 +438,11 @@ function Minesweeper() {
      * @private
      */
     this._set_text_color = function (color) {
-        self._timer.dom.css('color', color);
         self._dom.facecount.css('color', color);
         self._dom.flagcount.css('color', color);
+        self._dom.minecount.css('color', color);
         self._dom.questioncount.css('color', color);
+        self._timer.dom.css('color', color);
     };
 
     /**
