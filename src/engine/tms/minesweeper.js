@@ -105,6 +105,13 @@ function Minesweeper() {
     };
 
     /**
+     * Game reset.
+     * @type {boolean}
+     * @private
+     */
+    this._reset = false;
+
+    /**
      * Object pointer.
      * @type {Minesweeper}
      */
@@ -187,6 +194,7 @@ function Minesweeper() {
         if (face.is_played() && this._last_click.id === face.get_id() && ts < 0.20 && lclick && face.get_bomb_count() !== 0) {
             app_console.info(lang.mines_detected_double_lclick.format(ts));
             this._clear_zeros(face, viewer, true);
+            self._update_counters();
         }
 
         // Stores last click
@@ -314,9 +322,8 @@ function Minesweeper() {
         for (let i = 0; i < $f.length; i += 1) {
             if (!$f[i].is_enabled()) continue;
             if ($f[i].is_played() && $f[i].has_bomb()) continue;
-            if ((!$f[i].is_played() && $f[i].has_bomb()) ||
-                ($f[i].is_played() && !$f[i].has_bomb()) ||
-                (!$f[i].is_played() && ($f[i].has_flag() || $f[i].has_question()))) $played += 1;
+            if (!$f[i].is_played() && !$f[i].has_bomb()) continue;
+            $played += 1;
         }
         if ($played !== self._game_status.total) return;
 
@@ -492,6 +499,7 @@ function Minesweeper() {
         });
         this._dom.resetbutton.on('click', function () {
             let $reset = function () {
+                self._reset = true;
                 app_tms.new();
             };
             app_sound.play(app_sound.sound.BUTTON);
@@ -513,11 +521,16 @@ function Minesweeper() {
         self._update_counters();
 
         // Get score from server
-        if (download_score) self._load_score();
+        if (download_score && !self._reset) {
+            self._load_score();
+        }
 
         // Show
         this._dom.viewer.show();
         self._scoreboard_setup();
+
+        // Disable reset status
+        self._reset = false;
 
     };
 
@@ -698,6 +711,7 @@ function Minesweeper() {
                 cancel: function () {
                 },
                 confirm: function () {
+                    self._reset = true;
                     app_tms.new();
                 },
                 confirmButtonClass: app_dialog.options.buttons.DANGER,
@@ -779,6 +793,9 @@ function Minesweeper() {
      * @private
      */
     this._scoreboard_setup = function () {
+
+        // If reset
+        if (self._reset) return;
 
         // Clear scoreboard
         self._dom.scoreboard_content.empty();

@@ -273,7 +273,8 @@ function TMSMenu() {
 
         // Delete animation of main icon
         setTimeout(function () {
-            $('.menu-header-icon').removeClass('slideInDown')
+            $('.menu-header-icon').removeClass('slideInDown');
+            $('.menu-header-title').removeClass('fadeIn')
         }, 2500);
 
     };
