@@ -102,6 +102,7 @@ lang_db.ru = {
     "score_error_submit": "Произошла ошибка при попытке загрузить счет на сервер",
     "scoreboard_empty": "Этот список пуст, будь первым!",
     "scoreboard_title": "Табло",
+    "server_error": "Ошибка сервера",
     "start_new_game": "Хотите начать новую игру?",
     "viewer_gui_ambientlight": "Окружающий свет",
     "viewer_gui_camera": "Камера",

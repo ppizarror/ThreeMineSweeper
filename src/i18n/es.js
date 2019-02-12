@@ -102,6 +102,7 @@ lang_db.es = {
     "score_error_submit": "Un error ocurrió mientras se cargaba el puntaje al servidor",
     "scoreboard_empty": "La lista está vacía, ¡Sé el primero!",
     "scoreboard_title": "Marcadores",
+    "server_error": "Error en el servidor",
     "start_new_game": "¿Quieres empezar un nuevo juego?",
     "viewer_gui_ambientlight": "Luz ambiental",
     "viewer_gui_camera": "Cámara",

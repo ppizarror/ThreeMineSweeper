@@ -225,6 +225,7 @@ function Minesweeper() {
             // If face has zero bombs
             if (face.get_bomb_count() === 0) this._clear_zeros(face, viewer, false);
         } else {
+            if (ts < 0.3) return;
             face.place_flag();
             face.place_image(viewer);
             if (face.has_flag()) {
@@ -696,7 +697,7 @@ function Minesweeper() {
                 icon: 'fas fa-trophy',
                 size: app_dialog.options.size.SMALL,
             });
-        }, 1000);
+        }, 1500);
     };
 
     /**
@@ -718,7 +719,7 @@ function Minesweeper() {
                 icon: 'fas fa-bomb',
                 size: app_dialog.options.size.SMALL,
             });
-        }, 1000);
+        }, 1500);
     };
 
     /**
@@ -749,14 +750,16 @@ function Minesweeper() {
                 let $data = JSON.parse(response);
                 if (Object.keys($data).indexOf('error') === -1) {
                     self._write_scores($data);
-                } else {
-                    NotificationJS.error(lang.score_error_get);
-                    app_console.error(response);
+                    return;
                 }
+                // Error
+                NotificationJS.error(lang.score_error_get);
+                app_console.error(response);
             } catch ($e) {
                 app_console.exception($e);
             } finally {
             }
+            self._write_scores(null);
         });
 
         // noinspection JSUnusedLocalSymbols
@@ -766,6 +769,7 @@ function Minesweeper() {
         $query.fail(function (response, textStatus, jqXHR) {
             NotificationJS.error(lang.score_error_get);
             app_console.exception(response + ' ' + textStatus);
+            self._write_scores(null);
         });
 
     };
@@ -779,11 +783,15 @@ function Minesweeper() {
      */
     this._write_scores = function (score) {
         self._dom.scoreboard_content.empty();
-        let w = 0; // Effective writes
-        for (let i = 0; i < score.length; i += 1) {
-            if (self._write_user_scoreboard(score[i].user, i + 1, score[i].country, score[i].date, score[i].time)) w += 1;
+        if (notNullUndf(score)) {
+            let w = 0; // Effective writes
+            for (let i = 0; i < score.length; i += 1) {
+                if (self._write_user_scoreboard(score[i].user, i + 1, score[i].country, score[i].date, score[i].time)) w += 1;
+            }
+            if (w === 0) self._dom.scoreboard_content.html('<div class="game-scoreboard-empty" style="line-height: {1}px;">{0} <i class="fas fa-smile-wink"></i></div>'.format(lang.scoreboard_empty, self._get_scoreboard_height()));
+            return;
         }
-        if (w === 0) self._dom.scoreboard_content.html('<div class="game-scoreboard-empty" style="line-height: {1}px;">{0} <i class="fas fa-smile-wink"></i></div>'.format(lang.scoreboard_empty, self._get_scoreboard_height()));
+        self._dom.scoreboard_content.html('<div class="game-scoreboard-empty" style="line-height: {1}px;"><i class="fas fa-exclamation-triangle"></i> {0}</div>'.format(lang.server_error, self._get_scoreboard_height()));
     };
 
     /**

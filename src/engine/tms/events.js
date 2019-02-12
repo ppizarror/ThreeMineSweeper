@@ -275,6 +275,7 @@ function TMSEvents() {
             e.preventDefault();
             if (self._mouseMoveDrag || self._mouseKeepPressed) return;
             self._minesweeper.play(self._lastHoverFace, true, self._viewer);
+            e.stopPropagation();
         });
 
         /**
@@ -283,6 +284,7 @@ function TMSEvents() {
         this._canvasParent.on(self._eventID.contextmenu, function (e) {
             e.preventDefault();
             self._minesweeper.play(self._lastHoverFace, false, self._viewer);
+            e.stopPropagation();
         });
 
         /**

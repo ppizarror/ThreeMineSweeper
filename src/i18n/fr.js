@@ -102,6 +102,7 @@ lang_db.fr = {
     "score_error_submit": "Une erreur s'est produite lors de la tentative de téléchargement de la partition sur le serveur",
     "scoreboard_empty": "Cette liste est vide, soyez le premier!",
     "scoreboard_title": "Tableau de bord",
+    "server_error": "Erreur du serveur",
     "start_new_game": "Voulez-vous commencer un nouveau jeu?",
     "viewer_gui_ambientlight": "Lumière ambiante",
     "viewer_gui_camera": "Caméra",

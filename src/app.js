@@ -127,7 +127,7 @@ $(function () {
      * Init viewer
      * ------------------------------------------------------------------------
      */
-    deleteUrlParams();
+    // deleteUrlParams();
     setTimeout(function () {
         app_tms.init('#viewer');
         app_tms.load_menu();

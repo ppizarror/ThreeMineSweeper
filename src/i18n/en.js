@@ -102,6 +102,7 @@ lang_db.en = {
     "score_error_submit": "An error has occurred while trying to upload the score to the server",
     "scoreboard_empty": "This list is empty, be the first!",
     "scoreboard_title": "Scoreboard",
+    "server_error": "Server error",
     "start_new_game": "Do you want to start a new game?",
     "viewer_gui_ambientlight": "Ambient light",
     "viewer_gui_camera": "Camera",
