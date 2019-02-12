@@ -9,11 +9,11 @@
 
 /**
  * App game.
- * @type {ThreeMinesSweeper}
+ * @type {ThreeMineSweeper}
  * @global
  * @const
  */
-const app_tms = new ThreeMinesSweeper();
+const app_tms = new ThreeMineSweeper();
 
 /**
  * Pointer to loaded language {@link lang_db}.

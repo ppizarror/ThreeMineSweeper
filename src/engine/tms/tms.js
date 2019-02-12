@@ -13,7 +13,7 @@
  * @class
  * @constructor
  */
-function ThreeMinesSweeper() {
+function ThreeMineSweeper() {
     /* eslint-disable new-cap */
     /* eslint-disable no-extra-parens */
 
@@ -61,7 +61,7 @@ function ThreeMinesSweeper() {
 
     /**
      * Stores object reference.
-     * @type {ThreeMinesSweeper}
+     * @type {ThreeMineSweeper}
      */
     let self = this;
 

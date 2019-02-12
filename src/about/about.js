@@ -11,6 +11,6 @@
  * @global
  */
 let aboutinfo = {
-    "productname": "ThreeMinesSweeper",
-    "productwebsite": "https://github.com/ppizarror/ThreeMinesSweeper",
+    "productname": "ThreeMineSweeper",
+    "productwebsite": "https://github.com/ppizarror/ThreeMineSweeper",
 };
