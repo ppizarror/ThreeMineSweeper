@@ -36,18 +36,18 @@
       "NEWLINE": true
     },
     "3": {
-      "IMAGE": "https://img.shields.io/lgtm/alerts/g/ppizarror/ThreeMineSweeper.svg?logo=lgtm&logoWidth=18",
-      "HREF": "https://lgtm.com/projects/g/ppizarror/ThreeMineSweeper/alerts/",
+      "IMAGE": "https://img.shields.io/lgtm/alerts/g/ppizarror/ThreeMinesSweeper.svg?logo=lgtm&logoWidth=18",
+      "HREF": "https://lgtm.com/projects/g/ppizarror/ThreeMinesSweeper/alerts/",
       "ALT": "Total alerts"
     },
     "4": {
-      "IMAGE": "https://img.shields.io/lgtm/grade/javascript/g/ppizarror/ThreeMineSweeper.svg?logo=lgtm&logoWidth=18",
-      "HREF": "https://lgtm.com/projects/g/ppizarror/ThreeMineSweeper/context:javascript",
+      "IMAGE": "https://img.shields.io/lgtm/grade/javascript/g/ppizarror/ThreeMinesSweeper.svg?logo=lgtm&logoWidth=18",
+      "HREF": "https://lgtm.com/projects/g/ppizarror/ThreeMinesSweeper/context:javascript",
       "ALT": "Language grade: JavaScript"
     },
     "5": {
-      "IMAGE": "https://img.shields.io/lgtm/grade/python/g/ppizarror/ThreeMineSweeper.svg?logo=lgtm&logoWidth=18",
-      "HREF": "https://lgtm.com/projects/g/ppizarror/ThreeMineSweeper/context:python",
+      "IMAGE": "https://img.shields.io/lgtm/grade/python/g/ppizarror/ThreeMinesSweeper.svg?logo=lgtm&logoWidth=18",
+      "HREF": "https://lgtm.com/projects/g/ppizarror/ThreeMinesSweeper/context:python",
       "ALT": "Language grade: Python"
     }
   },
