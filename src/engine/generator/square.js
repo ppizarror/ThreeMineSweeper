@@ -61,14 +61,12 @@ function Square() {
             }
         }
 
-        // Create faces
+        // Create playable faces
         let f = [];
         let i = 1;
         let face;
-        for (let j = 0; j < lat - 1; j += 1) { // y
-            for (let fi = 0; fi < lng - 1; fi += 1) { // Iterate through each face
-
-                // Create playable face
+        for (let j = 0; j < lng - 1; j += 1) { // y
+            for (let fi = 0; fi < lat - 1; fi += 1) { // Iterate through each face
                 face = new Face([
                     v[(lat * j) + fi],
                     v[(lat * j) + fi + 1],
@@ -80,7 +78,6 @@ function Square() {
                 face.set_bomb_behaviour(face.behaviour.AROUND);
                 f.push(face);
                 i += 1;
-
             }
         }
 
@@ -99,8 +96,8 @@ function Square() {
         // Create unplayable faces
         f = [];
         i = 1;
-        for (let j = 0; j < lat - 1; j += 1) { // y
-            for (let fi = 0; fi < lng - 1; fi += 1) { // Iterate through each face
+        for (let j = 0; j < lng - 1; j += 1) { // y
+            for (let fi = 0; fi < lat - 1; fi += 1) { // Iterate through each face
                 face = new Face([
                     v[(lat * j) + fi],
                     v[(lat * j) + fi + 1],

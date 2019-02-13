@@ -732,7 +732,7 @@ function Minesweeper() {
          */
         $query.fail(function (response, textStatus, jqXHR) {
             NotificationJS.error(lang.score_error_submit);
-            app_console.exception(response + ' ' + textStatus);
+            // app_console.exception(response + ' ' + textStatus);
         });
 
         // Show dialog
@@ -830,7 +830,7 @@ function Minesweeper() {
          */
         $query.fail(function (response, textStatus, jqXHR) {
             NotificationJS.error(lang.score_error_get);
-            app_console.exception(response + ' ' + textStatus);
+            // app_console.exception(response + ' ' + textStatus);
             self._write_scores(null);
         });
 
