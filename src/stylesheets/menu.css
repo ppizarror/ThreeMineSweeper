@@ -21,16 +21,16 @@ Menu root container
 	border-radius: 15px;
 	box-shadow: 0 0 12px rgba(0, 0, 0, 0.40);
 	color: #ffffff;
-	height: 60%;
+	height: 65%;
 	margin: auto;
-	max-height: 580px;
+	max-height: 590px;
 	min-height: 430px;
 }
 
 .menu-container-width {
-	max-width: 700px;
+	max-width: 750px;
 	min-width: 550px;
-	width: 61.875%;
+	width: 70%;
 }
 
 /**
@@ -412,7 +412,7 @@ How to play
 
 #menu-content .menu-htp-entry-line .menu-htp-text {
 	font-size: 1rem;
-	font-weight: 300;
+	font-weight: 400;
 	line-height: 3rem;
 	text-align: left;
 	width: 60%;
@@ -513,6 +513,7 @@ Menu text
 	display: flex;
 	flex-direction: row;
 	font-size: 1rem;
+	font-weight: 300;
 	padding-bottom: 1rem;
 	padding-left: 0.35rem;
 	padding-right: 0.35rem;
@@ -574,6 +575,7 @@ Menu text
 	display: flow-root;
 	flex-direction: row;
 	font-size: 1.1rem;
+	font-weight: 300;
 	padding: 0.5rem 0.35rem 0.5rem;
 	text-align: left;
 	width: 100%;

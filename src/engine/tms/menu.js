@@ -484,7 +484,7 @@ function TMSMenu() {
             for (let i = game.minorder; i <= game.maxorder; i += 1) {
                 self._dom.gen_order.append('<option value="{0}">{1}</option>'.format(i, i));
             }
-            self._dom.gen_order[0].selectedIndex = this._get_cookie_val(self._cookies.order, 0, game.maxorder - game.minorder, game.maxorder - game.maxorder, true);
+            self._dom.gen_order[0].selectedIndex = this._get_cookie_val(self._cookies.order, 0, game.maxorder - game.minorder, game.maxorder - game.minorder, true);
             self._dom.gen_order.niceSelect();
         }
 
@@ -633,12 +633,15 @@ function TMSMenu() {
      * @function
      * @param {string} text
      * @param {number=} padleft
+     * @param {number=} font_weight
      * @private
      */
-    this._write_text = function (text, padleft) {
+    this._write_text = function (text, padleft, font_weight) {
         if (isNullUndf(padleft)) padleft = 0;
+        let $fontweight = '';
+        if (notNullUndf(font_weight)) $fontweight = 'font-weight: {0};'.format(font_weight);
         // noinspection CssUnitlessNumber
-        self._dom.content.append('<div class="menu-text" style="padding-left: {1}rem;">{0}</div>'.format(text.replaceAll('\n', '<br />'), padleft));
+        self._dom.content.append('<div class="menu-text" style="padding-left: {1}rem;{2}">{0}</div>'.format(text.replaceAll('\n', '<br />'), padleft, $fontweight));
     };
 
     /**
@@ -703,13 +706,16 @@ function TMSMenu() {
         // noinspection HtmlUnknownTarget
         self._write_about_line(lang.author_text, '{0} <a href="{1}" target="_blank">@{2}</a>'.format(aboutinfo.author.name, aboutinfo.author.website, aboutinfo.author.tag));
         self._write_about_line(lang.about_version, '{0} ({1})'.format(aboutinfo.v.version, dateFormat(new Date(aboutinfo.v.date), cfg_date_format_public_d)));
-        // noinspection HtmlUnknownTarget
-        self._write_about_line(lang.about_source_code, '<a href="{0}" target="_blank">Github</a>'.format(aboutinfo.productwebsite));
-        self._write_about_line(lang.about_thanks_to, aboutinfo.author.contributors.join(', '));
 
         // Write license
         self._write_about_line(lang.about_license, 'MIT');
         self._write_text("Copyright (c) 2019 Pablo Pizarro R.\nPermission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \"Software\"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:\n\nThe above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.", 2);
+
+        self._write_about_line(lang.about_thanks_to, aboutinfo.author.contributors.join(', '));
+        self._write_text('');
+
+        // noinspection HtmlUnknownTarget
+        self._write_about_line(lang.about_source_code, '<a href="{0}" target="_blank">{0}</a>'.format(aboutinfo.productwebsite));
 
         // Apply button effect
         self._set_content_height();
