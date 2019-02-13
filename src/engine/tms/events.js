@@ -405,6 +405,9 @@ function TMSEvents() {
                 case 69: // [E]
                     self._viewer.objects_props.camera.movements.zdown = true;
                     break;
+                case 82: // [R]
+                    self._viewer.reset_camera();
+                    break;
                 case 16: // [SPACEBAR]
                     self._viewer.objects_props.camera.movements.zup = true;
                     break;

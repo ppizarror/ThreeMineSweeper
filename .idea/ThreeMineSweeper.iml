@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="WEB_MODULE" version="4">
+  <component name="NewModuleRootManager">
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/lib" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/test" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/src/about" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/core" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/engine" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/i18n" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/stylesheets" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/ui" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/core/env" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/engine/generator" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/engine/geom" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/engine/tms" isTestSource="false" />
+      <excludeFolder url="file://$MODULE_DIR$/dev" />
+      <excludeFolder url="file://$MODULE_DIR$/server" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="@types/delaunator" level="application" />
+    <orderEntry type="library" name="@types/earcut" level="application" />
+    <orderEntry type="library" name="@types/jquery" level="application" />
+    <orderEntry type="library" name="@types/karma" level="application" />
+    <orderEntry type="library" name="@types/karma-jasmine" level="application" />
+    <orderEntry type="library" name="@types/three" level="application" />
+    <orderEntry type="library" name="@types/tooltipster" level="application" />
+    <orderEntry type="library" name="dbip" level="application" />
+  </component>
+</module>

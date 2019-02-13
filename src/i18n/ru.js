@@ -80,6 +80,7 @@ lang_db.ru = {
     "load_view": "Загрузка объема просмотра",
     "loading_theme": "Загрузка темы <{0}>",
     "menu_about": "Около",
+    "menu_controls": "управления",
     "menu_how_to_play": "Как играть",
     "menu_new_game": "Новая игра",
     "mines_detected_double_lclick": "Обнаружен двойной щелчок за {0} секунд",

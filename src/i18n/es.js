@@ -80,6 +80,7 @@ lang_db.es = {
     "load_view": "Cargando el volumen de visión",
     "loading_theme": "Cargando el tema <{0}>",
     "menu_about": "Acerca de",
+    "menu_controls": "Controles",
     "menu_how_to_play": "Instrucciones",
     "menu_new_game": "Nuevo juego",
     "mines_detected_double_lclick": "Detectado doble click en {0} segundos",

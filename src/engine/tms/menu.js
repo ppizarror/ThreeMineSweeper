@@ -267,6 +267,7 @@ function TMSMenu() {
         let $btncontainer = $('#' + $buttons);
         self._add_button(lang.menu_new_game, null, $btncontainer, self._menu_new);
         self._add_button(lang.menu_how_to_play, null, $btncontainer, self._menu_htp);
+        self._add_button(lang.menu_controls, null, $btncontainer, self._menu_controls);
         self._add_button(lang.menu_about, null, $btncontainer, self._menu_about);
 
         // Apply rippler effect
@@ -578,12 +579,85 @@ function TMSMenu() {
         self._write_menuback(lang.menu_how_to_play);
 
         // Write help info
-        self._write_htp_entry(['Keyboard_White_Mouse_Left'], 'Click and hold, rotate camera around position');
+        self._add_title('Quick start');
+        self._write_text('You are presented with a geometry of faces. Some faces contain mines (bombs), others don\'t. If you click on a face containing a bomb, you lose. If you manage to click all the faces (without clicking on any bombs) you win.');
+        self._write_text('Clicking a face which doesn\'t have a bomb reveals the number of neighbouring faces containing bombs. Use this information plus some guess work to avoid the bombs. The face neighbours can be the faces sharing an edge or a vertex.');
+        self._write_text('To open a face, point and left click on it. To mark a face you think is a bomb, point and right-click to place a flag. The flagged faces cannot be opened. Right click a flagged face to place a question mark (That face can be clicked). Remove the question mark right clicking the face again.');
+
+        self._add_title('Detailed Instructions');
+        self._write_list_item('A face \'neighbours\' are the faces adjacent above, below, left, right, and all 4 diagonals, or faces sharing a vertex with the face (Valid in 3D geometries). Faces on the sides of the geometry or in a corner have fewer neighbors.');
+        self._write_list_item('If you open a face with 0 neighboring bombs, all its neighbors will automatically open. This can cause a large area to automatically open');
+        self._write_list_item('To remove a bomb marker from a face, point at it and right-click again. The flagged faces cannot be opened.');
+        self._write_list_item('If you mark a bomb incorrectly, you will have to correct the mistake before you can win. Incorrect bomb marking doesn\'t kill you, but it can lead to mistakes which do.');
+        self._write_list_item('You don\'t have to mark all the bombs to win; you just need to open all non-bomb face.');
+        self._write_list_item('Right-clicking twice will give you a question mark symbol which can be useful if you are unsure about a square. Right click again to remove the question mark.');
 
         // Apply button effect
         self._set_content_height();
         self._apply_rippler();
 
+    };
+
+    /**
+     * Controls menu.
+     *
+     * @function
+     * @private
+     */
+    this._menu_controls = function () {
+
+        // Wipe content
+        self._wipe_content();
+        self._write_menuback(lang.menu_controls);
+
+        self._write_htp_entry(['Keyboard_White_Mouse_Left'], 'Click over faces');
+        self._write_htp_entry(['Keyboard_White_Mouse_Left|shake-lr'], 'Click and hold, rotate camera around position');
+        self._write_htp_entry(['Keyboard_White_Mouse_Middle'], 'Zoom in/out');
+        self._write_htp_entry(['Keyboard_White_Mouse_Right'], 'Place flags/question marks');
+        self._write_htp_entry(['Keyboard_White_Arrow_Up', 'Keyboard_White_Arrow_Left', 'Keyboard_White_Arrow_Down', 'Keyboard_White_Arrow_Right'], 'Rotate the camera');
+        self._write_htp_entry(['Keyboard_White_W', 'Keyboard_White_A', 'Keyboard_White_S', 'Keyboard_White_D'], 'Move through the map');
+        self._write_htp_entry(['Keyboard_White_I', 'Keyboard_White_J', 'Keyboard_White_K', 'Keyboard_White_L'], 'Move though the map');
+        self._write_htp_entry(['Keyboard_White_E', 'Keyboard_White_Space'], 'Move up');
+        self._write_htp_entry(['Keyboard_White_Q', 'Keyboard_White_Shift'], 'Move down');
+        self._write_htp_entry(['Keyboard_White_R'], 'Camera reset');
+
+        // Apply button effect
+        self._set_content_height();
+        self._apply_rippler();
+
+    };
+
+    /**
+     * Write text.
+     *
+     * @function
+     * @param {string} text
+     * @private
+     */
+    this._write_text = function (text) {
+        self._dom.content.append('<div class="menu-text">{0}</div>'.format(text));
+    };
+
+    /**
+     * Write item list.
+     *
+     * @function
+     * @param {string} text
+     * @private
+     */
+    this._write_list_item = function (text) {
+        self._dom.content.append('<div class="menu-text menu-list-item">{0}</div>'.format(text));
+    };
+
+    /**
+     * Add title to menu.
+     *
+     * @function
+     * @param {string} title
+     * @private
+     */
+    this._add_title = function (title) {
+        self._dom.content.append('<div class="menu-title">{0}</div>'.format(title));
     };
 
     /**
@@ -596,9 +670,16 @@ function TMSMenu() {
      */
     this._write_htp_entry = function (keys, text) {
         let $keys = '';
+        let $key;
         for (let i = 0; i < keys.length; i += 1) {
-            // noinspection HtmlUnknownTarget
-            $keys += '<img src="resources/keys/{0}.png" alt="" />'.format(keys[i]);
+            $key = keys[i].split('|');
+            if ($key.length === 1) {
+                // noinspection HtmlUnknownTarget
+                $keys += '<img src="resources/keys/{0}.png" alt="" />'.format(keys[i]);
+            } else {
+                // noinspection HtmlUnknownTarget
+                $keys += '<img src="resources/keys/{0}.png" class="{1}" alt="" />'.format($key[0], $key[1]);
+            }
         }
         self._dom.content.append('<div class="menu-htp-entry-line"><div class="menu-htp-keys">{0}</div><div class="menu-htp-text">{1}</div></div>'.format($keys, text));
     };
@@ -715,7 +796,7 @@ function TMSMenu() {
      * @private
      */
     this._get_content_height = function () {
-        return self._dom.container.innerHeight() - self._dom.header.innerHeight() - self._dom.subheader.innerHeight() - getElementHeight(self._dom.footer) - 6;
+        return self._dom.container.innerHeight() - self._dom.header.innerHeight() - self._dom.subheader.innerHeight() - getElementHeight(self._dom.footer) - 15;
     };
 
     /**
