@@ -407,8 +407,10 @@ function TMSMenu() {
 
         // Load game
         let $gen = self._dom.gen_selector.val();
-        if (!self._gamekeys.includes($gen)) return;
         $gen = parseInt($gen, 10);
+
+        // Check generator
+        if (!self._gamekeys.includes($gen)) return;
         let game = self._games[$gen];
         if (isNullUndf(game)) return;
 
