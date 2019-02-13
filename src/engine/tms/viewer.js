@@ -318,7 +318,7 @@ function TMSViewer() {
             radius: 0.995,                      // Radius coefficient
             ray: null,                          // Camera collision raycaster
             raycollidedist: 0.08,               // Collide distance
-            rotatespeed: 0.065,                 // Rotation speed
+            rotatespeed: 0.060,                 // Rotation speed
             speedfactor: {                      // Speed factor inside outside worldsize
                 inside: 0.65,
                 outside: 1.55,
