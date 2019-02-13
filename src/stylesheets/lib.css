@@ -216,6 +216,15 @@ Default cursor
 	cursor: default !important;
 }
 
+.jconfirm-content {
+	-moz-user-select: none;
+	-ms-user-select: none;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	outline: none;
+	user-select: none;
+}
+
 /**
 hr margin
  */

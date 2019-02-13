@@ -254,31 +254,35 @@ Header, contains title of the bookmarks
 /**
 Boomark entry
  */
-.game-ui-right-column .game-scoreboard-entry {
+.game-ui-right-column #game-scoreboard-content .game-scoreboard-entry {
 	border-bottom: 1px solid rgba(97, 97, 97, 0.55);
 	display: flex;
 	padding-bottom: 3px;
 	width: 100%;
 }
 
-.game-ui-right-column .game-scoreboard-entry:hover {
+.game-ui-right-column #game-scoreboard-content .game-scoreboard-entry:hover {
 	background-color: rgba(68, 68, 68, 0.25);
 }
 
+.game-ui-right-column #game-scoreboard-content .game-scoreboard-entry:last-child {
+	border-bottom: none;
+}
+
 @media screen and (max-width: 800px) {
-	.game-ui-right-column .game-scoreboard-entry {
+	.game-ui-right-column #game-scoreboard-content .game-scoreboard-entry {
 		padding-bottom: 0;
 	}
 }
 
-.game-ui-right-column .game-scoreboard-user {
+.game-ui-right-column #game-scoreboard-content .game-scoreboard-user {
 	float: left;
 	overflow-x: hidden;
 	padding-left: 10px;
 	width: 70%;
 }
 
-.game-ui-right-column .game-scoreboard-username {
+.game-ui-right-column #game-scoreboard-content .game-scoreboard-username {
 	font-size: 1.1rem;
 	font-weight: 400;
 	overflow-x: hidden;
@@ -290,7 +294,7 @@ Boomark entry
 }
 
 @media screen and (max-width: 800px) {
-	.game-ui-right-column .game-scoreboard-username {
+	.game-ui-right-column #game-scoreboard-content .game-scoreboard-username {
 		font-size: 1rem;
 	}
 }
@@ -298,7 +302,7 @@ Boomark entry
 /**
 Bookmark user data
  */
-.game-ui-right-column .game-scoreboard-userdata {
+.game-ui-right-column #game-scoreboard-content .game-scoreboard-userdata {
 	display: flex;
 }
 

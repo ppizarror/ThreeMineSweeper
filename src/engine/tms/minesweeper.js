@@ -130,7 +130,6 @@ function Minesweeper() {
      */
     let self = this;
 
-
     /**
      * Apply minesweeper rules to volume.
      *
@@ -328,7 +327,7 @@ function Minesweeper() {
 
         // Fast check
         if (self._game_status.played !== self._game_status.total) {
-            if (!((self._game_status.played + self._game_status.mines - self._game_status.mines) === self._game_status.total)) return;
+            if (!((self._game_status.played + self._game_status.mines - self._game_status.flags - self._game_status.questions) === self._game_status.total)) return;
         }
         app_console.info(lang.game_checking_win_condition);
 
@@ -503,7 +502,7 @@ function Minesweeper() {
                 app_tms.load_menu();
             };
             app_sound.play(app_sound.sound.BUTTON);
-            if (self._game_status.played === 0) {
+            if (self._game_status.played === 0 || self._gameover) {
                 $loadmenu();
                 return;
             }
@@ -522,7 +521,7 @@ function Minesweeper() {
                 app_tms.new();
             };
             app_sound.play(app_sound.sound.BUTTON);
-            if (self._game_status.played === 0) {
+            if (self._game_status.played === 0 || self._gameover) {
                 $reset();
                 return;
             }
@@ -753,6 +752,7 @@ function Minesweeper() {
                 cancel: function () {
                 },
                 confirm: function () {
+                    self._reset = true;
                     app_tms.new();
                 },
                 confirmButtonClass: app_dialog.options.buttons.SUCCESS,
@@ -938,10 +938,13 @@ function Minesweeper() {
         // Format time
         let $timestr = '';
         let $time = parseFloat(time);
-        $time = roundNumber($time, 3);
         if (isNaN($time) || time <= 0) return false;
 
         // Format number
+        if ($time < 1e1) {
+            $time = roundNumber($time, 3);
+            $timestr = $time.toString().padEnd(5, '0');
+        }
         if ($time > 1e1) {
             $time = roundNumber($time, 2);
             $timestr = $time.toString().padEnd(5, '0');

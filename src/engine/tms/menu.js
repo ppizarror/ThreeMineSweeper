@@ -367,7 +367,7 @@ function TMSMenu() {
                 self._dom.gen_selector.append('<option value="{0}">{1}</option>'.format(self._gamekeys[i], lang['gen_' + self._gamekeys[i].toString()]));
             }
         }
-        self._dom.gen_selector[0].selectedIndex = self._get_cookie_val(self._cookies.gen, 0, self._gamekeys.length - 1, 0, true);
+        self._dom.gen_selector[0].selectedIndex = self._get_cookie_val(self._cookies.gen, 0, self._gamekeys.length, 0, true);
         self._dom.gen_selector.niceSelect();
         self._dom.gen_selector.on('change', function (e) {
             self._load_generator_options(e.target.value);

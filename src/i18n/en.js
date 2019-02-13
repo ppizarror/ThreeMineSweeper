@@ -25,7 +25,7 @@ lang_db.en = {
     "close_message": "Close",
     "dialog_error_button_function_null": "Cant associate an invalid event to the dialog button ({0}), null function has been stablished",
     "dialog_form_cancel": "Cancel",
-    "dialog_form_send": "Send",
+    "dialog_form_send": "Submit",
     "dialog_form_submit_null": "Submit function cannot be null",
     "dialog_last_closed_equal_opened": "The last dialog has been closed because the new one is identical",
     "dialog_popup_created": "Opening dialog <{0}>",

@@ -443,7 +443,7 @@ function AppDialog() {
             confirmButtonClass: this.options.buttons.BLUE, // Confirm button style
             confirmText: lang.answer_yes,           // Confirm text
             disableSelect: false,                   // Disables text select
-            draggable: true,                        // Popup can be dragged
+            draggable: false,                       // Popup can be dragged
             dragWindowGap: 0,                       // Border between window and popup
             escapeCancelKey: true,                  // Escape button event
             forceCursorDefault: false,              // Force cursor focus

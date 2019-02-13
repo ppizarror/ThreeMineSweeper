@@ -59,8 +59,8 @@ const show_console_total_messages = true;
 /**
  * Href score server.
  * @type {string}
- * @global
  * @const
+ * @global
  */
 const cfg_href_score = 'https://ppizarror.000webhostapp.com/tms/score.php';
 
@@ -183,8 +183,8 @@ const cfg_always_show_err_notification = true;
 /**
  * Notification time life in miliseconds.
  * @type {number}
- * @global
  * @const
+ * @global
  */
 const cfg_notification_timeout = 10000;
 

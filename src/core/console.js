@@ -11,8 +11,8 @@
  * Application console.
  *
  * @class
- * @private
  * @constructor
+ * @private
  */
 function AppConsole() {
     /* eslint no-console:"off" */
@@ -178,7 +178,7 @@ function AppConsole() {
      * @function
      */
     this.aboutInfo = function () {
-        console.log('{0} v{1} ({2})'.format(aboutinfo.productname, aboutinfo.v.version, aboutinfo.v.date));
+        console.log('{0} v{1} ({2})'.format(aboutinfo.productname, aboutinfo.v.version, dateFormat(new Date(aboutinfo.v.date), cfg_date_format_public_d)));
         console.log('{0} | {1}'.format(aboutinfo.author.name, aboutinfo.author.website));
         console.log(' ');
     };
@@ -188,7 +188,6 @@ function AppConsole() {
 /**
  * Stores console object.
  * @type {AppConsole}
- * @var
  * @const
  */
 const app_console = new AppConsole();
