@@ -286,7 +286,6 @@ function TMSViewer() {
             minspeed: 0.0001,                   // Minimum speed
             minspeedangle: 0.00001,             // Minimum angle speed
             movements: {                        // Camera movements vector
-                __last__: null,
                 angledown: false,
                 angleleft: false,
                 angleright: false,
@@ -330,15 +329,15 @@ function TMSViewer() {
                 p: 0.03,
                 x: 0.05,
                 y: 0.05,
-                z: 0.04,
+                z: 0.05,
             },
             targetdamping: {                    // Camera target damping
                 alf: 0.03,
                 aup: 0.03,
                 f: 0.05,
                 p: 0.05,
-                x: 0.07,
-                y: 0.07,
+                x: 0.09,
+                y: 0.09,
                 z: 0.07,
             },
             targetspeed: {                      // Target speed
@@ -843,17 +842,27 @@ function TMSViewer() {
     this._place_camera = function () {
 
         // Initial position
-        this._three_camera.position.x = self.objects_props.camera.initialPosition.y;
-        this._three_camera.position.y = self.objects_props.camera.initialPosition.z;
-        this._three_camera.position.z = self.objects_props.camera.initialPosition.x;
+        self._three_camera.position.x = self.objects_props.camera.initialPosition.y;
+        self._three_camera.position.y = self.objects_props.camera.initialPosition.z;
+        self._three_camera.position.z = self.objects_props.camera.initialPosition.x;
 
         // Initial target
-        this.objects_props.camera.target.x = self.objects_props.camera.initialTarget.x;
-        this.objects_props.camera.target.y = self.objects_props.camera.initialTarget.y;
-        this.objects_props.camera.target.z = self.objects_props.camera.initialTarget.z;
+        self.objects_props.camera.target.x = self.objects_props.camera.initialTarget.x;
+        self.objects_props.camera.target.y = self.objects_props.camera.initialTarget.y;
+        self.objects_props.camera.target.z = self.objects_props.camera.initialTarget.z;
+
+        // Set velocity to zero
+        let $movs = Object.keys(self.objects_props.camera.movements);
+        for (let i = 0; i < $movs.length; i += 1) {
+            self.objects_props.camera.movements[$movs[i]] = false;
+        }
+        let $vel = Object.keys(self.objects_props.camera.targetspeed);
+        for (let i = 0; i < $vel.length; i += 1) {
+            self.objects_props.camera.targetspeed[$vel[i]] = 0;
+        }
 
         // Updates camera
-        this._set_camera_target();
+        self._set_camera_target();
 
     };
 
