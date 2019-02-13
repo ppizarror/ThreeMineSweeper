@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="5aabf641-1bfc-4f9e-bd89-dad61f629de5" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/engine/tms/menu.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/engine/tms/menu.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/engine/tms/viewer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/engine/tms/viewer.js" afterDir="false" />
-    </list>
+    <list default="true" id="5aabf641-1bfc-4f9e-bd89-dad61f629de5" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,8 +27,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/engine/tms/viewer.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="384">
-              <caret line="929" column="40" selection-start-line="929" selection-start-column="40" selection-end-line="929" selection-end-column="40" />
+            <state relative-caret-position="84">
+              <caret line="914" column="32" selection-start-line="914" selection-start-column="32" selection-end-line="914" selection-end-column="32" />
             </state>
           </provider>
         </entry>
@@ -331,7 +328,7 @@
       <workItem from="1550084880553" duration="692000" />
       <workItem from="1550090425200" duration="606000" />
       <workItem from="1550091061772" duration="196000" />
-      <workItem from="1550091413965" duration="4218000" />
+      <workItem from="1550091413965" duration="4463000" />
     </task>
     <servers />
   </component>
@@ -368,7 +365,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="378060000" />
+    <option name="totallyTimeSpent" value="378305000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -759,8 +756,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/engine/tms/viewer.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="384">
-          <caret line="929" column="40" selection-start-line="929" selection-start-column="40" selection-end-line="929" selection-end-column="40" />
+        <state relative-caret-position="84">
+          <caret line="914" column="32" selection-start-line="914" selection-start-column="32" selection-end-line="914" selection-end-column="32" />
         </state>
       </provider>
     </entry>

@@ -867,15 +867,20 @@ function TMSMenu() {
      * @private
      */
     this._load_lang = function ($lang) {
-        app_sound.play(app_sound.sound.BUTTON);
+
+        // Invalid lang
         if (sessionCookie.lang === $lang) return;
         if (!lang_available.includes($lang)) return;
+
+        // Apply language
+        app_sound.play(app_sound.sound.BUTTON);
         sessionCookie.lang = $lang;
         updateSessionCookie();
         app_console.info(lang.load_lang.format($lang));
         lang = lang_db[$lang]; // Reload lang
         self.init_menu();
         self.main_menu(true);
+        
     };
 
 }
