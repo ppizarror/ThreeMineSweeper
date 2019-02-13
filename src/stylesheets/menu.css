@@ -16,7 +16,7 @@ License MIT
 /**
 Menu root container
  */
-#menu-container { /* Also modify #menu-footer .menu-footer-lang-selector */
+#menu-container {
 	background-color: rgba(0, 0, 0, 0.75);
 	border-radius: 15px;
 	box-shadow: 0 0 12px rgba(0, 0, 0, 0.40);
@@ -31,6 +31,13 @@ Menu root container
 	max-width: 750px;
 	min-width: 550px;
 	width: 70%;
+}
+
+@media screen and (max-width: 800px) {
+	#menu-container {
+		height: 55%;
+		min-height: 400px;
+	}
 }
 
 /**
@@ -51,10 +58,16 @@ Header
 #menu-header .menu-header-icon img {
 	animation: menuicon 15s 0s cubic-bezier(0.79, 0.99, 0, 1.04) infinite;
 	float: right;
-	margin-top: -15%;
-	max-width: 100px;
+	margin-top: -20%;
+	max-width: 120px;
 	min-width: 60px;
 	width: 70%;
+}
+
+@media screen and (max-width: 800px) {
+	#menu-header .menu-header-icon img {
+		width: 60%;
+	}
 }
 
 @keyframes menuicon {
@@ -81,7 +94,7 @@ Header
 
 	#menu-header .menu-header-title {
 		font-size: 1.5rem;
-		padding: 8px 5px 0 6%;
+		padding: 8px 5px 0 8%;
 		width: 75%;
 	}
 }
