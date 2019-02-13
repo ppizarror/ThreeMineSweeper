@@ -308,6 +308,7 @@ function TMSViewer() {
             },
             near: 0.001,                        // Close plane
             pan: true,                          // Enables pan
+            panaddfactor: 0.4,                  // Pan add speed factor
             panaddtospeed: false,               // Add pan speed to velocity
             panfactor: 0.0001,                  // Pan factor
             panspeed: 5.00,                     // Pan speed
@@ -350,6 +351,7 @@ function TMSViewer() {
                 z: 0,
             },
             zoom: 1.000,                        // Zoom factor
+            zoomaddfactor: 0.5,                 // Zoom add factor
             zoomaddtospeed: true,               // Adds zoom to speed
             zoomspeed: 0.00005,                 // Zoom speed
         },
@@ -1302,7 +1304,7 @@ function TMSViewer() {
         if (notNullUndf($f)) {
             $vel = $f * self.objects_props.camera.zoomspeed;
             if (self.objects_props.camera.zoomaddtospeed) {
-                self.objects_props.camera.targetspeed.f += $vel;
+                self.objects_props.camera.targetspeed.f += $vel * self.objects_props.camera.zoomaddfactor;
             }
         }
 
@@ -1342,9 +1344,9 @@ function TMSViewer() {
             $vy = $dx * Math.sin($ang + Math.PI / 2);
             $vp = $dy;
             if (self.objects_props.camera.panaddtospeed) {
-                self.objects_props.camera.targetspeed.x += $vx * self.objects_props.camera.dampingfactor;
-                self.objects_props.camera.targetspeed.y += $vy * self.objects_props.camera.dampingfactor;
-                self.objects_props.camera.targetspeed.p += $vp * self.objects_props.camera.dampingfactor;
+                self.objects_props.camera.targetspeed.x += $vx * self.objects_props.camera.dampingfactor * self.objects_props.camera.panaddfactor;
+                self.objects_props.camera.targetspeed.y += $vy * self.objects_props.camera.dampingfactor * self.objects_props.camera.panaddfactor;
+                self.objects_props.camera.targetspeed.p += $vp * self.objects_props.camera.dampingfactor * self.objects_props.camera.panaddfactor;
             }
             self._update_camera_target('x', $vx, false);
             self._update_camera_target('y', $vy, false);
