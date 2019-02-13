@@ -30,6 +30,11 @@ function TMSMenu() {
         1: { // BasicPyramid
             enabled: false,
         },
+        2: { // CrossFractal
+            fractal: true,
+            maxorder: 2,
+            minorder: 1,
+        },
         3: { // SierpinskiCube
             fractal: true,
             maxorder: 2,
@@ -39,11 +44,6 @@ function TMSMenu() {
             fractal: true,
             maxorder: 5,
             minorder: 2,
-        },
-        2: { // CrossFractal
-            fractal: true,
-            maxorder: 2,
-            minorder: 1,
         },
         5: { // RandomPlane
             from: 300,
@@ -93,7 +93,7 @@ function TMSMenu() {
     /**
      * Fill modes
      */
-    this._gamekeys = Object.keys(this._games);
+    this._gamekeys = [3, 4, 2, 5, 6, 7, 8]; // Keys ordered
     for (let i = 0; i < this._gamekeys.length; i += 1) {
         if (isNullUndf(this._games[this._gamekeys[i]]['fractal'])) this._games[this._gamekeys[i]]['fractal'] = false;
         if (isNullUndf(this._games[this._gamekeys[i]]['latlng'])) this._games[this._gamekeys[i]]['latlng'] = false;
