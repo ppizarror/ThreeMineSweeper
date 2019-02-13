@@ -403,7 +403,7 @@ How to play
 }
 
 #menu-content .menu-htp-entry-line .menu-htp-keys {
-	width: 50%;
+	width: 40%;
 }
 
 #menu-content .menu-htp-entry-line .menu-htp-keys img {
@@ -415,7 +415,7 @@ How to play
 	font-weight: 300;
 	line-height: 3rem;
 	text-align: left;
-	width: 50%;
+	width: 60%;
 }
 
 @media screen and (max-width: 800px) {
@@ -512,7 +512,7 @@ Menu text
 #menu-content .menu-text {
 	display: flex;
 	flex-direction: row;
-	font-size: 0.91rem;
+	font-size: 1rem;
 	padding-bottom: 1rem;
 	padding-left: 0.35rem;
 	padding-right: 0.35rem;
@@ -522,11 +522,16 @@ Menu text
 
 @media screen and (max-width: 800px) {
 	#menu-content .menu-text {
-		font-size: 0.75rem;
+		font-size: 0.80rem;
 		padding-bottom: 0.5rem;
 		padding-left: 0;
 		padding-right: 0;
 	}
+}
+
+#menu-content .menu-text .menu-about-title {
+	font-weight: 600;
+	padding-right: 0.5rem;
 }
 
 #menu-content .menu-text.menu-list-item {
@@ -557,4 +562,43 @@ Menu title
 		padding-left: 0;
 		padding-right: 0;
 	}
+}
+
+/**
+Menu about
+ */
+/**
+Menu text
+ */
+#menu-content .menu-about {
+	display: flow-root;
+	flex-direction: row;
+	font-size: 1.1rem;
+	padding: 0.5rem 0.35rem 0.5rem;
+	text-align: left;
+	width: 100%;
+}
+
+@media screen and (max-width: 800px) {
+	#menu-content .menu-about {
+		font-size: 0.90rem;
+		padding: 0.5rem 0 0.25rem;
+	}
+}
+
+#menu-content .menu-about .menu-about-title {
+	font-weight: 600;
+	padding-right: 0.5rem;
+}
+
+/* noinspection Stylelint */
+#menu-content .menu-about a,
+#menu-content .menu-about a:visited {
+	color: #4a56ff;
+}
+
+/* noinspection Stylelint */
+#menu-content .menu-about a:hover {
+	color: #0091ff;
+	text-decoration: none;
 }

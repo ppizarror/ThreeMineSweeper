@@ -11,6 +11,7 @@
  * @global
  */
 let aboutinfo = {
+    "license": "MIT",
     "productname": "ThreeMineSweeper",
     "productwebsite": "https://github.com/ppizarror/ThreeMineSweeper",
 };

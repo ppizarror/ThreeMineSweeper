@@ -9,11 +9,15 @@
 "use strict";
 
 lang_db.ru = {
+    "about_license": "Лицензия",
+    "about_source_code": "Исходный код",
+    "about_thanks_to": "Спасибо",
+    "about_version": "Версия",
     "answer_no": "Нет",
     "answer_ok": "Хорошо",
     "answer_yes": "Да",
     "app_dialog_unknown_size": "Невозможно открыть диалог с неизвестным размером <{0}>",
-    "author_message": "Автор",
+    "author_text": "Автор",
     "back_to_menu": "Вернуться в главное меню",
     "building_full_loading_layer": "Начальный загрузочный слой",
     "check_window_size_info": "Экран вашего устройства {0} x {1} слишком мал для этого приложения (требуется минимум {0} x {1}). Попробуйте увеличить размер окна",

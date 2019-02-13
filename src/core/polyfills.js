@@ -112,6 +112,19 @@ if (!String.prototype.format) {
     };
 }
 
+/**
+ * Replace all.
+ *
+ * @function
+ * @param {string} search
+ * @param {string} replacement
+ * @returns {string}
+ */
+String.prototype.replaceAll = function (search, replacement) {
+    let target = this;
+    return target.replace(new RegExp(search, 'g'), replacement);
+};
+
 
 /**
  * ----------------------------------------------------------------------------

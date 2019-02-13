@@ -9,11 +9,15 @@
 "use strict";
 
 lang_db.fr = {
+    "about_license": "Licence",
+    "about_source_code": "Code source",
+    "about_thanks_to": "Merci à",
+    "about_version": "Version",
     "answer_no": "Non",
     "answer_ok": "Ok",
     "answer_yes": "Oui",
     "app_dialog_unknown_size": "Impossible d'ouvrir la boîte de dialogue avec une taille inconnue <{0}>",
-    "author_message": "Auteur",
+    "author_text": "Auteur",
     "back_to_menu": "Retour au menu principal",
     "building_full_loading_layer": "Couche de chargement init",
     "check_window_size_info": "L'écran de votre appareil {0} x {1} est trop petit pour cette application (Min requis {0} x {1}). Essayez d'augmenter la taille de la fenêtre",

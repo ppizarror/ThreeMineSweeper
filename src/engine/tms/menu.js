@@ -181,7 +181,7 @@ function TMSMenu() {
         let $authorid = generateID();
 
         // noinspection HtmlUnknownTarget
-        self._dom.footer.html('<div class="menu-footer-item menu-footer-item-author" id="{5}">{0}: <a href="{2}" target="_blank">@{1}</a></div><div class="menu-footer-item menu-footer-item-other"><a href="{4}" target="_blank" id="{6}"><i class="fab fa-github"></i></a></div><div class="menu-footer-item menu-footer-item-version">v{3}</div><div class="menu-footer-lang-selector menu-container-width" id="{7}"></div>'.format(lang.author_message, aboutinfo.author.tag, aboutinfo.author.website, aboutinfo.v.version, aboutinfo.productwebsite, $authorid, $githubid, $langid));
+        self._dom.footer.html('<div class="menu-footer-item menu-footer-item-author" id="{5}">{0}: <a href="{2}" target="_blank">@{1}</a></div><div class="menu-footer-item menu-footer-item-other"><a href="{4}" target="_blank" id="{6}"><i class="fab fa-github"></i></a></div><div class="menu-footer-item menu-footer-item-version">v{3}</div><div class="menu-footer-lang-selector menu-container-width" id="{7}"></div>'.format(lang.author_text, aboutinfo.author.tag, aboutinfo.author.website, aboutinfo.v.version, aboutinfo.productwebsite, $authorid, $githubid, $langid));
 
         // Write langs
         let langcontainer = $('#' + $langid);
@@ -632,10 +632,13 @@ function TMSMenu() {
      *
      * @function
      * @param {string} text
+     * @param {number=} padleft
      * @private
      */
-    this._write_text = function (text) {
-        self._dom.content.append('<div class="menu-text">{0}</div>'.format(text));
+    this._write_text = function (text, padleft) {
+        if (isNullUndf(padleft)) padleft = 0;
+        // noinspection CssUnitlessNumber
+        self._dom.content.append('<div class="menu-text" style="padding-left: {1}rem;">{0}</div>'.format(text.replaceAll('\n', '<br />'), padleft));
     };
 
     /**
@@ -675,10 +678,10 @@ function TMSMenu() {
             $key = keys[i].split('|');
             if ($key.length === 1) {
                 // noinspection HtmlUnknownTarget
-                $keys += '<img src="resources/keys/{0}.png" alt="" />'.format(keys[i]);
+                $keys += '<img src="resources/keys/{0}.png" class="hvr-grow" alt="" />'.format(keys[i]);
             } else {
                 // noinspection HtmlUnknownTarget
-                $keys += '<img src="resources/keys/{0}.png" class="{1}" alt="" />'.format($key[0], $key[1]);
+                $keys += '<img src="resources/keys/{0}.png" class="hvr-grow {1}" alt="" />'.format($key[0].replaceAll(',', ' '), $key[1]);
             }
         }
         self._dom.content.append('<div class="menu-htp-entry-line"><div class="menu-htp-keys">{0}</div><div class="menu-htp-text">{1}</div></div>'.format($keys, text));
@@ -696,10 +699,35 @@ function TMSMenu() {
         self._wipe_content();
         self._write_menuback(lang.menu_about);
 
+        self._add_title(aboutinfo.productname);
+        // noinspection HtmlUnknownTarget
+        self._write_about_line(lang.author_text, '{0} <a href="{1}" target="_blank">@{2}</a>'.format(aboutinfo.author.name, aboutinfo.author.website, aboutinfo.author.tag));
+        self._write_about_line(lang.about_version, '{0} ({1})'.format(aboutinfo.v.version, dateFormat(new Date(aboutinfo.v.date), cfg_date_format_public_d)));
+        // noinspection HtmlUnknownTarget
+        self._write_about_line(lang.about_source_code, '<a href="{0}" target="_blank">Github</a>'.format(aboutinfo.productwebsite));
+        self._write_about_line(lang.about_thanks_to, aboutinfo.author.contributors.join(', '));
+
+        // Write license
+        self._write_about_line(lang.about_license, 'MIT');
+        self._write_text("Copyright (c) 2019 Pablo Pizarro R.\nPermission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \"Software\"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:\n\nThe above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.", 2);
+
         // Apply button effect
         self._set_content_height();
         self._apply_rippler();
 
+    };
+
+    /**
+     * Write about line.
+     *
+     * @function
+     * @param {string} title
+     * @param {string} content
+     * @param {boolean=} center
+     * @private
+     */
+    this._write_about_line = function (title, content, center) {
+        self._dom.content.append('<div class="menu-about" style="{2}"><span class="menu-about-title">{0}:</span>{1}</div>'.format(title, content, center ? 'text-align:center;' : ''));
     };
 
     /**

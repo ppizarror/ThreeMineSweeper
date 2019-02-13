@@ -9,11 +9,15 @@
 "use strict";
 
 lang_db.es = {
+    "about_license": "Licencia",
+    "about_source_code": "Código fuente",
+    "about_thanks_to": "Agradecimientos",
+    "about_version": "Versión",
     "answer_no": "No",
     "answer_ok": "Ok",
     "answer_yes": "Si",
     "app_dialog_unknown_size": "No se puede abrir diálogo con tamaño desconocido <{0}>",
-    "author_message": "Autor",
+    "author_text": "Autor",
     "back_to_menu": "Menú principal",
     "building_full_loading_layer": "Iniciando capa de carga",
     "check_window_size_info": "El tamaño de tu pantalla {0}x{1} es menor al mínimo solicitado por la aplicación ({0}x{1}). Aumenta el tamaño de la ventana",

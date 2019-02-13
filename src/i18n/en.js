@@ -9,11 +9,15 @@
 "use strict";
 
 lang_db.en = {
+    "about_license": "License",
+    "about_source_code": "Source code",
+    "about_thanks_to": "Thanks to",
+    "about_version": "Version",
     "answer_no": "No",
     "answer_ok": "Ok",
     "answer_yes": "Yes",
     "app_dialog_unknown_size": "Cannot open dialog with unknown size <{0}>",
-    "author_message": "Author",
+    "author_text": "Author",
     "back_to_menu": "Back to main menu",
     "building_full_loading_layer": "Init loading layer",
     "check_window_size_info": "Your device screen {0}x{1} is too small for this application (Min required {0}x{1}). Try to increase the window size",
