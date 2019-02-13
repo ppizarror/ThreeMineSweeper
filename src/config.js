@@ -39,7 +39,7 @@ let cfg_popup_theme = 'material';
  * @const
  * @global
  */
-const cfg_verbose = true;
+const cfg_verbose = false;
 
 /**
  * Show total messages on console.
