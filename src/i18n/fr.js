@@ -92,6 +92,7 @@ lang_db.fr = {
     "init_test_mode": "Initialisation du mode test",
     "init_themes": "Thème d'initialisation",
     "lang_br": "Portugais",
+    "lang_de": "Alemán",
     "lang_en": "Anglais",
     "lang_es": "Espagnol",
     "lang_fr": "Français (actuel)",
