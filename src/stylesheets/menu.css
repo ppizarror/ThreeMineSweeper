@@ -56,9 +56,9 @@ Header
 }
 
 #menu-header .menu-header-icon img {
-	-webkit-filter: drop-shadow(0 3px 3px #333333);
+	-webkit-filter: drop-shadow(0 3px 3px rgba(0, 0, 0, 0.85));
 	animation: menuicon 15s 0s cubic-bezier(0.79, 0.99, 0, 1.04) infinite;
-	filter: drop-shadow(0 3px 3px #333333);
+	filter: drop-shadow(0 3px 3px rgba(0, 0, 0, 0.85));
 	float: right;
 	margin-top: -20%;
 	max-width: 120px;

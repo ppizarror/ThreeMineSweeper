@@ -167,7 +167,8 @@ Tile info
 }
 
 .game-ui-right-column .game-ui-tilesinfo.tile-shadow img {
-	box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+	-webkit-filter: drop-shadow(0 0 3px rgba(0, 0, 0, 0.55));
+	filter: drop-shadow(0 0 3px rgba(0, 0, 0, 0.55));
 }
 
 /**
