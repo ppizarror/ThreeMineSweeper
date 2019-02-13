@@ -307,9 +307,12 @@ function TMSViewer() {
                 vertical: 'vertical',
             },
             near: 0.001,                        // Close plane
-            posx: 2.300,                        // Initial X position
+            pan: true,                          // Enables pan
+            panfactor: 0.0001,                  // Pan factor
+            panspeed: 5.00,                     // Pan speed
+            posx: 2.30,                         // Initial X position
             posy: -2.30,                        // Initial Y position
-            posz: 2.000,                        // Initial Z position
+            posz: 2.00,                         // Initial Z position
             radius: 0.995,                      // Radius coefficient
             ray: null,                          // Camera collision raycaster
             raycollidedist: 0.08,               // Collide distance
@@ -737,12 +740,14 @@ function TMSViewer() {
         this._controls = new THREE.OrbitControls(this._three_camera, $('#game-ui')[0]);
         this._controls.autoRotate = this.objects_props.camera.autorotate;
         this._controls.dampingFactor = this.objects_props.camera.dampingfactor;
-        this._controls.enableDamping = true;
-        this._controls.enableKey = true;
-        this._controls.enablePan = false;
-        this._controls.enableZoom = false;
+        this._controls.enableDamping = this.objects_props.camera.damping;
+        this._controls.enableKey = false;
+        this._controls.enablePan = this.objects_props.camera.pan;
+        this._controls.panFunction = this._move_ortho;
+        this._controls.enableZoom = true;
         this._controls.maxDistance = this.objects_props.camera.maxdistance;
         this._controls.maxPolarAngle = this.objects_props.camera.maxpolarangle;
+        this._controls.panSpeed = this.objects_props.camera.panspeed * self.worldsize.diagl;
         this._controls.rotatespeed = this.objects_props.camera.rotatespeed;
 
         /**
@@ -1302,18 +1307,30 @@ function TMSViewer() {
      * Moves camera orthogonal to the ray between camera and target, planar.
      *
      * @function
+     * @param {number=} $dx
+     * @param {number=} $dy
      * @private
      */
-    this._move_ortho = function () {
+    this._move_ortho = function ($dx, $dy) {
 
         // Calculates advance angle
         /**
          * let $ang = Math.atan2(self._three_camera.position.x - self.objects_props.camera.target.y, self._three_camera.position.z - self.objects_props.camera.target.x);
          */
-        let $ang = this._controls.getAzimuthalAngle();
+        let $ang = self._controls.getAzimuthalAngle();
+
+        // Handles pan
+        if (notNullUndf($dx) && notNullUndf($dy)) {
+            $dx *= -self.objects_props.camera.panfactor * self.worldsize.diagl;
+            $dy *= -self.objects_props.camera.panfactor * self.worldsize.diagl;
+            self._update_camera_target('x', $dx * Math.cos($ang + Math.PI / 2), false);
+            self._update_camera_target('y', $dx * Math.sin($ang + Math.PI / 2), false);
+            self._update_camera_target('x', $dy * Math.cos($ang), false);
+            self._update_camera_target('y', $dy * Math.sin($ang), true);
+            return;
+        }
 
         // Left/right
-        let $dx, $dy;
         $dx = self.objects_props.camera.targetspeed.x * Math.cos($ang + Math.PI / 2);
         $dy = self.objects_props.camera.targetspeed.y * Math.sin($ang + Math.PI / 2);
         self._update_camera_target('x', $dx, false);

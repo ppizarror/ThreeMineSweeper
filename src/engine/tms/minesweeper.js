@@ -240,7 +240,7 @@ function Minesweeper() {
             // If face has zero bombs
             if (face.get_bomb_count() === 0) this._clear_zeros(face, viewer, false);
         } else {
-            if (ts < 0.3) return;
+            if (ts < 0.15) return;
             face.place_flag();
             face.place_image(viewer);
             if (face.has_flag()) {
@@ -328,7 +328,7 @@ function Minesweeper() {
 
         // Fast check
         if (self._game_status.played !== self._game_status.total) {
-            if (!((self._game_status.played + self._game_status.mines) === self._game_status.total)) return;
+            if (!((self._game_status.played + self._game_status.mines - self._game_status.mines) === self._game_status.total)) return;
         }
         app_console.info(lang.game_checking_win_condition);
 
@@ -850,10 +850,12 @@ function Minesweeper() {
             for (let i = 0; i < score.length; i += 1) {
                 if (self._write_user_scoreboard(score[i].user, i + 1, score[i].country, score[i].date, score[i].time)) w += 1;
             }
-            if (w === 0) self._dom.scoreboard_content.html('<div class="game-scoreboard-empty" style="line-height: {1}px;">{0} <i class="fas fa-smile-wink"></i></div>'.format(lang.scoreboard_empty, self._get_scoreboard_height()));
+            if (w === 0) self._dom.scoreboard_content.html('<div class="game-scoreboard-empty">{0} <i class="fas fa-smile-wink"></i></div>'.format(lang.scoreboard_empty, self._get_scoreboard_height()));
+            self._center_scoreboard();
             return;
         }
-        self._dom.scoreboard_content.html('<div class="game-scoreboard-empty" style="line-height: {1}px;"><i class="fas fa-exclamation-triangle"></i> {0}</div>'.format(lang.server_error, self._get_scoreboard_height()));
+        self._dom.scoreboard_content.html('<div class="game-scoreboard-empty"><i class="fas fa-exclamation-triangle"></i> {0}</div>'.format(lang.server_error));
+        self._center_scoreboard();
     };
 
     /**
@@ -884,18 +886,26 @@ function Minesweeper() {
         self._dom.scoreboard_name.html($mines);
 
         // Scoreboard content autosize
-        let $f = function () {
-            self._dom.scoreboard_content.css('height', self._get_scoreboard_height());
-            let $child = self._dom.scoreboard_content.find('.game-scoreboard-empty');
-            if (isNullUndf($child) || $child.length === 0) return;
-            $child.css('line-height', self._get_scoreboard_height() + 'px');
-        };
-        app_dom.window.on('resize.scoreboard', $f);
-        $f();
+        app_dom.window.on('resize.scoreboard', self._center_scoreboard);
+        self._center_scoreboard(); // Apply text centering
 
         // Write loading
         self._dom.scoreboard_content.html('<div class="game-scoreboard-loading" style="line-height: {0}px;"><i class="fa fa-spinner fa-spin fa-3x fa-fw"></i></div>'.format(self._get_scoreboard_height()));
 
+    };
+
+    /**
+     * Center scoreboard.
+     *
+     * @function
+     * @private
+     */
+    this._center_scoreboard = function () {
+        self._dom.scoreboard_content.css('height', self._get_scoreboard_height());
+        let $child = self._dom.scoreboard_content.find('.game-scoreboard-empty');
+        if (isNullUndf($child) || $child.length === 0) return;
+        $child.css('line-height', '');
+        $child.css('padding-top', ((self._get_scoreboard_height() / 2) - 20) + 'px');
     };
 
     /**

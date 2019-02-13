@@ -18,7 +18,7 @@
  * @const
  * @global
  */
-const lang_available = ['en', 'es', 'fr', 'ru', 'br'];
+const lang_available = ['en', 'es', 'fr', 'ru', 'br', 'de'];
 
 
 /**

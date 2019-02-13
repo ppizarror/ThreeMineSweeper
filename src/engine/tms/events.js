@@ -78,6 +78,7 @@ function TMSEvents() {
      * @private
      */
     this._eventID = {
+        blur: 'blur.canvas',
         click: 'click.canvas',
         contextmenu: 'contextmenu.canvas',
         keydown: 'keydown.canvas',
@@ -236,7 +237,9 @@ function TMSEvents() {
         /**
          * Focus
          */
-        this._canvasParent.on('blur', function () {
+        this._canvasParent.on(self._eventID.blur, function () {
+            self._hasMousePressed = false;
+            self._hasKeyPressed = false;
         });
 
         /**
@@ -252,7 +255,7 @@ function TMSEvents() {
         /**
          * Mouse press
          */
-        this._canvasParent.on('mousedown.canvas', function (e) {
+        this._canvasParent.on(self._eventID.mousedown, function (e) {
             e.preventDefault();
             self._hasMousePressed = true;
         });
@@ -260,7 +263,7 @@ function TMSEvents() {
         /**
          * Mouseup
          */
-        this._canvasParent.on('mouseup.canvas', function (e) {
+        this._canvasParent.on(self._eventID.mouseup, function (e) {
             e.preventDefault();
             self._hasMousePressed = false;
             setTimeout(function () {
@@ -283,6 +286,7 @@ function TMSEvents() {
          */
         this._canvasParent.on(self._eventID.contextmenu, function (e) {
             e.preventDefault();
+            if (self._mouseMoveDrag || self._mouseKeepPressed) return;
             self._minesweeper.play(self._lastHoverFace, false, self._viewer);
             e.stopPropagation();
         });
@@ -297,9 +301,8 @@ function TMSEvents() {
             self._mouseHandler(e);
         });
 
-        /**
+        /*
          * Zoom in/out
-         */
         this._canvasParent[0].addEventListener('wheel', function (e) {
             e.preventDefault();
             e.stopPropagation();
@@ -313,6 +316,7 @@ function TMSEvents() {
             if (self._stopMouseWheel !== 0) clearTimeout(self._stopMouseWheel);
             self._stopMouseWheel = setTimeout(self._stop_mousewheel, 300);
         });
+         */
 
         /**
          * Press button on active canvas

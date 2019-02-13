@@ -15,6 +15,7 @@
       <sourceFolder url="file://$MODULE_DIR$/src/engine/generator" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/engine/geom" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/engine/tms" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/lib/three.js" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/dev" />
       <excludeFolder url="file://$MODULE_DIR$/server" />
     </content>
