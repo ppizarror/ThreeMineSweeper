@@ -13,6 +13,13 @@
  */
 
 /**
+ * Application language.
+ * @type {string}
+ * @global
+ */
+let cfg_lang = 'en';
+
+/**
  * App theme.
  * @type {string}
  * @global

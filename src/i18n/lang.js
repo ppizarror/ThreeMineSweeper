@@ -14,18 +14,11 @@
  */
 
 /**
- * Application language.
- * @type {string}
- * @global
- */
-let cfg_lang = 'en';
-
-/**
  * Available languages.
  * @const
  * @global
  */
-const lang_available = ['en', 'es', 'fr', 'ru'];
+const lang_available = ['en', 'es', 'fr', 'ru', 'br'];
 
 
 /**

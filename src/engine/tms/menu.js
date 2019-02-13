@@ -187,6 +187,7 @@ function TMSMenu() {
         let langcontainer = $('#' + $langid);
         self._write_lang(langcontainer, 'en', lang.lang_en);
         self._write_lang(langcontainer, 'es', lang.lang_es);
+        self._write_lang(langcontainer, 'br', lang.lang_br);
         self._write_lang(langcontainer, 'fr', lang.lang_fr);
         self._write_lang(langcontainer, 'ru', lang.lang_ru);
 

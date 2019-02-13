@@ -91,6 +91,7 @@ lang_db.fr = {
     "init_app": "Initialisation du l'application",
     "init_test_mode": "Initialisation du mode test",
     "init_themes": "Thème d'initialisation",
+    "lang_br": "Portugais",
     "lang_en": "Anglais",
     "lang_es": "Espagnol",
     "lang_fr": "Français (actuel)",
