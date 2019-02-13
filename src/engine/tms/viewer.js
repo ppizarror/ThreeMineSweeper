@@ -851,16 +851,6 @@ function TMSViewer() {
         self.objects_props.camera.target.y = self.objects_props.camera.initialTarget.y;
         self.objects_props.camera.target.z = self.objects_props.camera.initialTarget.z;
 
-        // Set velocity to zero
-        let $movs = Object.keys(self.objects_props.camera.movements);
-        for (let i = 0; i < $movs.length; i += 1) {
-            self.objects_props.camera.movements[$movs[i]] = false;
-        }
-        let $vel = Object.keys(self.objects_props.camera.targetspeed);
-        for (let i = 0; i < $vel.length; i += 1) {
-            self.objects_props.camera.targetspeed[$vel[i]] = 0;
-        }
-
         // Updates camera
         self._set_camera_target();
 
@@ -1001,7 +991,7 @@ function TMSViewer() {
 
         // Collide with border
         if (self.objects_props.camera.collidelimits) {
-            if ($final < -self.objects_props.camera.bounds[axis] * self.worldsize[axis] || $final > self.objects_props.camera.bounds[axis] * self.worldsize[axis]) return self._stop_camera();
+            if ($final < -self.objects_props.camera.bounds[axis] * self.worldsize[axis] || $final > self.objects_props.camera.bounds[axis] * self.worldsize[axis]) return self.stop_camera();
         }
 
         // Collide with volume
@@ -1038,7 +1028,7 @@ function TMSViewer() {
              */
             let collisions = ray.intersectObjects(self._collaidableMeshes, false);
             let collides = (collisions.length > 0 && collisions[0].distance < self.objects_props.camera.raycollidedist);
-            if (collides) return self._stop_camera();
+            if (collides) return self.stop_camera();
 
         }
 
@@ -1245,14 +1235,16 @@ function TMSViewer() {
      *
      * @function
      * @returns {boolean}
-     * @private
      */
-    this._stop_camera = function () {
-        self.objects_props.camera.targetspeed.f = 0;
-        self.objects_props.camera.targetspeed.p = 0;
-        self.objects_props.camera.targetspeed.x = 0;
-        self.objects_props.camera.targetspeed.y = 0;
-        self.objects_props.camera.targetspeed.z = 0;
+    this.stop_camera = function () {
+        let $movs = Object.keys(self.objects_props.camera.movements);
+        for (let i = 0; i < $movs.length; i += 1) {
+            self.objects_props.camera.movements[$movs[i]] = false;
+        }
+        let $vel = Object.keys(self.objects_props.camera.targetspeed);
+        for (let i = 0; i < $vel.length; i += 1) {
+            self.objects_props.camera.targetspeed[$vel[i]] = 0;
+        }
         return false;
     };
 

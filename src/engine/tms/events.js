@@ -226,6 +226,7 @@ function TMSEvents() {
         this._canvasParent.on(self._eventID.blur, function () {
             self._hasMousePressed = false;
             self._hasKeyPressed = false;
+            self._viewer.stop_camera();
         });
 
         /**
