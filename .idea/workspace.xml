@@ -2,16 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5aabf641-1bfc-4f9e-bd89-dad61f629de5" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/ThreeMinesSweeper.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/engine/tms/events.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/engine/tms/events.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/engine/tms/menu.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/engine/tms/menu.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/i18n/en.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/i18n/en.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/i18n/es.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/i18n/es.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/i18n/fr.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/i18n/fr.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/i18n/ru.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/i18n/ru.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/stylesheets/menu.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/stylesheets/menu.css" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -44,11 +39,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/engine/tms/menu.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="650">
-              <caret line="594" column="30" selection-start-line="594" selection-start-column="30" selection-end-line="594" selection-end-column="30" />
+            <state relative-caret-position="418">
+              <caret line="625" column="23" selection-start-line="625" selection-start-column="23" selection-end-line="625" selection-end-column="23" />
             </state>
           </provider>
         </entry>
@@ -56,17 +51,17 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/i18n/en.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1640">
-              <caret line="82" column="32" selection-start-line="82" selection-start-column="4" selection-end-line="82" selection-end-column="32" />
+            <state relative-caret-position="1032">
+              <caret line="121" column="27" selection-start-line="121" selection-start-column="27" selection-end-line="121" selection-end-column="27" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/i18n/es.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1640">
-              <caret line="82" column="31" selection-start-line="82" selection-start-column="31" selection-end-line="82" selection-end-column="31" />
+            <state relative-caret-position="140">
+              <caret line="7" column="3" lean-forward="true" selection-start-line="7" selection-start-column="3" selection-end-line="7" selection-end-column="3" />
             </state>
           </provider>
         </entry>
@@ -74,8 +69,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/i18n/fr.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1640">
-              <caret line="82" column="35" selection-start-line="82" selection-start-column="35" selection-end-line="82" selection-end-column="35" />
+            <state relative-caret-position="868">
+              <caret line="136" column="56" lean-forward="true" selection-start-line="11" selection-start-column="4" selection-end-line="136" selection-end-column="56" />
             </state>
           </provider>
         </entry>
@@ -83,8 +78,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/i18n/ru.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1640">
-              <caret line="82" column="32" selection-start-line="82" selection-start-column="32" selection-end-line="82" selection-end-column="32" />
+            <state relative-caret-position="2281">
+              <caret line="136" column="53" lean-forward="true" selection-start-line="11" selection-start-column="4" selection-end-line="136" selection-end-column="53" />
             </state>
           </provider>
         </entry>
@@ -110,8 +105,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3280">
-              <caret line="164" selection-start-line="164" selection-end-line="164" />
+            <state relative-caret-position="3300">
+              <caret line="165" column="6" lean-forward="true" selection-start-line="165" selection-start-column="6" selection-end-line="165" selection-end-column="6" />
               <folding>
                 <element signature="n#style#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
               </folding>
@@ -122,8 +117,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/stylesheets/menu.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="10440">
-              <caret line="522" selection-start-line="522" selection-end-line="522" selection-end-column="38" />
+            <state relative-caret-position="199">
+              <caret line="29" column="23" lean-forward="true" selection-start-line="29" selection-start-column="23" selection-end-line="29" selection-end-column="23" />
             </state>
           </provider>
         </entry>
@@ -232,12 +227,12 @@
         <option value="$PROJECT_DIR$/index.html" />
         <option value="$PROJECT_DIR$/src/engine/tms/viewer.js" />
         <option value="$PROJECT_DIR$/src/engine/tms/events.js" />
-        <option value="$PROJECT_DIR$/src/i18n/en.js" />
-        <option value="$PROJECT_DIR$/src/i18n/es.js" />
-        <option value="$PROJECT_DIR$/src/i18n/fr.js" />
-        <option value="$PROJECT_DIR$/src/i18n/ru.js" />
-        <option value="$PROJECT_DIR$/src/engine/tms/menu.js" />
         <option value="$PROJECT_DIR$/src/stylesheets/menu.css" />
+        <option value="$PROJECT_DIR$/src/engine/tms/menu.js" />
+        <option value="$PROJECT_DIR$/src/i18n/fr.js" />
+        <option value="$PROJECT_DIR$/src/i18n/en.js" />
+        <option value="$PROJECT_DIR$/src/i18n/ru.js" />
+        <option value="$PROJECT_DIR$/src/i18n/es.js" />
       </list>
     </option>
   </component>
@@ -365,7 +360,7 @@
       <workItem from="1550002748966" duration="9661000" />
       <workItem from="1550026083534" duration="12000" />
       <workItem from="1550026156167" duration="17000" />
-      <workItem from="1550026292416" duration="343000" />
+      <workItem from="1550026292416" duration="3432000" />
     </task>
     <servers />
   </component>
@@ -402,7 +397,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="353486000" />
+    <option name="totallyTimeSpent" value="356575000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -718,34 +713,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/i18n/en.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1640">
-          <caret line="82" column="32" selection-start-line="82" selection-start-column="4" selection-end-line="82" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/i18n/es.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1640">
-          <caret line="82" column="31" selection-start-line="82" selection-start-column="31" selection-end-line="82" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/i18n/fr.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1640">
-          <caret line="82" column="35" selection-start-line="82" selection-start-column="35" selection-end-line="82" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/i18n/ru.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1640">
-          <caret line="82" column="32" selection-start-line="82" selection-start-column="32" selection-end-line="82" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/engine/tms/events.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="8140">
@@ -760,27 +727,55 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/stylesheets/menu.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="199">
+          <caret line="29" column="23" lean-forward="true" selection-start-line="29" selection-start-column="23" selection-end-line="29" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/engine/tms/menu.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="418">
+          <caret line="625" column="23" selection-start-line="625" selection-start-column="23" selection-end-line="625" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3280">
-          <caret line="164" selection-start-line="164" selection-end-line="164" />
+        <state relative-caret-position="3300">
+          <caret line="165" column="6" lean-forward="true" selection-start-line="165" selection-start-column="6" selection-end-line="165" selection-end-column="6" />
           <folding>
             <element signature="n#style#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/stylesheets/menu.css">
+    <entry file="file://$PROJECT_DIR$/src/i18n/fr.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="10440">
-          <caret line="522" selection-start-line="522" selection-end-line="522" selection-end-column="38" />
+        <state relative-caret-position="868">
+          <caret line="136" column="56" lean-forward="true" selection-start-line="11" selection-start-column="4" selection-end-line="136" selection-end-column="56" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/engine/tms/menu.js">
+    <entry file="file://$PROJECT_DIR$/src/i18n/ru.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="650">
-          <caret line="594" column="30" selection-start-line="594" selection-start-column="30" selection-end-line="594" selection-end-column="30" />
+        <state relative-caret-position="2281">
+          <caret line="136" column="53" lean-forward="true" selection-start-line="11" selection-start-column="4" selection-end-line="136" selection-end-column="53" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/i18n/en.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1032">
+          <caret line="121" column="27" selection-start-line="121" selection-start-column="27" selection-end-line="121" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/i18n/es.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="140">
+          <caret line="7" column="3" lean-forward="true" selection-start-line="7" selection-start-column="3" selection-end-line="7" selection-end-column="3" />
         </state>
       </provider>
     </entry>

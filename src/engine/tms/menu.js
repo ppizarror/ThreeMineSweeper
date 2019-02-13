@@ -579,18 +579,18 @@ function TMSMenu() {
         self._write_menuback(lang.menu_how_to_play);
 
         // Write help info
-        self._add_title('Quick start');
-        self._write_text('You are presented with a geometry of faces. Some faces contain mines (bombs), others don\'t. If you click on a face containing a bomb, you lose. If you manage to click all the faces (without clicking on any bombs) you win.');
-        self._write_text('Clicking a face which doesn\'t have a bomb reveals the number of neighbouring faces containing bombs. Use this information plus some guess work to avoid the bombs. The face neighbours can be the faces sharing an edge or a vertex.');
-        self._write_text('To open a face, point and left click on it. To mark a face you think is a bomb, point and right-click to place a flag. The flagged faces cannot be opened. Right click a flagged face to place a question mark (That face can be clicked). Remove the question mark right clicking the face again.');
+        self._add_title(lang.help_quick_start);
+        self._write_text(lang.help_p1);
+        self._write_text(lang.help_p2);
+        self._write_text(lang.help_p3);
 
-        self._add_title('Detailed Instructions');
-        self._write_list_item('A face \'neighbours\' are the faces adjacent above, below, left, right, and all 4 diagonals, or faces sharing a vertex with the face (Valid in 3D geometries). Faces on the sides of the geometry or in a corner have fewer neighbors.');
-        self._write_list_item('If you open a face with 0 neighboring bombs, all its neighbors will automatically open. This can cause a large area to automatically open');
-        self._write_list_item('To remove a bomb marker from a face, point at it and right-click again. The flagged faces cannot be opened.');
-        self._write_list_item('If you mark a bomb incorrectly, you will have to correct the mistake before you can win. Incorrect bomb marking doesn\'t kill you, but it can lead to mistakes which do.');
-        self._write_list_item('You don\'t have to mark all the bombs to win; you just need to open all non-bomb face.');
-        self._write_list_item('Right-clicking twice will give you a question mark symbol which can be useful if you are unsure about a square. Right click again to remove the question mark.');
+        self._add_title(lang.help_detailed_instructions);
+        self._write_list_item(lang.help_p4);
+        self._write_list_item(lang.help_p5);
+        self._write_list_item(lang.help_p6);
+        self._write_list_item(lang.help_p7);
+        self._write_list_item(lang.help_p8);
+        self._write_list_item(lang.help_p9);
 
         // Apply button effect
         self._set_content_height();
@@ -610,16 +610,16 @@ function TMSMenu() {
         self._wipe_content();
         self._write_menuback(lang.menu_controls);
 
-        self._write_htp_entry(['Keyboard_White_Mouse_Left'], 'Click over faces');
-        self._write_htp_entry(['Keyboard_White_Mouse_Left|shake-lr'], 'Click and hold, rotate camera around position');
-        self._write_htp_entry(['Keyboard_White_Mouse_Middle'], 'Zoom in/out');
-        self._write_htp_entry(['Keyboard_White_Mouse_Right'], 'Place flags/question marks');
-        self._write_htp_entry(['Keyboard_White_Arrow_Up', 'Keyboard_White_Arrow_Left', 'Keyboard_White_Arrow_Down', 'Keyboard_White_Arrow_Right'], 'Rotate the camera');
-        self._write_htp_entry(['Keyboard_White_W', 'Keyboard_White_A', 'Keyboard_White_S', 'Keyboard_White_D'], 'Move through the map');
-        self._write_htp_entry(['Keyboard_White_I', 'Keyboard_White_J', 'Keyboard_White_K', 'Keyboard_White_L'], 'Move though the map');
-        self._write_htp_entry(['Keyboard_White_E', 'Keyboard_White_Space'], 'Move up');
-        self._write_htp_entry(['Keyboard_White_Q', 'Keyboard_White_Shift'], 'Move down');
-        self._write_htp_entry(['Keyboard_White_R'], 'Camera reset');
+        self._write_htp_entry(['Keyboard_White_Mouse_Left'], lang.help_controls_click_faces);
+        self._write_htp_entry(['Keyboard_White_Mouse_Left|shake-lr'], lang.help_controls_click_hold);
+        self._write_htp_entry(['Keyboard_White_Mouse_Middle'], lang.help_controls_zoom);
+        self._write_htp_entry(['Keyboard_White_Mouse_Right'], lang.help_controls_click_right);
+        self._write_htp_entry(['Keyboard_White_Arrow_Up', 'Keyboard_White_Arrow_Left', 'Keyboard_White_Arrow_Down', 'Keyboard_White_Arrow_Right'], lang.help_controls_rotate);
+        self._write_htp_entry(['Keyboard_White_W', 'Keyboard_White_A', 'Keyboard_White_S', 'Keyboard_White_D'], lang.help_controls_move);
+        self._write_htp_entry(['Keyboard_White_I', 'Keyboard_White_J', 'Keyboard_White_K', 'Keyboard_White_L'], lang.help_controls_move);
+        self._write_htp_entry(['Keyboard_White_E', 'Keyboard_White_Space'], lang.help_controls_move_up);
+        self._write_htp_entry(['Keyboard_White_Q', 'Keyboard_White_Shift'], lang.help_controls_move_down);
+        self._write_htp_entry(['Keyboard_White_R'], lang.help_controls_camera_reset);
 
         // Apply button effect
         self._set_content_height();
