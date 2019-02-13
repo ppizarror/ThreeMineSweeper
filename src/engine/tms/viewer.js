@@ -908,26 +908,26 @@ function TMSViewer() {
     this.animate_frame = function () {
 
         // Update camera speed
-        this._update_camera_speed();
-        this._move_camera();
+        self._update_camera_speed();
+        self._move_camera();
 
         // Update controls
-        this._controls.update();
+        self._controls.update();
 
         // Render frame
-        this.render();
+        self.render();
 
     };
 
     /**
-     * Animation thread {@link requestAnimationFrame}.
+     * Animation thread.
      *
      * @function
      * @private
      */
     this._animation_thread = function () {
         if (!self._animateThread) return;
-        requestAnimationFrame(self.init_animate);
+        requestAnimationFrame(self._animation_thread);
         self.animate_frame();
     };
 
@@ -938,8 +938,20 @@ function TMSViewer() {
      * @protected
      */
     this.init_animate = function () {
+        if (self._animateThread) return;
         self._animateThread = true;
-        self._animation_thread();
+        this._animation_thread();
+    };
+
+    /**
+     * Init render thread.
+     *
+     * @function
+     * @protected
+     */
+    this.stop_animate = function () {
+        if (!self._animateThread) return;
+        self._animateThread = false;
     };
 
     /**
@@ -2326,6 +2338,9 @@ function TMSViewer() {
         if (self._volume_meshes.contourminor.length > 0) self._volume_meshes.contourminor = [];
         app_console.info(lang.reset_view);
 
+        // Stop animation
+        self.stop_animate();
+
     };
 
     /**
@@ -2462,7 +2477,6 @@ function TMSViewer() {
         self._init_world_objects();
         self._init_tooltip();
         self.focus();
-        self.init_animate();
     };
 
     /**
@@ -2474,6 +2488,7 @@ function TMSViewer() {
     this.new = function (volume) {
         this.delete_last_volume();
         this._draw_volume(volume);
+        self.init_animate();
     };
 
 }

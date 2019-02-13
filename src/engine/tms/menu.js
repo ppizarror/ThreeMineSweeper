@@ -55,14 +55,14 @@ function TMSMenu() {
         6: { // Sphere
             latlng: true,
             from: 20,
-            max: 50,
+            max: 55,
             min: 20,
             step: 5,
         },
         7: { // Cylinder
             latlng: true,
             from: 20,
-            max: 50,
+            max: 60,
             min: 10,
             step: 5,
         },
