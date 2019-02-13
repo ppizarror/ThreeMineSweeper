@@ -60,20 +60,6 @@ function TMSEvents() {
     this._mouseMoveDrag = false;
 
     /**
-     * Mouse is pressed.
-     * @type {boolean}
-     * @private
-     */
-    this._mouseKeepPressed = false;
-
-    /**
-     * Stores event.
-     * @type {number}
-     * @private
-     */
-    this._stopMouseWheel = 0;
-
-    /**
      * Event IDs.
      * @private
      */
@@ -266,9 +252,7 @@ function TMSEvents() {
         this._canvasParent.on(self._eventID.mouseup, function (e) {
             e.preventDefault();
             self._hasMousePressed = false;
-            setTimeout(function () {
-                self._mouseMoveDrag = false;
-            }, 20);
+            self._mouseMoveDrag = false;
         });
 
         /**
@@ -276,7 +260,7 @@ function TMSEvents() {
          */
         this._canvasParent.on(self._eventID.click, function (e) {
             e.preventDefault();
-            if (self._mouseMoveDrag || self._mouseKeepPressed) return;
+            if (self._mouseMoveDrag || self._hasMousePressed) return;
             self._minesweeper.play(self._lastHoverFace, true, self._viewer);
             e.stopPropagation();
         });
@@ -286,7 +270,7 @@ function TMSEvents() {
          */
         this._canvasParent.on(self._eventID.contextmenu, function (e) {
             e.preventDefault();
-            if (self._mouseMoveDrag || self._mouseKeepPressed) return;
+            if (self._mouseMoveDrag || self._hasMousePressed) return;
             self._minesweeper.play(self._lastHoverFace, false, self._viewer);
             e.stopPropagation();
         });
@@ -300,23 +284,6 @@ function TMSEvents() {
             if (self._mouseMoveDrag) self._faceHover(null);
             self._mouseHandler(e);
         });
-
-        /*
-         * Zoom in/out
-        this._canvasParent[0].addEventListener('wheel', function (e) {
-            e.preventDefault();
-            e.stopPropagation();
-            if (e.deltaY < 0) {
-                self._viewer.objects_props.camera.movements.forward = true;
-                self._viewer.objects_props.camera.movements.backward = false;
-            } else if (e.deltaY > 0) {
-                self._viewer.objects_props.camera.movements.backward = true;
-                self._viewer.objects_props.camera.movements.forward = false;
-            }
-            if (self._stopMouseWheel !== 0) clearTimeout(self._stopMouseWheel);
-            self._stopMouseWheel = setTimeout(self._stop_mousewheel, 300);
-        });
-         */
 
         /**
          * Press button on active canvas
@@ -493,17 +460,6 @@ function TMSEvents() {
          */
         this._viewer.three_resize(true);
 
-    };
-
-    /**
-     * Stop mouse wheel event.
-     *
-     * @function
-     * @private
-     */
-    this._stop_mousewheel = function () {
-        self._viewer.objects_props.camera.movements.backward = false;
-        self._viewer.objects_props.camera.movements.forward = false;
     };
 
     /**

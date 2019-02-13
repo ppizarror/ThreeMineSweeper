@@ -308,6 +308,7 @@ function TMSViewer() {
             },
             near: 0.001,                        // Close plane
             pan: true,                          // Enables pan
+            panaddtospeed: false,               // Add pan speed to velocity
             panfactor: 0.0001,                  // Pan factor
             panspeed: 5.00,                     // Pan speed
             posx: 2.30,                         // Initial X position
@@ -349,6 +350,8 @@ function TMSViewer() {
                 z: 0,
             },
             zoom: 1.000,                        // Zoom factor
+            zoomaddtospeed: true,               // Adds zoom to speed
+            zoomspeed: 0.00005,                 // Zoom speed
         },
 
         /**
@@ -587,6 +590,8 @@ function TMSViewer() {
         this.objects_props.camera.maxvelocity.y *= this.worldsize.y;
         this.objects_props.camera.maxvelocity.z *= this.worldsize.z;
         this.objects_props.camera.minspeed *= this.worldsize.diagl;
+        this.objects_props.camera.panspeed *= this.worldsize.diagl;
+        this.objects_props.camera.zoomspeed *= this.worldsize.diagl;
 
 
         /**
@@ -745,6 +750,7 @@ function TMSViewer() {
         this._controls.enablePan = this.objects_props.camera.pan;
         this._controls.panFunction = this._move_ortho;
         this._controls.enableZoom = true;
+        this._controls.zoomFunction = this._move_parallel;
         this._controls.maxDistance = this.objects_props.camera.maxdistance;
         this._controls.maxPolarAngle = this.objects_props.camera.maxpolarangle;
         this._controls.panSpeed = this.objects_props.camera.panspeed * self.worldsize.diagl;
@@ -1280,7 +1286,7 @@ function TMSViewer() {
      * @function
      * @private
      */
-    this._move_parallel = function () {
+    this._move_parallel = function ($f) {
 
         // Calculates advance angle
         /**
@@ -1292,9 +1298,17 @@ function TMSViewer() {
         let $angxz = self._controls.getPolarAngle();
 
         // Calculate displacements
-        let $dx = self.objects_props.camera.targetspeed.f * Math.cos($angxy) * Math.sin($angxz);
-        let $dy = self.objects_props.camera.targetspeed.f * Math.sin($angxy) * Math.sin($angxz);
-        let $dz = self.objects_props.camera.targetspeed.f * Math.cos($angxz);
+        let $vel = self.objects_props.camera.targetspeed.f;
+        if (notNullUndf($f)) {
+            $vel = $f * self.objects_props.camera.zoomspeed;
+            if (self.objects_props.camera.zoomaddtospeed) {
+                self.objects_props.camera.targetspeed.f += $vel;
+            }
+        }
+
+        let $dx = $vel * Math.cos($angxy) * Math.sin($angxz);
+        let $dy = $vel * Math.sin($angxy) * Math.sin($angxz);
+        let $dz = $vel * Math.cos($angxz);
 
         // Adds to components
         self._update_camera_target('x', $dx, false);
@@ -1321,12 +1335,21 @@ function TMSViewer() {
 
         // Handles pan
         if (notNullUndf($dx) && notNullUndf($dy)) {
-            $dx *= -self.objects_props.camera.panfactor * self.worldsize.diagl;
-            $dy *= -self.objects_props.camera.panfactor * self.worldsize.diagl;
-            self._update_camera_target('x', $dx * Math.cos($ang + Math.PI / 2), false);
-            self._update_camera_target('y', $dx * Math.sin($ang + Math.PI / 2), false);
-            self._update_camera_target('x', $dy * Math.cos($ang), false);
-            self._update_camera_target('y', $dy * Math.sin($ang), true);
+            let $vx, $vy, $vp;
+            $dx *= -self.objects_props.camera.panfactor;
+            $dy *= -self.objects_props.camera.panfactor;
+            $vx = $dx * Math.cos($ang + Math.PI / 2);
+            $vy = $dx * Math.sin($ang + Math.PI / 2);
+            $vp = $dy;
+            if (self.objects_props.camera.panaddtospeed) {
+                self.objects_props.camera.targetspeed.x += $vx * self.objects_props.camera.dampingfactor;
+                self.objects_props.camera.targetspeed.y += $vy * self.objects_props.camera.dampingfactor;
+                self.objects_props.camera.targetspeed.p += $vp * self.objects_props.camera.dampingfactor;
+            }
+            self._update_camera_target('x', $vx, false);
+            self._update_camera_target('y', $vy, false);
+            self._update_camera_target('x', $vp * Math.cos($ang), false);
+            self._update_camera_target('y', $vp * Math.sin($ang), true);
             return;
         }
 

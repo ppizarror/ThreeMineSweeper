@@ -30,11 +30,6 @@ function TMSMenu() {
         1: { // BasicPyramid
             enabled: false,
         },
-        2: { // CrossFractal
-            fractal: true,
-            maxorder: 2,
-            minorder: 1,
-        },
         3: { // SierpinskiCube
             fractal: true,
             maxorder: 2,
@@ -44,6 +39,11 @@ function TMSMenu() {
             fractal: true,
             maxorder: 5,
             minorder: 2,
+        },
+        2: { // CrossFractal
+            fractal: true,
+            maxorder: 2,
+            minorder: 1,
         },
         5: { // RandomPlane
             from: 300,
