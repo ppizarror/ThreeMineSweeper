@@ -69,11 +69,18 @@ function TMSMenu() {
         8: { // Square
             latlng: true,
             from: 20,
-            max: 40,
+            max: 60,
             min: 10,
             step: 5,
         },
-        9: { // EmptyGenerator
+        9: { // Cube
+            latlng: true,
+            from: 20,
+            max: 25,
+            min: 10,
+            step: 5,
+        },
+        'null': { // EmptyGenerator
             enabled: false,
         },
     };
@@ -93,7 +100,7 @@ function TMSMenu() {
     /**
      * Fill modes
      */
-    this._gamekeys = [3, 4, 2, 5, 6, 7, 8]; // Keys ordered
+    this._gamekeys = [3, 4, 2, 9, 6, 7, 8, 5];
     for (let i = 0; i < this._gamekeys.length; i += 1) {
         if (isNullUndf(this._games[this._gamekeys[i]]['fractal'])) this._games[this._gamekeys[i]]['fractal'] = false;
         if (isNullUndf(this._games[this._gamekeys[i]]['latlng'])) this._games[this._gamekeys[i]]['latlng'] = false;

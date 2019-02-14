@@ -23,6 +23,17 @@ function GenCube() {
     this._genprops.latlng = true;
     this._set_name('Cube');
 
+    /**
+     * Plane definitions.
+     * @type {{XY: string, YZ: string, XZ: string}}
+     * @private
+     */
+    this._planes = {
+        XY: 'xy',
+        XZ: 'xz',
+        YZ: 'yz'
+    };
+
     // noinspection JSUnusedGlobalSymbols
     /**
      * Generate element, space volume goes from (xi,yi,zi) to (xf,yf,zf).
@@ -49,15 +60,52 @@ function GenCube() {
         let ly = Math.abs(yf - yi);
         let lz = Math.abs(zf - zi);
 
-        // Calculate displacements
-        let dx = lx / (lng - 1);
-        let dy = ly / (lat - 1);
+        // Plane XY
+        this._create_plane(lx, ly, lz, xi, yi, zi, lat, lng, 90, false, this._planes.XY, '-', true);
+        this._create_plane(lx, ly, lz, xi, yi, zf, lat, lng, 0, true, this._planes.XY, '+', false);
+
+        // Plane XZ
+        this._create_plane(lx, ly, lz, xi, yi, zi, lat, lng, -90, true, this._planes.XZ, '-', true);
+        this._create_plane(lx, ly, lz, xf, yi, zi, lat, lng, 0, false, this._planes.XZ, '+', false);
+
+        // Plane YZ
+        this._create_plane(lx, ly, lz, xi, yi, zi, lat, lng, 0, true, this._planes.YZ, '-', false);
+        this._create_plane(lx, ly, lz, xi, yf, zi, lat, lng, -90, false, this._planes.YZ, '+', true);
+
+    };
+
+    this._create_plane = function (lx, ly, lz, xi, yi, zi, lat, lng, angle, flip, plane, planedir, reverse) {
+
+        // Displacements
+        let dx, dy, dz;
+        if (plane === this._planes.XY) {
+            dx = lx / (lng - 1);
+            dy = ly / (lat - 1);
+            dz = 0;
+        } else if (plane === this._planes.YZ) {
+            dx = lx / (lng - 1);
+            dy = 0;
+            dz = lz / (lat - 1);
+        } else if (plane === this._planes.XZ) {
+            dx = 0;
+            dy = ly / (lng - 1);
+            dz = lz / (lat - 1);
+        }
+
+        // Plane name
+        let planename = plane + planedir;
 
         // Create vertices
         let v = [];
-        for (let i = 0; i < lng; i += 1) { // x
-            for (let j = 0; j < lat; j += 1) { // y
-                v.push(new Vertex(xi + (dx * i), yi + (dy * j), zo, 'V' + ((i * lng) + j).toString()));
+        for (let i = 0; i < lng; i += 1) {
+            for (let j = 0; j < lat; j += 1) {
+                if (plane === this._planes.XY) {
+                    v.push(new Vertex(xi + (dx * i), yi + (dy * j), zi, 'V' + planename + ((i * lng) + j).toString()));
+                } else if (plane === this._planes.YZ) {
+                    v.push(new Vertex(xi + (dx * i), yi, zi + (dz * j), 'V' + planename + ((i * lng) + j).toString()));
+                } else if (plane === this._planes.XZ) {
+                    v.push(new Vertex(xi, yi + (dy * i), zi + (dz * j), 'V' + planename + ((i * lng) + j).toString()));
+                }
             }
         }
 
@@ -65,16 +113,17 @@ function GenCube() {
         let f = [];
         let i = 1;
         let face;
-        for (let j = 0; j < lng - 1; j += 1) { // y
-            for (let fi = 0; fi < lat - 1; fi += 1) { // Iterate through each face
+        for (let j = 0; j < lng - 1; j += 1) {
+            for (let fi = 0; fi < lat - 1; fi += 1) {
                 face = new Face([
                     v[(lat * j) + fi],
                     v[(lat * j) + fi + 1],
                     v[(lat * (j + 1)) + fi + 1],
                     v[(lat * (j + 1)) + fi]
-                ], 'F' + i.toString());
-                face.enable_uv_flip();
-                face.set_uv_rotation(-90);
+                ], 'F' + planename + '-' + i.toString());
+                if (flip) face.enable_uv_flip();
+                if (reverse) face.reverse_vertices();
+                face.set_uv_rotation(-angle);
                 face.set_bomb_behaviour(face.behaviour.AROUND);
                 f.push(face);
                 i += 1;
@@ -83,10 +132,6 @@ function GenCube() {
 
         // Add valid faces to volume
         this._volume.add_face(f);
-
-    };
-
-    this._create_plane = function (lx, ly, lz, xi, yi, zi, lat, lng) {
 
     };
 
