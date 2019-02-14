@@ -103,6 +103,7 @@ function Minesweeper() {
         id: '',
         mines: 0,
         name: '',
+        type: '',
     };
 
     /**
@@ -138,8 +139,9 @@ function Minesweeper() {
      * @param {number} mines - Number of mines, if less than 1 it's treated as percentage
      * @param {string} id - Generator id
      * @param {string} name - Generator name
+     * @param {string} type - Generator type
      */
-    this.new = function (volume, mines, id, name) {
+    this.new = function (volume, mines, id, name, type) {
 
         // Calculate total mines
         let tfaces = volume.get_total_faces(true);
@@ -182,6 +184,7 @@ function Minesweeper() {
         self._volume = volume;
         self._generator.id = md5(md5(id) + md5(pm));
         self._generator.name = name;
+        self._generator.type = type;
 
     };
 
@@ -673,17 +676,16 @@ function Minesweeper() {
      * @private
      */
     this._submit_score = function (name) {
+        self._user.name = name;
         let location = dbip.getVisitorInfo();
         location.then(info => {
-            self._user.name = name;
             // noinspection JSUnresolvedVariable
             self._user.location = info.countryCode.toLowerCase();
             self._push_server();
-        });
-        location.catch(function () {
-            // NotificationJS.error(lang.score_error_location);
+        }).catch(function () {
+            NotificationJS.error(lang.score_error_location);
             self._user.location = 'none';
-            self._push_server();
+            setTimeout(self._push_server, 500);
         });
     };
 
@@ -702,7 +704,7 @@ function Minesweeper() {
          */
         let $query = $.ajax({
             crossOrigin: cfg_ajax_cors,
-            data: 'm=upload&id={0}&u={1}&c={2}&t={3}'.format(self._generator.id, self._user.name, self._user.location, self._user.time),
+            data: 'm=upload&id={0}&u={1}&c={2}&t={3}&g={4}'.format(self._generator.id, self._user.name, self._user.location, self._user.time, self._generator.type),
             timeout: cfg_href_ajax_timeout,
             type: 'get',
             url: cfg_href_score,
@@ -716,14 +718,14 @@ function Minesweeper() {
                 let $data = JSON.parse(response);
                 if (Object.keys($data).indexOf('error') === -1) {
                     self._load_score();
-                } else {
-                    NotificationJS.error(lang.score_error_submit);
-                    app_console.exception(response);
+                    return;
                 }
+                NotificationJS.error(lang.score_error_submit);
             } catch ($e) {
                 app_console.exception($e);
             } finally {
             }
+            app_console.exception(response);
         });
 
         // noinspection JSUnusedLocalSymbols
@@ -732,7 +734,6 @@ function Minesweeper() {
          */
         $query.fail(function (response, textStatus, jqXHR) {
             NotificationJS.error(lang.score_error_submit);
-            // app_console.exception(response + ' ' + textStatus);
         });
 
         // Show dialog
@@ -798,7 +799,7 @@ function Minesweeper() {
          */
         let $query = $.ajax({
             crossOrigin: cfg_ajax_cors,
-            data: 'm=get&id={0}'.format(self._generator.id),
+            data: 'm=get&id={0}&g={1}'.format(self._generator.id, self._generator.type),
             timeout: cfg_href_ajax_timeout,
             type: 'get',
             url: cfg_href_score,
@@ -814,13 +815,12 @@ function Minesweeper() {
                     self._write_scores($data);
                     return;
                 }
-                // Error
-                NotificationJS.error(lang.score_error_get);
-                app_console.error(response);
             } catch ($e) {
                 app_console.exception($e);
             } finally {
             }
+            NotificationJS.error(lang.score_error_get);
+            app_console.error(response);
             self._write_scores(null);
         });
 
@@ -830,7 +830,6 @@ function Minesweeper() {
          */
         $query.fail(function (response, textStatus, jqXHR) {
             NotificationJS.error(lang.score_error_get);
-            // app_console.exception(response + ' ' + textStatus);
             self._write_scores(null);
         });
 
@@ -961,7 +960,7 @@ function Minesweeper() {
 
         // Format country
         country = country.toString();
-        if (isNullUndf(country)) country = '';
+        if (isNullUndf(country) || country === 'null' || country === 'none') country = '';
         if (country !== '') {
             let country_name = ''; // Find country name
             for (let i = 0; i < country_list.length; i += 1) {
@@ -981,7 +980,7 @@ function Minesweeper() {
         let date_display = dateFormat(new Date(date), cfg_date_format_public_d);
 
         // Write content
-        self._dom.scoreboard_content.append('<div class="game-scoreboard-entry"><div class="game-scoreboard-user"><div class="game-scoreboard-username">{0}</div><div class="game-scoreboard-userdata"><div class="game-scoreboard-userdata-position">#{1}</div>{2}<div class="game-scoreboard-userdata-date">{3}</div></div></div><div class="game-scoreboard-time">{4}</div></div>'.format(name, position, country, date_display, $timestr));
+        self._dom.scoreboard_content.append('<div class="game-scoreboard-entry"><div class="game-scoreboard-user"><div class="game-scoreboard-username">{0}</div><div class="game-scoreboard-userdata"><div class="game-scoreboard-userdata-position">#{1}</div><div class="game-scoreboard-userdata-date">{3}</div>{2}</div></div><div class="game-scoreboard-time">{4}</div></div>'.format(name, position, country, date_display, $timestr));
         return true;
 
     };

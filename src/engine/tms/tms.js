@@ -222,7 +222,7 @@ function ThreeMineSweeper() {
             let camera = gen.get_camera();
 
             // Creates new minesweeper game instance
-            self._mines.new(volume, self._generator.mines, gen.get_genid(), gen.get_name());
+            self._mines.new(volume, self._generator.mines, gen.get_genid(), gen.get_name(), gen.get_type());
 
             // Init events
             self._events.set_volume(volume);

@@ -50,7 +50,7 @@ function Generator() {
     this._lng = 0;
 
     /**
-     * Generator name
+     * Generator name.
      * @type {string}
      * @private
      */
@@ -279,6 +279,16 @@ function Generator() {
      */
     this.get_genid = function () {
         return md5(md5(self._name) + md5(self._genprops.fractal) + md5(self._genprops.latlng) + md5(self._genprops.target) + md5(self._faces_target) + md5(self._lat) + md5(self._lng) + md5(self._order));
+    };
+
+    /**
+     * Generator type ID.
+     *
+     * @function
+     * @returns {string}
+     */
+    this.get_type = function () {
+        return md5(self._name);
     };
 
 }
