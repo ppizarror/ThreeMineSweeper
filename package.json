@@ -30,10 +30,10 @@
     "url": "git+https://github.com/ppizarror/ThreeMineSweeper.git"
   },
   "keywords": [
-    "threejs",
-    "javascript",
+    "experimental",
     "game",
-    "experimental"
+    "javascript",
+    "threejs"
   ],
   "author": "ppizarror",
   "license": "MIT",

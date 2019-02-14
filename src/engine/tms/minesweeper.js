@@ -681,7 +681,7 @@ function Minesweeper() {
             self._push_server();
         });
         location.catch(function () {
-            NotificationJS.error(lang.score_error_location);
+            // NotificationJS.error(lang.score_error_location);
             self._user.location = 'none';
             self._push_server();
         });
