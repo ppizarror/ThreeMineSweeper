@@ -228,7 +228,7 @@ function ThreeMineSweeper() {
             self._events.set_volume(volume);
 
             // Init viewer
-            self._viewer.set_camera_init_pos(camera.x, camera.y, camera.z);
+            self._viewer.set_camera_pos(camera.x, camera.y, camera.z);
             self._viewer.new(volume);
             self._mines.new_game_ui(true);
             self._viewer.focus();

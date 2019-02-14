@@ -1267,6 +1267,45 @@ function Face(face_vertex, face_name) {
         return self._exploded_secondary;
     };
 
+    /**
+     * Get center position of the face.
+     *
+     * @function
+     * @returns {{x: number, y: number, z: number}}
+     */
+    this.get_center_coords = function () {
+
+        // Center
+        let center = {
+            x: 0,
+            y: 0,
+            z: 0,
+        };
+
+        // Find lowest/highest coordinate
+        let xi = self._vertex[0].get_x();
+        let xf = xi;
+        let yi = self._vertex[0].get_y();
+        let yf = yi;
+        let zi = self._vertex[0].get_z();
+        let zf = zi;
+        for (let i = 1; i < self._vertex.length; i += 1) {
+            xi = Math.min(xi, self._vertex[i].get_x());
+            yi = Math.min(yi, self._vertex[i].get_y());
+            zi = Math.min(zi, self._vertex[i].get_z());
+            xf = Math.max(xf, self._vertex[i].get_x());
+            yf = Math.max(yf, self._vertex[i].get_y());
+            zf = Math.max(zf, self._vertex[i].get_z());
+        }
+
+        // Calculate center
+        center.x = xi + (xf - xi) / 2;
+        center.y = yi + (yf - yi) / 2;
+        center.z = zi + (zf - zi) / 2;
+        return center;
+
+    };
+
 
     /**
      * ------------------------------------------------------------------------

@@ -292,7 +292,6 @@ function TMSEvents() {
         this._canvasParent.on(self._eventID.keydown, function (e) {
             e.preventDefault(); // Cancel all default buttons
             e.stopPropagation();
-            self._faceHover(null);
 
             // Set key pressed
             self._hasKeyPressed = true;
@@ -386,9 +385,18 @@ function TMSEvents() {
                 case 32: // [SHIFT]
                     self._viewer.objects_props.camera.movements.zdown = true;
                     break;
+                case 17: // [CTRL]
+                    if (self._viewer.objects_props.camera.facerotate) {
+                        self._viewer.objects_props.camera.movements.facerotate = true;
+                        return; // Disables hover
+                    }
+                    break;
                 default: // Ignore other inputs
                     break;
             }
+
+            // Disable face hover
+            self._faceHover(null);
 
         });
 
@@ -449,6 +457,12 @@ function TMSEvents() {
                     break;
                 case 32: // [SHIFT]
                     self._viewer.objects_props.camera.movements.zdown = false;
+                    break;
+                case 17: // [CTRL]
+                    self._viewer.objects_props.camera.movements.facerotate = false;
+                    self._viewer.objects_props.camera.facetarget.x = null;
+                    self._viewer.objects_props.camera.facetarget.y = null;
+                    self._viewer.objects_props.camera.facetarget.z = null;
                     break;
                 default: // Ignore other inputs
                     break;
@@ -649,6 +663,10 @@ function TMSEvents() {
             $mesh.material.emissive = self._viewer.palette.face_hover_unplayed;
         }
         self._lastHoverFace = face;
+        let center = face.get_center_coords();
+        self._viewer.objects_props.camera.facetarget.x = center.x;
+        self._viewer.objects_props.camera.facetarget.y = center.y;
+        self._viewer.objects_props.camera.facetarget.z = center.z;
         this._viewer.render();
     };
 
