@@ -13,7 +13,7 @@
  * @class
  * @extends {Generator}
  */
-function BasicPyramid() {
+function GenBasicPyramid() {
 
     /**
      * Inherit class.

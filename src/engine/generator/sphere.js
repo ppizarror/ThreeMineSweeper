@@ -13,7 +13,7 @@
  * @class
  * @extends {Generator}
  */
-function Sphere() {
+function GenSphere() {
     /* eslint-disable no-extra-parens */
 
     /**

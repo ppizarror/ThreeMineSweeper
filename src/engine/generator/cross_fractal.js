@@ -13,7 +13,7 @@
  * @class
  * @extends {Generator}
  */
-function CrossFractal() {
+function GenCrossFractal() {
     /* eslint-disable no-extra-parens */
 
     /**

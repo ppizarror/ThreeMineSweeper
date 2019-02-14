@@ -13,7 +13,7 @@
  * @class
  * @extends {Generator}
  */
-function SierpinskiCube() {
+function GenSierpinskiCube() {
     /* eslint-disable no-extra-parens */
 
     /**

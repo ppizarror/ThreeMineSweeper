@@ -1,6 +1,6 @@
 /**
- SQUARE
- 2D plane square.
+ CUBE
+ 3D cube.
 
  @author Pablo Pizarro R. @ppizarror.com
  @license MIT
@@ -8,12 +8,12 @@
 "use strict";
 
 /**
- * Square plane.
+ * 3D Cube.
  *
  * @class
  * @extends {Generator}
  */
-function GenSquare() {
+function GenCube() {
     /* eslint-disable no-extra-parens */
 
     /**
@@ -21,7 +21,7 @@ function GenSquare() {
      */
     Generator.call(this);
     this._genprops.latlng = true;
-    this._set_name('Square');
+    this._set_name('Cube');
 
     // noinspection JSUnusedGlobalSymbols
     /**
@@ -38,7 +38,7 @@ function GenSquare() {
     this._generate = function (xi, yi, zi, xf, yf, zf) {
 
         // Place camera
-        this._set_camera_position(0, 0, 2);
+        this._set_camera_position(1.8, -1.8, 1.8);
 
         // Define lat and lng
         let lat = this._lat + 1;
@@ -47,7 +47,7 @@ function GenSquare() {
         // Calculate lengths
         let lx = Math.abs(xf - xi);
         let ly = Math.abs(yf - yi);
-        let zo = (zf + zi) / 2;
+        let lz = Math.abs(zf - zi);
 
         // Calculate displacements
         let dx = lx / (lng - 1);
@@ -84,35 +84,9 @@ function GenSquare() {
         // Add valid faces to volume
         this._volume.add_face(f);
 
-        // Create vertices hidden
-        zo -= 0.0005;
-        v = [];
-        for (i = 0; i < lng; i += 1) { // x
-            for (let j = 0; j < lat; j += 1) { // y
-                v.push(new Vertex(xi + (dx * i), yi + (dy * j), zo, 'V' + ((i * lng) + j).toString()));
-            }
-        }
+    };
 
-        // Create unplayable faces
-        f = [];
-        i = 1;
-        for (let j = 0; j < lng - 1; j += 1) { // y
-            for (let fi = 0; fi < lat - 1; fi += 1) { // Iterate through each face
-                face = new Face([
-                    v[(lat * j) + fi],
-                    v[(lat * j) + fi + 1],
-                    v[(lat * (j + 1)) + fi + 1],
-                    v[(lat * (j + 1)) + fi]
-                ], 'F' + i.toString());
-                face.disable_face();
-                face.reverse_vertices();
-                f.push(face);
-                i += 1;
-            }
-        }
-
-        // Add unplayable faces to volume
-        this._volume.add_face(f);
+    this._create_plane = function (lx, ly, lz, xi, yi, zi, lat, lng) {
 
     };
 

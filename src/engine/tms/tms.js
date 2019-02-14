@@ -140,34 +140,37 @@ function ThreeMineSweeper() {
         let g;
         switch (this._generator.type) {
             case 0:
-                g = new BasicCube();
+                g = new GenBasicCube();
                 break;
             case 1:
-                g = new BasicPyramid();
+                g = new GenBasicPyramid();
                 break;
             case 2:
-                g = new CrossFractal();
+                g = new GenCrossFractal();
                 break;
             case 3:
-                g = new SierpinskiCube();
+                g = new GenSierpinskiCube();
                 break;
             case 4:
-                g = new SierpinskiTriangle();
+                g = new GenSierpinskiTriangle();
                 break;
             case 5:
-                g = new RandomPlane();
+                g = new GenRandomPlane();
                 break;
             case 6:
-                g = new Sphere();
+                g = new GenSphere();
                 break;
             case 7:
-                g = new Cylinder();
+                g = new GenCylinder();
                 break;
             case 8:
-                g = new Square();
+                g = new GenSquare();
+                break;
+            case 9:
+                g = new GenCube();
                 break;
             default:
-                g = new EmptyGenerator();
+                g = new GenEmpty();
                 break;
         }
 

@@ -13,7 +13,7 @@
  * @class
  * @extends {Generator}
  */
-function SierpinskiTriangle() {
+function GenSierpinskiTriangle() {
     /* eslint-disable no-extra-parens */
 
     /**

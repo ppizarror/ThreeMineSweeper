@@ -13,7 +13,7 @@
  * @class
  * @extends {Generator}
  */
-function BasicCube() {
+function GenBasicCube() {
 
     /**
      * Inherit class.

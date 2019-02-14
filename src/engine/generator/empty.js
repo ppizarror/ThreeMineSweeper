@@ -13,7 +13,7 @@
  * @class
  * @extends {Generator}
  */
-function EmptyGenerator() {
+function GenEmpty() {
 
     /**
      * Inherit class.

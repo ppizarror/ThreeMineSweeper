@@ -13,7 +13,7 @@
  * @class
  * @extends {Generator}
  */
-function Cylinder() {
+function GenCylinder() {
     /* eslint-disable no-extra-parens */
 
     /**

@@ -13,7 +13,7 @@
  * @class
  * @extends {Generator}
  */
-function RandomPlane() {
+function GenRandomPlane() {
     /* eslint-disable no-extra-parens */
 
     /**
