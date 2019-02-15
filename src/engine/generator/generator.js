@@ -57,6 +57,13 @@ function Generator() {
     this._name = 'Generator';
 
     /**
+     * Type ID.
+     * @type {number}
+     * @private
+     */
+    this._type_id = 0;
+
+    /**
      * ID of the generator.
      * @type {string}
      * @protected
@@ -285,10 +292,20 @@ function Generator() {
      * Generator type ID.
      *
      * @function
-     * @returns {string}
+     * @returns {number}
      */
-    this.get_type = function () {
-        return md5(self._name);
+    this.get_type_id = function () {
+        return self._type_id;
+    };
+
+    /**
+     * Set generator type id.
+     *
+     * @function
+     * @param {number} id
+     */
+    this.set_type_id = function (id) {
+        self._type_id = id;
     };
 
 }

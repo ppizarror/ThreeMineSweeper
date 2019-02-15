@@ -103,7 +103,7 @@ function Minesweeper() {
         id: '',
         mines: 0,
         name: '',
-        type: '',
+        type_id: 0,
     };
 
     /**
@@ -139,7 +139,7 @@ function Minesweeper() {
      * @param {number} mines - Number of mines, if less than 1 it's treated as percentage
      * @param {string} id - Generator id
      * @param {string} name - Generator name
-     * @param {string} type - Generator type
+     * @param {number} type - Generator type
      */
     this.new = function (volume, mines, id, name, type) {
 
@@ -184,7 +184,7 @@ function Minesweeper() {
         self._volume = volume;
         self._generator.id = md5(md5(id) + md5(pm));
         self._generator.name = name;
-        self._generator.type = type;
+        self._generator.type_id = type;
 
     };
 
@@ -704,7 +704,7 @@ function Minesweeper() {
          */
         let $query = $.ajax({
             crossOrigin: cfg_ajax_cors,
-            data: 'm=upload&id={0}&u={1}&c={2}&t={3}&g={4}'.format(self._generator.id, self._user.name, self._user.location, self._user.time, self._generator.type),
+            data: 'm=upload&id={0}&u={1}&c={2}&t={3}&g={4}'.format(self._generator.id, self._user.name, self._user.location, self._user.time, self._generator.type_id),
             timeout: cfg_href_ajax_timeout,
             type: 'get',
             url: cfg_href_score,
@@ -799,7 +799,7 @@ function Minesweeper() {
          */
         let $query = $.ajax({
             crossOrigin: cfg_ajax_cors,
-            data: 'm=get&id={0}&g={1}'.format(self._generator.id, self._generator.type),
+            data: 'm=get&id={0}&g={1}'.format(self._generator.id, self._generator.type_id),
             timeout: cfg_href_ajax_timeout,
             type: 'get',
             url: cfg_href_score,
