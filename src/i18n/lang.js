@@ -38,7 +38,7 @@ let lang_db = {};
  * Check languages definition.
  * @type {boolean}
  */
-let check_lang_onload = false;
+let check_lang_onload = true;
 
 /**
  * Check cookie language

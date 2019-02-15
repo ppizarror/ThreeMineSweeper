@@ -92,7 +92,7 @@ lang_db.es = {
     "help_quick_start": "Inicio rápido",
     "import_fatal_error_content": "La biblioteca <b>{0}</b> no se pudo importar desde la ruta <i>{1}</i>",
     "import_fatal_error_title": "Error fatal en importación de librería",
-    "imports_dynamically_libs": "Las siguientes bibliotecas: {0} se han importado en {1} segundos",
+    "imported_dynamically_libs": "Las siguientes bibliotecas: {0} se han importado en {1} segundos",
     "init_app": "Iniciando aplicación",
     "init_test_mode": "Iniciando modo de testeo",
     "init_themes": "Iniciando el tema",

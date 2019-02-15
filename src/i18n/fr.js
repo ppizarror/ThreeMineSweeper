@@ -92,7 +92,7 @@ lang_db.fr = {
     "help_quick_start": "Démarrage rapide",
     "import_fatal_error_content": "La bibliothèque <b>{0}</b> n'a pas pu être importée du chemin <i>{1}</i>",
     "import_fatal_error_title": "Erreur fatale de la bibliothèque",
-    "imports_dynamiquement_libs": "Les bibliothèques suivantes: {0} ont été importées en {1} secondes",
+    "imported_dynamically_libs": "Les bibliothèques suivantes: {0} ont été importées en {1} secondes",
     "init_app": "Initialisation du l'application",
     "init_test_mode": "Initialisation du mode test",
     "init_themes": "Thème d'initialisation",

@@ -92,7 +92,7 @@ lang_db.de = {
     "help_quick_start": "Schnellstart",
     "import_fatal_error_content": "Die Bibliothek <b>{0}</b> konnte nicht aus Pfad <i>{1}</i> importiert werden.",
     "import_fatal_error_title": "Schwerwiegender Bibliotheksfehler",
-    "importierte_dynamisch_libs": "Folgende Bibliotheken: {0} wurden in {1} Sekunden importiert",
+    "imported_dynamically_libs": "Folgende Bibliotheken: {0} wurden in {1} Sekunden importiert",
     "init_app": "Anwendung wird initialisiert",
     "init_test_mode": "Testmodus initialisieren",
     "init_themes": "Thema initialisieren",
