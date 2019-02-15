@@ -77,7 +77,7 @@ const cfg_ajax_cors = true;
  * @type {number}
  * @global
  */
-const cfg_href_ajax_timeout = 45000;
+const cfg_href_ajax_timeout = 10000;
 
 
 /**
