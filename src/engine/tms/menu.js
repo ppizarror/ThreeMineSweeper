@@ -154,11 +154,12 @@ function TMSMenu() {
         footer: $('#menu-footer'),
         gen_lat: null,
         gen_lng: null,
+        gen_mines: null,
         gen_order: null,
         gen_selector: null,
-        gen_mines: null,
         gen_target: null,
         generator: null,
+        github: $('#menu-github-corner'),
         header: $('#menu-header'),
         menu: $('#menu'),
         mines: null,
@@ -181,6 +182,10 @@ function TMSMenu() {
 
         // Write header title
         self._dom.header.find('.menu-header-title').html(aboutinfo.productname);
+
+        // Write corner information
+        self._dom.github.attr('href', aboutinfo.productwebsite);
+        self._dom.github.attr('aria-label', lang.footer_github);
 
         // Write footer
         let $langid = generateID();
