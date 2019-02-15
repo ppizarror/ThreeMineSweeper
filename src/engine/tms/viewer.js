@@ -300,9 +300,11 @@ function TMSViewer() {
                 facerotate: false,
                 forward: false,
                 left: false,
+                pan: false,
                 planebackward: false,
                 planeforward: false,
                 right: false,
+                rotate: false,
                 zdown: false,
                 zup: false,
             },
@@ -772,13 +774,14 @@ function TMSViewer() {
         this._controls.enableDamping = this.objects_props.camera.damping;
         this._controls.enableKey = false;
         this._controls.enablePan = this.objects_props.camera.pan;
-        this._controls.panFunction = this._move_ortho;
         this._controls.enableZoom = true;
-        this._controls.zoomFunction = this._move_parallel;
         this._controls.maxDistance = this.objects_props.camera.maxdistance;
         this._controls.maxPolarAngle = this.objects_props.camera.maxpolarangle;
+        this._controls.panFunction = this._move_ortho;
         this._controls.panSpeed = this.objects_props.camera.panspeed * self.worldsize.diagl;
         this._controls.rotatespeed = this.objects_props.camera.rotatespeed;
+        this._controls.viewerCamera = this.objects_props.camera;
+        this._controls.zoomFunction = this._move_parallel;
 
         /**
          * --------------------------------------------------------------------
@@ -1380,6 +1383,8 @@ function TMSViewer() {
                 self._move_face_rotate($dx * 0.001, $dy * 0.001);
                 return;
             }
+
+            if (!self.objects_props.camera.movements.pan) return;
 
             // Move pan
             let $vx, $vy, $vp;

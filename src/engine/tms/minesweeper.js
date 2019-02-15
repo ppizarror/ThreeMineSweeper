@@ -549,7 +549,7 @@ function Minesweeper() {
         self._update_counters();
 
         // Get score from server
-        if (download_score) self._load_score();
+        if (download_score) self._load_score(true);
 
         // Check window size
         self._check_size.opened = false;
@@ -599,10 +599,11 @@ function Minesweeper() {
      * Load game scores.
      *
      * @function
+     * @param {boolean=} wipe
      * @private
      */
-    this._load_score = function () {
-        self._scoreboard_setup();
+    this._load_score = function (wipe) {
+        if (wipe) self._scoreboard_setup();
         setTimeout(function () {
             self._get_score();
         }, 1000);
@@ -722,7 +723,7 @@ function Minesweeper() {
             try {
                 let $data = JSON.parse(response);
                 if (Object.keys($data).indexOf('error') === -1) {
-                    self._load_score();
+                    self._load_score(false);
                     return;
                 }
                 NotificationJS.error(lang.score_error_submit);
@@ -874,9 +875,13 @@ function Minesweeper() {
     this._scoreboard_setup = function () {
 
         // If reset
+        self._dom.scoreboard_content.animate({
+            scrollTop: 0
+        }, 400);
         if (self._reset) return;
 
         // Clear scoreboard
+        self._last_downloaded_score = '';
         self._dom.scoreboard_content.empty();
         self._dom.scoreboard_title.html(lang.scoreboard_title);
         let $mines = '';

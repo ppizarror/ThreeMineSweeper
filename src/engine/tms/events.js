@@ -252,8 +252,15 @@ function TMSEvents() {
          */
         this._canvasParent.on(self._eventID.mouseup, function (e) {
             e.preventDefault();
+            // e.stopPropagation(); // No!
             self._hasMousePressed = false;
             self._mouseMoveDrag = false;
+            if (e.which === 1) {
+                self._viewer.objects_props.camera.movements.rotate = false;
+            }
+            if (e.which === 3) {
+                self._viewer.objects_props.camera.movements.pan = false;
+            }
         });
 
         /**
@@ -261,6 +268,7 @@ function TMSEvents() {
          */
         this._canvasParent.on(self._eventID.click, function (e) {
             e.preventDefault();
+            self._viewer.objects_props.camera.movements.pan = false;
             if (self._mouseMoveDrag || self._hasMousePressed) return;
             self._minesweeper.play(self._lastHoverFace, true, self._viewer);
             e.stopPropagation();
@@ -271,6 +279,7 @@ function TMSEvents() {
          */
         this._canvasParent.on(self._eventID.contextmenu, function (e) {
             e.preventDefault();
+            self._viewer.objects_props.camera.movements.rotate = false;
             if (self._mouseMoveDrag || self._hasMousePressed) return;
             self._minesweeper.play(self._lastHoverFace, false, self._viewer);
             e.stopPropagation();
@@ -282,6 +291,21 @@ function TMSEvents() {
         app_dom.window.on(self._eventID.windowmousemove, function (e) {
             // e.preventDefault();
             self._mouseMoveDrag = self._hasMousePressed && true;
+
+            // Delay actions
+            if (not_null_undf(self._lastHoverFace) && self._mouseMoveDrag && !self._viewer.objects_props.camera.movements.pan && e.which === 3) {
+                setTimeout(function () {
+                    self._viewer.objects_props.camera.movements.pan = true;
+                }, 100);
+                return;
+            }
+            if (not_null_undf(self._lastHoverFace) && self._mouseMoveDrag && !self._viewer.objects_props.camera.movements.rotate && e.which === 1) {
+                setTimeout(function () {
+                    self._viewer.objects_props.camera.movements.rotate = true;
+                }, 150);
+                return;
+            }
+
             if (self._mouseMoveDrag) self._faceHover(null);
             self._mouseHandler(e);
         });

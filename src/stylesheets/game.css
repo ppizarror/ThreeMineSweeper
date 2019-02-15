@@ -317,7 +317,7 @@ Bookmark user data
 	display: inline-block;
 	filter: grayscale(0.5);
 	height: 0.85rem;
-	margin-left: 0.5rem;
+	margin-left: 10px;
 	margin-top: -0.4rem;
 	width: 1.3rem;
 }
@@ -338,6 +338,7 @@ Bookmark user data
 	}
 
 	.game-ui-right-column #game-scoreboard-content .game-scoreboard-userdata .game-scoreboard-userdata-img img {
+		margin-left: 5px;
 		margin-top: -0.6rem;
 	}
 
