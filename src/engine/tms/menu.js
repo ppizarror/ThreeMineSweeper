@@ -734,6 +734,7 @@ function TMSMenu() {
         }
 
         // Write map
+        app_dom.body.find('.jqvmap-label').remove();
         self._add_title(lang.menu_stats_scoreboard_distribution);
         let $mapid = generateID();
         self._write_text('<div id="{0}" class="menu-stats-map"></div>'.format($mapid));
