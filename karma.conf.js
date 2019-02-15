@@ -21,22 +21,10 @@ module.exports = function (config) {
 
             // Load libraries
             'lib/jquery/jquery-3.3.1.js',
-            'lib/jquery-confirm/jquery-confirm.min.js',
-            'lib/jquery-dateFormat/jquery-dateFormat.min.js',
-            'lib/jquery-scrollLock/jquery-scrollLock.min.js',
             'lib/jscookie/js.cookie-2.2.0.js',
-            'lib/md5/md5.min.js',
-            'lib/three.js/three.min.js',
-            'lib/three.js/OrbitControls.js',
-            'lib/three.js/FlyControls.js',
-            'lib/stats.js/stats.min.js',
+            'lib/jquery-dateFormat/jquery-dateFormat.min.js',
             'lib/spin/spin.js',
-            'lib/dat.gui/dat.gui.min.js',
-            'lib/toastr/toastr.min.js',
-            'lib/notification.js/notification.min.js',
-            'lib/ion.sound/ion.sound.min.js',
-            'lib/rippler/rippler.min.js',
-            'lib/tooltipster/tooltipster.bundle.min.js',
+            // 'https://cdn.db-ip.com/js/dbip.js',
 
             // Load application
             'src/about/about.js',

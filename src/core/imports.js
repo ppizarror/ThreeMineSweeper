@@ -1120,6 +1120,7 @@ const app_library_manager = new LibraryManager();
  */
 app_library_manager.add_lib_to_queue(app_library_manager.lib.EASYTIMER);
 app_library_manager.add_lib_to_queue(app_library_manager.lib.IONRANGESLIDER);
+app_library_manager.add_lib_to_queue(app_library_manager.lib.MD5);
 app_library_manager.add_lib_to_queue(app_library_manager.lib.NOTIFICATIONJS);
 app_library_manager.add_lib_to_queue(app_library_manager.lib.RIPPLER);
 app_library_manager.add_lib_to_queue(app_library_manager.lib.THREEJS);
@@ -1137,9 +1138,10 @@ function after_load_imports() {
     app_library_manager.import_async_library(app_library_manager.lib.DBIP);
     app_library_manager.import_async_library(app_library_manager.lib.DELAUNATOR);
     app_library_manager.import_async_library(app_library_manager.lib.EARCUT);
+    app_library_manager.import_async_library(app_library_manager.lib.FONTAWESOME);
     app_library_manager.import_async_library(app_library_manager.lib.HOVERCSS);
     app_library_manager.import_async_library(app_library_manager.lib.JQUERYCONFIRM);
-    app_library_manager.import_async_library(app_library_manager.lib.FONTAWESOME);
+    app_library_manager.import_async_library(app_library_manager.lib.JQUERYNICESELECT);
 }
 
 

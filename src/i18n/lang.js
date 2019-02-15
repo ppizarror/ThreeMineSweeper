@@ -35,6 +35,12 @@ const lang_available = ['en', 'es', 'fr', 'ru', 'br', 'de'];
 let lang_db = {};
 
 /**
+ * Check languages definition.
+ * @type {boolean}
+ */
+let check_lang_onload = false;
+
+/**
  * Check cookie language
  */
 $(function () {
@@ -60,26 +66,28 @@ $(function () {
     /**
      * Autocomplete languages
      */
-    let $lng;
-    let $en_keys = Object.keys(lang_db.en);
-    let $keys;
-    for (let i = 0; i < lang_available.length; i += 1) {
-        $lng = lang_available[i];
+    if (check_lang_onload) {
+        let $lng;
+        let $en_keys = Object.keys(lang_db.en);
+        let $keys;
+        for (let i = 0; i < lang_available.length; i += 1) {
+            $lng = lang_available[i];
 
-        // eslint-disable-next-line no-continue
-        if ($lng === 'en') continue;
+            // eslint-disable-next-line no-continue
+            if ($lng === 'en') continue;
 
-        // Autocomplete language
-        $keys = Object.keys(lang_db[$lng]);
-        if (isNullUndf($keys)) lang_db[$lng] = lang_db.en;
-        for (let j = 0; j < $en_keys.length; j += 1) {
-            if (!$keys.includes($en_keys[j])) {
-                lang_db[$lng][$en_keys[j]] = lang_db.en[$en_keys[j]];
-                // eslint-disable-next-line no-console
-                console.warn('Language {0} does not contain key {1}, extending from english'.format($lng, $en_keys[j]));
+            // Autocomplete language
+            $keys = Object.keys(lang_db[$lng]);
+            if (isNullUndf($keys)) lang_db[$lng] = lang_db.en;
+            for (let j = 0; j < $en_keys.length; j += 1) {
+                if (!$keys.includes($en_keys[j])) {
+                    lang_db[$lng][$en_keys[j]] = lang_db.en[$en_keys[j]];
+                    // eslint-disable-next-line no-console
+                    console.warn('Language {0} does not contain key {1}, extending from english'.format($lng, $en_keys[j]));
+                }
             }
-        }
 
+        }
     }
 
 });

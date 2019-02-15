@@ -426,23 +426,39 @@ function TMSViewer() {
      * @param {string} image
      * @private
      */
-    this._load_image = function (image) {
-        let $f = function () {
-            self.render();
-        };
-        this.images[image] = self._textureLoader.load('{0}.png'.format(image), $f);
-        this.images[image + '_ambient'] = self._textureLoader.load('{0}_ambient.png'.format(image), $f);
+    this._load_image_file = function (image) {
+        if (notNullUndf(this.images[image])) return;
+        this.images[image] = self._textureLoader.load('{0}.png'.format(image));
+        this.images[image + '_ambient'] = self._textureLoader.load('{0}_ambient.png'.format(image));
         // this.images[image + '_displacement'] = self._textureLoader.load('{0}_displacement.png'.format(image), $f);
-        this.images[image + '_normal'] = self._textureLoader.load('{0}_normal.png'.format(image), $f);
-        this.images[image + '_specular'] = self._textureLoader.load('{0}_specular.png'.format(image), $f);
+        this.images[image + '_normal'] = self._textureLoader.load('{0}_normal.png'.format(image));
+        this.images[image + '_specular'] = self._textureLoader.load('{0}_specular.png'.format(image));
     };
-    let _$textures = [
-        'bomb', 'disabled', 'flag', 'question', 'tile_0', 'tile_1', 'tile_2',
-        'tile_3', 'tile_4', 'tile_5', 'tile_6', 'tile_7', 'tile_8', 'unopened'
-    ];
-    for (let i = 0; i < _$textures.length; i += 1) {
-        this._load_image(_$textures[i]);
-    }
+
+    /**
+     * Textures are loaded or not.
+     * @type {boolean}
+     * @private
+     */
+    this._textures_loaded = false;
+
+    /**
+     * Load the textures.
+     *
+     * @function
+     * @private
+     */
+    this._load_textures = function () {
+        if (this._textures_loaded) return;
+        self._textures_loaded = true;
+        let _$textures = [
+            'bomb', 'disabled', 'flag', 'question', 'tile_0', 'tile_1', 'tile_2',
+            'tile_3', 'tile_4', 'tile_5', 'tile_6', 'tile_7', 'tile_8', 'unopened'
+        ];
+        for (let i = 0; i < _$textures.length; i += 1) {
+            this._load_image_file(_$textures[i]);
+        }
+    };
 
 
     /**
@@ -2569,6 +2585,8 @@ function TMSViewer() {
      */
     this.new = function (volume) {
         this.delete_last_volume();
+        if (isNullUndf(volume)) return;
+        this._load_textures();
         this._draw_volume(volume);
         self.init_animate();
     };
