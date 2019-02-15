@@ -13,7 +13,7 @@ This directory contains the libraries used by TMS (30 in total):
 | delaunator | 3.0.2 | <a href="https://github.com/mapbox/delaunator">github.com/mapbox/delaunator</a> |
 | earcut | 2.1.4 | <a href="https://github.com/mapbox/earcut">github.com/mapbox/earcut</a> |
 | easytimer | 3.0.1 | <a href="https://github.com/albert-gonzalez/easytimer.js">github.com/albert-gonzalez/easytimer.js</a> |
-| fontawesome | 5.2.0 | <a href="https://fontawesome.com">fontawesome.com</a> |
+| font-awesome | 5.2.0 | <a href="https://fontawesome.com">fontawesome.com</a> |
 | hover | 2.3.1 | <a href="https://github.com/IanLunn/Hover">github.com/IanLunn/Hover</a> |
 | ion.rangeSlider | 2.3.0 | <a href="https://github.com/IonDen/ion.rangeSlider">github.com/IonDen/ion.rangeSlider</a> |
 | ion.sound | 3.0.7 | <a href="https://github.com/IonDen/ion.sound">github.com/IonDen/ion.sound</a> |
@@ -23,13 +23,13 @@ This directory contains the libraries used by TMS (30 in total):
 | jquery-nice-select | 1.1.0 | <a href="https://github.com/hernansartorio/jquery-nice-select">github.com/hernansartorio/jquery-nice-select</a> |
 | jquery-scrollLock | 3.1.3 | <a href="https://github.com/MohammadYounes/jquery-scrollLock">github.com/MohammadYounes/jquery-scrollLock</a> |
 | jquery-timeago | 1.6.3 | <a href="https://github.com/rmm5t/jquery-timeago">github.com/rmm5t/jquery-timeago</a> |
-| jquery.toast | 1.3.2 | <a href="https://github.com/kamranahmedse/jquery-toast-plugin">github.com/kamranahmedse/jquery-toast-plugin</a> |
+| jquery-toast-plugin | 1.3.2 | <a href="https://github.com/kamranahmedse/jquery-toast-plugin">github.com/kamranahmedse/jquery-toast-plugin</a> |
+| jqvmap | 1.5.0 | <a href="https://github.com/10bestdesign/jqvmap">github.com/10bestdesign/jqvmap</a> |
 | jscookie | 2.2.0 | <a href="https://github.com/js-cookie/js-cookie">github.com/js-cookie/js-cookie</a> |
 | md5 | 2.10.0 | <a href="https://github.com/blueimp/JavaScript-MD5">github.com/blueimp/JavaScript-MD5</a> |
 | normalize | 8.0.0 | <a href="https://github.com/necolas/normalize.css">github.com/necolas/normalize.css</a> |
 | notification.js | 0.1.3 | <a href="https://github.com/ppizarror/notification.js">github.com/ppizarror/notification.js</a> |
 | pace | 1.0.0 | <a href="https://github.com/HubSpot/pace">github.com/HubSpot/pace</a> |
-| parallax | 1.5.0 | <a href="https://github.com/pixelcog/parallax.js">github.com/pixelcog/parallax.js</a> |
 | rippler | 0.1.1 | <a href="https://github.com/blivesta/rippler">github.com/blivesta/rippler</a> |
 | spin.js | 4.0.0 | <a href="https://github.com/fgnass/spin.js">github.com/fgnass/spin.js</a> |
 | stats.js | r17 | <a href="https://github.com/mrdoob/stats.js">github.com/mrdoob/stats.js</a> |

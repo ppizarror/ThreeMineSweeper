@@ -17,23 +17,23 @@ aboutinfo.dependencies = {
     "delaunator": "3.0.2",                  // https://github.com/mapbox/delaunator
     "earcut": "2.1.4",                      // https://github.com/mapbox/earcut
     "easytimer": "3.0.1",                   // https://github.com/albert-gonzalez/easytimer.js
-    "fontawesome": "5.2.0",                 // https://fontawesome.com
+    "font-awesome": "5.2.0",                // https://fontawesome.com
     "hover": "2.3.1",                       // https://github.com/IanLunn/Hover
-    "ion.sound": "3.0.7",                   // https://github.com/IonDen/ion.sound
     "ion.rangeSlider": "2.3.0",             // https://github.com/IonDen/ion.rangeSlider
+    "ion.sound": "3.0.7",                   // https://github.com/IonDen/ion.sound
     "jquery": "3.3.1",                      // https://github.com/jquery/jquery
     "jquery-confirm": "3.3.4",              // https://github.com/craftpip/jquery-confirm
     "jquery-dateFormat": "1.0.2",           // https://github.com/phstc/jquery-dateFormat
     "jquery-nice-select": "1.1.0",          // https://github.com/hernansartorio/jquery-nice-select
     "jquery-scrollLock": "3.1.3",           // https://github.com/MohammadYounes/jquery-scrollLock
     "jquery-timeago": "1.6.3",              // https://github.com/rmm5t/jquery-timeago
-    "jquery.toast": "1.3.2",                // https://github.com/kamranahmedse/jquery-toast-plugin
+    "jquery-toast-plugin": "1.3.2",         // https://github.com/kamranahmedse/jquery-toast-plugin
+    "jqvmap": "1.5.0",                      // https://github.com/10bestdesign/jqvmap
     "jscookie": "2.2.0",                    // https://github.com/js-cookie/js-cookie
     "md5": "2.10.0",                        // https://github.com/blueimp/JavaScript-MD5
     "normalize": "8.0.0",                   // https://github.com/necolas/normalize.css
     "notification.js": "0.1.3",             // https://github.com/ppizarror/notification.js
     "pace": "1.0.0",                        // https://github.com/HubSpot/pace
-    "parallax": "1.5.0",                    // https://github.com/pixelcog/parallax.js
     "rippler": "0.1.1",                     // https://github.com/blivesta/rippler
     "spin.js": "4.0.0",                     // https://github.com/fgnass/spin.js
     "stats.js": "r17",                      // https://github.com/mrdoob/stats.js

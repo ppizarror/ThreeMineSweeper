@@ -307,7 +307,7 @@ Bookmark user data
 }
 
 .game-ui-right-column #game-scoreboard-content .game-scoreboard-userdata .game-scoreboard-userdata-position {
-	padding-right: 15px;
+	padding-right: 10px;
 	font-weight: 400;
 	font-size: 0.9rem;
 }
