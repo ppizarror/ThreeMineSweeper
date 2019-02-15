@@ -283,10 +283,10 @@ function TMSViewer() {
             maxvelocity: {                      // Maximum velocity
                 alf: 0.006,
                 aup: 0.006,
-                f: 0.027,
-                p: 0.057,
-                x: 0.057,
-                y: 0.057,
+                f: 0.020,
+                p: 0.050,
+                x: 0.050,
+                y: 0.050,
                 z: 0.035,
             },
             minspeed: 0.0001,                   // Minimum speed
@@ -328,7 +328,7 @@ function TMSViewer() {
             raycollidedist: 0.08,               // Collide distance
             rotatespeed: 0.060,                 // Rotation speed
             speedfactor: {                      // Speed factor inside outside worldsize
-                inside: 0.65,
+                inside: 0.60,
                 outside: 0.85,
             },
             targetaccel: {                      // Target acceleration

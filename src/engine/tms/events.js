@@ -292,17 +292,23 @@ function TMSEvents() {
             // e.preventDefault();
             self._mouseMoveDrag = self._hasMousePressed && true;
 
-            // Delay actions
-            if (not_null_undf(self._lastHoverFace) && self._mouseMoveDrag && !self._viewer.objects_props.camera.movements.pan && e.which === 3) {
+            // Left click
+            if (self._mouseMoveDrag && !self._viewer.objects_props.camera.movements.rotate && e.which === 1) {
+                if (is_null_undf(self._lastHoverFace)) {
+                    self._viewer.objects_props.camera.movements.rotate = true;
+                    return;
+                }
                 setTimeout(function () {
-                    self._viewer.objects_props.camera.movements.pan = true;
+                    self._viewer.objects_props.camera.movements.rotate = true;
                 }, 100);
                 return;
             }
-            if (not_null_undf(self._lastHoverFace) && self._mouseMoveDrag && !self._viewer.objects_props.camera.movements.rotate && e.which === 1) {
+
+            // Right click
+            if (not_null_undf(self._lastHoverFace) && self._mouseMoveDrag && !self._viewer.objects_props.camera.movements.pan && e.which === 3) {
                 setTimeout(function () {
-                    self._viewer.objects_props.camera.movements.rotate = true;
-                }, 150);
+                    self._viewer.objects_props.camera.movements.pan = true;
+                }, 120);
                 return;
             }
 
@@ -421,6 +427,10 @@ function TMSEvents() {
 
             // Disable face hover
             self._faceHover(null);
+
+            // Enables independent movement
+            self._viewer.objects_props.camera.movements.pan = true;
+            self._viewer.objects_props.camera.movements.rotate = true;
 
         });
 
