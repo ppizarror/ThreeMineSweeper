@@ -28,7 +28,7 @@ Menu root container
 }
 
 .menu-container-width {
-	max-width: 800px;
+	max-width: 820px;
 	min-width: 550px;
 	width: 70%;
 }
@@ -678,6 +678,10 @@ Menu stats
 /**
 Github cornet icon
  */
+.github-corner {
+	display: none;
+}
+
 .github-corner:hover .octo-arm {
 	animation: octocat-wave 560ms ease-in-out;
 }

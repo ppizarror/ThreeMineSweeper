@@ -268,8 +268,10 @@ function TMSMenu() {
         // Open menu
         if (disable_fade) {
             self._dom.container.show();
+            self._dom.github.show();
         } else {
             self._dom.container.fadeIn();
+            self._dom.github.fadeIn();
         }
 
         // Create events
@@ -630,9 +632,10 @@ function TMSMenu() {
         self._write_menuback(lang.menu_controls);
 
         self._write_htp_entry(['Keyboard_White_Mouse_Left'], lang.help_controls_click_faces);
-        self._write_htp_entry(['Keyboard_White_Mouse_Left|shake-lr'], lang.help_controls_click_hold);
+        self._write_htp_entry(['Keyboard_White_Mouse_Left|shake-lr'], lang.help_controls_click_hold_left);
         self._write_htp_entry(['Keyboard_White_Mouse_Middle'], lang.help_controls_zoom);
         self._write_htp_entry(['Keyboard_White_Mouse_Right'], lang.help_controls_click_right);
+        self._write_htp_entry(['Keyboard_White_Mouse_Right|shake-lr'], lang.help_controls_click_hold_right);
         self._write_htp_entry(['Keyboard_White_Arrow_Up', 'Keyboard_White_Arrow_Left', 'Keyboard_White_Arrow_Down', 'Keyboard_White_Arrow_Right'], lang.help_controls_rotate);
         self._write_htp_entry(['Keyboard_White_W', 'Keyboard_White_A', 'Keyboard_White_S', 'Keyboard_White_D'], lang.help_controls_move);
         self._write_htp_entry(['Keyboard_White_I', 'Keyboard_White_J', 'Keyboard_White_K', 'Keyboard_White_L'], lang.help_controls_move);
@@ -1072,6 +1075,7 @@ function TMSMenu() {
         self._dom.container.hide();
         self._dom.subheader.empty();
         self._dom.subheader.hide();
+        self._dom.github.hide();
 
         // Destroy events
         app_dom.window.off('resize.menucontainer');
