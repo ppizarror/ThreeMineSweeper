@@ -79,6 +79,14 @@ const cfg_ajax_cors = true;
  */
 const cfg_href_ajax_timeout = 10000;
 
+/**
+ * Miliseconds that the application waits when a library fails to download.
+ * @type {number}
+ * @const
+ * @global
+ */
+const cfg_module_async_wait = 250;
+
 
 /**
  * ----------------------------------------------------------------------------
