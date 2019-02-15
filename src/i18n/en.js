@@ -9,6 +9,11 @@
 "use strict";
 
 lang_db.en = {
+    "library_already_downloaded": "The library {0} has already been downloaded",
+    "loading_async_library": "Library {0} was loaded in {1} seconds",
+    "import_fatal_error_title": "Fatal library error",
+    "import_fatal_error_content": "The library <b>{0}</b> could not been imported in the directory <i>{1}</i>",
+    "imported_dynamically_libs": "The following libraries: {0} have been imported in {1} seconds",
     "about_license": "License",
     "about_source_code": "Source code",
     "about_thanks_to": "Thanks to",

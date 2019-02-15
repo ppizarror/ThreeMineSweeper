@@ -28,6 +28,11 @@ let lang;
 let sessionCookie;
 
 /**
+ * Import all libraries
+ */
+app_library_manager.import_all_libraries();
+
+/**
  * App init.
  */
 $(function () {
@@ -65,6 +70,10 @@ $(function () {
      */
     app_console.info(lang.init_app);
     app_error.init();
+    app_library_manager.disable_hold_ready();
+    app_library_manager.set_app_initialized();
+    after_load_imports();
+    app_library_manager.get_imported_libraries(cfg_verbose);
 
     /**
      * ------------------------------------------------------------------------
