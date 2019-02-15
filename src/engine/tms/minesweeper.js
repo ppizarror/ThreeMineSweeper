@@ -119,6 +119,13 @@ function Minesweeper() {
     };
 
     /**
+     * Stores id of last download.
+     * @type {string}
+     * @private
+     */
+    this._last_downloaded_score = '';
+
+    /**
      * Game reset.
      * @type {boolean}
      * @private
@@ -542,9 +549,7 @@ function Minesweeper() {
         self._update_counters();
 
         // Get score from server
-        if (download_score && !self._reset) {
-            self._load_score();
-        }
+        if (download_score) self._load_score();
 
         // Check window size
         self._check_size.opened = false;
@@ -843,6 +848,9 @@ function Minesweeper() {
      * @private
      */
     this._write_scores = function (score) {
+        let $scoreid = md5(score);
+        if ($scoreid === self._last_downloaded_score) return;
+        self._last_downloaded_score = $scoreid;
         self._dom.scoreboard_content.empty();
         if (notNullUndf(score)) {
             let w = 0; // Effective writes

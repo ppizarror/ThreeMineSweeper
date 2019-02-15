@@ -3,9 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="5aabf641-1bfc-4f9e-bd89-dad61f629de5" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/engine/generator/generator.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/engine/generator/generator.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/engine/tms/minesweeper.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/engine/tms/minesweeper.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/engine/tms/tms.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/engine/tms/tms.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -71,29 +69,11 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/engine/tms/minesweeper.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="243">
-              <caret line="801" column="89" selection-start-line="801" selection-start-column="89" selection-end-line="801" selection-end-column="89" />
+            <state relative-caret-position="17220">
+              <caret line="851" column="12" selection-start-line="851" selection-start-column="12" selection-end-line="851" selection-end-column="12" />
               <folding>
                 <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/engine/tms/tms.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="334">
-              <caret line="223" selection-start-line="223" selection-end-line="223" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/config.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1280">
-              <caret line="64" selection-start-line="64" selection-end-line="64" />
             </state>
           </provider>
         </entry>
@@ -111,7 +91,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>inline-table</find>
       <find>Author</find>
       <find>Version</find>
       <find>'es'</find>
@@ -141,6 +120,7 @@
       <find>set_camera_pos</find>
       <find>target.y</find>
       <find>tor.type</find>
+      <find>self._reset</find>
     </findStrings>
     <replaceStrings>
       <replace>self._viewer.objects_props.tooltip</replace>
@@ -205,9 +185,9 @@
         <option value="$PROJECT_DIR$/src/about/version.js" />
         <option value="$PROJECT_DIR$/package.json" />
         <option value="$PROJECT_DIR$/src/stylesheets/game.css" />
-        <option value="$PROJECT_DIR$/src/config.js" />
         <option value="$PROJECT_DIR$/src/engine/generator/generator.js" />
         <option value="$PROJECT_DIR$/src/engine/tms/tms.js" />
+        <option value="$PROJECT_DIR$/src/config.js" />
         <option value="$PROJECT_DIR$/src/engine/tms/minesweeper.js" />
       </list>
     </option>
@@ -239,11 +219,6 @@
             <path>
               <item name="ThreeMineSweeper" type="b2602c69:ProjectViewProjectNode" />
               <item name="ThreeMineSweeper" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ThreeMineSweeper" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ThreeMineSweeper" type="462c0819:PsiDirectoryNode" />
-              <item name="server" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="ThreeMineSweeper" type="b2602c69:ProjectViewProjectNode" />
@@ -398,7 +373,7 @@
       <workItem from="1550090425200" duration="606000" />
       <workItem from="1550091061772" duration="196000" />
       <workItem from="1550091413965" duration="6485000" />
-      <workItem from="1550152108020" duration="19766000" />
+      <workItem from="1550152108020" duration="20837000" />
     </task>
     <servers />
   </component>
@@ -435,7 +410,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="400093000" />
+    <option name="totallyTimeSpent" value="401164000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -770,13 +745,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/config.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1280">
-          <caret line="64" selection-start-line="64" selection-end-line="64" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/core/env/mode_production.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="200">
@@ -821,17 +789,24 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/config.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2491">
+          <caret line="51" lean-forward="true" selection-start-line="51" selection-end-line="51" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/engine/tms/tms.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="334">
+        <state relative-caret-position="208">
           <caret line="223" selection-start-line="223" selection-end-line="223" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/engine/tms/minesweeper.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="243">
-          <caret line="801" column="89" selection-start-line="801" selection-start-column="89" selection-end-line="801" selection-end-column="89" />
+        <state relative-caret-position="17220">
+          <caret line="851" column="12" selection-start-line="851" selection-start-column="12" selection-end-line="851" selection-end-column="12" />
           <folding>
             <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
           </folding>
