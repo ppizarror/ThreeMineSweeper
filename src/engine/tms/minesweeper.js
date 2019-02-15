@@ -982,7 +982,6 @@ function Minesweeper() {
                     break;
                 }
             }
-
             // noinspection HtmlUnknownTarget
             country = '<div class="game-scoreboard-userdata-img"><img src="resources/flags/{0}.png" alt="" title="{1}" /></div>'.format(country, country_name);
         } else if (country === 'none' || country === 'null') {
