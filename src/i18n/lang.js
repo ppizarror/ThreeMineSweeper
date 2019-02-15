@@ -78,7 +78,7 @@ $(function () {
 
             // Autocomplete language
             $keys = Object.keys(lang_db[$lng]);
-            if (isNullUndf($keys)) lang_db[$lng] = lang_db.en;
+            if (is_null_undf($keys)) lang_db[$lng] = lang_db.en;
             for (let j = 0; j < $en_keys.length; j += 1) {
                 if (!$keys.includes($en_keys[j])) {
                     lang_db[$lng][$en_keys[j]] = lang_db.en[$en_keys[j]];

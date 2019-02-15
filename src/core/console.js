@@ -53,7 +53,7 @@ function AppConsole() {
      * @param {string} msg - Message
      */
     this._format = function (msg) {
-        if (isNullUndf(msg)) return '';
+        if (is_null_undf(msg)) return '';
         msg = msg.replace(/&lt;/g, '<');
         msg = msg.replace(/&gt;/g, '>');
         msg = msg.replace(/&nbsp;/g, ' ');
@@ -89,9 +89,9 @@ function AppConsole() {
             msg = self._format(msg);
             this._resetMessages();
             if (show_console_total_messages) {
-                console.log('[{2}@{0}] {1}'.format(dateFormat(new Date(), this._msgDateFormat), msg, this._totalConsoleMessages));
+                console.log('[{2}@{0}] {1}'.format(date_format(new Date(), this._msgDateFormat), msg, this._totalConsoleMessages));
             } else {
-                console.log('[{0}] {1}'.format(dateFormat(new Date(), this._msgDateFormat), msg));
+                console.log('[{0}] {1}'.format(date_format(new Date(), this._msgDateFormat), msg));
             }
         }
     };
@@ -114,9 +114,9 @@ function AppConsole() {
             }
             this._resetMessages();
             if (show_console_total_messages) {
-                console.error('[{3}@{0}] {2}{1}'.format(dateFormat(new Date(), this._msgDateFormat), msg, $m, this._totalConsoleMessages));
+                console.error('[{3}@{0}] {2}{1}'.format(date_format(new Date(), this._msgDateFormat), msg, $m, this._totalConsoleMessages));
             } else {
-                console.error('[{0}] {2}{1}'.format(dateFormat(new Date(), this._msgDateFormat), msg, $m));
+                console.error('[{0}] {2}{1}'.format(date_format(new Date(), this._msgDateFormat), msg, $m));
             }
         }
     };
@@ -139,7 +139,7 @@ function AppConsole() {
             self._totalConsoleMessages -= 1; // Exception is not treated as message
             self._consoleMessages -= 1;
             this._resetMessages();
-            if (isString(exceptionmsg)) {
+            if (is_string(exceptionmsg)) {
                 console.error('{1}{0}'.format(exceptionmsg, $m));
             } else {
                 console.error('{2}{0} {1}'.format(exceptionmsg.message, exceptionmsg.stack, $m));
@@ -165,9 +165,9 @@ function AppConsole() {
             }
             this._resetMessages();
             if (show_console_total_messages) {
-                console.warn('[{3}@{0}] {2}{1}'.format(dateFormat(new Date(), this._msgDateFormat), msg, $m, this._totalConsoleMessages));
+                console.warn('[{3}@{0}] {2}{1}'.format(date_format(new Date(), this._msgDateFormat), msg, $m, this._totalConsoleMessages));
             } else {
-                console.warn('[{0}] {2}{1}'.format(dateFormat(new Date(), this._msgDateFormat), msg, $m));
+                console.warn('[{0}] {2}{1}'.format(date_format(new Date(), this._msgDateFormat), msg, $m));
             }
         }
     };
@@ -178,7 +178,7 @@ function AppConsole() {
      * @function
      */
     this.aboutInfo = function () {
-        console.log('{0} v{1} ({2})'.format(aboutinfo.productname, aboutinfo.v.version, dateFormat(new Date(aboutinfo.v.date), cfg_date_format_public_d)));
+        console.log('{0} v{1} ({2})'.format(aboutinfo.productname, aboutinfo.v.version, date_format(new Date(aboutinfo.v.date), cfg_date_format_public_d)));
         console.log('{0} | {1}'.format(aboutinfo.author.name, aboutinfo.author.website));
         console.log(' ');
     };

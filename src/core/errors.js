@@ -59,14 +59,14 @@ function AppError() {
             j = errid[i];
             if (this.error[j].code > 1) {
                 lng = lang['errordb_{0}_msg'.format(j)];
-                if (isNullUndf(lng)) {
+                if (is_null_undf(lng)) {
                     lang['errordb_{0}_msg'.format(j)] = 'Error ' + this.error[j].code;
                     lng = lang['errordb_{0}_msg'.format(j)];
                     app_console.warn(lang.error_errordb_langinit_msg.format(j));
                 }
                 this.error[j].msg = lng;
                 lng = lang['errordb_{0}_moreinfo'.format(j)];
-                if (isNullUndf(lng)) {
+                if (is_null_undf(lng)) {
                     lang['errordb_{0}_moreinfo'.format(j)] = lang.error_errordb_langinit_defaultmsg;
                     lng = lang['errordb_{0}_moreinfo'.format(j)];
                     app_console.warn(lang.error_errordb_langinit_moreinfo.format(j));
@@ -85,10 +85,10 @@ function AppError() {
      * @param {object} errorid - app_error.error object
      * @param {Error=} exceptionmsg - Exception object
      */
-    this.throwExceptionID = function (errorid, exceptionmsg) {
+    this.throw_exception_id = function (errorid, exceptionmsg) {
         app_console.error('Error #{0} <{2}>: {1}.'.format(errorid.code, errorid.msg, errorid.id), false);
-        if (notNullUndf(exceptionmsg)) app_console.exception(exceptionmsg);
-        if (cfg_always_show_err_notification) this.errorMessage(errorid);
+        if (not_null_undf(exceptionmsg)) app_console.exception(exceptionmsg);
+        if (cfg_always_show_err_notification) this.error_message(errorid);
     };
 
     /**
@@ -97,9 +97,9 @@ function AppError() {
      * @function
      * @param {object} errorid - app_error.error object
      */
-    this.errorID = function (errorid) {
-        app_error.throwExceptionID(errorid, null);
-        if (cfg_always_show_err_notification) this.errorMessage(errorid);
+    this.error_id = function (errorid) {
+        app_error.throw_exception_id(errorid, null);
+        if (cfg_always_show_err_notification) this.error_message(errorid);
     };
 
     /**
@@ -108,7 +108,7 @@ function AppError() {
      * @function
      * @param {object} errorid - app_error.error object
      */
-    this.errorMessage = function (errorid) {
+    this.error_message = function (errorid) {
         NotificationJS.error(errorid.msg);
         if (cfg_verbose) {
             /* eslint no-console:"off" */

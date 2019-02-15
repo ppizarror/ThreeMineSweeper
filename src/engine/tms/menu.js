@@ -102,10 +102,10 @@ function TMSMenu() {
      */
     this._gamekeys = [3, 4, 2, 9, 6, 7, 8, 5];
     for (let i = 0; i < this._gamekeys.length; i += 1) {
-        if (isNullUndf(this._games[this._gamekeys[i]]['fractal'])) this._games[this._gamekeys[i]]['fractal'] = false;
-        if (isNullUndf(this._games[this._gamekeys[i]]['latlng'])) this._games[this._gamekeys[i]]['latlng'] = false;
-        if (isNullUndf(this._games[this._gamekeys[i]]['target'])) this._games[this._gamekeys[i]]['target'] = false;
-        if (isNullUndf(this._games[this._gamekeys[i]]['enabled'])) this._games[this._gamekeys[i]]['enabled'] = true;
+        if (is_null_undf(this._games[this._gamekeys[i]]['fractal'])) this._games[this._gamekeys[i]]['fractal'] = false;
+        if (is_null_undf(this._games[this._gamekeys[i]]['latlng'])) this._games[this._gamekeys[i]]['latlng'] = false;
+        if (is_null_undf(this._games[this._gamekeys[i]]['target'])) this._games[this._gamekeys[i]]['target'] = false;
+        if (is_null_undf(this._games[this._gamekeys[i]]['enabled'])) this._games[this._gamekeys[i]]['enabled'] = true;
     }
 
     /**
@@ -279,6 +279,7 @@ function TMSMenu() {
         self._add_button(lang.menu_controls, null, $btncontainer, self._menu_controls);
         self._add_button(lang.menu_statistics, null, $btncontainer, self._menu_stats);
         self._add_button(lang.menu_about, null, $btncontainer, self._menu_about);
+        self._dom.footer.find('.menu-footer-lang-selector').show();
 
         // Apply rippler effect
         self._apply_rippler();
@@ -318,7 +319,7 @@ function TMSMenu() {
      */
     this._get_cookie_val = function (id, min, max, other, force_int) {
         let $val = sessionCookie[id];
-        if (isNullUndf($val)) return other;
+        if (is_null_undf($val)) return other;
         $val = parseFloat($val);
         if (isNaN($val)) return other;
         $val = Math.max(min, Math.min(max, $val));
@@ -335,9 +336,9 @@ function TMSMenu() {
      * @private
      */
     this._save_cookie_val = function (id, value) {
-        if (isNullUndf(value)) return;
+        if (is_null_undf(value)) return;
         sessionCookie[id] = value;
-        updateSessionCookie();
+        update_session_cookie();
     };
 
     /**
@@ -349,6 +350,7 @@ function TMSMenu() {
     this._wipe_content = function () {
         self._dom.content.empty();
         self._dom.content.css('display', 'block');
+        self._dom.footer.find('.menu-footer-lang-selector').hide();
     };
 
     /**
@@ -420,7 +422,7 @@ function TMSMenu() {
         // Check generator
         if (!self._gamekeys.includes($gen)) return;
         let game = self._games[$gen];
-        if (isNullUndf(game)) return;
+        if (is_null_undf(game)) return;
 
         // Load options
         let $order = null;
@@ -431,27 +433,27 @@ function TMSMenu() {
 
         if (game.fractal) {
             $order = self._dom.gen_order.val();
-            if (isNullUndf($order)) return;
+            if (is_null_undf($order)) return;
             $order = parseInt($order, 10);
             self._save_cookie_val(self._cookies.order, self._dom.gen_order[0].selectedIndex);
         }
         if (game.target) {
             $target = self._dom.gen_target.val();
-            if (isNullUndf($target)) return;
+            if (is_null_undf($target)) return;
             $target = parseInt($target, 10);
             self._save_cookie_val(self._cookies.target, $target);
         }
         if (game.latlng) {
             $lat = self._dom.gen_lat.val();
             $lng = self._dom.gen_lng.val();
-            if (isNullUndf($lat) || isNullUndf($lng)) return;
+            if (is_null_undf($lat) || is_null_undf($lng)) return;
             $lat = parseInt($lat, 10);
             $lng = parseInt($lng, 10);
             self._save_cookie_val(self._cookies.lat, $lat);
             self._save_cookie_val(self._cookies.lng, $lng);
         }
         $mines = self._dom.gen_mines.val();
-        if (isNullUndf($mines)) return;
+        if (is_null_undf($mines)) return;
         $mines = parseInt($mines, 10);
         if ($mines < 0 || $mines > 100) return;
 
@@ -483,7 +485,7 @@ function TMSMenu() {
 
         // Get object
         let game = self._games[option];
-        if (isNullUndf(game)) return;
+        if (is_null_undf(game)) return;
 
         // Write options
         let $id, $id2;
@@ -746,7 +748,7 @@ function TMSMenu() {
             showTooltip: true,
             values: country_scoreboard,
             onLabelShow: function (event, label, code) {
-                if (isNullUndf(country_scoreboard[code])) return;
+                if (is_null_undf(country_scoreboard[code])) return;
                 label.append(': {0}'.format(country_scoreboard[code]));
             },
         });
@@ -760,7 +762,7 @@ function TMSMenu() {
         for (let i = 0; i < $stat_keys.length; i += 1) {
             $stat = stats[$stat_keys[i]];
             $gen = $stat['g'];
-            if ($gen !== '' && $gen !== '0' && notNullUndf(lang['gen_{0}'.format($gen)])) {
+            if ($gen !== '' && $gen !== '0' && not_null_undf(lang['gen_{0}'.format($gen)])) {
                 $gen = parseInt($gen, 10);
                 if (isNaN($gen)) continue;
                 generator_names.push(lang['gen_{0}'.format($gen)]);
@@ -843,9 +845,9 @@ function TMSMenu() {
      * @private
      */
     this._write_text = function (text, padleft, font_weight) {
-        if (isNullUndf(padleft)) padleft = 0;
+        if (is_null_undf(padleft)) padleft = 0;
         let $fontweight = '';
-        if (notNullUndf(font_weight)) $fontweight = 'font-weight: {0};'.format(font_weight);
+        if (not_null_undf(font_weight)) $fontweight = 'font-weight: {0};'.format(font_weight);
         // noinspection CssUnitlessNumber
         self._dom.content.append('<div class="menu-text" style="padding-left: {1}rem;{2}">{0}</div>'.format(text.replaceAll('\n', '<br />'), padleft, $fontweight));
     };
@@ -911,7 +913,7 @@ function TMSMenu() {
         self._add_title(aboutinfo.productname);
         // noinspection HtmlUnknownTarget
         self._write_about_line(lang.author_text, '{0} <a href="{1}" target="_blank">@{2}</a>'.format(aboutinfo.author.name, aboutinfo.author.website, aboutinfo.author.tag));
-        self._write_about_line(lang.about_version, '{0} ({1})'.format(aboutinfo.v.version, dateFormat(new Date(aboutinfo.v.date), cfg_date_format_public_d)));
+        self._write_about_line(lang.about_version, '{0} ({1})'.format(aboutinfo.v.version, date_format(new Date(aboutinfo.v.date), cfg_date_format_public_d)));
 
         // Write license
         self._write_about_line(lang.about_license, 'MIT');
@@ -964,7 +966,7 @@ function TMSMenu() {
      * @private
      */
     this._write_input = function (label, selector, container) {
-        if (isNullUndf(container)) container = self._dom.content;
+        if (is_null_undf(container)) container = self._dom.content;
         container.append('<div class="menu-content-input"><div class="menu-content-input-child menu-content-input-label ">{0}</div><div class="menu-content-input-child menu-content-input-content">{1}</div></div>'.format(label, selector));
     };
 
@@ -1007,7 +1009,7 @@ function TMSMenu() {
      * @private
      */
     this._add_button = function (text, theme, container, callback) {
-        if (isNullUndf(callback)) {
+        if (is_null_undf(callback)) {
             callback = function () {
             };
         }
@@ -1015,8 +1017,8 @@ function TMSMenu() {
             app_sound.play(app_sound.sound.BUTTON);
             callback();
         };
-        if (isNullUndf(theme)) theme = 'btn-default';
-        if (isNullUndf(container)) container = self._dom.content;
+        if (is_null_undf(theme)) theme = 'btn-default';
+        if (is_null_undf(container)) container = self._dom.content;
         let $id = generateID();
         container.append('<div class="menu-main-button"><button type="button" class="btn {2} rippler rippler-inverse hvr-shadow" id="{0}">{1}</button></div>'.format($id, text, theme));
         let btn = $('#' + $id);
@@ -1048,7 +1050,7 @@ function TMSMenu() {
      * @private
      */
     this._get_content_height = function () {
-        return self._dom.container.innerHeight() - self._dom.header.innerHeight() - self._dom.subheader.innerHeight() - getElementHeight(self._dom.footer) - 15;
+        return self._dom.container.innerHeight() - self._dom.header.innerHeight() - self._dom.subheader.innerHeight() - get_element_height(self._dom.footer) - 15;
     };
 
     /**
@@ -1089,7 +1091,7 @@ function TMSMenu() {
         // Apply language
         app_sound.play(app_sound.sound.BUTTON);
         sessionCookie.lang = $lang;
-        updateSessionCookie();
+        update_session_cookie();
         app_console.info(lang.load_lang.format($lang));
         lang = lang_db[$lang]; // Reload lang
         self.init_menu();

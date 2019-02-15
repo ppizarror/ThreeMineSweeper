@@ -175,10 +175,10 @@ function ThreeMineSweeper() {
         }
 
         // Set generator properties
-        if (notNullUndf(this._generator.order)) g.set_order(this._generator.order);
-        if (notNullUndf(this._generator.facetarget)) g.set_face_target(this._generator.facetarget);
-        if (notNullUndf(this._generator.latitude)) g.set_latitude(this._generator.latitude);
-        if (notNullUndf(this._generator.longitude)) g.set_longitude(this._generator.longitude);
+        if (not_null_undf(this._generator.order)) g.set_order(this._generator.order);
+        if (not_null_undf(this._generator.facetarget)) g.set_face_target(this._generator.facetarget);
+        if (not_null_undf(this._generator.latitude)) g.set_latitude(this._generator.latitude);
+        if (not_null_undf(this._generator.longitude)) g.set_longitude(this._generator.longitude);
         g.generate(-1, -1, -1, 1, 1, 1);
         g.set_type_id(this._generator.type);
 

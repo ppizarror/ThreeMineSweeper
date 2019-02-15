@@ -198,13 +198,13 @@ function TMSEvents() {
      */
     this.initEvents = function () {
 
-        if (isNullUndf(this._canvasParent)) return;
+        if (is_null_undf(this._canvasParent)) return;
 
         /**
          * Canvas orbitcontrols
          */
         this._canvasParent.on(self._eventID.mousewheel, function (e) {
-            stopWheelEvent(e);
+            stop_wheel_event(e);
             e.preventDefault();
             self._viewer.animate_frame();
         });
@@ -535,7 +535,7 @@ function TMSEvents() {
         /**
          * Check results
          */
-        if (isNullUndf(intersects) || intersects.length === 0) {
+        if (is_null_undf(intersects) || intersects.length === 0) {
             $show = false;
             self._faceHover(null);
         } else { // Intersected
@@ -640,8 +640,8 @@ function TMSEvents() {
      * @private
      */
     this._faceHover = function (face) {
-        if (isNullUndf(face) && isNullUndf(self._lastHoverFace)) return;
-        if (isNullUndf(face) && notNullUndf(self._lastHoverFace) || notNullUndf(face) && notNullUndf(self._lastHoverFace) && !face.equals(self._lastHoverFace)) {
+        if (is_null_undf(face) && is_null_undf(self._lastHoverFace)) return;
+        if (is_null_undf(face) && not_null_undf(self._lastHoverFace) || not_null_undf(face) && not_null_undf(self._lastHoverFace) && !face.equals(self._lastHoverFace)) {
             let $mesh = self._lastHoverFace.get_mesh();
             if (self._lastHoverFace.is_played()) {
                 $mesh.material.emissive = self._viewer.palette.face_unhover_played;
@@ -650,7 +650,7 @@ function TMSEvents() {
             }
 
             self._lastHoverFace = null;
-            if (isNullUndf(face)) {
+            if (is_null_undf(face)) {
                 this._viewer.render();
                 return;
             }

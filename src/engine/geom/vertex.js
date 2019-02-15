@@ -24,9 +24,9 @@ function Vertex(x, y, z, vertex_name) {
     /**
      * If x, y, z not defined then fill by zero
      */
-    if (isNullUndf(x)) x = 0;
-    if (isNullUndf(y)) y = 0;
-    if (isNullUndf(z)) z = 0;
+    if (is_null_undf(x)) x = 0;
+    if (is_null_undf(y)) y = 0;
+    if (is_null_undf(z)) z = 0;
 
     /**
      * ID of the vertex.
@@ -111,7 +111,7 @@ function Vertex(x, y, z, vertex_name) {
      * @param {string} s - Name
      */
     this.set_name = function (s) {
-        if (isNullUndf(s)) return;
+        if (is_null_undf(s)) return;
         self._name = s.toString();
     };
 
@@ -281,7 +281,7 @@ function Vertex(x, y, z, vertex_name) {
     this.dist = function (vertex) {
 
         // If vertex is not defined then calculates the distance respect to the center
-        if (isNullUndf(vertex)) {
+        if (is_null_undf(vertex)) {
             let zero = new THREE.Vector3(0, 0, 0);
             return this._position.distanceTo(zero);
         }
@@ -437,9 +437,9 @@ function Vertex(x, y, z, vertex_name) {
      * @param {number=} sz - Z coordinate scale factor
      */
     this.scale = function (s, sx, sy, sz) {
-        if (isNullUndf(sx)) sx = 1;
-        if (isNullUndf(sy)) sy = 1;
-        if (isNullUndf(sz)) sz = 1;
+        if (is_null_undf(sx)) sx = 1;
+        if (is_null_undf(sy)) sy = 1;
+        if (is_null_undf(sz)) sz = 1;
         this.set_x(this.get_x() * s * sx);
         this.set_y(this.get_y() * s * sy);
         this.set_z(this.get_z() * s * sz);
@@ -454,9 +454,9 @@ function Vertex(x, y, z, vertex_name) {
      * @param {number=} tz - Z coordinate
      */
     this.translate = function (tx, ty, tz) {
-        if (isNullUndf(tx)) tx = 0;
-        if (isNullUndf(ty)) ty = 0;
-        if (isNullUndf(tz)) tz = 0;
+        if (is_null_undf(tx)) tx = 0;
+        if (is_null_undf(ty)) ty = 0;
+        if (is_null_undf(tz)) tz = 0;
         this.set_x(this.get_x() + tx);
         this.set_y(this.get_y() + ty);
         this.set_z(this.get_z() + tz);

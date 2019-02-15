@@ -15,10 +15,10 @@
  * @param {number=} scale - Scale
  * @returns {number}
  */
-function roundNumber(num, scale) {
+function round_number(num, scale) {
     /* eslint no-implicit-coercion:"off" */
 
-    if (isNullUndf(scale)) scale = 0;
+    if (is_null_undf(scale)) scale = 0;
     if (!('' + num).includes('e')) {
         // noinspection JSCheckFunctionSignatures
         return +Number(Math.round(num + 'e+' + scale) + 'e-' + scale);
@@ -42,7 +42,7 @@ function roundNumber(num, scale) {
  * @param {number} max - Max value
  * @returns {int}
  */
-function getRandomInt(min, max) {
+function get_random_int(min, max) {
     if (min > max) return min;
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
@@ -54,6 +54,6 @@ function getRandomInt(min, max) {
  * @param {object} numArray - Array
  * @returns {object}
  */
-function getMaxOfArray(numArray) {
+function get_max_of_array(numArray) {
     return Math.max.apply(null, numArray);
 }

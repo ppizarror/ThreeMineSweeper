@@ -33,7 +33,7 @@ $(function () {
  * @param {Object} elem - Jquery element.
  * @returns {number} - Height
  */
-function getElementHeight(elem) {
+function get_element_height(elem) {
     try {
         // noinspection JSValidateTypes
         return elem.outerHeight();
@@ -50,7 +50,7 @@ function getElementHeight(elem) {
  * @param {Object} elem - Jquery element.
  * @returns {number} - Width
  */
-function getElementWidth(elem) {
+function get_element_width(elem) {
     try {
         // noinspection JSValidateTypes
         return elem.outerWidth();
@@ -66,21 +66,8 @@ function getElementWidth(elem) {
  * @function
  * @param {object} e - Scrollwheel event
  */
-function stopWheelEvent(e) {
-
-    /**
-     * IE7, IE8, Chrome, Safari
-     */
-    if (!e) e = window.event;
-
-    /**
-     * Chrome, Safari, Firefox
-     */
-    if (e.preventDefault) e.preventDefault();
-
-    /**
-     * IE7, IE8
-     */
-    e.returnValue = false;
-
+function stop_wheel_event(e) {
+    if (!e) e = window.event; // IE7, IE8, Chrome, Safari
+    if (e.preventDefault) e.preventDefault(); // Chrome, Safari, Firefox
+    e.returnValue = false; // IE7, IE8
 }

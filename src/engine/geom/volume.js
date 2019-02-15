@@ -117,11 +117,11 @@ function Volume(volume_faces, volume_name) {
     this.add_face = function (face, disable_check) {
 
         // Disable face check after addition
-        if (isNullUndf(disable_check)) disable_check = false;
+        if (is_null_undf(disable_check)) disable_check = false;
         disable_check = disable_check && self._add_check_faces;
 
         // If null
-        if (isNullUndf(face)) return false;
+        if (is_null_undf(face)) return false;
 
         // If face is an array then call multiple times
         if (face instanceof Array) {
@@ -206,7 +206,7 @@ function Volume(volume_faces, volume_name) {
      * @returns {Face[]}
      */
     this.get_faces = function (do_clone) {
-        if (isNullUndf(do_clone)) do_clone = true;
+        if (is_null_undf(do_clone)) do_clone = true;
         if (do_clone) {
             return this._faces.slice(0);
         }
@@ -231,7 +231,7 @@ function Volume(volume_faces, volume_name) {
      * @param {string} s - Name
      */
     this.set_name = function (s) {
-        if (isNullUndf(s)) return;
+        if (is_null_undf(s)) return;
         self._name = s;
     };
 
@@ -318,9 +318,9 @@ function Volume(volume_faces, volume_name) {
      * @param {number=} sz - Z coordinate scale factor
      */
     this.scale = function (s, sx, sy, sz) {
-        if (isNullUndf(sx)) sx = 1;
-        if (isNullUndf(sy)) sy = 1;
-        if (isNullUndf(sz)) sz = 1;
+        if (is_null_undf(sx)) sx = 1;
+        if (is_null_undf(sy)) sy = 1;
+        if (is_null_undf(sz)) sz = 1;
         let vertices = this.get_vertices();
         for (let i = 0; i < vertices.length; i += 1) {
             vertices[i].scale(s, sx, sy, sz);
@@ -336,9 +336,9 @@ function Volume(volume_faces, volume_name) {
      * @param {number=} tz - Z coordinate
      */
     this.translate = function (tx, ty, tz) {
-        if (isNullUndf(tx)) tx = 0;
-        if (isNullUndf(ty)) ty = 0;
-        if (isNullUndf(tz)) tz = 0;
+        if (is_null_undf(tx)) tx = 0;
+        if (is_null_undf(ty)) ty = 0;
+        if (is_null_undf(tz)) tz = 0;
         let vertices = this.get_vertices();
         for (let i = 0; i < vertices.length; i += 1) {
             vertices[i].translate(tx, ty, tz);

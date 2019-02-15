@@ -14,7 +14,7 @@
  * @param {object} obj - Object
  * @returns {boolean}
  */
-function notNullUndf(obj) {
+function not_null_undf(obj) {
     return obj !== null && obj !== undefined;
 }
 
@@ -25,7 +25,7 @@ function notNullUndf(obj) {
  * @param {object} obj - Object
  * @returns {boolean}
  */
-function isNullUndf(obj) {
+function is_null_undf(obj) {
     return obj === null || obj === undefined;
 }
 
@@ -36,6 +36,6 @@ function isNullUndf(obj) {
  * @param {object} s - Object
  * @returns {boolean}
  */
-function isString(s) {
+function is_string(s) {
     return typeof s === 'string' || s instanceof String;
 }

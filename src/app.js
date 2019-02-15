@@ -49,12 +49,12 @@ $(function () {
      * Load cookies
      * ------------------------------------------------------------------------
      */
-    sessionCookie = getSessionCookie();
-    if (isNullUndf(sessionCookie)) {
+    sessionCookie = get_session_cookie();
+    if (is_null_undf(sessionCookie)) {
         app_console.error("Cookies cannot be loaded");
         return;
     }
-    updateSessionCookie();
+    update_session_cookie();
 
     /**
      * ------------------------------------------------------------------------
@@ -62,7 +62,7 @@ $(function () {
      * ------------------------------------------------------------------------
      */
     lang = lang_db[sessionCookie.lang];
-    app_console.info(lang.page_init_load_time.format(getSecondsFrom($init_time_app_load)));
+    app_console.info(lang.page_init_load_time.format(get_seconds_from($init_time_app_load)));
 
     /**
      * ------------------------------------------------------------------------
@@ -84,7 +84,7 @@ $(function () {
         initThemes();
     } catch ($e) {
         app_console.exception($e);
-        app_error.errorID(app_error.error.errorThemeInit);
+        app_error.error_id(app_error.error.errorThemeInit);
         return;
     } finally {
     }
@@ -94,15 +94,15 @@ $(function () {
     } else {
         sessionCookie.theme = cfg_app_theme;
         theme = theme_db[sessionCookie.theme];
-        updateSessionCookie();
-        app_error.errorID(app_error.error.themeNotExist);
+        update_session_cookie();
+        app_error.error_id(app_error.error.themeNotExist);
     }
     app_console.info(lang.loading_theme.format(cfg_app_theme)); // Display loaded theme on console
     try {
         applyTheme();
     } catch ($e) {
         app_console.exception($e);
-        app_error.errorID(app_error.error.errorThemeApply);
+        app_error.error_id(app_error.error.errorThemeApply);
         return;
     } finally {
     }
@@ -135,7 +135,7 @@ $(function () {
      * Init viewer
      * ------------------------------------------------------------------------
      */
-    deleteUrlParams();
+    delete_url_params();
     setTimeout(function () {
         app_tms.init('#viewer');
         app_tms.load_menu();

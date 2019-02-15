@@ -148,7 +148,7 @@ function Face(face_vertex, face_name) {
      */
     this.add_vertex = function (vertex) {
 
-        if (isNullUndf(vertex)) return false;
+        if (is_null_undf(vertex)) return false;
 
         // If array
         if (vertex instanceof Array) {
@@ -367,7 +367,7 @@ function Face(face_vertex, face_name) {
      * @param {string} s - Name
      */
     this.set_name = function (s) {
-        if (isNullUndf(s)) return;
+        if (is_null_undf(s)) return;
         self._name = s;
     };
 
@@ -437,9 +437,9 @@ function Face(face_vertex, face_name) {
      * @param {number=} sz - Z coordinate scale factor
      */
     this.scale = function (s, sx, sy, sz) {
-        if (isNullUndf(sx)) sx = 1;
-        if (isNullUndf(sy)) sy = 1;
-        if (isNullUndf(sz)) sz = 1;
+        if (is_null_undf(sx)) sx = 1;
+        if (is_null_undf(sy)) sy = 1;
+        if (is_null_undf(sz)) sz = 1;
         for (let i = 0; i < this._vertex.length; i += 1) {
             this._vertex[i].scale(s, sx, sy, sz);
         }
@@ -454,9 +454,9 @@ function Face(face_vertex, face_name) {
      * @param {number=} tz - Z coordinate
      */
     this.translate = function (tx, ty, tz) {
-        if (isNullUndf(tx)) tx = 0;
-        if (isNullUndf(ty)) ty = 0;
-        if (isNullUndf(tz)) tz = 0;
+        if (is_null_undf(tx)) tx = 0;
+        if (is_null_undf(ty)) ty = 0;
+        if (is_null_undf(tz)) tz = 0;
         for (let i = 0; i < this._vertex.length; i += 1) {
             this._vertex[i].translate(tx, ty, tz);
         }
@@ -742,7 +742,7 @@ function Face(face_vertex, face_name) {
                 coords[(3 * i) + 1] -= $miny;
                 coords[(3 * i) + 2] -= $minz;
             }
-            let max_coord = Math.abs(getMaxOfArray(coords));
+            let max_coord = Math.abs(get_max_of_array(coords));
             for (let i = 0; i < coords.length; i += 1) {
                 coords[i] /= max_coord;
             }
@@ -1132,7 +1132,7 @@ function Face(face_vertex, face_name) {
      * @returns {Texture}
      */
     this.get_image = function (viewer, type) {
-        if (isNullUndf(type)) type = '';
+        if (is_null_undf(type)) type = '';
         if (!this.is_enabled()) return viewer.images['disabled' + type];
         if (this._flag === 1) return viewer.images['flag' + type];
         if (this._flag === 2) return viewer.images['question' + type];

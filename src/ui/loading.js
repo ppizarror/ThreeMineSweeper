@@ -107,10 +107,10 @@ function FullPageLoadingSpinner() {
         /**
          * Get page dimension
          */
-        h = getElementHeight(app_dom.window);
-        hh = getElementHeight(app_dom.body);
+        h = get_element_height(app_dom.window);
+        hh = get_element_height(app_dom.body);
         hh = Math.max(h, hh) - 0.1;
-        w = getElementWidth(app_dom.window);
+        w = get_element_width(app_dom.window);
         posX = (w - 69) / 2;
         posY = (h - 69) / 2;
 
@@ -124,7 +124,7 @@ function FullPageLoadingSpinner() {
             /**
              * Object has not been created
              */
-            if (isNullUndf(document.getElementById('LoadingDivLayer'))) {
+            if (is_null_undf(document.getElementById('LoadingDivLayer'))) {
 
                 // App message
                 app_console.info(lang.building_full_loading_layer);
@@ -170,7 +170,7 @@ function FullPageLoadingSpinner() {
             });
             $loadinglayer.find('.LoadingBackground').css('height', String(hh) + 'px');
             $loadinglayer.fadeIn(350, function () {
-                if (notNullUndf(callback)) callback();
+                if (not_null_undf(callback)) callback();
             });
 
             /**
@@ -228,7 +228,7 @@ function FullPageLoadingSpinner() {
             /**
              * Stop spinner
              */
-            if (notNullUndf(this._loading_spiner)) self._loading_spiner.stop();
+            if (not_null_undf(this._loading_spiner)) self._loading_spiner.stop();
 
             /**
              * Check as hidden
@@ -238,7 +238,7 @@ function FullPageLoadingSpinner() {
             /**
              * Trigger callback
              */
-            if (notNullUndf(callback)) callback();
+            if (not_null_undf(callback)) callback();
 
         }
 
@@ -252,10 +252,10 @@ function FullPageLoadingSpinner() {
         if (!self._enabled) return;
         let h, hh, w, posX, posY;
         if (document.getElementById('LoadingDivLayer') !== null) {
-            h = getElementHeight(app_dom.window);
-            hh = getElementHeight(app_dom.body);
+            h = get_element_height(app_dom.window);
+            hh = get_element_height(app_dom.body);
             hh = Math.max(h, hh);
-            w = getElementWidth(app_dom.window);
+            w = get_element_width(app_dom.window);
             posX = (w - 69) / 2;
             posY = (h - 69) / 2;
             let $loadinglayer = $('#LoadingDivLayer');

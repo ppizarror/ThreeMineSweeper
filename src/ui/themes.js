@@ -63,15 +63,15 @@ function initThemes() {
                 continue;
             }
             $theme = theme_db[$themes[i]];
-            if (isNullUndf($theme['themeName'])) {
+            if (is_null_undf($theme['themeName'])) {
                 $theme['themeName'] = $themes[i];
             }
-            if (isNullUndf($theme['themeEnabled'])) {
+            if (is_null_undf($theme['themeEnabled'])) {
                 $theme['themeEnabled'] = false;
             }
             for (let j = 0; j < $mainkeys.length; j += 1) {
                 $key = $mainkeys[j];
-                if (isNullUndf($theme[$key])) {
+                if (is_null_undf($theme[$key])) {
                     $theme[$key] = theme_db.default[$key];
                 }
             }

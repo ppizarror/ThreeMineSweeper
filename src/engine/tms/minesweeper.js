@@ -162,7 +162,7 @@ function Minesweeper() {
         // Place bombs
         let pm = 0;
         for (let i = 0; i < mines; i += 1) {
-            let j = getRandomInt(0, tfaces - 1);
+            let j = get_random_int(0, tfaces - 1);
             if (!faces[j].has_bomb() && faces[j].is_enabled()) {
                 faces[j].place_bomb();
                 pm += 1;
@@ -170,7 +170,7 @@ function Minesweeper() {
                 i -= 1;
             }
         }
-        let p = roundNumber(100 * pm / tfaces, 1);
+        let p = round_number(100 * pm / tfaces, 1);
         if (isNaN(p)) p = 0;
         app_console.info(lang.mines_placed.format(pm, p));
 
@@ -206,11 +206,11 @@ function Minesweeper() {
     this.play = function (face, lclick, viewer) {
 
         // Not valid conditions
-        if (isNullUndf(face) || self._gameover) return;
+        if (is_null_undf(face) || self._gameover) return;
 
         // Click time
         let t = new Date();
-        let ts = getSecondsBetween(t, this._last_click.time); // Seconds between last click
+        let ts = get_seconds_between(t, this._last_click.time); // Seconds between last click
 
         // If face played then only left click is allowed
         if (face.is_played() && this._last_click.id === face.get_id() && ts < 0.20 && lclick && face.get_bomb_count() !== 0) {
@@ -353,7 +353,7 @@ function Minesweeper() {
         if ($played !== self._game_status.total) return;
 
         // User won
-        let $time = getSecondsFrom(this._timer.init);
+        let $time = get_seconds_from(this._timer.init);
         self._user.time = $time;
         self._timer.timer.stop();
         self._gameover = true;
@@ -582,7 +582,7 @@ function Minesweeper() {
         }
         if (self._check_size.opened) return;
         self._check_size.opened = true;
-        app_dialog.confirm(lang.check_window_size_title, lang.check_window_size_info.format(roundNumber($w), roundNumber($h), roundNumber(self._check_size.width), roundNumber(self._check_size.height)), {
+        app_dialog.confirm(lang.check_window_size_title, lang.check_window_size_info.format(round_number($w), round_number($h), round_number(self._check_size.width), round_number(self._check_size.height)), {
             cancelText: null,
             confirm: function () {
                 self._check_size.opened = false;
@@ -615,7 +615,7 @@ function Minesweeper() {
      * @private
      */
     this._update_counters = function () {
-        let $played = roundNumber(100 * self._game_status.played / self._game_status.total, 1);
+        let $played = round_number(100 * self._game_status.played / self._game_status.total, 1);
         if (isNaN($played)) $played = 0;
 
         // Update
@@ -638,15 +638,15 @@ function Minesweeper() {
 
         // Get last added name from cookies if exists
         let $lastname = sessionCookie.username;
-        if (isNullUndf($lastname)) $lastname = '';
+        if (is_null_undf($lastname)) $lastname = '';
 
         // noinspection HtmlUnknownAttribute
-        app_dialog.form(lang.game_won_title, '{2}.<br><br><form action="" class="formName"><div class="form-group"><label for="{0}">{1}:</label><input type="text" class="form-control" id="{0}" minlength="4" maxlength="20" value="{3}" {4} ></div></form>'.format($id, lang.game_won_name, lang.game_won_content.format(roundNumber(self._user.time, 2), $lastname !== '' ? 'autofocus' : ''), $lastname),
+        app_dialog.form(lang.game_won_title, '{2}.<br><br><form action="" class="formName"><div class="form-group"><label for="{0}">{1}:</label><input type="text" class="form-control" id="{0}" minlength="4" maxlength="20" value="{3}" {4} ></div></form>'.format($id, lang.game_won_name, lang.game_won_content.format(round_number(self._user.time, 2), $lastname !== '' ? 'autofocus' : ''), $lastname),
             function () {
                 let $name = self._sanitize_text($('#' + $id).val()); // Get name
                 if ($name.length >= 4 && $name.length <= 20) {
                     sessionCookie.username = $name;
-                    updateSessionCookie();
+                    update_session_cookie();
                     self._submit_score($name);
                 }
             }, self._new_game_after_win
@@ -852,7 +852,7 @@ function Minesweeper() {
         if ($scoreid === self._last_downloaded_score) return;
         self._last_downloaded_score = $scoreid;
         self._dom.scoreboard_content.empty();
-        if (notNullUndf(score)) {
+        if (not_null_undf(score)) {
             let w = 0; // Effective writes
             for (let i = 0; i < score.length; i += 1) {
                 if (self._write_user_scoreboard(score[i].user, i + 1, score[i].country, score[i].date, score[i].time)) w += 1;
@@ -881,9 +881,9 @@ function Minesweeper() {
         self._dom.scoreboard_title.html(lang.scoreboard_title);
         let $mines = '';
         if (self._generator.mines < 1) {
-            $mines = roundNumber(self._generator.mines * 100, 2).toString() + '%';
+            $mines = round_number(self._generator.mines * 100, 2).toString() + '%';
         } else {
-            $mines = roundNumber(self._generator.mines, 0).toString();
+            $mines = round_number(self._generator.mines, 0).toString();
         }
         if ($mines !== '0' && $mines !== '0%') {
             $mines = '{0} ({1})'.format(self._generator.name, $mines);
@@ -910,7 +910,7 @@ function Minesweeper() {
     this._center_scoreboard = function () {
         self._dom.scoreboard_content.css('height', self._get_scoreboard_height());
         let $child = self._dom.scoreboard_content.find('.game-scoreboard-empty');
-        if (isNullUndf($child) || $child.length === 0) return;
+        if (is_null_undf($child) || $child.length === 0) return;
         $child.css('line-height', '');
         $child.css('padding-top', ((self._get_scoreboard_height() / 2) - 20) + 'px');
     };
@@ -924,7 +924,7 @@ function Minesweeper() {
      */
     this._get_scoreboard_height = function () {
         let $height = self._dom.scoreboard_container.innerHeight();
-        let $header = getElementHeight(self._dom.scoreboard_header);
+        let $header = get_element_height(self._dom.scoreboard_header);
         return $height - $header - 6;
     };
 
@@ -949,26 +949,26 @@ function Minesweeper() {
 
         // Format number
         if ($time < 1e1) {
-            $time = roundNumber($time, 3);
+            $time = round_number($time, 3);
             $timestr = $time.toString().padEnd(5, '0');
         }
         if ($time > 1e1) {
-            $time = roundNumber($time, 2);
+            $time = round_number($time, 2);
             $timestr = $time.toString().padEnd(5, '0');
         }
         if ($time > 1e2) {
-            $time = roundNumber($time, 1);
+            $time = round_number($time, 1);
             $timestr = $time.toString().padEnd(5, '0');
         }
         if ($time > 1e3) {
-            $time = roundNumber($time, 0);
+            $time = round_number($time, 0);
             $timestr = $time.toString();
         }
         if ($time > 86400) return false;
 
         // Format country
         country = country.toString();
-        if (isNullUndf(country) || country === 'null' || country === 'none') country = '';
+        if (is_null_undf(country) || country === 'null' || country === 'none') country = '';
         if (country !== '') {
             let country_name = ''; // Find country name
             for (let i = 0; i < country_list.length; i += 1) {
@@ -985,7 +985,7 @@ function Minesweeper() {
         }
 
         // Format date
-        let date_display = dateFormat(new Date(date), cfg_date_format_public_d);
+        let date_display = date_format(new Date(date), cfg_date_format_public_d);
 
         // Write content
         self._dom.scoreboard_content.append('<div class="game-scoreboard-entry"><div class="game-scoreboard-user"><div class="game-scoreboard-username">{0}</div><div class="game-scoreboard-userdata"><div class="game-scoreboard-userdata-position">#{1}</div><div class="game-scoreboard-userdata-date">{3}</div>{2}</div></div><div class="game-scoreboard-time">{4}</div></div>'.format(name, position, country, date_display, $timestr));

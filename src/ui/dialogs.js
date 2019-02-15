@@ -116,8 +116,8 @@ function AppDialog() {
         /**
          * Default values
          */
-        if (isNullUndf(options)) options = {};
-        if (isNullUndf(title)) title = '';
+        if (is_null_undf(options)) options = {};
+        if (is_null_undf(title)) title = '';
 
         /**
          * Build parameters
@@ -132,7 +132,7 @@ function AppDialog() {
         /**
          * Check options are OK
          */
-        if (notNullUndf(options['close']) && !(options['close'] instanceof Function)) {
+        if (not_null_undf(options['close']) && !(options['close'] instanceof Function)) {
             app_console.warn(lang.dialog_error_button_function_null.format(options['closeText'].toUpperCase()));
             options['close'] = null;
         }
@@ -229,7 +229,7 @@ function AppDialog() {
         /**
          * Default params
          */
-        if (isNullUndf(options)) options = {};
+        if (is_null_undf(options)) options = {};
 
         /**
          * Build parameters
@@ -248,7 +248,7 @@ function AppDialog() {
         /**
          * Check paramaters are OK
          */
-        if (notNullUndf(options['close']) && !(options['close'] instanceof Function)) {
+        if (not_null_undf(options['close']) && !(options['close'] instanceof Function)) {
             app_console.warn(lang.dialog_error_button_function_null.format(options['closeText'].toUpperCase()));
             options['close'] = null;
         }
@@ -281,7 +281,7 @@ function AppDialog() {
         /**
          * Default options
          */
-        if (isNullUndf(options)) options = {};
+        if (is_null_undf(options)) options = {};
 
         /**
          * Build parameters
@@ -318,14 +318,14 @@ function AppDialog() {
         /**
          * Default variables
          */
-        if (isNullUndf(options)) options = {};
-        if (isNullUndf(cancel)) cancel = function () {
+        if (is_null_undf(options)) options = {};
+        if (is_null_undf(cancel)) cancel = function () {
         };
 
         /**
          * If submit function is null
          */
-        if (isNullUndf(submit)) {
+        if (is_null_undf(submit)) {
             app_console.warn(lang.dialog_form_submit_null);
             submit = function () {
             };
@@ -370,7 +370,7 @@ function AppDialog() {
          */
         let $contentReady = function () {
         };
-        if (notNullUndf(options['onContentReady']) && options['onContentReady'] instanceof Function) {
+        if (not_null_undf(options['onContentReady']) && options['onContentReady'] instanceof Function) {
             $contentReady = options['onContentReady'];
         }
         options['onContentReady'] = function () {
@@ -381,21 +381,21 @@ function AppDialog() {
 
             // Method 1, uses this
             let jc = this;
-            if (notNullUndf(jc) && jc.hasOwnProperty('$content')) {
+            if (not_null_undf(jc) && jc.hasOwnProperty('$content')) {
                 $cnt = jc.$content;
             }
 
             // Method 2, uses DOM
-            if (isNullUndf($cnt)) {
+            if (is_null_undf($cnt)) {
                 $cnt = $('.jconfirm-content');
             }
 
             // If null returns
-            if (isNullUndf($cnt)) return;
+            if (is_null_undf($cnt)) return;
             let $form = $cnt.find('form');
             $form.on('submit', function (e) {
                 e.preventDefault();
-                if (isNullUndf(jc)) return;
+                if (is_null_undf(jc)) return;
                 // noinspection JSUnresolvedVariable
                 jc.$$confirm.trigger('click');
             });
@@ -471,13 +471,13 @@ function AppDialog() {
          */
         if ($options.escapeCancelKey) $options.escapeCancelKey = 'cancel';
         if (!$options.typeAnimated) delete $options['type'];
-        if (isNullUndf($options.icon)) $options.icon = this.options.icons.DEFAULT;
+        if (is_null_undf($options.icon)) $options.icon = this.options.icons.DEFAULT;
 
         /**
          * Deletes dangerous variables
          */
-        if (notNullUndf($options.close)) delete $options['close'];
-        if (notNullUndf($options.open)) delete $options['open'];
+        if (not_null_undf($options.close)) delete $options['close'];
+        if (not_null_undf($options.open)) delete $options['open'];
 
         /**
          * Apply other configurations
@@ -490,12 +490,12 @@ function AppDialog() {
         let $button = {};
 
         // Confirm
-        if (notNullUndf($options.confirmText) && $options.confirmText !== '') {
+        if (not_null_undf($options.confirmText) && $options.confirmText !== '') {
             $options.confirmText = $options.confirmText.toString();
             if ($options.confirmText.length > $options.buttonMaxLength) {
                 $options.confirmText = $options.confirmText.substring(0, $options.buttonMaxLength - 3) + '&hellip;';
             }
-            if (notNullUndf($options.confirm) && !($options.confirm instanceof Function)) {
+            if (not_null_undf($options.confirm) && !($options.confirm instanceof Function)) {
                 app_console.warn(lang.dialog_error_button_function_null.format($options.confirmText.toUpperCase()));
                 $options.confirm = null;
             }
@@ -508,12 +508,12 @@ function AppDialog() {
         }
 
         // Cancel
-        if (notNullUndf($options.cancelText) && $options.cancelText !== '') {
+        if (not_null_undf($options.cancelText) && $options.cancelText !== '') {
             $options.cancelText = $options.cancelText.toString();
             if ($options.cancelText.length > $options.buttonMaxLength) {
                 $options.cancelText = $options.cancelText.substring(0, $options.buttonMaxLength - 3) + '&hellip;';
             }
-            if (notNullUndf($options.cancel) && !($options.cancel instanceof Function)) {
+            if (not_null_undf($options.cancel) && !($options.cancel instanceof Function)) {
                 app_console.warn(lang.dialog_error_button_function_null.format($options.cancelText.toUpperCase()));
                 $options.cancel = null;
             }
@@ -531,29 +531,29 @@ function AppDialog() {
         /**
          * Set title and content
          */
-        if (notNullUndf(title) && title !== '') $options['title'] = title;
-        if (notNullUndf(content) && content !== '') $options['content'] = content;
+        if (not_null_undf(title) && title !== '') $options['title'] = title;
+        if (not_null_undf(content) && content !== '') $options['content'] = content;
 
         /**
          * Set functions
          */
-        if (isNullUndf($options['onClose']) || !($options['onClose'] instanceof Function)) {
+        if (is_null_undf($options['onClose']) || !($options['onClose'] instanceof Function)) {
             $options['onClose'] = function () {
             };
         }
-        if (isNullUndf($options['onContentReady']) || !($options['onContentReady'] instanceof Function)) {
+        if (is_null_undf($options['onContentReady']) || !($options['onContentReady'] instanceof Function)) {
             $options['onContentReady'] = function () {
             };
         }
-        if (isNullUndf($options['onDestroy']) || !($options['onDestroy'] instanceof Function)) {
+        if (is_null_undf($options['onDestroy']) || !($options['onDestroy'] instanceof Function)) {
             $options['onDestroy'] = function () {
             };
         }
-        if (isNullUndf($options['onOpen']) || !($options['onOpen'] instanceof Function)) {
+        if (is_null_undf($options['onOpen']) || !($options['onOpen'] instanceof Function)) {
             $options['onOpen'] = function () {
             };
         }
-        if (isNullUndf($options['onOpenBefore']) || !($options['onOpenBefore'] instanceof Function)) {
+        if (is_null_undf($options['onOpenBefore']) || !($options['onOpenBefore'] instanceof Function)) {
             $options['onOpenBefore'] = function () {
             };
         }
@@ -607,7 +607,7 @@ function AppDialog() {
          * If last popup has the same md5 tne returns
          */
         // noinspection JSValidateTypes
-        if (notNullUndf(this._last.object) && this._last.md5 === $md5 && !this._last.object.isClosed()) {
+        if (not_null_undf(this._last.object) && this._last.md5 === $md5 && !this._last.object.isClosed()) {
             app_console.info(lang.dialog_last_closed_equal_opened);
             self.close_last();
         }
@@ -642,7 +642,7 @@ function AppDialog() {
          * Get page width
          * @type {number}
          */
-        let $width = getElementWidth(app_dom.window);
+        let $width = get_element_width(app_dom.window);
 
         switch ($options['size']) {
             case this.options.size.SMALL:
@@ -726,7 +726,7 @@ function AppDialog() {
      * @function
      */
     this.close_last = function () {
-        if (notNullUndf(self._last.object)) self._last.object.close();
+        if (not_null_undf(self._last.object)) self._last.object.close();
     };
 
     // noinspection JSUnusedGlobalSymbols
@@ -736,7 +736,7 @@ function AppDialog() {
      * @function
      */
     this.open_last = function () {
-        if (notNullUndf(self._last.object)) self._last.object.open();
+        if (not_null_undf(self._last.object)) self._last.object.open();
     };
 
     /**

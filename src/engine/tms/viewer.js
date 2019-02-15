@@ -163,7 +163,7 @@ function TMSViewer() {
         tooltip: {
             addMode: function (m) {             // Adds a mode, functions that take intersected object
                 let $f = m.__eval;
-                if (notNullUndf($f)) self.objects_props.tooltip.modes.push($f);
+                if (not_null_undf($f)) self.objects_props.tooltip.modes.push($f);
             },
             container: 'viewer',                // Viewer ID
             enabled: false,                     // Check if tooltip is enabled or not
@@ -427,7 +427,7 @@ function TMSViewer() {
      * @private
      */
     this._load_image_file = function (image) {
-        if (notNullUndf(this.images[image])) return;
+        if (not_null_undf(this.images[image])) return;
         this.images[image] = self._textureLoader.load('{0}.png'.format(image));
         this.images[image + '_ambient'] = self._textureLoader.load('{0}_ambient.png'.format(image));
         // this.images[image + '_displacement'] = self._textureLoader.load('{0}_displacement.png'.format(image), $f);
@@ -537,13 +537,13 @@ function TMSViewer() {
                 /**
                  * Prevents other changes
                  */
-                if (notNullUndf(e)) e.preventDefault();
+                if (not_null_undf(e)) e.preventDefault();
 
                 /**
                  * Get DIV width and height
                  */
-                let $w = Math.ceil(getElementWidth(self.maindiv));
-                let $h = Math.ceil(getElementHeight(self.maindiv));
+                let $w = Math.ceil(get_element_width(self.maindiv));
+                let $h = Math.ceil(get_element_height(self.maindiv));
 
                 /**
                  * Updates canvas aspect
@@ -905,10 +905,10 @@ function TMSViewer() {
         for (let i = 0; i < self._helpersUpdate.length; i += 1) {
             self._helpersUpdate[i].update();
         }
-        if (notNullUndf(self._gui)) {
-            self._guiCameraParams.posx = roundNumber(self._three_camera.position.z, 3);
-            self._guiCameraParams.posy = roundNumber(self._three_camera.position.x, 3);
-            self._guiCameraParams.posz = roundNumber(self._three_camera.position.y, 3);
+        if (not_null_undf(self._gui)) {
+            self._guiCameraParams.posx = round_number(self._three_camera.position.z, 3);
+            self._guiCameraParams.posy = round_number(self._three_camera.position.x, 3);
+            self._guiCameraParams.posz = round_number(self._three_camera.position.y, 3);
         }
 
     };
@@ -1338,7 +1338,7 @@ function TMSViewer() {
 
         // Calculate displacements
         let $vel = self.objects_props.camera.targetspeed.f;
-        if (notNullUndf($f)) {
+        if (not_null_undf($f)) {
             $vel = $f * self.objects_props.camera.zoomspeed;
             if (self.objects_props.camera.zoomaddtospeed) {
                 self.objects_props.camera.targetspeed.f += $vel * self.objects_props.camera.zoomaddfactor;
@@ -1373,7 +1373,7 @@ function TMSViewer() {
         let $ang = self._controls.getAzimuthalAngle();
 
         // Handles pan
-        if (notNullUndf($dx) && notNullUndf($dy)) {
+        if (not_null_undf($dx) && not_null_undf($dy)) {
 
             // If Ctrl then rotates
             if (self.objects_props.camera.facerotate && self.objects_props.camera.movements.facerotate) {
@@ -1426,7 +1426,7 @@ function TMSViewer() {
     this._move_face_rotate = function (polar, azimuth) {
 
         // If not valid face
-        if (isNullUndf(self.objects_props.camera.facetarget.x) || isNullUndf(self.objects_props.camera.facetarget.y) || isNullUndf(self.objects_props.camera.facetarget.z) || self.camera_is_moving()) {
+        if (is_null_undf(self.objects_props.camera.facetarget.x) || is_null_undf(self.objects_props.camera.facetarget.y) || is_null_undf(self.objects_props.camera.facetarget.z) || self.camera_is_moving()) {
             self.objects_props.camera.movements.facerotate = false;
             return;
         }
@@ -1542,7 +1542,7 @@ function TMSViewer() {
         this.objects_props.tooltip.enabled = true;
 
         // If tooltip exists then it's removed
-        if (notNullUndf(this.objects_props.tooltip.obj)) this.objects_props.tooltip.obj.remove();
+        if (not_null_undf(this.objects_props.tooltip.obj)) this.objects_props.tooltip.obj.remove();
 
         // Create tooltip in main content
         let $tooltipid = generateID();
@@ -1651,7 +1651,7 @@ function TMSViewer() {
      */
     this.show_renderer_info = function () {
         let $info = self._renderer.info;
-        app_dialog.text('memory.<b>geometries</b>: {0}<br>memory.<b>textures</b>: {1}<br>render.<b>calls</b>: {2}<br>render.<b>frame</b>: {3}<br>render.<b>lines</b>: {4}<br>render.<b>points</b>: {5}<br>render.<b>triangles</b>: {6}<br>camera.<b>azimuth</b>: {7}<br>camera.<b>polar</b>: {8}'.format($info.memory.geometries.toLocaleString(), $info.memory.textures.toLocaleString(), $info.render.calls.toLocaleString(), $info.render.frame.toLocaleString(), $info.render.lines.toLocaleString(), $info.render.points.toLocaleString(), $info.render.triangles.toLocaleString(), roundNumber(self._controls.getAzimuthalAngle(), 3), roundNumber(self._controls.getPolarAngle(), 3)), lang.viewer_renderer_info);
+        app_dialog.text('memory.<b>geometries</b>: {0}<br>memory.<b>textures</b>: {1}<br>render.<b>calls</b>: {2}<br>render.<b>frame</b>: {3}<br>render.<b>lines</b>: {4}<br>render.<b>points</b>: {5}<br>render.<b>triangles</b>: {6}<br>camera.<b>azimuth</b>: {7}<br>camera.<b>polar</b>: {8}'.format($info.memory.geometries.toLocaleString(), $info.memory.textures.toLocaleString(), $info.render.calls.toLocaleString(), $info.render.frame.toLocaleString(), $info.render.lines.toLocaleString(), $info.render.points.toLocaleString(), $info.render.triangles.toLocaleString(), round_number(self._controls.getAzimuthalAngle(), 3), round_number(self._controls.getPolarAngle(), 3)), lang.viewer_renderer_info);
     };
 
     /**
@@ -1723,7 +1723,7 @@ function TMSViewer() {
                 // Calculate values
                 let $distance, $color;
                 $color = '0X' + self._rgb2hex(self._cameraLightParam.color).toUpperCase();
-                $distance = roundNumber(self._cameralight.distance / self.worldsize.diagl, 3);
+                $distance = round_number(self._cameralight.distance / self.worldsize.diagl, 3);
 
                 // Popup
                 app_dialog.text('<b>light.color</b>: <i>{0}</i><br><b>light.distance</b>: <i>{1}</i>'.format($color, $distance), lang.viewer_gui_export_light_title);
@@ -1776,10 +1776,10 @@ function TMSViewer() {
 
                 // Calculate values
                 let $posx, $posy, $posz, $distance, $color;
-                $posx = roundNumber(self._light.position.z / self.worldsize.x, 3);
-                $posy = roundNumber(self._light.position.x / self.worldsize.y, 3);
-                $posz = roundNumber(self._light.position.y / self.worldsize.z, 3);
-                $distance = roundNumber(self._light.distance / self.worldsize.diagl, 3);
+                $posx = round_number(self._light.position.z / self.worldsize.x, 3);
+                $posy = round_number(self._light.position.x / self.worldsize.y, 3);
+                $posz = round_number(self._light.position.y / self.worldsize.z, 3);
+                $distance = round_number(self._light.distance / self.worldsize.diagl, 3);
                 $color = '0X' + self._rgb2hex(self._guiLightParam.color).toUpperCase();
 
                 // Popup
@@ -1991,7 +1991,7 @@ function TMSViewer() {
      * @private
      */
     this._destroy_gui = function () {
-        if (notNullUndf(self._gui)) {
+        if (not_null_undf(self._gui)) {
             self._gui.destroy();
             self._gui = null;
             $('#' + self._guiID).empty();
@@ -2006,7 +2006,7 @@ function TMSViewer() {
     this.toggle_fps_meter = function () {
 
         // If not created
-        if (isNullUndf(self._helperInstances.fpsmeter)) {
+        if (is_null_undf(self._helperInstances.fpsmeter)) {
             app_library_manager.import_async_library(app_library_manager.lib.STATS, function () {
                 let stats = new Stats();
                 self._canvasParent.append(stats.dom);
@@ -2043,7 +2043,7 @@ function TMSViewer() {
          * --------------------------------------------------------------------
          */
         if (this._threejs_helpers.axis) {
-            if (isNullUndf(this._helperInstances.axis)) {
+            if (is_null_undf(this._helperInstances.axis)) {
                 let $helpersize = Math.min(self.worldsize.x, self.worldsize.y, self.worldsize.z) * self._threejs_helpers.axissize;
                 helper = new THREE.AxesHelper($helpersize);
                 self._add_mesh_to_scene(helper, this._globals.helper, false);
@@ -2051,7 +2051,7 @@ function TMSViewer() {
                 this._helperInstances.axis = helper;
             }
         } else { // Deletes helper if initialized
-            if (notNullUndf(this._helperInstances.axis)) {
+            if (not_null_undf(this._helperInstances.axis)) {
                 self._scene.remove(this._helperInstances.axis);
             }
             this._helperInstances.axis = null;
@@ -2064,7 +2064,7 @@ function TMSViewer() {
          * --------------------------------------------------------------------
          */
         if (this._threejs_helpers.planes) {
-            if (isNullUndf(this._helperInstances.planes)) {
+            if (is_null_undf(this._helperInstances.planes)) {
                 let $planes = [];
 
                 // Colors
@@ -2139,7 +2139,7 @@ function TMSViewer() {
                 this._helperInstances.planes = $planes;
             }
         } else { // Deletes helper if initialized
-            if (notNullUndf(this._helperInstances.planes)) {
+            if (not_null_undf(this._helperInstances.planes)) {
                 let $planes = this._helperInstances.planes;
                 for (let i = 0; i < $planes.length; i += 1) {
                     this._scene.remove($planes[i]);
@@ -2154,7 +2154,7 @@ function TMSViewer() {
          * --------------------------------------------------------------------
          */
         if (this._threejs_helpers.grid) {
-            if (isNullUndf(this._helperInstances.grid)) {
+            if (is_null_undf(this._helperInstances.grid)) {
                 let $mapsize = 2 * Math.max(this.worldsize.x, this.worldsize.y);
                 let $griddist = Math.floor(2 / this._threejs_helpers.griddist);
                 helper = new THREE.GridHelper($mapsize, $griddist);
@@ -2166,7 +2166,7 @@ function TMSViewer() {
                 this._helperInstances.grid = helper;
             }
         } else { // Deletes helper if initialized
-            if (notNullUndf(this._helperInstances.grid)) {
+            if (not_null_undf(this._helperInstances.grid)) {
                 this._scene.remove(this._helperInstances.grid);
             }
             this._helperInstances.grid = null;
@@ -2178,7 +2178,7 @@ function TMSViewer() {
          * --------------------------------------------------------------------
          */
         if (this._threejs_helpers.worldlimits) {
-            if (isNullUndf(this._helperInstances.worldlimits)) {
+            if (is_null_undf(this._helperInstances.worldlimits)) {
                 let material = new THREE.MeshBasicMaterial({
                     color: self._threejs_helpers.worldlimitscolor,
                     opacity: self._threejs_helpers.planeopacity
@@ -2228,7 +2228,7 @@ function TMSViewer() {
                 this._helperInstances.worldlimits = cube;
             }
         } else { // Deletes helper if initialized
-            if (notNullUndf(this._helperInstances.worldlimits)) {
+            if (not_null_undf(this._helperInstances.worldlimits)) {
                 this._scene.remove(this._helperInstances.worldlimits);
             }
             this._helperInstances.worldlimits = null;
@@ -2240,7 +2240,7 @@ function TMSViewer() {
          * --------------------------------------------------------------------
          */
         if (this._threejs_helpers.cameratarget) {
-            if (isNullUndf(this._helperInstances.cameratarget)) {
+            if (is_null_undf(this._helperInstances.cameratarget)) {
                 let sphereGeometry = new THREE.SphereGeometry(this.objects_props.camera.raycollidedist, 16, 8);
                 let wireframeMaterial = new THREE.MeshBasicMaterial(
                     {
@@ -2268,7 +2268,7 @@ function TMSViewer() {
                 };
             }
         } else { // Deletes helper if initialized
-            if (notNullUndf(this._helperInstances.cameratarget)) {
+            if (not_null_undf(this._helperInstances.cameratarget)) {
                 this._helpersUpdate.splice(this._helperInstances.cameratarget.update, 1);
                 this._scene.remove(this._helperInstances.cameratarget.obj);
             }
@@ -2320,8 +2320,8 @@ function TMSViewer() {
 
         // Apply properties
         mesh.name = name;
-        if (isNullUndf(castShadow)) castShadow = false;
-        if (isNullUndf(receiveShadow)) receiveShadow = false;
+        if (is_null_undf(castShadow)) castShadow = false;
+        if (is_null_undf(receiveShadow)) receiveShadow = false;
         mesh.castShadow = castShadow;
         mesh.receiveShadow = receiveShadow;
 
@@ -2352,7 +2352,7 @@ function TMSViewer() {
      * @private
      */
     this._remove_mesh_from_scene = function (mesh) {
-        if (isNullUndf(mesh)) return;
+        if (is_null_undf(mesh)) return;
         self._scene.remove(mesh);
         for (let i = 0; i < self._collaidableMeshes.length; i += 1) {
             if (self._collaidableMeshes[i] === mesh) {
@@ -2417,7 +2417,7 @@ function TMSViewer() {
     this.delete_last_volume = function () {
 
         // Remove volume mesh
-        if (notNullUndf(self._volume_meshes.volume)) {
+        if (not_null_undf(self._volume_meshes.volume)) {
             self._remove_mesh_from_scene(self._volume_meshes.volume);
             this.objects_props.tooltip.mode.group.removeContainer(this._globals.volume);
         }
@@ -2585,7 +2585,7 @@ function TMSViewer() {
      */
     this.new = function (volume) {
         this.delete_last_volume();
-        if (isNullUndf(volume)) return;
+        if (is_null_undf(volume)) return;
         this._load_textures();
         this._draw_volume(volume);
         self.init_animate();

@@ -13,7 +13,7 @@
  * @function
  * @returns {boolean}
  */
-function updateSessionCookie() {
+function update_session_cookie() {
     try {
         if (!cfg_cookie_local) {
             Cookies.set(cfg_cookie_session_id, sessionCookie, {
@@ -34,8 +34,9 @@ function updateSessionCookie() {
  *
  * @function
  * @param {object} $session - Session value
+ * @private
  */
-function extendDefaultSessionValues($session) {
+function extend_default_session_values($session) {
     $.extend($session, {
 
         /**
@@ -61,25 +62,17 @@ function extendDefaultSessionValues($session) {
  * @function
  * @returns {object} - Cookies
  */
-function loadSessionCookies() {
+function load_session_cookie() {
 
-    /**
-     * Load cookies
-     */
+    // Load cookies
     let c = Cookies.get(cfg_cookie_session_id);
-    if (!notNullUndf(c)) {
-
-        /**
-         * Default values
-         */
-        let defvalue = {
+    if (!not_null_undf(c)) {
+        let defvalue = { // Default values
             lang: cfg_lang,
         };
-        extendDefaultSessionValues(defvalue);
+        extend_default_session_values(defvalue);
 
-        /**
-         * If cookies are local then uses localStorage
-         */
+        // If cookies are local then uses localStorage
         if (cfg_cookie_local) {
             app_console.info(app_error.error.cookiesDisabled.usingLocalStorage);
             try {
@@ -88,7 +81,7 @@ function loadSessionCookies() {
                 return null;
             } finally {
             }
-            if (!notNullUndf(c)) {
+            if (!not_null_undf(c)) {
                 localStorage.setItem(cfg_cookie_session_id, JSON.stringify(defvalue));
                 c = localStorage.getItem(cfg_cookie_session_id);
             }
@@ -96,25 +89,17 @@ function loadSessionCookies() {
             return c;
         }
 
-        /**
-         * Check errors
-         */
+        // Check errors
         Cookies.set(cfg_cookie_session_id, defvalue, {
             expires: cfg_cookie_expire_days,
             path: '/',
         });
         c = Cookies.get(cfg_cookie_session_id);
 
-        /**
-         * If cookies cannot be save on browser
-         */
-        if (!notNullUndf(c)) {
-            return null;
-        }
+        // If cookies cannot be save on browser
+        if (!not_null_undf(c)) return null;
 
-        /**
-         * Return cookies
-         */
+        // Return cookies
         try {
             return JSON.parse(c);
         } catch (e) {
@@ -123,9 +108,7 @@ function loadSessionCookies() {
         }
     }
 
-    /**
-     * Fallback
-     */
+    // Fallback
     return JSON.parse(c);
 
 }
@@ -136,6 +119,6 @@ function loadSessionCookies() {
  * @function
  * @returns {object}
  */
-function getSessionCookie() {
-    return loadSessionCookies();
+function get_session_cookie() {
+    return load_session_cookie();
 }

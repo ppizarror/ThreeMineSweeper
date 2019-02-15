@@ -15,7 +15,7 @@
  * @param {Date} init - Start date
  * @returns {number} - Number of seconds
  */
-function getSecondsBetween(finish, init) {
+function get_seconds_between(finish, init) {
     return (finish.getTime() - init.getTime()) / 1000;
 }
 
@@ -26,8 +26,8 @@ function getSecondsBetween(finish, init) {
  * @param {Date} time - Init date
  * @returns {number} - Number of seconds
  */
-function getSecondsFrom(time) {
-    return getSecondsBetween(new Date(), time);
+function get_seconds_from(time) {
+    return get_seconds_between(new Date(), time);
 }
 
 /**
@@ -38,7 +38,7 @@ function getSecondsFrom(time) {
  * @param {string} format - Target format
  * @returns {string} - Formatted date
  */
-function dateFormat(date, format) {
+function date_format(date, format) {
     let $datestring = date.toString();
     let $splitted = $datestring.split(' ');
     let $newstrdate = '';
@@ -55,7 +55,7 @@ function dateFormat(date, format) {
  * @function
  * @returns {string}
  */
-function getLocaleDateString() {
+function get_locale_date_string() {
 
     let formats = {
         'ar-SA': 'dd/MM/yy',

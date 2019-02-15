@@ -208,7 +208,7 @@ function LibraryManager() {
         // Message on console
         if ($imp !== '' && $log) {
             try {
-                app_console.info(lang.imported_dynamically_libs.format($imp, roundNumber(this._queryTime, 3)));
+                app_console.info(lang.imported_dynamically_libs.format($imp, round_number(this._queryTime, 3)));
             } catch ($e) {
             } finally {
             }
@@ -245,7 +245,7 @@ function LibraryManager() {
                 // noinspection JSDeprecatedSymbols
                 $.holdReady(false);
             }
-            self._queryTime = getSecondsFrom(this._startTime);
+            self._queryTime = get_seconds_from(this._startTime);
             return true;
         }
         return false;
@@ -295,8 +295,8 @@ function LibraryManager() {
                 self._remove_lib_from_queue(name);
 
                 // Print message
-                if (notNullUndf(self._importTime[name])) {
-                    app_console.info(lang.loading_async_library.format(name, getSecondsFrom(self._importTime[name])));
+                if (not_null_undf(self._importTime[name])) {
+                    app_console.info(lang.loading_async_library.format(name, get_seconds_from(self._importTime[name])));
                     delete self._importTime[name];
                 }
 
@@ -337,7 +337,7 @@ function LibraryManager() {
         if (!self._initapp) throw 'LibraryManager::import_async_library Application is not initialized yet, the library has not been downloaded ' + lib;
 
         // If function is not defined
-        if (isNullUndf(callback)) {
+        if (is_null_undf(callback)) {
             callback = function () {
             };
         }
@@ -539,7 +539,7 @@ function LibraryManager() {
      * @private
      */
     this._loadLibrary = function (lib, callback, params) {
-        if (isNullUndf(callback)) {
+        if (is_null_undf(callback)) {
             callback = function () {
             };
         }
@@ -1084,7 +1084,7 @@ function LibraryManager() {
              */
             default:
                 self._remove_lib_from_queue(lib);
-                if (isNullUndf(lib)) lib = '__undefined__';
+                if (is_null_undf(lib)) lib = '__undefined__';
                 throw 'LibraryManager::loadLibrary Library <{0}> unknown'.format(lib);
         }
 

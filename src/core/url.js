@@ -27,6 +27,6 @@ $.urlParam = function (name) {
  *
  * @function
  */
-function deleteUrlParams() {
+function delete_url_params() {
     window.history.replaceState(null, null, window.location.pathname);
 }

@@ -135,7 +135,7 @@ function Generator() {
         app_console.info(lang.generator_start.format(self.get_name()));
         self._generate(_xi, _yi, _zi, _xf, _yf, _zf);
         this._volume.assemble();
-        let tf = getSecondsFrom(ti);
+        let tf = get_seconds_from(ti);
         app_console.info(lang.generator_finished.format(tf, this._volume.get_total_faces(),
             this._volume.get_total_deleted_faces(), this._volume.get_duplicated_vertices(),
             this._volume.get_total_vertices()));
