@@ -119,7 +119,7 @@ lang_db.br = {
     "new_game_order": "Ordem fractal",
     "new_game_start": "Iniciar",
     "new_game_target_face": "Target faces",
-    "page_init_load_time": "A aplicação foi inicializada em <{0}> segundos",
+    "page_init_load_time": "A aplicação foi inicializada em {0} segundos",
     "popup_theme_error_load": "O tema pop-up não pôde ser carregado usando o fallback",
     "reload_alert": "Tem certeza de que deseja sair?",
     "reset_game": "Game reset",

@@ -124,7 +124,7 @@ lang_db.en = {
     "new_game_order": "Fractal order",
     "new_game_start": "Start",
     "new_game_target_face": "Target faces",
-    "page_init_load_time": "Application has been initialized in <{0}> seconds",
+    "page_init_load_time": "Application has been initialized in {0} seconds",
     "popup_theme_error_load": "Popup theme could not be loaded, using fallback",
     "reload_alert": "Are you sure you want to leave?",
     "reset_game": "Game reset",

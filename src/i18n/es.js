@@ -119,7 +119,7 @@ lang_db.es = {
     "new_game_order": "Órden fractal",
     "new_game_start": "Iniciar",
     "new_game_target_face": "Caras objectivo",
-    "page_init_load_time": "La aplicación ha sido iniciada en <{0}> segundos",
+    "page_init_load_time": "La aplicación ha sido iniciada en {0} segundos",
     "popup_theme_error_load": "El tema de los popups no pudo ser cargado, usando el defecto",
     "reload_alert": "¿Estás seguro de reiniciar el nivel?",
     "reset_game": "Reiniciar",

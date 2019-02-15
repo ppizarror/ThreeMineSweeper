@@ -72,7 +72,6 @@ $(function () {
     app_error.init();
     app_library_manager.disable_hold_ready();
     app_library_manager.set_app_initialized();
-    after_load_imports();
     app_library_manager.get_imported_libraries(cfg_verbose);
 
     /**
@@ -141,5 +140,6 @@ $(function () {
         app_tms.init('#viewer');
         app_tms.load_menu();
     }, 150);
+    after_load_imports();
 
 });

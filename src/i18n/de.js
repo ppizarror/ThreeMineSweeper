@@ -119,7 +119,7 @@ lang_db.de = {
     "new_game_order": "Fraktale Ordnung",
     "new_game_start": "Start",
     "new_game_target_face": "Zielgesichter",
-    "page_init_load_time": "Die Anwendung wurde in <{0}> Sekunden initialisiert",
+    "page_init_load_time": "Die Anwendung wurde in {0} Sekunden initialisiert",
     "popup_theme_error_load": "Popup-Design konnte nicht mit Fallback geladen werden",
     "reload_alert": "Möchten Sie wirklich gehen?",
     "reset_game": "Spiel zurücksetzen",

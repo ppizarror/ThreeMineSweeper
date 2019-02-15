@@ -1622,7 +1622,7 @@ function TMSViewer() {
     this.toggle_gui = function () {
         self._threejs_helpers.gui = !self._threejs_helpers.gui;
         if (self._threejs_helpers.gui) {
-            self._build_gui();
+            app_library_manager.import_async_library(app_library_manager.lib.DATGUI, self._build_gui);
         } else {
             self._destroy_gui();
         }
@@ -1991,13 +1991,15 @@ function TMSViewer() {
 
         // If not created
         if (isNullUndf(self._helperInstances.fpsmeter)) {
-            let stats = new Stats();
-            self._canvasParent.append(stats.dom);
-            requestAnimationFrame(function loop() {
-                stats.update();
-                requestAnimationFrame(loop);
+            app_library_manager.import_async_library(app_library_manager.lib.STATS, function () {
+                let stats = new Stats();
+                self._canvasParent.append(stats.dom);
+                requestAnimationFrame(function loop() {
+                    stats.update();
+                    requestAnimationFrame(loop);
+                });
+                self._helperInstances.fpsmeter = stats;
             });
-            self._helperInstances.fpsmeter = stats;
         }
 
         // If created then closes

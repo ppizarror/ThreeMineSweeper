@@ -119,7 +119,7 @@ lang_db.fr = {
     "new_game_order": "Ordre fractal",
     "new_game_start": "Démarrer",
     "new_game_target_face": "Visages cibles",
-    "page_init_load_time": "L'application a été initialisée en <{0}> secondes",
+    "page_init_load_time": "L'application a été initialisée en {0} secondes",
     "popup_theme_error_load": "Le thème Popup n'a pas pu être chargé, en utilisant un repli",
     "reload_alert": "Êtes-vous sûr de vouloir partir?",
     "reset_game": "Réinitialisation du jeu",

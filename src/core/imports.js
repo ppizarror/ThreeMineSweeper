@@ -35,6 +35,10 @@ function LibraryManager() {
         DATATABLESBT4: 'dataTables.bootstrap4',
         DATEPICKER: 'datepicker',
         DATGUI: 'dat.gui',
+        DBIP: 'dbip',
+        DELAUNATOR: 'delaunator',
+        EARCUT: 'earcut',
+        EASYTIMER: 'easytimer',
         FILESAVERJS: 'filesaver.js',
         FONTAWESOME: 'fontAwesome',
         FORMVALIDATOR: 'formvalidator',
@@ -44,16 +48,21 @@ function LibraryManager() {
         HAMMER: 'hammer',
         HOVERCSS: 'hover.css',
         IONRANGESLIDER: 'ion.rangeSlider',
+        IONSOUND: 'ion.sound',
         JQUERYCONFIRM: 'jquery-confirm',
+        JQUERYNICESELECT: 'jquery-nice-select',
         JQUERYTIMEAGO: 'jquery-timeago',
         JQUERYTOAST: 'jquery.toast',
+        JQVMAP: 'jqvmap',
         MD5: 'md5',
         MENTIONSINPUT: 'jquery-mentions-input',
         MMENU: 'mmenu',
         MOUSEWHEEL: 'jquery.mousewheel',
         MULTISELECT: 'multiselect',
         NORMALIZE: 'normalize.css',
+        NOTIFICATIONJS: 'notification.js',
         OBJEXPORTER: 'threejs-OBJExporter',
+        ORBITCONTROLS: 'Orbitcontrols',
         POPPER: 'popper',
         RIPPLER: 'rippler',
         SCROLLLOCK: 'jquery-scrollLock',
@@ -64,7 +73,6 @@ function LibraryManager() {
         STATS: 'stats',
         THREEJS: 'threejs',
         TINYMCE: 'tinyMCE',
-        TJSORBITCONTROLS: 'Orbitcontrols',
         TJSPROJECTOR: 'threejs-projector',
         TOASTR: 'toastr',
         TOOLTIPSTER: 'tooltipster',
@@ -284,7 +292,7 @@ function LibraryManager() {
                     callback();
                 }
                 self._importedLibraries[name] = true;
-                self._removeLibFromQueue(name);
+                self._remove_lib_from_queue(name);
 
                 // Print message
                 if (notNullUndf(self._importTime[name])) {
@@ -366,7 +374,7 @@ function LibraryManager() {
             // If not in queue it's added
             let $k = Object.keys(self._importLibQueue);
             if ($k.indexOf(lib) === -1) {
-                self.addLibToQueue(lib);
+                self.add_lib_to_queue(lib);
                 self._importTime[lib] = new Date();
                 try {
                     self._loadLibrary(lib, callback, params);
@@ -461,7 +469,7 @@ function LibraryManager() {
      * @private
      */
     this._set_css_lib_imported = function (lib) {
-        self._removeLibFromQueue(lib);
+        self._remove_lib_from_queue(lib);
         self._importedLibraries[lib] = true;
     };
 
@@ -474,6 +482,7 @@ function LibraryManager() {
 
         // If application is loaded throw an exception
         if (self._initapp) throw 'LibraryManager::import_all_libraries The application has been initizlied, the libraries could not been downloaded';
+        self._startTime = new Date(); // Set init tiem
 
         // Check all queuqed libraries
         let $klibs = Object.keys(this._importLibQueue);
@@ -484,7 +493,6 @@ function LibraryManager() {
             // noinspection JSDeprecatedSymbols
             $.holdReady(true);
         }
-        self._startTime = new Date(); // Set init tiem
         let lib;
         for (let i = 0; i < $klibs.length; i += 1) {
             lib = $klibs[i];
@@ -499,7 +507,7 @@ function LibraryManager() {
      * @function
      * @param {string} lib - Library name
      */
-    this.addLibToQueue = function (lib) {
+    this.add_lib_to_queue = function (lib) {
         let $k = Object.keys(this._importLibQueue);
         if ($k.indexOf(lib) !== -1) return;
         self._importLibQueue[lib] = false; // Set library as not loaded
@@ -512,7 +520,7 @@ function LibraryManager() {
      * @param {string} lib - Library name
      * @private
      */
-    this._removeLibFromQueue = function (lib) {
+    this._remove_lib_from_queue = function (lib) {
         let $k = Object.keys(this._importLibQueue);
         if ($k.indexOf(lib) === -1) {
             return;
@@ -558,10 +566,10 @@ function LibraryManager() {
             case self.lib.THREEJS:
                 this._getScript_async_callback(lib, 'lib/three.js/three.min.js',
                     function ($e) {
-                        // self.addLibToQueue(self.lib.TJSPROJECTOR);
-                        self.addLibToQueue(self.lib.TJSORBITCONTROLS);
+                        // self.add_lib_to_queue(self.lib.TJSPROJECTOR);
+                        self.add_lib_to_queue(self.lib.ORBITCONTROLS);
                         // self._getScript_async(self.lib.TJSPROJECTOR, 'lib/three.js/Projector.min.js');
-                        self._getScript_async_callback(self.lib.TJSORBITCONTROLS, 'lib/three.js/OrbitControls.min.js', $e.c, $e.p);
+                        self._getScript_async_callback(self.lib.ORBITCONTROLS, 'lib/three.js/OrbitControls.js', $e.c, $e.p);
                     }, {
                         c: callback,
                         p: params,
@@ -598,7 +606,7 @@ function LibraryManager() {
                 this._getScript_async_callback(lib, 'lib/formvalidator/jquery.form-validator.min.js',
                     function ($e) {
                         // Carga el idioma
-                        self.addLibToQueue(self.lib.FORMVALIDATORLANG);
+                        self.add_lib_to_queue(self.lib.FORMVALIDATORLANG);
                         switch (cfg_lang) {
                             case 'es':
                                 self._getScript_async_callback(self.lib.FORMVALIDATORLANG, 'lib/formvalidator/lang/es.min.js', $e.c, $e.p);
@@ -631,7 +639,7 @@ function LibraryManager() {
                 self.load_css_lib('lib/dataTables/dataTables.bootstrap4.min.css');
                 this._getScript_async_callback(lib, 'lib/dataTables/jquery.dataTables.min.js',
                     function ($e) {
-                        self.addLibToQueue(self.lib.DATATABLESBT4);
+                        self.add_lib_to_queue(self.lib.DATATABLESBT4);
                         self._getScript_async_callback(self.lib.DATATABLESBT4, 'lib/dataTables/dataTables.bootstrap4.min.js', $e.c, $e.p);
                     }, {
                         c: callback,
@@ -763,7 +771,7 @@ function LibraryManager() {
                 self.load_css_lib('lib/mmenu/jquery.mmenu.all.css');
                 this._getScript_async_callback(lib, 'lib/mmenu/jquery.mmenu.all.js',
                     function ($e) {
-                        self.addLibToQueue(self.lib.HAMMER);
+                        self.add_lib_to_queue(self.lib.HAMMER);
                         self._getScript_async_callback(self.lib.HAMMER, 'lib/hammer/hammer.min.js', $e.c, $e.p);
                     }, {
                         c: callback,
@@ -776,7 +784,7 @@ function LibraryManager() {
              */
             case self.lib.RIPPLER:
                 self.load_css_lib('lib/rippler/rippler.min.css');
-                this._getScript_async_callback(lib, 'lib/rippler/jquery.rippler.min.js', callback, params);
+                this._getScript_async_callback(lib, 'lib/rippler/rippler.min.js', callback, params);
                 break;
 
             /**
@@ -820,11 +828,11 @@ function LibraryManager() {
              */
             case self.lib.MENTIONSINPUT:
                 self.load_css_lib('lib/jquery-mentions-input/jquery.mentionsInput.min.css');
-                self.addLibToQueue(self.lib.UNDERSCORE);
+                self.add_lib_to_queue(self.lib.UNDERSCORE);
                 self._getScript_async_callback(self.lib.UNDERSCORE, 'lib/underscore/underscore-min.js',
                     function ($e) {
-                        self.addLibToQueue('jquery.events.input');
-                        self.addLibToQueue('jquery.elastic');
+                        self.add_lib_to_queue('jquery.events.input');
+                        self.add_lib_to_queue('jquery.elastic');
                         self._getScript_async('jquery.events.input', 'lib/jquery-mentions-input/jquery.events.input.min.js');
                         self._getScript_async('jquery.elastic', 'lib/jquery-mentions-input/jquery.elastic.min.js');
                         self._getScript_async_callback(lib, 'lib/jquery-mentions-input/jquery.mentionsInput.min.js', $e.c, $e.p);
@@ -847,11 +855,11 @@ function LibraryManager() {
             case self.lib.TINYMCE:
                 self.load_css_lib('lib/tinymce/plugins/mention/autocomplete.css');
                 self.load_css_lib('lib/tinymce/plugins/mention/rte-content.css');
-                self.addLibToQueue('jquery.tinymce');
+                self.add_lib_to_queue('jquery.tinymce');
                 this._getScript_async('jquery.tinymce', 'lib/tinymce/jquery.tinymce.min.js');
                 this._getScript_async_callback(lib, 'lib/tinymce/tinymce.min.js',
                     function ($e) {
-                        self.addLibToQueue('tinymce-lang');
+                        self.add_lib_to_queue('tinymce-lang');
                         switch (cfg_lang) {
                             case 'es':
                                 self._getScript_async_callback('tinymce-lang', 'lib/tinymce/langs/es.js', $e.c, $e.p);
@@ -904,9 +912,8 @@ function LibraryManager() {
              * Ion-rangeslider
              */
             case self.lib.IONRANGESLIDER:
-                self.load_css_lib('lib/ion.rangeSlider/css/ion.rangeSlider.min.css');
-                self.load_css_lib('lib/ion.rangeSlider/css/ion.rangeSlider.skinNice.min.css');
-                this._getScript_async_callback(lib, 'lib/ion.rangeSlider/js/ion.rangeSlider.min.js', callback, params);
+                self.load_css_lib('lib/ion.rangeSlider/ion.rangeSlider.min.css');
+                this._getScript_async_callback(lib, 'lib/ion.rangeSlider/ion.rangeSlider.min.js', callback, params);
                 break;
 
             /**
@@ -923,7 +930,7 @@ function LibraryManager() {
             case self.lib.JQUERYTIMEAGO:
                 this._getScript_async_callback(lib, 'lib/jquery-timeago/jquery.timeago.min.js',
                     function ($e) {
-                        self.addLibToQueue('jquery-timeago-locale');
+                        self.add_lib_to_queue('jquery-timeago-locale');
                         switch (cfg_lang) {
                             case 'es':
                                 self._getScript_async_callback('jquery-timeago-locale', 'lib/jquery-timeago/locales/jquery.timeago.es.min.js', $e.c, $e.p);
@@ -978,7 +985,7 @@ function LibraryManager() {
                 this._getScript_async_callback(lib, 'lib/filesaver/FileSaver.js',
                     function ($e) {
                         self._getScript_async('canvas-toBlob', 'lib/filesaver/canvas-toBlob.js');
-                        self.addLibToQueue('Blob.js');
+                        self.add_lib_to_queue('Blob.js');
                         self._getScript_async_callback('Blob.js', 'lib/filesaver/Blob.js', $e.c, $e.p);
                     }, {
                         c: callback,
@@ -1008,10 +1015,75 @@ function LibraryManager() {
                 break;
 
             /**
+             * Earcut
+             */
+            case self.lib.EARCUT:
+                this._getScript_async_callback(lib, 'lib/earcut/earcut.js', callback, params);
+                break;
+
+            /**
+             * Delaunator
+             */
+            case self.lib.DELAUNATOR:
+                this._getScript_async_callback(lib, 'lib/delaunator/delaunator.min.js', callback, params);
+                break;
+
+            /**
+             * Ion sound
+             */
+            case self.lib.IONSOUND:
+                this._getScript_async_callback(lib, 'lib/ion.sound/ion.sound.min.js', callback, params);
+                break;
+
+            /**
+             * Easytimer
+             */
+            case self.lib.EASYTIMER:
+                this._getScript_async_callback(lib, 'lib/easytimer/easytimer.min.js', callback, params);
+                break;
+
+            /**
+             * DBIP
+             */
+            case self.lib.DBIP:
+                this._getScript_async_callback(lib, 'https://cdn.db-ip.com/js/dbip.js', callback, params);
+                break;
+
+            /**
+             * JQVMAP
+             */
+            case self.lib.JQVMAP:
+                self.load_css_lib('lib/jqvmap/jqvmap.min.css');
+                this._getScript_async_callback(lib, 'lib/jqvmap/jquery.vmap.min.js',
+                    function ($e) {
+                        self._getScript_async_callback('jqvmap.world', 'lib/jqvmap/maps/jquery.vmap.world.js', $e.c, $e.p);
+                    }, {
+                        c: callback,
+                        p: params,
+                    });
+                break;
+
+            /**
+             * Jquery-nice-select
+             */
+            case self.lib.JQUERYNICESELECT:
+                self.load_css_lib('lib/jquery-nice-select/style.css');
+                this._getScript_async_callback(lib, 'lib/jquery-nice-select/jquery.nice-select.min.js', callback, params);
+                break;
+
+            /**
+             * Notification.js
+             */
+            case self.lib.NOTIFICATIONJS:
+                self.load_css_lib('lib/notification.js/notification.min.css');
+                this._getScript_async_callback(lib, 'lib/notification.js/notification.min.js', callback, params);
+                break;
+
+            /**
              * Unknown library
              */
             default:
-                self._removeLibFromQueue(lib);
+                self._remove_lib_from_queue(lib);
                 if (isNullUndf(lib)) lib = '__undefined__';
                 throw 'LibraryManager::loadLibrary Library <{0}> unknown'.format(lib);
         }
@@ -1046,8 +1118,12 @@ const app_library_manager = new LibraryManager();
  * Imports before app init
  * ----------------------------------------------------------------------------
  */
-
-// app_library_manager.addLibToQueue(app_library_manager.lib.MMENU);
+app_library_manager.add_lib_to_queue(app_library_manager.lib.EASYTIMER);
+app_library_manager.add_lib_to_queue(app_library_manager.lib.IONRANGESLIDER);
+app_library_manager.add_lib_to_queue(app_library_manager.lib.NOTIFICATIONJS);
+app_library_manager.add_lib_to_queue(app_library_manager.lib.RIPPLER);
+app_library_manager.add_lib_to_queue(app_library_manager.lib.THREEJS);
+app_library_manager.add_lib_to_queue(app_library_manager.lib.TOOLTIPSTER);
 
 
 /**
@@ -1056,7 +1132,14 @@ const app_library_manager = new LibraryManager();
  * ----------------------------------------------------------------------------
  */
 function after_load_imports() {
-    // app_library_manager.import_async_library(app_library_manager.lib.BOOTSTRAP);
+    app_library_manager.import_async_library(app_library_manager.lib.AMARANJS);
+    app_library_manager.import_async_library(app_library_manager.lib.ANIMATE);
+    app_library_manager.import_async_library(app_library_manager.lib.DBIP);
+    app_library_manager.import_async_library(app_library_manager.lib.DELAUNATOR);
+    app_library_manager.import_async_library(app_library_manager.lib.EARCUT);
+    app_library_manager.import_async_library(app_library_manager.lib.HOVERCSS);
+    app_library_manager.import_async_library(app_library_manager.lib.JQUERYCONFIRM);
+    app_library_manager.import_async_library(app_library_manager.lib.FONTAWESOME);
 }
 
 
