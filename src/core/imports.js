@@ -704,9 +704,9 @@ function LibraryManager() {
              * AmaranJS
              */
             case self.lib.AMARANJS:
-                self.load_css_lib('lib/amaranJS/css/amaran.min.css');
-                self.load_css_lib('lib/amaranJS/css/animate.min.css');
-                this._getScript_async_callback(lib, 'lib/amaranJS/js/jquery.amaran.min.js', callback, params);
+                self.load_css_lib('lib/AmaranJS/css/amaran.min.css');
+                self.load_css_lib('lib/AmaranJS/css/animate.min.css');
+                this._getScript_async_callback(lib, 'lib/AmaranJS/js/jquery.amaran.min.js', callback, params);
                 break;
 
             /**
