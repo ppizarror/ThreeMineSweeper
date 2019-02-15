@@ -14,7 +14,7 @@ This directory contains the libraries used by TMS (31 in total):
 | delaunator | 3.0.2 | <a href="https://github.com/mapbox/delaunator">github.com/mapbox/delaunator</a> |
 | earcut | 2.1.4 | <a href="https://github.com/mapbox/earcut">github.com/mapbox/earcut</a> |
 | easytimer | 3.0.1 | <a href="https://github.com/albert-gonzalez/easytimer.js">github.com/albert-gonzalez/easytimer.js</a> |
-| font-awesome | 5.2.0 | <a href="https://fontawesome.com">fontawesome.com</a> |
+| font-awesome | 5.7.2 | <a href="https://github.com/FortAwesome/Font-Awesome">github.com/FortAwesome/Font-Awesome</a> |
 | hover | 2.3.1 | <a href="https://github.com/IanLunn/Hover">github.com/IanLunn/Hover</a> |
 | ion.rangeSlider | 2.3.0 | <a href="https://github.com/IonDen/ion.rangeSlider">github.com/IonDen/ion.rangeSlider</a> |
 | ion.sound | 3.0.7 | <a href="https://github.com/IonDen/ion.sound">github.com/IonDen/ion.sound</a> |

@@ -18,7 +18,7 @@ aboutinfo.dependencies = {
     "delaunator": "3.0.2",                  // https://github.com/mapbox/delaunator
     "earcut": "2.1.4",                      // https://github.com/mapbox/earcut
     "easytimer": "3.0.1",                   // https://github.com/albert-gonzalez/easytimer.js
-    "font-awesome": "5.2.0",                // https://fontawesome.com
+    "font-awesome": "5.7.2",                // https://github.com/FortAwesome/Font-Awesome
     "hover": "2.3.1",                       // https://github.com/IanLunn/Hover
     "ion.rangeSlider": "2.3.0",             // https://github.com/IonDen/ion.rangeSlider
     "ion.sound": "3.0.7",                   // https://github.com/IonDen/ion.sound
