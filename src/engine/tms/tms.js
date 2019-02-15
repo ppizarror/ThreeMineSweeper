@@ -235,7 +235,7 @@ function ThreeMineSweeper() {
             self._viewer.focus();
             loadingHandler(false);
 
-        }, 450);
+        }, 450); // Timeout for loadinghandler
     };
 
 }

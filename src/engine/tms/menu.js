@@ -694,6 +694,7 @@ function TMSMenu() {
             }
             NotificationJS.error(lang.stats_error);
             app_console.error(response);
+            loadingHandler(false);
         });
 
         // noinspection JSUnusedLocalSymbols
@@ -702,8 +703,8 @@ function TMSMenu() {
          */
         $query.fail(function (response, textStatus, jqXHR) {
             NotificationJS.error(lang.stats_error);
+            loadingHandler(false);
         });
-        loadingHandler(false);
 
     };
 
@@ -838,6 +839,7 @@ function TMSMenu() {
         // Apply button effect
         self._set_content_height();
         self._apply_rippler();
+        loadingHandler(false);
 
     };
 
