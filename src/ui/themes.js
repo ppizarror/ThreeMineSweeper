@@ -84,8 +84,8 @@ function initThemes() {
         for (let j = 0; j < $mainkeys.length; j += 1) {
             $key = $mainkeys[j];
             /* eslint no-use-before-define:"off" */
-            if (isColor($theme[$key])) {
-                $theme[$key] = getRandomColor();
+            if (is_color($theme[$key])) {
+                $theme[$key] = get_random_color();
             }
         }
 

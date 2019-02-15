@@ -13,7 +13,7 @@
  * @function
  * @returns {string}
  */
-function getRandomColor() {
+function get_random_color() {
     let letters = '0123456789ABCDEF';
     let color = '#';
     for (let i = 0; i < 6; i += 1) {
@@ -29,6 +29,6 @@ function getRandomColor() {
  * @param {object} color - Color
  * @returns boolean
  */
-function isColor(color) {
+function is_color(color) {
     return typeof color === 'string' && color.length === 7 && color[0] === '#';
 }

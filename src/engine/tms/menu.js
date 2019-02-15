@@ -277,6 +277,7 @@ function TMSMenu() {
         self._add_button(lang.menu_new_game, null, $btncontainer, self._menu_new);
         self._add_button(lang.menu_how_to_play, null, $btncontainer, self._menu_htp);
         self._add_button(lang.menu_controls, null, $btncontainer, self._menu_controls);
+        self._add_button(lang.menu_statistics, null, $btncontainer, self._menu_stats);
         self._add_button(lang.menu_about, null, $btncontainer, self._menu_about);
 
         // Apply rippler effect
@@ -639,6 +640,200 @@ function TMSMenu() {
     };
 
     /**
+     * Stats menu.
+     *
+     * @function
+     * @private
+     */
+    this._menu_stats = function () {
+        loadingHandler(true);
+        app_library_manager.import_async_library([app_library_manager.lib.CHARTJS, app_library_manager.lib.JQVMAP], self._load_stats);
+    };
+
+    /**
+     * Load stats from server.
+     *
+     * @function
+     * @private
+     */
+    this._load_stats = function () {
+
+        // noinspection JSUnresolvedFunction
+        /**
+         * Create query
+         * @type {JQuery.jqXHR}
+         */
+        let $query = $.ajax({
+            crossOrigin: cfg_ajax_cors,
+            data: 'm=stats',
+            timeout: cfg_href_ajax_timeout,
+            type: 'get',
+            url: cfg_href_score,
+        });
+
+        /**
+         * Query done
+         */
+        $query.done(function (response) {
+            try {
+                let $data = JSON.parse(response);
+                if (Object.keys($data).indexOf('error') === -1 && $data[0]['sid'] === '1') {
+                    self._write_stats_menu($data);
+                    return;
+                }
+            } catch ($e) {
+                app_console.exception($e);
+            } finally {
+            }
+            NotificationJS.error(lang.stats_error);
+            app_console.error(response);
+        });
+
+        // noinspection JSUnusedLocalSymbols
+        /**
+         * Fail connection
+         */
+        $query.fail(function (response, textStatus, jqXHR) {
+            NotificationJS.error(lang.stats_error);
+        });
+        loadingHandler(false);
+
+    };
+
+    /**
+     * Write statistics menu.
+     *
+     * @function
+     * @param {Object} stats - Downloaded stats
+     * @private
+     */
+    this._write_stats_menu = function (stats) {
+
+        // Wipe content
+        self._wipe_content();
+        self._write_menuback(lang.menu_statistics);
+
+        // Write main data
+        let $stat_keys = Object.keys(stats);
+        self._add_title(lang.menu_stats_general_info);
+        self._write_stats_line(lang.menu_stats_total_games, stats[0]['n'], true);
+        self._write_stats_line(lang.menu_stats_total_scoreboard, stats[0]['sc'], true);
+
+        // Get all data by country
+        let country_scoreboard = {};
+        let $stat, $country, $sc;
+        for (let i = 0; i < $stat_keys.length; i += 1) {
+            $stat = stats[$stat_keys[i]];
+            $country = $stat['c'];
+            if ($country !== '' && $country !== 'none') {
+                $sc = parseInt($stat['sc'], 10);
+                if (!isNaN($sc)) country_scoreboard[$country] = $sc;
+            }
+        }
+
+        // Write map
+        self._add_title(lang.menu_stats_scoreboard_distribution);
+        let $mapid = generateID();
+        self._write_text('<div id="{0}" class="menu-stats-map"></div>'.format($mapid));
+        $('#' + $mapid).vectorMap({
+            color: '#ffffff',
+            enableZoom: true,
+            hoverOpacity: 0.7,
+            map: 'world_en',
+            normalizeFunction: 'polynomial',
+            scaleColors: ['#C8EEFF', '#006491'],
+            selectedColor: '#666666',
+            showTooltip: true,
+            values: country_scoreboard,
+            onLabelShow: function (event, label, code) {
+                if (isNullUndf(country_scoreboard[code])) return;
+                label.append(': {0}'.format(country_scoreboard[code]));
+            },
+        });
+
+        // Generator distribution
+        let generator_colors = [];
+        let generator_names = [];
+        let generator_sc = [];
+        let generator_games = [];
+        let $gen;
+        for (let i = 0; i < $stat_keys.length; i += 1) {
+            $stat = stats[$stat_keys[i]];
+            $gen = $stat['g'];
+            if ($gen !== '' && $gen !== '0' && notNullUndf(lang['gen_{0}'.format($gen)])) {
+                $gen = parseInt($gen, 10);
+                if (isNaN($gen)) continue;
+                generator_names.push(lang['gen_{0}'.format($gen)]);
+                generator_sc.push(parseInt($stat['sc'], 10));
+                generator_games.push(parseInt($stat['n'], 10));
+                generator_colors.push(get_random_color());
+            }
+        }
+
+        let $gen_game = generateID(); // Generator total games
+        let $gen_sc = generateID(); // Generator scoreboard
+        self._add_title(lang.menu_stats_distribution_generator);
+        self._write_text('<div class="menu-stat-chart"><canvas id="{0}"></canvas></div><div class="menu-stat-chart"><canvas id="{1}"></canvas></div>'.format($gen_game, $gen_sc));
+
+        // eslint-disable-next-line no-new
+        new Chart($('#' + $gen_game), {
+                type: 'pie',
+                data: {
+                    datasets: [
+                        {
+                            data: generator_games,
+                            backgroundColor: generator_colors
+                        }
+                    ],
+                    labels: generator_names
+                },
+                options: {
+                    legend: {
+                        position: 'right',
+                    },
+                    responsive: true,
+                    title: {
+                        display: true,
+                        fontSize: 14,
+                        text: lang.stat_chart_games
+                    },
+                },
+            }
+        );
+
+        // eslint-disable-next-line no-new
+        new Chart($('#' + $gen_sc), {
+                type: 'pie',
+                data: {
+                    datasets: [
+                        {
+                            data: generator_sc,
+                            backgroundColor: generator_colors
+                        }
+                    ],
+                    labels: generator_names
+                },
+                options: {
+                    legend: {
+                        position: 'right',
+                    },
+                    responsive: true,
+                    title: {
+                        display: true,
+                        fontSize: 14,
+                        text: lang.stat_chart_scoreboard
+                    },
+                },
+            }
+        );
+
+        // Apply button effect
+        self._set_content_height();
+        self._apply_rippler();
+
+    };
+
+    /**
      * Write text.
      *
      * @function
@@ -744,6 +939,19 @@ function TMSMenu() {
      */
     this._write_about_line = function (title, content, center) {
         self._dom.content.append('<div class="menu-about" style="{2}"><span class="menu-about-title">{0}:</span>{1}</div>'.format(title, content, center ? 'text-align:center;' : ''));
+    };
+
+    /**
+     * Write stats line.
+     *
+     * @function
+     * @param {string} title
+     * @param {string} content
+     * @param {boolean=} center
+     * @private
+     */
+    this._write_stats_line = function (title, content, center) {
+        self._dom.content.append('<div class="menu-stat" style="{2}"><span class="menu-stat-title">{0}:</span>{1}</div>'.format(title, content, center ? 'text-align:center;' : ''));
     };
 
     /**

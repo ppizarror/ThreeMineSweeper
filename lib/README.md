@@ -2,13 +2,14 @@
 
 ## lib/
 
-This directory contains the libraries used by TMS (30 in total):
+This directory contains the libraries used by TMS (31 in total):
 
 | Library | Version | Link |
 | :-- | :--: | :-- |
 | amaranJS | 0.5.4 | <a href="https://github.com/hakanersu/AmaranJS">github.com/hakanersu/AmaranJS</a> |
 | animate.css | 3.7.0 | <a href="https://github.com/daneden/animate.css">github.com/daneden/animate.css</a> |
 | bootstrap | 4.2.1 | <a href="https://github.com/twbs/bootstrap">github.com/twbs/bootstrap</a> |
+| chart.js | 2.7.3 | <a href="https://github.com/chartjs/Chart.js">github.com/chartjs/Chart.js</a> |
 | dat.gui | 0.7.2 | <a href="https://github.com/dataarts/dat.gui/releases">github.com/dataarts/dat.gui/releases</a> |
 | delaunator | 3.0.2 | <a href="https://github.com/mapbox/delaunator">github.com/mapbox/delaunator</a> |
 | earcut | 2.1.4 | <a href="https://github.com/mapbox/earcut">github.com/mapbox/earcut</a> |

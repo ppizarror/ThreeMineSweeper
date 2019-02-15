@@ -690,7 +690,7 @@ function LibraryManager() {
              * Chart.js
              */
             case self.lib.CHARTJS:
-                this._getScript_async_callback(lib, 'lib/chartjs/Chart.min.js', callback, params);
+                this._getScript_async_callback(lib, 'lib/chart.js/Chart.bundle.min.js', callback, params);
                 break;
 
             /**

@@ -21,14 +21,14 @@ Menu root container
 	border-radius: 15px;
 	box-shadow: 0 0 12px rgba(0, 0, 0, 0.40);
 	color: #ffffff;
-	height: 65%;
+	height: 67.5%;
 	margin: auto;
 	max-height: 590px;
 	min-height: 430px;
 }
 
 .menu-container-width {
-	max-width: 750px;
+	max-width: 780px;
 	min-width: 550px;
 	width: 70%;
 }
@@ -139,7 +139,7 @@ Content
 Buttons
  */
 #menu-content .menu-main-button {
-	padding: 10px;
+	padding: 5px;
 }
 
 #menu-content .menu-main-button .btn { /*  Modify bootstrap buttons */
@@ -147,7 +147,9 @@ Buttons
 	font-size: 1.2rem;
 	min-width: 150px;
 	opacity: 0.9;
-	width: 40%;
+	padding-left: 7%;
+	padding-right: 7%;
+	width: 35%;
 }
 
 @media screen and (max-width: 800px) {
@@ -583,9 +585,6 @@ Menu title
 /**
 Menu about
  */
-/**
-Menu text
- */
 #menu-content .menu-about {
 	display: flow-root;
 	flex-direction: row;
@@ -618,4 +617,59 @@ Menu text
 #menu-content .menu-about a:hover {
 	color: #0091ff;
 	text-decoration: none;
+}
+
+/**
+Menu stats
+ */
+#menu-content .menu-stats-map {
+	background-color: transparent !important;
+	height: 20rem;
+	margin: auto;
+	width: 90%;
+}
+
+@media screen and (max-width: 800px) {
+	#menu-content .menu-stats-map {
+		height: 13rem;
+	}
+}
+
+#menu-content .menu-stats-map .jqvmap-zoomin,
+#menu-content .menu-stats-map .jqvmap-zoomout {
+	font-weight: 400;
+	height: 17px;
+	left: 10px;
+	width: 17px;
+}
+
+#menu-content .menu-stats-map .jqvmap-zoomout {
+	top: 30px;
+}
+
+#menu-content .menu-stat {
+	display: flow-root;
+	flex-direction: row;
+	font-size: 1rem;
+	font-weight: 300;
+	padding: 0.5rem 2rem 0.5rem;
+	text-align: left;
+	width: 100%;
+}
+
+@media screen and (max-width: 800px) {
+	#menu-content .menu-stat {
+		font-size: 0.85rem;
+		padding: 0.5rem 1.5rem 0.25rem;
+	}
+}
+
+#menu-content .menu-stat .menu-stat-title {
+	font-weight: 600;
+	padding-right: 0.5rem;
+}
+
+#menu-content .menu-stat-chart {
+	height: 50% !important;
+	width: 50% !important;
 }
