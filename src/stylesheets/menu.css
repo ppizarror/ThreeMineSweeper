@@ -433,6 +433,13 @@ How to play
 	width: 40%;
 }
 
+#menu-content .menu-htp-entry-line .menu-htp-keys i {
+	font-size: 1rem;
+	line-height: 0;
+	padding-left: 0.6rem;
+	padding-right: 0.6rem;
+}
+
 #menu-content .menu-htp-entry-line .menu-htp-keys img {
 	height: 3rem;
 }

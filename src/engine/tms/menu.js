@@ -645,6 +645,7 @@ function TMSMenu() {
 
         self._write_htp_entry(['Keyboard_White_Mouse_Left'], lang.help_controls_click_faces);
         self._write_htp_entry(['Keyboard_White_Mouse_Left|shake-lr'], lang.help_controls_click_hold_left);
+        self._write_htp_entry(['Keyboard_White_Mouse_Left|shake-lr', '+', 'Keyboard_White_Ctrl'], lang.help_controls_click_hold_right);
         self._write_htp_entry(['Keyboard_White_Mouse_Middle'], lang.help_controls_zoom);
         self._write_htp_entry(['Keyboard_White_Mouse_Right'], lang.help_controls_click_right);
         self._write_htp_entry(['Keyboard_White_Mouse_Right|shake-lr'], lang.help_controls_click_hold_right);
@@ -659,6 +660,34 @@ function TMSMenu() {
         self._set_content_height();
         self._apply_rippler();
 
+    };
+
+    /**
+     * Write how to play entry line.
+     *
+     * @function
+     * @param {string[]} keys
+     * @param {string} text
+     * @private
+     */
+    this._write_htp_entry = function (keys, text) {
+        let $keys = '';
+        let $key;
+        for (let i = 0; i < keys.length; i += 1) {
+            if (keys[i] === '+') {
+                $keys += '<i class="fas fa-plus"></i>';
+                continue;
+            }
+            $key = keys[i].split('|');
+            if ($key.length === 1) {
+                // noinspection HtmlUnknownTarget
+                $keys += '<img src="resources/keys/{0}.png" class="hvr-grow" alt="" />'.format(keys[i]);
+            } else {
+                // noinspection HtmlUnknownTarget
+                $keys += '<img src="resources/keys/{0}.png" class="hvr-grow {1}" alt="" />'.format($key[0].replaceAll(',', ' '), $key[1]);
+            }
+        }
+        self._dom.content.append('<div class="menu-htp-entry-line"><div class="menu-htp-keys">{0}</div><div class="menu-htp-text">{1}</div></div>'.format($keys, text));
     };
 
     /**
@@ -895,30 +924,6 @@ function TMSMenu() {
      */
     this._add_title = function (title) {
         self._dom.content.append('<div class="menu-title">{0}</div>'.format(title));
-    };
-
-    /**
-     * Write how to play entry line.
-     *
-     * @function
-     * @param {string[]} keys
-     * @param {string} text
-     * @private
-     */
-    this._write_htp_entry = function (keys, text) {
-        let $keys = '';
-        let $key;
-        for (let i = 0; i < keys.length; i += 1) {
-            $key = keys[i].split('|');
-            if ($key.length === 1) {
-                // noinspection HtmlUnknownTarget
-                $keys += '<img src="resources/keys/{0}.png" class="hvr-grow" alt="" />'.format(keys[i]);
-            } else {
-                // noinspection HtmlUnknownTarget
-                $keys += '<img src="resources/keys/{0}.png" class="hvr-grow {1}" alt="" />'.format($key[0].replaceAll(',', ' '), $key[1]);
-            }
-        }
-        self._dom.content.append('<div class="menu-htp-entry-line"><div class="menu-htp-keys">{0}</div><div class="menu-htp-text">{1}</div></div>'.format($keys, text));
     };
 
     /**
