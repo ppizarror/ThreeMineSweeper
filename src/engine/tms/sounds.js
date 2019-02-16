@@ -48,36 +48,41 @@ function TMSSound() {
         sounds: [
             {
                 name: this.sound.CLICK,
-                preload: true,
                 volume: 0.8,
             },
             {
                 name: this.sound.FLAG,
+                preload: false,
                 volume: 0.8,
             },
             {
-                name: this.sound.GAMEOVER
+                name: this.sound.GAMEOVER,
+                preload: false,
             },
             {
-                name: this.sound.GAMEWIN
+                name: this.sound.GAMEWIN,
+                preload: false,
             },
             {
-                name: this.sound.MENU
+                name: this.sound.MENU,
+                preload: false,
             },
             {
-                name: this.sound.MUSIC
+                name: this.sound.MUSIC,
+                preload: false,
             },
             {
-                name: this.sound.UNFLAG
+                name: this.sound.UNFLAG,
+                preload: false,
             },
             {
                 name: this.sound.WRONG,
+                preload: false,
                 volume: 0.4,
             }
         ],
         multiplay: true,
         path: 'resources/sounds/',
-        preload: false,
         volume: 0.6,
     });
 

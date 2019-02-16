@@ -56,6 +56,9 @@
         <item url="file://$PROJECT_DIR$/dist/ui/globals.min.js" />
         <item url="file://$PROJECT_DIR$/dist/ui/loading.min.js" />
         <item url="file://$PROJECT_DIR$/dist/ui/themes.min.js" />
+        <item url="file://$PROJECT_DIR$/lib/three.js" />
+        <item url="file://$PROJECT_DIR$/lib/three.js/OrbitControls.min.js" />
+        <item url="file://$PROJECT_DIR$/src/config.min.js" />
       </sourceFilesUrls>
     </properties>
     <CLASSES>
@@ -113,6 +116,9 @@
       <root url="file://$PROJECT_DIR$/dist/ui/globals.min.js" />
       <root url="file://$PROJECT_DIR$/dist/ui/loading.min.js" />
       <root url="file://$PROJECT_DIR$/dist/ui/themes.min.js" />
+      <root url="file://$PROJECT_DIR$/lib/three.js" />
+      <root url="file://$PROJECT_DIR$/lib/three.js/OrbitControls.min.js" />
+      <root url="file://$PROJECT_DIR$/src/config.min.js" />
     </CLASSES>
     <SOURCES />
   </library>

@@ -24,7 +24,6 @@ module.exports = function (config) {
             'lib/jscookie/js.cookie-2.2.0.js',
             'lib/jquery-dateFormat/jquery-dateFormat.min.js',
             'lib/spin/spin.js',
-            // 'https://cdn.db-ip.com/js/dbip.js',
 
             // Load application
             'src/about/about.js',
@@ -32,10 +31,8 @@ module.exports = function (config) {
             'src/about/dependencies.js',
             'src/about/version.js',
 
-            'src/i18n/lang.js',
-            'src/i18n/en.js',
-
             'src/core/env/mode_test.js',
+            'src/i18n/lang.js',
             'src/core/globals.js',
             'src/core/date.js',
             'src/config.js',

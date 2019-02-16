@@ -20,6 +20,7 @@ function LibraryManager() {
      * Manager libraries.
      */
     this.lib = {
+        __LANG__: 'app_lang',
         AMARANJS: 'amaranJS',
         ANIMATE: 'animateCSS',
         ASRANGE: 'asRange',
@@ -328,10 +329,11 @@ function LibraryManager() {
      * @function
      * @param {string | Array} lib - Libraries
      * @param {function=} callback - Function triggered after download
+     * @param {boolean=} force - Force download
      * @param {object=} params - Function parameters
      * @returns {boolean} - Status
      */
-    this.import_async_library = function (lib, callback, params) {
+    this.import_async_library = function (lib, callback, force, params) {
 
         // If application is not initialized then throw error
         if (!self._initapp) throw 'LibraryManager::import_async_library Application is not initialized yet, the library has not been downloaded ' + lib;
@@ -355,7 +357,7 @@ function LibraryManager() {
                         if ($newlib.length === 1) {
                             $newlib = $newlib[0];
                         }
-                        self.import_async_library($newlib, $callback, $params);
+                        self.import_async_library($newlib, $callback, force, $params);
                     }
                 };
                 callback = $newcallback($newlib, callback, params);
@@ -363,7 +365,7 @@ function LibraryManager() {
         }
 
         // If loaded check anyway
-        if (this.is_loaded_library(lib)) {
+        if (this.is_loaded_library(lib) || force) {
             self._loadLibrary(lib, callback, params);
             // if (self.__initapp) app_console.consoleLogInfo(lang.library_already_downloaded.format(lib));
         }
@@ -455,22 +457,13 @@ function LibraryManager() {
      * Load a css file.
      *
      * @function
-     * @param {string} path - Ubicación del archivo
-     */
-    this.load_css_lib = function (path) {
-        $('head').append('<link rel="stylesheet" type="text/css" href="' + path + '" media="screen">');
-    };
-
-    /**
-     * Set a css library as imported.
-     *
-     * @function
      * @param {string} lib - Library name
-     * @private
+     * @param {string} path - File path
      */
-    this._set_css_lib_imported = function (lib) {
-        self._remove_lib_from_queue(lib);
-        self._importedLibraries[lib] = true;
+    this.load_css_lib = function (lib, path) {
+        if (self._importedLibraries[lib + '.css']) return;
+        self._importedLibraries[lib + '.css'] = true;
+        $('head').append('<link rel="stylesheet" type="text/css" href="' + path + '" media="screen">');
     };
 
     /**
@@ -546,10 +539,20 @@ function LibraryManager() {
         switch (lib) {
 
             /**
+             * Application language
+             */
+            case self.lib.__LANG__:
+                // eslint-disable-next-line no-case-declarations
+                let $lang = sessionCookie.lang; // Lang to load
+                if (!lang_available.includes($lang)) $lang = 'en';
+                this._getScript_async_callback(lib + $lang, 'dist/i18n/{0}.min.js'.format($lang), callback, params);
+                break;
+
+            /**
              * select2
              */
             case self.lib.SELECT2:
-                this.load_css_lib('lib/select2/select2.min.css');
+                this.load_css_lib(lib, 'lib/select2/select2.min.css');
                 this._getScript_async_callback(lib, 'lib/select2/select2.full.min.js', callback, params);
                 break;
 
@@ -569,7 +572,7 @@ function LibraryManager() {
                         // self.add_lib_to_queue(self.lib.TJSPROJECTOR);
                         self.add_lib_to_queue(self.lib.ORBITCONTROLS);
                         // self._getScript_async(self.lib.TJSPROJECTOR, 'lib/three.js/Projector.min.js');
-                        self._getScript_async_callback(self.lib.ORBITCONTROLS, 'lib/three.js/OrbitControls.js', $e.c, $e.p);
+                        self._getScript_async_callback(self.lib.ORBITCONTROLS, 'lib/three.js/OrbitControls.min.js', $e.c, $e.p);
                     }, {
                         c: callback,
                         p: params,
@@ -580,7 +583,7 @@ function LibraryManager() {
              * GUI graphic interface
              */
             case self.lib.DATGUI:
-                self.load_css_lib('lib/dat.gui/dat.gui.min.css');
+                self.load_css_lib(lib, 'lib/dat.gui/dat.gui.min.css');
                 this._getScript_async_callback(lib, 'lib/dat.gui/dat.gui.min.js', callback, params);
                 break;
 
@@ -602,7 +605,7 @@ function LibraryManager() {
              * Jquery-formvalidator
              */
             case self.lib.FORMVALIDATOR:
-                self.load_css_lib('lib/formvalidator/theme-default.min.css');
+                self.load_css_lib(lib, 'lib/formvalidator/theme-default.min.css');
                 this._getScript_async_callback(lib, 'lib/formvalidator/jquery.form-validator.min.js',
                     function ($e) {
                         // Carga el idioma
@@ -636,7 +639,7 @@ function LibraryManager() {
              * Datatables
              */
             case self.lib.DATATABLES:
-                self.load_css_lib('lib/dataTables/dataTables.bootstrap4.min.css');
+                self.load_css_lib(lib, 'lib/dataTables/dataTables.bootstrap4.min.css');
                 this._getScript_async_callback(lib, 'lib/dataTables/jquery.dataTables.min.js',
                     function ($e) {
                         self.add_lib_to_queue(self.lib.DATATABLESBT4);
@@ -651,7 +654,7 @@ function LibraryManager() {
              * ContextMenu
              */
             case self.lib.CONTEXTMENU:
-                self.load_css_lib('lib/jquery.contextMenu/jquery.contextMenu.min.css');
+                self.load_css_lib(lib, 'lib/jquery.contextMenu/jquery.contextMenu.min.css');
                 this._getScript_async_callback(lib, 'lib/jquery.contextMenu/jquery.contextMenu.min.js', callback, params);
                 break;
 
@@ -659,7 +662,7 @@ function LibraryManager() {
              * Datepicker date selector
              */
             case self.lib.DATEPICKER:
-                self.load_css_lib('lib/datepicker/datepicker.min.css');
+                self.load_css_lib(lib, 'lib/datepicker/datepicker.min.css');
                 this._getScript_async_callback(lib, 'lib/datepicker/datepicker.min.js', callback, params);
                 break;
 
@@ -667,7 +670,7 @@ function LibraryManager() {
              * asRange
              */
             case self.lib.ASRANGE:
-                self.load_css_lib('lib/jquery-asRange/asRange.min.css');
+                self.load_css_lib(lib, 'lib/jquery-asRange/asRange.min.css');
                 this._getScript_async_callback(lib, 'lib/jquery-asRange/jquery-asRange.min.js', callback, params);
                 break;
 
@@ -682,7 +685,7 @@ function LibraryManager() {
              * Notification - toastr
              */
             case self.lib.TOASTR:
-                self.load_css_lib('lib/toastr/toastr.min.css');
+                self.load_css_lib(lib, 'lib/toastr/toastr.min.css');
                 this._getScript_async_callback(lib, 'lib/toastr/toastr.min.js', callback, params);
                 break;
 
@@ -704,8 +707,8 @@ function LibraryManager() {
              * AmaranJS
              */
             case self.lib.AMARANJS:
-                self.load_css_lib('lib/AmaranJS/css/amaran.min.css');
-                self.load_css_lib('lib/AmaranJS/css/animate.min.css');
+                self.load_css_lib(lib, 'lib/AmaranJS/css/amaran.min.css');
+                self.load_css_lib(lib, 'lib/AmaranJS/css/animate.min.css');
                 this._getScript_async_callback(lib, 'lib/AmaranJS/js/jquery.amaran.min.js', callback, params);
                 break;
 
@@ -713,7 +716,7 @@ function LibraryManager() {
              * jquery.toast
              */
             case self.lib.JQUERYTOAST:
-                self.load_css_lib('lib/jquery.toast/jquery.toast.min.css');
+                self.load_css_lib(lib, 'lib/jquery.toast/jquery.toast.min.css');
                 this._getScript_async_callback(lib, 'lib/jquery.toast/jquery.toast.min.js', callback, params);
                 break;
 
@@ -721,15 +724,14 @@ function LibraryManager() {
              * Fontawesome
              */
             case self.lib.FONTAWESOME:
-                self.load_css_lib('lib/font-awesome/css/all.min.css');
-                self._set_css_lib_imported(lib);
+                self.load_css_lib(lib, 'lib/font-awesome/css/all.min.css');
                 break;
 
             /**
              * Jquery-confirm
              */
             case self.lib.JQUERYCONFIRM:
-                self.load_css_lib('lib/jquery-confirm/jquery-confirm.min.css');
+                self.load_css_lib(lib, 'lib/jquery-confirm/jquery-confirm.min.css');
                 this._getScript_async_callback(lib, 'lib/jquery-confirm/jquery-confirm.min.js', callback, params);
                 break;
 
@@ -744,15 +746,14 @@ function LibraryManager() {
              * Hover.css
              */
             case self.lib.HOVERCSS:
-                self.load_css_lib('lib/hover/hover.min.css');
-                self._set_css_lib_imported(lib);
+                self.load_css_lib(lib, 'lib/hover/hover.min.css');
                 break;
 
             /**
              * Tooltipster
              */
             case self.lib.TOOLTIPSTER:
-                self.load_css_lib('lib/tooltipster/tooltipster.bundle.min.css');
+                self.load_css_lib(lib, 'lib/tooltipster/tooltipster.bundle.min.css');
                 this._getScript_async_callback(lib, 'lib/tooltipster/tooltipster.bundle.min.js', callback, params);
                 break;
 
@@ -760,15 +761,14 @@ function LibraryManager() {
              * Bootstrap scss
              */
             case self.lib.BOOTSTRAP:
-                self.load_css_lib('lib/bootstrap/bootstrap.min.css');
-                self._set_css_lib_imported(lib);
+                self.load_css_lib(lib, 'lib/bootstrap/bootstrap.min.css');
                 break;
 
             /**
              * Mmenu
              */
             case self.lib.MMENU:
-                self.load_css_lib('lib/mmenu/jquery.mmenu.all.css');
+                self.load_css_lib(lib, 'lib/mmenu/jquery.mmenu.all.css');
                 this._getScript_async_callback(lib, 'lib/mmenu/jquery.mmenu.all.js',
                     function ($e) {
                         self.add_lib_to_queue(self.lib.HAMMER);
@@ -783,7 +783,7 @@ function LibraryManager() {
              * Rippler
              */
             case self.lib.RIPPLER:
-                self.load_css_lib('lib/rippler/rippler.min.css');
+                self.load_css_lib(lib, 'lib/rippler/rippler.min.css');
                 this._getScript_async_callback(lib, 'lib/rippler/rippler.min.js', callback, params);
                 break;
 
@@ -791,7 +791,7 @@ function LibraryManager() {
              * Spin
              */
             case self.lib.SPIN:
-                self.load_css_lib('lib/spin/spin.css');
+                self.load_css_lib(lib, 'lib/spin/spin.css');
                 this._getScript_async_callback(lib, 'lib/spin/spin.min.js', callback, params);
                 break;
 
@@ -827,7 +827,7 @@ function LibraryManager() {
              * Jquery-mentions-input
              */
             case self.lib.MENTIONSINPUT:
-                self.load_css_lib('lib/jquery-mentions-input/jquery.mentionsInput.min.css');
+                self.load_css_lib(lib, 'lib/jquery-mentions-input/jquery.mentionsInput.min.css');
                 self.add_lib_to_queue(self.lib.UNDERSCORE);
                 self._getScript_async_callback(self.lib.UNDERSCORE, 'lib/underscore/underscore-min.js',
                     function ($e) {
@@ -853,8 +853,10 @@ function LibraryManager() {
              * TinyMCE
              */
             case self.lib.TINYMCE:
-                self.load_css_lib('lib/tinymce/plugins/mention/autocomplete.css');
-                self.load_css_lib('lib/tinymce/plugins/mention/rte-content.css');
+                self.load_css_lib(lib + '-plugin-mention-autocomplete',
+                    'lib/tinymce/plugins/mention/autocomplete.css');
+                self.load_css_lib(lib + '-plugin-mention-rte',
+                    'lib/tinymce/plugins/mention/rte-content.css');
                 self.add_lib_to_queue('jquery.tinymce');
                 this._getScript_async('jquery.tinymce', 'lib/tinymce/jquery.tinymce.min.js');
                 this._getScript_async_callback(lib, 'lib/tinymce/tinymce.min.js',
@@ -889,8 +891,7 @@ function LibraryManager() {
              * Animate CSS
              */
             case self.lib.ANIMATE:
-                self.load_css_lib('lib/animate/animate.min.css');
-                self._set_css_lib_imported(lib);
+                self.load_css_lib(lib, 'lib/animate/animate.min.css');
                 break;
 
             /**
@@ -904,15 +905,14 @@ function LibraryManager() {
              * Normalize.css
              */
             case self.lib.NORMALIZE:
-                self.load_css_lib('lib/normalize/normalize.min.css');
-                self._set_css_lib_imported(lib);
+                self.load_css_lib(lib, 'lib/normalize/normalize.min.css');
                 break;
 
             /**
              * Ion-rangeslider
              */
             case self.lib.IONRANGESLIDER:
-                self.load_css_lib('lib/ion.rangeSlider/ion.rangeSlider.min.css');
+                self.load_css_lib(lib, 'lib/ion.rangeSlider/ion.rangeSlider.min.css');
                 this._getScript_async_callback(lib, 'lib/ion.rangeSlider/ion.rangeSlider.min.js', callback, params);
                 break;
 
@@ -920,7 +920,7 @@ function LibraryManager() {
              * Jquery-backtotop
              */
             case self.lib.BACKTOTOP:
-                self.load_css_lib('lib/jquery-backToTop/jquery-backToTop.min.css');
+                self.load_css_lib(lib, 'lib/jquery-backToTop/jquery-backToTop.min.css');
                 this._getScript_async_callback(lib, 'lib/jquery-backToTop/jquery-backToTop.min.js', callback, params);
                 break;
 
@@ -967,7 +967,7 @@ function LibraryManager() {
              * Simple pagination
              */
             case self.lib.SIMPLEPAGINATION:
-                self.load_css_lib('lib/simplePagination/simplePagination.min.css');
+                self.load_css_lib(lib, 'lib/simplePagination/simplePagination.min.css');
                 this._getScript_async_callback(lib, 'lib/simplePagination/jquery.simplePagination.min.js', callback, params);
                 break;
 
@@ -1053,7 +1053,7 @@ function LibraryManager() {
              * JQVMAP
              */
             case self.lib.JQVMAP:
-                self.load_css_lib('lib/jqvmap/jqvmap.min.css');
+                self.load_css_lib(lib, 'lib/jqvmap/jqvmap.min.css');
                 this._getScript_async_callback(lib, 'lib/jqvmap/jquery.vmap.min.js',
                     function ($e) {
                         self._getScript_async_callback('jqvmap.world', 'lib/jqvmap/maps/jquery.vmap.world.js', $e.c, $e.p);
@@ -1067,7 +1067,7 @@ function LibraryManager() {
              * Jquery-nice-select
              */
             case self.lib.JQUERYNICESELECT:
-                self.load_css_lib('lib/jquery-nice-select/style.css');
+                self.load_css_lib(lib, 'lib/jquery-nice-select/style.css');
                 this._getScript_async_callback(lib, 'lib/jquery-nice-select/jquery.nice-select.min.js', callback, params);
                 break;
 
@@ -1075,7 +1075,7 @@ function LibraryManager() {
              * Notification.js
              */
             case self.lib.NOTIFICATIONJS:
-                self.load_css_lib('lib/notification.js/notification.min.css');
+                self.load_css_lib(lib, 'lib/notification.js/notification.min.css');
                 this._getScript_async_callback(lib, 'lib/notification.js/notification.min.js', callback, params);
                 break;
 

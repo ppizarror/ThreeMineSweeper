@@ -248,7 +248,7 @@ Language selector on footer
 
 @media screen and (max-width: 800px) {
 	#menu-footer .menu-footer-lang-selector {
-		margin-top: 2rem;
+		margin-top: 2.3rem;
 	}
 }
 

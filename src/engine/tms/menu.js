@@ -310,6 +310,9 @@ function TMSMenu() {
      */
     this._set_content_height = function () {
         self._dom.content.css('height', self._get_content_height());
+        setTimeout(function () {
+            self._dom.content.css('height', self._get_content_height());
+        }, 150);
     };
 
     /**
@@ -1105,9 +1108,13 @@ function TMSMenu() {
         sessionCookie.lang = $lang;
         update_session_cookie();
         app_console.info(lang.load_lang.format($lang));
-        lang = lang_db[$lang]; // Reload lang
-        self.init_menu();
-        self.main_menu(true);
+
+        // Load lang from server and reload menu
+        app_library_manager.import_async_library(app_library_manager.lib.__LANG__, function () {
+            lang = lang_db[$lang];
+            self.init_menu();
+            self.main_menu(true);
+        }, true);
 
     };
 
