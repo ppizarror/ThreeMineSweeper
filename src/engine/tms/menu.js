@@ -80,6 +80,13 @@ function TMSMenu() {
             min: 10,
             step: 5,
         },
+        10: { // Toroid
+            latlng: true,
+            from: 20,
+            max: 25,
+            min: 10,
+            step: 5,
+        },
         'null': { // EmptyGenerator
             enabled: false,
         },
@@ -100,8 +107,9 @@ function TMSMenu() {
     /**
      * Fill modes
      */
-    this._gamekeys = [3, 4, 2, 9, 6, 7, 8, 5];
+    this._gamekeys = [3, 4, 2, 9, 6, 10, 7, 8, 5];
     for (let i = 0; i < this._gamekeys.length; i += 1) {
+        if (is_null_undf(this._games[this._gamekeys[i]])) continue;
         if (is_null_undf(this._games[this._gamekeys[i]]['fractal'])) this._games[this._gamekeys[i]]['fractal'] = false;
         if (is_null_undf(this._games[this._gamekeys[i]]['latlng'])) this._games[this._gamekeys[i]]['latlng'] = false;
         if (is_null_undf(this._games[this._gamekeys[i]]['target'])) this._games[this._gamekeys[i]]['target'] = false;

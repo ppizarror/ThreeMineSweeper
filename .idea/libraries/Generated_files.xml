@@ -38,6 +38,8 @@
         <item url="file://$PROJECT_DIR$/dist/engine/generator/sierpinski_triangle.min.js" />
         <item url="file://$PROJECT_DIR$/dist/engine/generator/sphere.min.js" />
         <item url="file://$PROJECT_DIR$/dist/engine/generator/square.min.js" />
+        <item url="file://$PROJECT_DIR$/dist/engine/generator/toroid.min.js" />
+        <item url="file://$PROJECT_DIR$/dist/engine/generator/torus.min.js" />
         <item url="file://$PROJECT_DIR$/dist/engine/geom/face.min.js" />
         <item url="file://$PROJECT_DIR$/dist/engine/geom/vertex.min.js" />
         <item url="file://$PROJECT_DIR$/dist/engine/geom/volume.min.js" />
@@ -100,6 +102,8 @@
       <root url="file://$PROJECT_DIR$/dist/engine/generator/sierpinski_triangle.min.js" />
       <root url="file://$PROJECT_DIR$/dist/engine/generator/sphere.min.js" />
       <root url="file://$PROJECT_DIR$/dist/engine/generator/square.min.js" />
+      <root url="file://$PROJECT_DIR$/dist/engine/generator/toroid.min.js" />
+      <root url="file://$PROJECT_DIR$/dist/engine/generator/torus.min.js" />
       <root url="file://$PROJECT_DIR$/dist/engine/geom/face.min.js" />
       <root url="file://$PROJECT_DIR$/dist/engine/geom/vertex.min.js" />
       <root url="file://$PROJECT_DIR$/dist/engine/geom/volume.min.js" />

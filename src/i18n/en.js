@@ -63,6 +63,7 @@ lang_db.en = {
     "gen_7": "Cylinder",
     "gen_8": "Square",
     "gen_9": "Cube",
+    "gen_10": "Toroid",
     "gen_null": "Empty",
     "generator_finished": "Geometry generated in {0} seconds. Faces: {1}. Vertices: {4}. Deleted faces: {2}. Duplicated vertices: {3}",
     "generator_order_exceeded": "Generator order {0} exceeded maximum limit {1}",

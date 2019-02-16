@@ -63,6 +63,7 @@ lang_db.it = {
     "gen_7": "Cilindro",
     "gen_8": "Square",
     "gen_9": "Cubo",
+    "gen_10": "Toroide",
     "gen_null": "Vuoto",
     "generator_finished": "Geometria generata in {0} secondi. Facce: {1}. Vertici: {4}. Lati eliminati: {2}. Vertici duplicati: {3}",
     "generator_order_exceeded": "L'ordine del generatore {0} ha superato il limite massimo {1}",

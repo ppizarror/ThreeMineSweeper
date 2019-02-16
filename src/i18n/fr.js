@@ -63,6 +63,7 @@ lang_db.fr = {
     "gen_7": "Cylindre",
     "gen_8": "Square",
     "gen_9": "Cube",
+    "gen_10": "Toroide",
     "gen_null": "Vide",
     "generator_finished": "Géométrie générée en {0} secondes. Faces: {1}. Sommets: {4}. Faces supprimées: {2}. Sommets dupliqués: {3}",
     "generator_order_exceeded": "L'ordre du générateur {0} a dépassé la limite maximale {1}",

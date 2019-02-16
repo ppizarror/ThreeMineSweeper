@@ -169,6 +169,9 @@ function ThreeMineSweeper() {
             case 9:
                 g = new GenCube();
                 break;
+            case 10:
+                g = new GenToroid();
+                break;
             default:
                 g = new GenEmpty();
                 break;

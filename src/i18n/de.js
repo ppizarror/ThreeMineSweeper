@@ -63,6 +63,7 @@ lang_db.de = {
     "gen_7": "Zylinder",
     "gen_8": "Quadrat",
     "gen_9": "Cube",
+    "gen_10": "Toroid",
     "gen_null": "Leer",
     "generator_finished": "Die Geometrie wurde in {0} Sekunden generiert. Gesichter: {1}. Scheitelpunkte: {4}. Gelöschte Gesichter: {2}. Duplizierte Scheitelpunkte: {3}",
     "generator_order_exceeded": "Generatorreihenfolge {0} hat Höchstwert {1} überschritten",
