@@ -1135,7 +1135,6 @@ app_library_manager.add_lib_to_queue(app_library_manager.lib.TOOLTIPSTER);
 function after_load_imports() {
     app_library_manager.import_async_library(app_library_manager.lib.AMARANJS);
     app_library_manager.import_async_library(app_library_manager.lib.ANIMATE);
-    app_library_manager.import_async_library(app_library_manager.lib.DBIP);
     app_library_manager.import_async_library(app_library_manager.lib.DELAUNATOR);
     app_library_manager.import_async_library(app_library_manager.lib.EARCUT);
     app_library_manager.import_async_library(app_library_manager.lib.FONTAWESOME);

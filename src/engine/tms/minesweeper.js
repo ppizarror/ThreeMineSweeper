@@ -642,7 +642,7 @@ function Minesweeper() {
         if (is_null_undf($lastname)) $lastname = '';
 
         // noinspection HtmlUnknownAttribute
-        app_dialog.form(lang.game_won_title, '{2}.<br><br><form action="" class="formName"><div class="form-group"><label for="{0}">{1}:</label><input type="text" class="form-control" id="{0}" minlength="4" maxlength="20" value="{3}" {4} ></div></form>'.format($id, lang.game_won_name, lang.game_won_content.format(round_number(self._user.time, 2), $lastname !== '' ? 'autofocus' : ''), $lastname),
+        app_dialog.form(lang.game_won_title, '{2}.<br><br><form action="" class="formName"><div class="form-group"><label for="{0}">{1}:</label><input type="text" class="form-control" id="{0}" minlength="4" maxlength="20" value="{4}" {3}></div></form>'.format($id, lang.game_won_name, lang.game_won_content.format(round_number(self._user.time, self._user.time < 10 ? 3 : 2)), $lastname === '' ? 'autofocus' : '', $lastname),
             function () {
                 let $name = self._sanitize_text($('#' + $id).val()); // Get name
                 if ($name.length >= 4 && $name.length <= 20) {
@@ -682,16 +682,18 @@ function Minesweeper() {
      * @private
      */
     this._submit_score = function (name) {
-        self._user.name = name;
-        let location = dbip.getVisitorInfo();
-        location.then(info => {
-            // noinspection JSUnresolvedVariable
-            self._user.location = info.countryCode.toLowerCase();
-            self._push_server();
-        }).catch(function () {
-            NotificationJS.error(lang.score_error_location);
-            self._user.location = 'none';
-            setTimeout(self._push_server, 500);
+        app_library_manager.import_async_library(app_library_manager.lib.DBIP, function () {
+            self._user.name = name;
+            let location = dbip.getVisitorInfo();
+            location.then(info => {
+                // noinspection JSUnresolvedVariable
+                self._user.location = info.countryCode.toLowerCase();
+                self._push_server();
+            }).catch(function () {
+                NotificationJS.error(lang.score_error_location);
+                self._user.location = 'none';
+                setTimeout(self._push_server, 500);
+            });
         });
     };
 
