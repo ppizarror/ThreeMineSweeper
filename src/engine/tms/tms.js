@@ -88,11 +88,13 @@ function ThreeMineSweeper() {
         self._events.initEvents();
 
         // Set window events
-        setTimeout(function () {
-            window.onbeforeunload = function () {
-                return lang.reload_alert;
-            }
-        }, 500);
+        if (!cfg_verbose) {
+            setTimeout(function () {
+                window.onbeforeunload = function () {
+                    return lang.reload_alert;
+                }
+            }, 500);
+        }
 
         // Init menu
         self._menu.init_menu();

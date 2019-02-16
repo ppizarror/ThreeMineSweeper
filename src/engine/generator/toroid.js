@@ -21,7 +21,7 @@ function GenToroid() {
      */
     Generator.call(this);
     this._genprops.latlng = true;
-    this._set_name('Torus');
+    this._set_name('Toroid');
 
     // noinspection JSUnusedGlobalSymbols
     /**
@@ -43,6 +43,50 @@ function GenToroid() {
         // Define lat and lng
         let lat = this._lat + 1;
         let lng = this._lng + 1;
+
+        // Calculate radius
+        let lx = xf - xi;
+        let ly = yf - yi;
+        let lr = Math.min(lx, ly);
+
+        let r = lr / 5; // Small radius
+        let R = (lr - r) / 2; // Big radius
+
+        // Calculate advance angles
+        let beta = 2 * Math.PI / lng; // R
+        let alpha = 2 * Math.PI / lat; // r
+
+        // Create vertices
+        let v = [];
+        let $x, $y, $z; // Vertex position
+        let k = 1; // Counter
+        for (let i = 0; i < lng; i += 1) { // Theta
+            for (let j = 0; j < lat; j += 1) { // Phi
+                $x = (R + (r * Math.cos(j * alpha))) * Math.cos(i * beta);
+                $y = (R + (r * Math.cos(j * alpha))) * Math.sin(i * beta);
+                $z = r * Math.sin(j * alpha);
+                v.push(new Vertex($x, $y, $z, 'V-{0}'.format(k)));
+                k += 1;
+            }
+        }
+
+        // Create faces
+        let f = [];
+        let face;
+        k = 1;
+        for (let i = 0; i < lng; i += 1) { // Theta
+            for (let j = 0; j < lat; j += 1) { // Phi
+                face = new Face([
+                    v[(i * lat) + j],
+                    v[(((i + 1) * lat) + j) % v.length],
+                    v[(((i + 1) * lat) + ((j + 1) % lat)) % v.length],
+                    v[(i * lat) + ((j + 1) % lat)]
+                ], 'F-{0}'.format(k));
+                face.reverse_vertices();
+                f.push(face);
+                k += 1;
+            }
+        }
 
         // Add valid faces to volume
         this._volume.add_face(f);

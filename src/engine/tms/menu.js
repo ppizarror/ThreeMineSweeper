@@ -83,7 +83,7 @@ function TMSMenu() {
         10: { // Toroid
             latlng: true,
             from: 20,
-            max: 25,
+            max: 65,
             min: 10,
             step: 5,
         },
