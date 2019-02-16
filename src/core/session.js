@@ -68,7 +68,6 @@ function load_session_cookie() {
     let c = Cookies.get(cfg_cookie_session_id);
     if (!not_null_undf(c)) {
         let defvalue = { // Default values
-            lang: cfg_lang,
         };
         extend_default_session_values(defvalue);
 
@@ -111,14 +110,4 @@ function load_session_cookie() {
     // Fallback
     return JSON.parse(c);
 
-}
-
-/**
- * Returns session cookie.
- *
- * @function
- * @returns {object}
- */
-function get_session_cookie() {
-    return load_session_cookie();
 }

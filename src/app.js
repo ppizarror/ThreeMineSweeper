@@ -49,7 +49,7 @@ $(function () {
      * Load cookies
      * ------------------------------------------------------------------------
      */
-    sessionCookie = get_session_cookie();
+    sessionCookie = load_session_cookie();
     if (is_null_undf(sessionCookie)) {
         app_console.error("Cookies cannot be loaded");
         return;
@@ -88,12 +88,12 @@ $(function () {
         return;
     } finally {
     }
-    if (Object.keys(theme_db).indexOf(sessionCookie.theme) !== -1) {
-        theme = theme_db[sessionCookie.theme];
-        cfg_app_theme = sessionCookie.theme;
+    if (Object.keys(theme_db).indexOf(sessionCookie.theme_app) !== -1) {
+        theme = theme_db[sessionCookie.theme_app];
+        cfg_app_theme = sessionCookie.theme_app;
     } else {
-        sessionCookie.theme = cfg_app_theme;
-        theme = theme_db[sessionCookie.theme];
+        sessionCookie.theme_app = cfg_app_theme;
+        theme = theme_db[sessionCookie.theme_app];
         update_session_cookie();
         app_error.error_id(app_error.error.themeNotExist);
     }

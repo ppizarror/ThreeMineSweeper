@@ -87,32 +87,10 @@ function get_default_language() {
 }
 
 /**
- * Check cookie language
+ * Autocomplete languages
  */
-$(function () {
-
-    /**
-     * If the cookie not exists then it's created
-     */
-    let $lang_value = Cookies.get('lang');
-    if ($lang_value === undefined) {
-        Cookies.set('lang', cfg_lang);
-        $lang_value = cfg_lang;
-    }
-
-    /**
-     * If lang exists the cookie is updated
-     */
-    if (lang_available.indexOf($lang_value) !== -1) {
-        cfg_lang = $lang_value;
-    } else {
-        Cookies.set('lang', cfg_lang);
-    }
-
-    /**
-     * Autocomplete languages
-     */
-    if (check_lang_onload) {
+if (check_lang_onload) {
+    $(function () {
         let $lng;
         let $en_keys = Object.keys(lang_db.en);
         let $keys;
@@ -134,6 +112,5 @@ $(function () {
             }
 
         }
-    }
-
-});
+    });
+}
