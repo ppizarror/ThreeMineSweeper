@@ -38,7 +38,7 @@ function GenToroid() {
     this._generate = function (xi, yi, zi, xf, yf, zf) {
 
         // Place camera
-        this._set_camera_position(1.8, -1.8, 1.8);
+        this._set_camera_position(0, 0, 2.5);
 
         // Define lat and lng
         let lat = this._lat + 1;
@@ -47,7 +47,9 @@ function GenToroid() {
         // Calculate radius
         let lx = xf - xi;
         let ly = yf - yi;
-        let lr = Math.min(lx, ly);
+        let lz = zf - zi;
+        let lr = Math.min(lx, ly, lz);
+        let zo = (zf + zi) / 2;
 
         let r = lr / 5; // Small radius
         let R = (lr - r) / 2; // Big radius
@@ -65,7 +67,7 @@ function GenToroid() {
                 $x = (R + (r * Math.cos(j * alpha))) * Math.cos(i * beta);
                 $y = (R + (r * Math.cos(j * alpha))) * Math.sin(i * beta);
                 $z = r * Math.sin(j * alpha);
-                v.push(new Vertex($x, $y, $z, 'V-{0}'.format(k)));
+                v.push(new Vertex($x, $y, zo + $z, 'V-{0}'.format(k)));
                 k += 1;
             }
         }
@@ -83,6 +85,8 @@ function GenToroid() {
                     v[(i * lat) + ((j + 1) % lat)]
                 ], 'F-{0}'.format(k));
                 face.reverse_vertices();
+                face.enable_uv_flip();
+                face.set_uv_rotation(-90);
                 f.push(face);
                 k += 1;
             }

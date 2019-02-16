@@ -432,7 +432,7 @@ function AppDialog() {
             animation: this.options.animation.ZOOM, // Open animation
             animationBounce: 1,                     // 1,0 enables bounce
             animationSpeed: 400,                    // Animation speed
-            backgroundDismiss: 'close',             // Click outside popup
+            backgroundDismiss: 'cancel',            // Click outside popup
             buttonMaxLength: 30,                    // Max button length
             cancel: null,                           // Function if cancel
             cancelButtonClass: this.options.buttons.DEFAULT, // Cancel button class
@@ -469,7 +469,10 @@ function AppDialog() {
         /**
          * Updates params
          */
-        if ($options.escapeCancelKey) $options.escapeCancelKey = 'cancel';
+        if ($options.escapeCancelKey) {
+            $options.escapeKey = true;
+            $options.escapeCancelKey = 'cancel';
+        }
         if (!$options.typeAnimated) delete $options['type'];
         if (is_null_undf($options.icon)) $options.icon = this.options.icons.DEFAULT;
 

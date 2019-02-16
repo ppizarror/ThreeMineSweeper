@@ -577,7 +577,8 @@ function Minesweeper() {
         let $w = app_dom.window.outerWidth();
         let $h = app_dom.window.outerHeight();
         if ($w >= self._check_size.width && $h >= self._check_size.height) {
-            app_dialog.close_last();
+            if (self._check_size.opened) app_dialog.close_last();
+            self._check_size.opened = false;
             return;
         }
         if (self._check_size.opened) return;
@@ -585,7 +586,6 @@ function Minesweeper() {
         app_dialog.confirm(lang.check_window_size_title, lang.check_window_size_info.format(round_number($w), round_number($h), round_number(self._check_size.width), round_number(self._check_size.height)), {
             cancelText: null,
             confirm: function () {
-                self._check_size.opened = false;
                 self._check_window_size();
             },
             confirmButtonClass: app_dialog.options.buttons.BLUE,
@@ -642,7 +642,7 @@ function Minesweeper() {
         if (is_null_undf($lastname)) $lastname = '';
 
         // noinspection HtmlUnknownAttribute
-        app_dialog.form(lang.game_won_title, '{2}.<br><br><form action="" class="formName"><div class="form-group"><label for="{0}">{1}:</label><input type="text" class="form-control" id="{0}" minlength="4" maxlength="20" value="{4}" {3}></div></form>'.format($id, lang.game_won_name, lang.game_won_content.format(round_number(self._user.time, self._user.time < 10 ? 3 : 2)), $lastname === '' ? 'autofocus' : '', $lastname),
+        app_dialog.form(lang.game_won_title, '{2}.<br><br><form action="" class="formName"><div class="form-group"><label for="{0}">{1}:</label><input type="text" class="form-control" id="{0}" minlength="4" maxlength="20" value="{4}" required aria-required="true" {3}></div></form>'.format($id, lang.game_won_name, lang.game_won_content.format(round_number(self._user.time, self._user.time < 10 ? 3 : 2)), $lastname === '' ? 'autofocus' : '', $lastname),
             function () {
                 let $name = self._sanitize_text($('#' + $id).val()); // Get name
                 if ($name.length >= 4 && $name.length <= 20) {
@@ -764,7 +764,9 @@ function Minesweeper() {
                     self._reset = true;
                     app_tms.new();
                 },
+                backgroundDismiss: 'cancel',
                 confirmButtonClass: app_dialog.options.buttons.SUCCESS,
+                escapeCancelKey: true,
                 icon: 'fas fa-trophy',
                 size: app_dialog.options.size.SMALL,
             });
@@ -786,7 +788,9 @@ function Minesweeper() {
                     self._reset = true;
                     app_tms.new();
                 },
+                backgroundDismiss: 'cancel',
                 confirmButtonClass: app_dialog.options.buttons.DANGER,
+                escapeCancelKey: true,
                 icon: 'fas fa-bomb',
                 size: app_dialog.options.size.SMALL,
             });

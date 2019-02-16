@@ -84,7 +84,7 @@ function TMSMenu() {
             latlng: true,
             from: 20,
             max: 65,
-            min: 10,
+            min: 20,
             step: 5,
         },
         'null': { // EmptyGenerator
