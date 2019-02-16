@@ -10,6 +10,6 @@
 /**
  * Set mode as test.
  * @type {boolean}
- * @global
+ * @const
  */
-let app_mode_test = true;
+const app_mode_test = true;

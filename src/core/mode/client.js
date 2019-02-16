@@ -1,6 +1,6 @@
 /**
  MODE PRODUCTION
- Set application as production.
+ Set application as client mode.
 
  @author Pablo Pizarro R. @ppizarror.com
  @license MIT
@@ -8,8 +8,8 @@
 "use strict";
 
 /**
- * Set mode as production.
+ * Client mode.
  * @type {boolean}
- * @global
+ * @const
  */
-let app_mode_test = false;
+const app_mode_test = false;

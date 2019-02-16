@@ -1,6 +1,6 @@
 /**
  MODE LOCAL
- Uses local server.
+ Uses remote server.
 
  @author Pablo Pizarro R. @ppizarror.com
  @license MIT
