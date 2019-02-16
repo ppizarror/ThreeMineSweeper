@@ -261,7 +261,8 @@ function LibraryManager() {
      * @private
      */
     this._throw_fatal_error = function (msg, path) {
-        app_dialog.error(lang.import_fatal_error_title, lang.import_fatal_error_content.format(msg, path));
+        app_dialog.error(lang.import_fatal_error_title,
+            lang.import_fatal_error_content.format('<b>{0}</b>'.format(msg), '<i>{0}</i>'.format(path)));
         NotificationJS.error(lang.import_fatal_error_title);
     };
 
@@ -544,7 +545,11 @@ function LibraryManager() {
             case self.lib.__LANG__:
                 // eslint-disable-next-line no-case-declarations
                 let $lang = sessionCookie.lang; // Lang to load
-                if (!lang_available.includes($lang)) $lang = 'en';
+                if ($lang === 'en') {
+                    callback(params);
+                    return;
+                }
+                if (!lang_available.includes($lang)) sessionCookie.lang = 'en';
                 this._getScript_async_callback(lib + $lang, 'dist/i18n/{0}.min.js'.format($lang), callback, params);
                 break;
 

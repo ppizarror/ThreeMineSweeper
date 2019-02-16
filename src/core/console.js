@@ -102,9 +102,10 @@ function AppConsole() {
      * @function
      * @param {string} msg - Message
      * @param {boolean=} w - Writes header
+     * @param {boolean=} force - Force message
      */
-    this.error = function (msg, w) {
-        if (cfg_verbose) {
+    this.error = function (msg, w, force) {
+        if (cfg_verbose || force) {
             msg = self._format(msg);
             let $m;
             if (w) {

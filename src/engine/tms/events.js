@@ -61,6 +61,7 @@ function TMSEvents() {
 
     /**
      * Event IDs.
+     * @type {{windowmousemove: string, mouseover: string, wheel: string, contextmenu: string, mouseout: string, mouseup: string, mousewheel: string, blur: string, keyup: string, click: string, keydown: string, mousedown: string}}
      * @private
      */
     this._eventID = {
@@ -80,12 +81,13 @@ function TMSEvents() {
 
     /**
      * Mouse coordinates.
+     * @type {{x: number, y: number, inside: boolean}}
      * @private
      */
     this._mouse = {
+        inside: false,
         x: 0,
         y: 0,
-        inside: false,
     };
 
     /**
@@ -118,7 +120,7 @@ function TMSEvents() {
 
     /**
      * Stores scene.
-     * @type {THREE.Scene|Scene}
+     * @type {Scene}
      * @private
      */
     this._scene = null;

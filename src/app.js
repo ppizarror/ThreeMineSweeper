@@ -50,7 +50,7 @@ $(function () {
      */
     sessionCookie = load_session_cookie();
     if (is_null_undf(sessionCookie)) {
-        app_console.error("Cookies cannot be loaded");
+        app_console.error('Cookies cannot be loaded', false, true);
         return;
     }
     update_session_cookie();
@@ -68,6 +68,7 @@ $(function () {
          * Set language
          * --------------------------------------------------------------------
          */
+        check_language();
         lang = lang_db[sessionCookie.lang];
         app_console.info(lang.page_init_load_time.format(get_seconds_from($init_time_app_load)));
 

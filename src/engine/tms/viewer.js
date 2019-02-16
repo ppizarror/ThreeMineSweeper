@@ -1025,7 +1025,7 @@ function TMSViewer() {
 
             /**
              * Get camera raycaster
-             * @type {THREE.Raycaster}
+             * @type {Raycaster}
              */
             let ray = self.objects_props.camera.ray;
 
@@ -1045,7 +1045,8 @@ function TMSViewer() {
                 y: position.y - self._three_camera.position.y,
                 z: position.z - self._three_camera.position.z,
             };
-            // noinspection JSUnresolvedFunction
+
+            // noinspection JSCheckFunctionSignatures
             ray.set(position, direction);
 
             // noinspection JSUnresolvedFunction
@@ -2381,7 +2382,7 @@ function TMSViewer() {
      * Returns camera.
      *
      * @function
-     * @returns {THREE.PerspectiveCamera | PerspectiveCamera}
+     * @returns {PerspectiveCamera}
      */
     this.get_camera = function () {
         return this._three_camera;
@@ -2391,7 +2392,7 @@ function TMSViewer() {
      * Returns scene.
      *
      * @function
-     * @returns {THREE.Scene | Scene}
+     * @returns {Scene}
      */
     this.get_scene = function () {
         return this._scene;
@@ -2401,7 +2402,7 @@ function TMSViewer() {
      * Returns raycaster.
      *
      * @function
-     * @returns {THREE.Raycaster | Raycaster}
+     * @returns {Raycaster}
      */
     this.get_raycaster = function () {
         return this._raycaster;

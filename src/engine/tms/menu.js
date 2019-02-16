@@ -1111,6 +1111,7 @@ function TMSMenu() {
 
         // Load lang from server and reload menu
         app_library_manager.import_async_library(app_library_manager.lib.__LANG__, function () {
+            check_language();
             lang = lang_db[$lang];
             self.init_menu();
             self.main_menu(true);
