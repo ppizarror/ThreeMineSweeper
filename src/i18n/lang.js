@@ -15,6 +15,7 @@
 
 /**
  * Available languages.
+ * @type {string[]}
  * @const
  */
 const lang_available = ['en', 'es', 'fr', 'ru', 'br', 'de'];
@@ -28,7 +29,6 @@ const lang_available = ['en', 'es', 'fr', 'ru', 'br', 'de'];
 
 /**
  * Lang database.
- * @var
  * @global
  */
 let lang_db = {};
@@ -86,7 +86,9 @@ function get_default_language() {
 }
 
 /**
+ * ----------------------------------------------------------------------------
  * Autocomplete languages
+ * ----------------------------------------------------------------------------
  */
 if (check_lang_onload) {
     $(function () {

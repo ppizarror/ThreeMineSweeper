@@ -72,8 +72,17 @@ Header
 	}
 }
 
+@-webkit-keyframes menuicon {
+	0%{
+		transform: rotate(-360deg);
+	}
+	50% {
+		transform: rotate(-360deg);
+	}
+}
+
 @keyframes menuicon {
-	0% {
+	0%{
 		transform: rotate(-360deg);
 	}
 	50% {
