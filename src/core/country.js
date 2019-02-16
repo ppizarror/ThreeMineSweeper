@@ -8,7 +8,7 @@
 "use strict";
 
 /**
- * Country list
+ * Country list.
  * @type {*[]}
  */
 let country_list = [

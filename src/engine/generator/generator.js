@@ -11,7 +11,6 @@
  * Generator class.
  *
  * @class
- * @abstract
  */
 function Generator() {
 
@@ -108,7 +107,6 @@ function Generator() {
      * @param {number} xf - End X coordinate
      * @param {number} yf - End Y coordinate
      * @param {number} zf - End Z coordinate
-     * @abstract
      */
     this._generate = function (xi, yi, zi, xf, yf, zf) {
     };

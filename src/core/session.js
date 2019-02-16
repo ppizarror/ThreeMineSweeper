@@ -17,7 +17,7 @@ function update_session_cookie() {
     try {
         if (!cfg_cookie_local) {
             Cookies.set(cfg_cookie_session_id, sessionCookie, {
-                expires: cfg_cookie_expire_days
+                expires: cfg_cookie_expire_days,
             });
         } else {
             localStorage.setItem(cfg_cookie_session_id, JSON.stringify(sessionCookie));
@@ -27,33 +27,6 @@ function update_session_cookie() {
     } finally {
     }
     return false;
-}
-
-/**
- * Extend default values to user cookies.
- *
- * @function
- * @param {object} $session - Session value
- * @private
- */
-function extend_default_session_values($session) {
-    $.extend($session, {
-
-        /**
-         * App settings
-         */
-        lang: cfg_lang,                 // App lang
-        theme_app: cfg_app_theme,       // App theme
-        theme_popup: cfg_popup_theme,   // Popups theme
-
-        /**
-         * User data
-         */
-        profilepic: '',                 // Profile picture
-        userid: -1,                     // User ID
-        username: '',                   // User name
-
-    });
 }
 
 /**
@@ -69,7 +42,23 @@ function load_session_cookie() {
     if (!not_null_undf(c)) {
         let defvalue = { // Default values
         };
-        extend_default_session_values(defvalue);
+        $.extend(defvalue, {
+
+            /**
+             * App settings
+             */
+            lang: cfg_lang,                 // App lang
+            theme_app: cfg_app_theme,       // App theme
+            theme_popup: cfg_popup_theme,   // Popups theme
+
+            /**
+             * User data
+             */
+            profilepic: '',                 // Profile picture
+            userid: -1,                     // User ID
+            username: '',                   // User name
+
+        });
 
         // If cookies are local then uses localStorage
         if (cfg_cookie_local) {
