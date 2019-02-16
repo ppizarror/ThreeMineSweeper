@@ -1108,7 +1108,6 @@ function LibraryManager() {
  * Library administrator.
  * @type {LibraryManager}
  * @const
- * @global
  */
 const app_library_manager = new LibraryManager();
 

@@ -10,7 +10,6 @@
 /**
  * App game.
  * @type {ThreeMineSweeper}
- * @global
  * @const
  */
 const app_tms = new ThreeMineSweeper();

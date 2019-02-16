@@ -16,7 +16,6 @@
 /**
  * Available languages.
  * @const
- * @global
  */
 const lang_available = ['en', 'es', 'fr', 'ru', 'br', 'de'];
 

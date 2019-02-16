@@ -34,18 +34,9 @@ let cfg_app_theme = 'default';
 let cfg_popup_theme = 'material';
 
 /**
- * Enable console logging.
- * @type {boolean}
- * @const
- * @global
- */
-const cfg_verbose = false;
-
-/**
  * Show total messages on console.
  * @type {boolean}
  * @const
- * @global
  */
 const show_console_total_messages = true;
 
@@ -57,25 +48,16 @@ const show_console_total_messages = true;
  */
 
 /**
- * Href score server.
- * @type {string}
- * @const
- * @global
- */
-const cfg_href_score = 'https://ppizarror.000webhostapp.com/tms/score.php';
-
-/**
  * Enables CORS (Cross-Domain).
  * @type {boolean}
  * @const
- * @global
  */
 const cfg_ajax_cors = true;
 
 /**
  * Ajax timeout.
  * @type {number}
- * @global
+ * @const
  */
 const cfg_href_ajax_timeout = 10000;
 
@@ -83,7 +65,6 @@ const cfg_href_ajax_timeout = 10000;
  * Miliseconds that the application waits when a library fails to download.
  * @type {number}
  * @const
- * @global
  */
 const cfg_module_async_wait = 250;
 
@@ -98,7 +79,6 @@ const cfg_module_async_wait = 250;
  * Days before cookie expire.
  * @type {number}
  * @const
- * @global
  */
 const cfg_cookie_expire_days = 14;
 
@@ -106,7 +86,6 @@ const cfg_cookie_expire_days = 14;
  * Cookies ID {@link sessionCookie}.
  * @type {string}
  * @const
- * @global
  */
 const cfg_cookie_session_id = 'A3435bSr1';
 
@@ -114,7 +93,6 @@ const cfg_cookie_session_id = 'A3435bSr1';
  * Only local cookies.
  * @type {boolean}
  * @const
- * @global
  */
 const cfg_cookie_local = false;
 
@@ -129,7 +107,6 @@ const cfg_cookie_local = false;
  * Total messages on console after wipe.
  * @type {int}
  * @const
- * @global
  */
 const cfg_total_console_messages_until_wipe = 1000;
 
@@ -137,7 +114,6 @@ const cfg_total_console_messages_until_wipe = 1000;
  * Maximum loading layer time.
  * @type {number}
  * @const
- * @global
  */
 const cfg_max_time_loading_layer = 60;
 
@@ -145,7 +121,6 @@ const cfg_max_time_loading_layer = 60;
  * Time before loading layer appears.
  * @type {number}
  * @const
- * @global
  */
 const cfg_init_loading_layer_after = 150;
 
@@ -160,7 +135,6 @@ const cfg_init_loading_layer_after = 150;
  * Notification core (amaranjs,jquery-toast-plugin,toastr).
  * @type {string}
  * @const
- * @global
  */
 const cfg_notification_core = 'amaranjs';
 
@@ -168,7 +142,6 @@ const cfg_notification_core = 'amaranjs';
  * Notification enabled.
  * @type {boolean}
  * @const
- * @global
  */
 const cfg_notification_enabled = true;
 
@@ -176,7 +149,6 @@ const cfg_notification_enabled = true;
  * Maximum notifications on screen (jquery.toast,toastr).
  * @type {number}
  * @const
- * @global
  */
 const cfg_max_notification_stack = 3;
 
@@ -184,7 +156,6 @@ const cfg_max_notification_stack = 3;
  * Show always notifications.
  * @type {boolean}
  * @const
- * @global
  */
 const cfg_always_show_err_notification = true;
 
@@ -192,7 +163,6 @@ const cfg_always_show_err_notification = true;
  * Notification time life in miliseconds.
  * @type {number}
  * @const
- * @global
  */
 const cfg_notification_timeout = 10000;
 
@@ -207,7 +177,6 @@ const cfg_notification_timeout = 10000;
  * Public date format.
  * @type {string}
  * @const
- * @global
  */
 const cfg_date_format_public_d = get_locale_date_string();
 
@@ -215,6 +184,5 @@ const cfg_date_format_public_d = get_locale_date_string();
  * Public hour format.
  * @type {string}
  * @const
- * @global
  */
 const cfg_date_format_public_h = 'HH:mm:ss';

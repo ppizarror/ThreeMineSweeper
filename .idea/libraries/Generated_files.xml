@@ -7,20 +7,19 @@
         <item url="file://$PROJECT_DIR$/dist/about/dependencies.min.js" />
         <item url="file://$PROJECT_DIR$/dist/about/version.min.js" />
         <item url="file://$PROJECT_DIR$/dist/app.min.js" />
-        <item url="file://$PROJECT_DIR$/dist/config.min.js" />
         <item url="file://$PROJECT_DIR$/dist/core/color.min.js" />
         <item url="file://$PROJECT_DIR$/dist/core/console.min.js" />
         <item url="file://$PROJECT_DIR$/dist/core/country.min.js" />
         <item url="file://$PROJECT_DIR$/dist/core/date.min.js" />
         <item url="file://$PROJECT_DIR$/dist/core/dom.min.js" />
-        <item url="file://$PROJECT_DIR$/dist/core/env/mode_production.min.js" />
-        <item url="file://$PROJECT_DIR$/dist/core/env/mode_test.min.js" />
         <item url="file://$PROJECT_DIR$/dist/core/errors.min.js" />
         <item url="file://$PROJECT_DIR$/dist/core/globals.min.js" />
         <item url="file://$PROJECT_DIR$/dist/core/hash.min.js" />
         <item url="file://$PROJECT_DIR$/dist/core/imports.min.js" />
         <item url="file://$PROJECT_DIR$/dist/core/logic.min.js" />
         <item url="file://$PROJECT_DIR$/dist/core/math.min.js" />
+        <item url="file://$PROJECT_DIR$/dist/core/mode/local.min.js" />
+        <item url="file://$PROJECT_DIR$/dist/core/mode/local.min.min.js" />
         <item url="file://$PROJECT_DIR$/dist/core/polyfills.min.js" />
         <item url="file://$PROJECT_DIR$/dist/core/session.min.js" />
         <item url="file://$PROJECT_DIR$/dist/core/url.min.js" />
@@ -58,7 +57,6 @@
         <item url="file://$PROJECT_DIR$/dist/ui/themes.min.js" />
         <item url="file://$PROJECT_DIR$/lib/three.js" />
         <item url="file://$PROJECT_DIR$/lib/three.js/OrbitControls.min.js" />
-        <item url="file://$PROJECT_DIR$/src/config.min.js" />
       </sourceFilesUrls>
     </properties>
     <CLASSES>
@@ -67,20 +65,19 @@
       <root url="file://$PROJECT_DIR$/dist/about/dependencies.min.js" />
       <root url="file://$PROJECT_DIR$/dist/about/version.min.js" />
       <root url="file://$PROJECT_DIR$/dist/app.min.js" />
-      <root url="file://$PROJECT_DIR$/dist/config.min.js" />
       <root url="file://$PROJECT_DIR$/dist/core/color.min.js" />
       <root url="file://$PROJECT_DIR$/dist/core/console.min.js" />
       <root url="file://$PROJECT_DIR$/dist/core/country.min.js" />
       <root url="file://$PROJECT_DIR$/dist/core/date.min.js" />
       <root url="file://$PROJECT_DIR$/dist/core/dom.min.js" />
-      <root url="file://$PROJECT_DIR$/dist/core/env/mode_production.min.js" />
-      <root url="file://$PROJECT_DIR$/dist/core/env/mode_test.min.js" />
       <root url="file://$PROJECT_DIR$/dist/core/errors.min.js" />
       <root url="file://$PROJECT_DIR$/dist/core/globals.min.js" />
       <root url="file://$PROJECT_DIR$/dist/core/hash.min.js" />
       <root url="file://$PROJECT_DIR$/dist/core/imports.min.js" />
       <root url="file://$PROJECT_DIR$/dist/core/logic.min.js" />
       <root url="file://$PROJECT_DIR$/dist/core/math.min.js" />
+      <root url="file://$PROJECT_DIR$/dist/core/mode/local.min.js" />
+      <root url="file://$PROJECT_DIR$/dist/core/mode/local.min.min.js" />
       <root url="file://$PROJECT_DIR$/dist/core/polyfills.min.js" />
       <root url="file://$PROJECT_DIR$/dist/core/session.min.js" />
       <root url="file://$PROJECT_DIR$/dist/core/url.min.js" />
@@ -118,7 +115,6 @@
       <root url="file://$PROJECT_DIR$/dist/ui/themes.min.js" />
       <root url="file://$PROJECT_DIR$/lib/three.js" />
       <root url="file://$PROJECT_DIR$/lib/three.js/OrbitControls.min.js" />
-      <root url="file://$PROJECT_DIR$/src/config.min.js" />
     </CLASSES>
     <SOURCES />
   </library>

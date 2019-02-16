@@ -122,6 +122,5 @@ function AppError() {
  * Admin application errors.
  * @type {AppError}
  * @const
- * @global
  */
 const app_error = new AppError();

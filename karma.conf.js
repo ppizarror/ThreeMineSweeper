@@ -31,9 +31,10 @@ module.exports = function (config) {
             'src/about/dependencies.js',
             'src/about/version.js',
 
-            'src/core/env/mode_test.js',
             'src/i18n/lang.js',
             'src/core/globals.js',
+            'src/core/mode/test.js',
+            'src/core/mode/local.js',
             'src/core/date.js',
             'src/config.js',
 
@@ -55,7 +56,6 @@ module.exports = function (config) {
             'src/engine/geom/volume.js',
 
             'src/engine/generator/generator.js',
-
             'src/engine/generator/basic_cube.js',
             'src/engine/generator/basic_pyramid.js',
             'src/engine/generator/cross_fractal.js',

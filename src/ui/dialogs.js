@@ -754,7 +754,6 @@ function AppDialog() {
  * Dialog administrator.
  * @type {AppDialog}
  * @const
- * @global
  */
 const app_dialog = new AppDialog();
 app_dialog.enable_close_last();
