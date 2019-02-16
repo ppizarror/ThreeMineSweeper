@@ -17,7 +17,7 @@
  * @type {string}
  * @global
  */
-let cfg_lang = 'en';
+let cfg_lang = get_default_language();
 
 /**
  * App theme.
@@ -108,7 +108,7 @@ const cfg_cookie_expire_days = 14;
  * @const
  * @global
  */
-const cfg_cookie_session_id = 'e43y65AZDB';
+const cfg_cookie_session_id = 'e23y35bSD1';
 
 /**
  * Only local cookies.
