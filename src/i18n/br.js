@@ -101,6 +101,7 @@ lang_db.br = {
     "lang_en": "Inglês",
     "lang_es": "Espanhol",
     "lang_fr": "Francês",
+    "lang_it": "Italiano",
     "lang_load_title": "Load {0} language",
     "lang_ru": "Russo",
     "leave_game_confirm": "Tem certeza?",

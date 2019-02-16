@@ -18,7 +18,7 @@
  * @type {string[]}
  * @const
  */
-const lang_available = ['en', 'es', 'fr', 'ru', 'br', 'de'];
+const lang_available = ['en', 'es', 'fr', 'ru', 'br', 'de', 'it'];
 
 
 /**

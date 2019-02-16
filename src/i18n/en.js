@@ -101,6 +101,7 @@ lang_db.en = {
     "lang_en": "English (current)",
     "lang_es": "Spanish",
     "lang_fr": "French",
+    "lang_it": "Italian",
     "lang_load_title": "Load {0} language",
     "lang_ru": "Russian",
     "leave_game_confirm": "Are you sure?",

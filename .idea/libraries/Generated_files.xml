@@ -52,6 +52,7 @@
         <item url="file://$PROJECT_DIR$/dist/i18n/en.min.js" />
         <item url="file://$PROJECT_DIR$/dist/i18n/es.min.js" />
         <item url="file://$PROJECT_DIR$/dist/i18n/fr.min.js" />
+        <item url="file://$PROJECT_DIR$/dist/i18n/it.min.js" />
         <item url="file://$PROJECT_DIR$/dist/i18n/lang.min.js" />
         <item url="file://$PROJECT_DIR$/dist/i18n/ru.min.js" />
         <item url="file://$PROJECT_DIR$/dist/ui/dialogs.min.js" />
@@ -113,6 +114,7 @@
       <root url="file://$PROJECT_DIR$/dist/i18n/en.min.js" />
       <root url="file://$PROJECT_DIR$/dist/i18n/es.min.js" />
       <root url="file://$PROJECT_DIR$/dist/i18n/fr.min.js" />
+      <root url="file://$PROJECT_DIR$/dist/i18n/it.min.js" />
       <root url="file://$PROJECT_DIR$/dist/i18n/lang.min.js" />
       <root url="file://$PROJECT_DIR$/dist/i18n/ru.min.js" />
       <root url="file://$PROJECT_DIR$/dist/ui/dialogs.min.js" />

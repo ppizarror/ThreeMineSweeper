@@ -201,6 +201,7 @@ function TMSMenu() {
         self._write_lang(langcontainer, 'es', lang.lang_es);
         self._write_lang(langcontainer, 'br', lang.lang_br);
         self._write_lang(langcontainer, 'fr', lang.lang_fr);
+        self._write_lang(langcontainer, 'it', lang.lang_it);
         self._write_lang(langcontainer, 'de', lang.lang_de);
         self._write_lang(langcontainer, 'ru', lang.lang_ru);
 

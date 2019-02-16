@@ -11,4 +11,5 @@ Language localization.
 | en | English |
 | es | Spanish |
 | fr | French |
+| it | Italian |
 | ru | Russian |
