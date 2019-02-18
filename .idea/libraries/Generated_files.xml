@@ -42,6 +42,7 @@
         <item url="file://$PROJECT_DIR$/dist/engine/generator/square.min.js" />
         <item url="file://$PROJECT_DIR$/dist/engine/generator/toroid.min.js" />
         <item url="file://$PROJECT_DIR$/dist/engine/geom/face.min.js" />
+        <item url="file://$PROJECT_DIR$/dist/engine/geom/polyhedra.min.js" />
         <item url="file://$PROJECT_DIR$/dist/engine/geom/vertex.min.js" />
         <item url="file://$PROJECT_DIR$/dist/engine/geom/volume.min.js" />
         <item url="file://$PROJECT_DIR$/dist/engine/tms/events.min.js" />
@@ -64,7 +65,6 @@
         <item url="file://$PROJECT_DIR$/dist/ui/themes.min.js" />
         <item url="file://$PROJECT_DIR$/lib/math.js/parser.min.js" />
         <item url="file://$PROJECT_DIR$/lib/stats.js/stats.min.js" />
-        <item url="file://$PROJECT_DIR$/lib/stats.js/stats.v12.min.js" />
         <item url="file://$PROJECT_DIR$/lib/three.js" />
         <item url="file://$PROJECT_DIR$/lib/three.js/OrbitControls.min.js" />
       </sourceFilesUrls>
@@ -110,6 +110,7 @@
       <root url="file://$PROJECT_DIR$/dist/engine/generator/square.min.js" />
       <root url="file://$PROJECT_DIR$/dist/engine/generator/toroid.min.js" />
       <root url="file://$PROJECT_DIR$/dist/engine/geom/face.min.js" />
+      <root url="file://$PROJECT_DIR$/dist/engine/geom/polyhedra.min.js" />
       <root url="file://$PROJECT_DIR$/dist/engine/geom/vertex.min.js" />
       <root url="file://$PROJECT_DIR$/dist/engine/geom/volume.min.js" />
       <root url="file://$PROJECT_DIR$/dist/engine/tms/events.min.js" />
@@ -132,7 +133,6 @@
       <root url="file://$PROJECT_DIR$/dist/ui/themes.min.js" />
       <root url="file://$PROJECT_DIR$/lib/math.js/parser.min.js" />
       <root url="file://$PROJECT_DIR$/lib/stats.js/stats.min.js" />
-      <root url="file://$PROJECT_DIR$/lib/stats.js/stats.v12.min.js" />
       <root url="file://$PROJECT_DIR$/lib/three.js" />
       <root url="file://$PROJECT_DIR$/lib/three.js/OrbitControls.min.js" />
     </CLASSES>
