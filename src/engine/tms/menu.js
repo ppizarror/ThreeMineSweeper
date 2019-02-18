@@ -635,9 +635,11 @@ function TMSMenu() {
                                 for (let i = 0; i < $fun_examples.length; i += 1) { // Append options
                                     $sel.append('<option value="{0}">{1}</option>'.format($fun_examples[i][1], $fun_examples[i][0]));
                                 }
+                                $('.jconfirm-content').css('overflow', 'hidden');
                                 $sel.select2({
+                                    dropdownAutoWidth: true,
                                     dropdownParent: $('.jconfirm'),
-                                    selectOnClose: true
+                                    selectOnClose: true,
                                 });
                             },
 
