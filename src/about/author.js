@@ -10,7 +10,7 @@
  * Author information.
  */
 aboutinfo.author = {
-    "contributors": ["Eduardo Lagos"],
+    "contributors": [],
     "email": "pablo.pizarro@ing.uchile.cl",
     "github": "https://github.com/ppizarror",
     "name": "Pablo Pizarro R.",
