@@ -307,6 +307,7 @@ function TMSMenu() {
         } else {
             self._dom.container.fadeIn();
             self._dom.github.fadeIn();
+            // app_sound.play(app_sound.sound.MENU);
         }
 
         // Create events

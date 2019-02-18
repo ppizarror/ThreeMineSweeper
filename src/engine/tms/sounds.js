@@ -58,22 +58,27 @@ function TMSSound() {
             {
                 name: this.sound.GAMEOVER,
                 preload: false,
+                volume: 0.6,
             },
             {
                 name: this.sound.GAMEWIN,
                 preload: false,
+                volume: 0.6,
             },
             {
                 name: this.sound.MENU,
                 preload: false,
+                volume: 0.5,
             },
             {
                 name: this.sound.MUSIC,
                 preload: false,
+                volume: 0.6,
             },
             {
                 name: this.sound.UNFLAG,
                 preload: false,
+                volume: 0.6,
             },
             {
                 name: this.sound.WRONG,
@@ -83,7 +88,6 @@ function TMSSound() {
         ],
         multiplay: true,
         path: 'resources/sounds/',
-        volume: 0.6,
     });
 
     /**

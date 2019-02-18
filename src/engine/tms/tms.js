@@ -216,6 +216,7 @@ function ThreeMineSweeper() {
         self._viewer.delete_last_volume();
         self._mines.reset_game_ui();
         app_console.info(lang.reset_game);
+        app_sound.stop_all();
     };
 
     /**
@@ -225,7 +226,6 @@ function ThreeMineSweeper() {
      */
     this.load_menu = function () {
         self.abort();
-        app_sound.stop_all();
         self._menu.main_menu();
     };
 
