@@ -1024,7 +1024,7 @@ function TMSMenu() {
         let $gen_game = generateID(); // Generator total games
         let $gen_sc = generateID(); // Generator scoreboard
         self._add_title(lang.menu_stats_distribution_generator);
-        self._write_text('<div class="menu-stat-chart"><canvas id="{0}"></canvas></div><div class="menu-stat-chart"><canvas id="{1}"></canvas></div>'.format($gen_game, $gen_sc));
+        self._write_text('<div class="menu-stat-chart"><canvas id="{0}"></canvas></div><div style="width: 2%"></div><div class="menu-stat-chart"><canvas id="{1}"></canvas></div>'.format($gen_game, $gen_sc));
 
         // eslint-disable-next-line no-new
         new Chart($('#' + $gen_game), {
