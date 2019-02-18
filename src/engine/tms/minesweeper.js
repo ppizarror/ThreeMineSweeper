@@ -160,27 +160,35 @@ function Minesweeper() {
 
         // Get number of faces
         let tfaces = volume.get_total_faces(true);
-        if (tfaces === 0) return false;
 
         // Calculate total mines
         mines = Math.max(0, Math.min(mines, tfaces - 1));
         self._generator.mines = mines;
         if (mines < 1) mines *= tfaces;
 
-        // Get volume faces
-        let faces = volume.get_faces();
+        // Check if figure is valid
+        if (tfaces === 0 || mines === 0 || mines > tfaces) return false;
 
         // Place bombs
+        let faces = volume.get_faces();
         let pm = 0;
+        let faceid = []; // Array containing face ID
+        for (let i = 0; i < tfaces; i += 1) {
+            faceid.push(i);
+        }
+
         for (let i = 0; i < mines; i += 1) {
-            let j = get_random_int(0, tfaces - 1);
+            let j = get_random_int(0, faceid.length - 1); // Find random index
             if (!faces[j].has_bomb() && faces[j].is_enabled()) {
                 faces[j].place_bomb();
+                faceid.splice(j, 1);
                 pm += 1;
             } else {
                 i -= 1;
             }
         }
+
+        // Calculate percentage of placed mines
         let p = round_number(100 * pm / tfaces, 1);
         if (isNaN(p)) p = 0;
         app_console.info(lang.mines_placed.format(pm, p));

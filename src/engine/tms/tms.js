@@ -185,6 +185,9 @@ function ThreeMineSweeper() {
             case 11:
                 g = new GenFunction();
                 break;
+            case 12:
+                g = new GenMobius();
+                break;
             default:
                 g = new GenEmpty();
                 break;
@@ -246,6 +249,7 @@ function ThreeMineSweeper() {
                     cancelText: null,
                     confirmButtonClass: app_dialog.options.buttons.DANGER,
                     confirmText: lang.answer_ok,
+                    icon: 'fas fa-exclamation-triangle',
                 });
                 self.load_menu();
                 return;

@@ -39,7 +39,7 @@ function GenFunction() {
     this._generate = function (xi, yi, zi, xf, yf, zf) {
 
         // Place camera
-        this._set_camera_position(0, -1.4, 1.6);
+        this._set_camera_position(1.3, 0, 1.6);
 
         // Define lat and lng
         let lat = this._lat + 1;
@@ -79,7 +79,7 @@ function GenFunction() {
             for (let j = 0; j < lat; j += 1) { // y
                 $x = xi + (dx * i);
                 $y = yi + (dy * j);
-                $z = ($f($x, $y) * $zf) - $dz;
+                $z = ($f($x, $y) - $dz) * $zf;
                 v.push(new Vertex($x, $y, $z, 'Vs' + ((i * lng) + j).toString()));
             }
         }
@@ -97,6 +97,7 @@ function GenFunction() {
                     v[(lat * (j + 1)) + fi]
                 ], 'F' + i.toString());
                 face.enable_uv_flip();
+                face.set_uv_rotation(-90);
                 face.set_bomb_behaviour(face.behaviour.AROUND);
                 f.push(face);
                 i += 1;
@@ -112,7 +113,7 @@ function GenFunction() {
             for (let j = 0; j < lat; j += 1) { // y
                 $x = xi + (dx * i);
                 $y = yi + (dy * j);
-                $z = ($f($x, $y) * $zf) - ($dz + 0.0005);
+                $z = (($f($x, $y) - $dz) * $zf) - 0.0005;
                 v.push(new Vertex($x, $y, $z, 'Vi' + ((i * lng) + j).toString()));
             }
         }

@@ -19,5 +19,6 @@
     <orderEntry type="library" name="@types/three" level="application" />
     <orderEntry type="library" name="@types/tooltipster" level="application" />
     <orderEntry type="library" name="dbip" level="application" />
+    <orderEntry type="library" name="@types/select2" level="application" />
   </component>
 </module>

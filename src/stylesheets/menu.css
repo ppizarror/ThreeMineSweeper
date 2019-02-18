@@ -21,7 +21,7 @@ Menu root container
 	border-radius: 15px;
 	box-shadow: 0 0 12px rgba(0, 0, 0, 0.40);
 	color: #ffffff;
-	height: 67.5%;
+	height: 72.5%;
 	margin: auto;
 	max-height: 590px;
 	min-height: 430px;
@@ -689,6 +689,32 @@ Menu stats
 #menu-content .menu-stat-chart {
 	height: 50% !important;
 	width: 50% !important;
+}
+
+/**
+Pick function
+ */
+#menu-content .function-input {
+	float: left;
+	width: 72.5%;
+}
+
+#menu-content .function-button {
+	float: left;
+	font-weight: 600;
+	margin-left: 2.5%;
+	width: 25%;
+}
+
+@media screen and (max-width: 800px) {
+	#menu-content .function-button {
+		font-size: 0.8rem;
+		line-height: 1.85;
+		margin-left: 3%;
+		padding-left: 0;
+		padding-right: 0;
+		width: 27%;
+	}
 }
 
 /**

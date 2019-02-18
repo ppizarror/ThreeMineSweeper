@@ -14,6 +14,7 @@
  * @constructor
  */
 function TMSMenu() {
+    /* eslint-disable array-bracket-newline */
     /* eslint-disable arrow-parens */
     /* eslint-disable new-cap */
     /* eslint-disable no-continue */
@@ -53,40 +54,40 @@ function TMSMenu() {
             target: true,
         },
         6: { // Sphere
-            latlng: true,
             from: 20,
+            latlng: true,
             max: 55,
             min: 20,
             step: 5,
         },
         7: { // Cylinder
-            latlng: true,
-            lateq: false,
             from: 20,
+            lateq: false,
+            latlng: true,
             max: 60,
             min: 10,
             step: 5,
         },
         8: { // Square
-            latlng: true,
-            lateq: false,
             from: 20,
+            lateq: false,
+            latlng: true,
             max: 60,
             min: 10,
             step: 5,
         },
         9: { // Cube
-            latlng: true,
-            lateq: false,
             from: 20,
+            lateq: false,
+            latlng: true,
             max: 25,
             min: 10,
             step: 5,
         },
         10: { // Toroid
-            latlng: true,
-            lateq: false,
             from: 20,
+            lateq: false,
+            latlng: true,
             max: 65,
             min: 20,
             step: 5,
@@ -98,6 +99,14 @@ function TMSMenu() {
             latlng: true,
             max: 60,
             min: 10,
+            step: 5,
+        },
+        12: { // Möbius
+            from: 20,
+            lateq: false,
+            latlng: true,
+            max: 65,
+            min: 20,
             step: 5,
         },
         'null': { // EmptyGenerator
@@ -120,7 +129,7 @@ function TMSMenu() {
     /**
      * Fill modes
      */
-    this._gamekeys = [3, 4, 2, 9, 6, 10, 7, 8, 11, 5];
+    this._gamekeys = [3, 4, 2, 11, 9, 6, 10, 7, 8, 5];
     for (let i = 0; i < this._gamekeys.length; i += 1) {
         if (is_null_undf(this._games[this._gamekeys[i]])) continue;
         if (is_null_undf(this._games[this._gamekeys[i]]['fractal'])) this._games[this._gamekeys[i]]['fractal'] = false;
@@ -490,6 +499,7 @@ function TMSMenu() {
             }
             self._dom.gen_order[0].selectedIndex = this._get_cookie_val(self._cookies.order, 0, game.maxorder - game.minorder, game.maxorder - game.minorder, true);
             self._dom.gen_order.niceSelect();
+            // self._dom.gen_order.select2();
         }
 
         // Face target
@@ -552,11 +562,68 @@ function TMSMenu() {
         // Function
         if (game.fun) {
             $id = generateID();
-            self._write_input('z=f(x,y)', '<input type="text" class="form-control" id="{0}" minlength="3" maxlength="100" value="{2}" required aria-required="true" placeholder="{1}" aria-placeholder="{1}">'.format($id, lang.new_game_function_placeholder, self._get_cookie_string(self._cookies.fun, '0.1*sin(1.2*sqrt((10*x)^2 + (10*y)^2))')), self._dom.generator);
+            let $functionpicker = generateID();
+            self._write_input('z=f(x,y)', '<input type="text" class="form-control function-input" id="{0}" minlength="3" maxlength="200" value="{2}" required aria-required="true" placeholder="{1}" aria-placeholder="{1}"><button class="btn function-button" id="{3}">{4}</button>'.format($id, lang.new_game_function_placeholder, self._get_cookie_string(self._cookies.fun, '0.1*sin(1.2*sqrt((10*x)^2+(10*y)^2))'), $functionpicker, lang.new_game_function_button), self._dom.generator);
             self._dom.gen_fun = $('#' + $id);
             self._dom.gen_fun.on('change', function () {
                 self._check_function_popup($(this).val());
             });
+
+            // Create function select
+            $('#' + $functionpicker).on('click', function () {
+
+                let $fun_examples = [
+                    ['Bug table', '0.7/log(x^2+y^2)+0.6'],
+                    ['Bumps', 'sin(5*x)*cos(5*y)/5'],
+                    ['Cone', '(x^2+y^2)^0.5'],
+                    ['Cross', '0.1-sign(sign((x*12)^2-9)-1+sign((y*12)^2-9)-1)/2'],
+                    ['Hills', '0.2*(3*exp(-(y+1)^2-x^2)*(x-1)^2-(-(x+1)^2-y^2)/3+exp(-x^2-y^2)*(10*x^3-2*x+10*y^5))'],
+                    ['Intersecting fences', '0.75/exp((x*5)^2*(y*5)^2)'],
+                    ['Letter A', '((1-sign(-x-0.9+abs(y*2)))/3*(sign(0.9-x)+1)/3)*(sign(x+0.65)+1)/2-((1-sign(-x-0.39+abs(y*2)))/3*(sign(0.9-x)+1)/3)+((1-sign(-x-0.39+abs(y*2)))/3*(sign(0.6-x)+1)/3)*(sign(x-0.35)+1)/2'],
+                    ['Letter O', '(-sign(0.2-(x^2+y^2))+sign(0.2-(x^2/3+y^2/3)))/9'],
+                    ['Letter V', 'sign(x-1+abs(y*2))/3+sign(x-0.5+abs(y*2))/3'],
+                    ['Paper plane', 'sign(x)*atan(x*80)/6*sign(-y-x+1)*sign(-y+x+1)*5-1.01'],
+                    ['Propeller', '(x^(-2)+y^(-2))^0.5'],
+                    ['Pyramid', '1-abs(x+y)-abs(y-x)'],
+                    ['Random Hill', '(random()^0.1)*(1/(x^2+y^2+0.05))'],
+                    ['Ripple', 'sin(10*(x^2+y^2))/10'],
+                    ['Roof', '1-abs(y)'],
+                    ['Saddle', 'x^2-y^2'],
+                    ['Stairs', '(sign(-0.65-x)+sign(-0.35-x)+sign(-0.05-x)+sign(0.25-x)+sign(0.55-x))/7'],
+                    ['Top hat', '(sign(0.2-(x^2+y^2))+sign(0.2-(x^2/3+y^2/3)))/3-1'],
+                    ['Triangle', '(1-sign(-x-0.51+abs(y*2)))/3*(sign(0.5-x)+1)/3'],
+                    ['Tube', '1/(15*(x^2+y^2))'],
+                    ['Windmill', 'sign(x*y)*sign(1-(x*9)^2+(y*9)^2)/9'],
+
+                ];
+                let $fun_selector = generateID();
+
+                app_dialog.form(lang.new_game_function_examples_title, '<form action="" class="formName"><select id="{0}" class="form-control"><option value="-1" disabled selected>{1}</option></select></form>'.format($fun_selector, lang.new_game_function_select_drop),
+                    function () {
+                        self._dom.gen_fun.val($('#' + $fun_selector).val());
+                    }, null
+                    , {
+                        cancelText: lang.dialog_form_cancel,
+                        icon: 'fas fa-superscript',
+
+                        // Triggered before opening
+                        onOpenBefore: function () {
+                            let $sel = $('#' + $fun_selector); // Get selector
+                            for (let i = 0; i < $fun_examples.length; i += 1) { // Append options
+                                $sel.append('<option value="{0}">{1}</option>'.format($fun_examples[i][1], $fun_examples[i][0]));
+                            }
+                            $sel.select2({
+                                dropdownParent: $('.jconfirm'),
+                                selectOnClose: true
+                            });
+                        },
+
+                        submitText: lang.dialog_form_send,
+                    }
+                );
+
+            });
+
         }
 
         // Write mines
@@ -638,7 +705,7 @@ function TMSMenu() {
         if (game.fun) {
             $fun = self._dom.gen_fun.val();
             self._save_cookie_val(self._cookies.fun, $fun);
-            if (!self._check_function_popup($fun) || $fun.length < 3 || $fun.length > 100) return;
+            if (!self._check_function_popup($fun) || $fun.length < 3 || $fun.length > 200) return;
             self._save_cookie_val(self._cookies.fun, $fun);
         }
         $mines = self._dom.gen_mines.val();
@@ -792,6 +859,7 @@ function TMSMenu() {
                 cancelText: null,
                 confirmButtonClass: app_dialog.options.buttons.DANGER,
                 confirmText: lang.answer_ok,
+                icon: 'fas fa-exclamation-triangle',
             });
             return false;
         }

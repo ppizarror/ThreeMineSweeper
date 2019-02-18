@@ -34,7 +34,8 @@
         <item url="file://$PROJECT_DIR$/dist/engine/generator/empty.min.js" />
         <item url="file://$PROJECT_DIR$/dist/engine/generator/function.min.js" />
         <item url="file://$PROJECT_DIR$/dist/engine/generator/generator.min.js" />
-        <item url="file://$PROJECT_DIR$/dist/engine/generator/polyhedra.min.js" />
+        <item url="file://$PROJECT_DIR$/dist/engine/generator/mobius.min.js" />
+        <item url="file://$PROJECT_DIR$/dist/engine/generator/moebius.min.js" />
         <item url="file://$PROJECT_DIR$/dist/engine/generator/random_plane.min.js" />
         <item url="file://$PROJECT_DIR$/dist/engine/generator/sierpinski_cube.min.js" />
         <item url="file://$PROJECT_DIR$/dist/engine/generator/sierpinski_triangle.min.js" />
@@ -100,7 +101,8 @@
       <root url="file://$PROJECT_DIR$/dist/engine/generator/empty.min.js" />
       <root url="file://$PROJECT_DIR$/dist/engine/generator/function.min.js" />
       <root url="file://$PROJECT_DIR$/dist/engine/generator/generator.min.js" />
-      <root url="file://$PROJECT_DIR$/dist/engine/generator/polyhedra.min.js" />
+      <root url="file://$PROJECT_DIR$/dist/engine/generator/mobius.min.js" />
+      <root url="file://$PROJECT_DIR$/dist/engine/generator/moebius.min.js" />
       <root url="file://$PROJECT_DIR$/dist/engine/generator/random_plane.min.js" />
       <root url="file://$PROJECT_DIR$/dist/engine/generator/sierpinski_cube.min.js" />
       <root url="file://$PROJECT_DIR$/dist/engine/generator/sierpinski_triangle.min.js" />

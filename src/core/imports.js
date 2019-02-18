@@ -489,6 +489,7 @@ function LibraryManager() {
             // noinspection JSDeprecatedSymbols
             $.holdReady(true);
         }
+
         let lib;
         for (let i = 0; i < $klibs.length; i += 1) {
             lib = $klibs[i];
@@ -556,7 +557,7 @@ function LibraryManager() {
                 break;
 
             /**
-             * select2
+             * Select2
              */
             case self.lib.SELECT2:
                 this.load_css_lib(lib, 'lib/select2/select2.min.css');
@@ -1162,6 +1163,7 @@ function after_load_imports() {
     app_library_manager.import_async_library(app_library_manager.lib.JQUERYCONFIRM);
     app_library_manager.import_async_library(app_library_manager.lib.JQUERYNICESELECT);
     app_library_manager.import_async_library(app_library_manager.lib.MATHPARSER);
+    app_library_manager.import_async_library(app_library_manager.lib.SELECT2);
 }
 
 
