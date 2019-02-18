@@ -95,7 +95,7 @@ function TMSEvents() {
      * @type {Face | null}
      * @private
      */
-    this._lastHoverFace = null;
+    this._last_hover_face = null;
 
     /**
      * Stores volume.
@@ -116,7 +116,7 @@ function TMSEvents() {
      * @type {JQuery | jQuery | HTMLElement | null}
      * @protected
      */
-    this._canvasParent = null;
+    this._canvas_parent = null;
 
     /**
      * Stores scene.
@@ -144,7 +144,7 @@ function TMSEvents() {
      * @type {boolean}
      * @private
      */
-    this._altevents = false;
+    this._altevents = true;
 
     /**
      * Stores object reference.
@@ -168,7 +168,7 @@ function TMSEvents() {
     this.set_viewer = function (v) {
         self._viewer = v;
         self._three_camera = v.get_camera();
-        self._canvasParent = v.get_canvas_parent();
+        self._canvas_parent = v.get_canvas_parent();
         self._scene = v.get_scene();
         self._raycaster = v.get_raycaster();
     };
@@ -200,12 +200,12 @@ function TMSEvents() {
      */
     this.initEvents = function () {
 
-        if (is_null_undf(this._canvasParent)) return;
+        if (is_null_undf(this._canvas_parent)) return;
 
         /**
          * Canvas orbitcontrols
          */
-        this._canvasParent.on(self._eventID.mousewheel, function (e) {
+        this._canvas_parent.on(self._eventID.mousewheel, function (e) {
             stop_wheel_event(e);
             e.preventDefault();
             self._viewer.animate_frame();
@@ -214,7 +214,7 @@ function TMSEvents() {
         /**
          * Disable left click
          */
-        this._canvasParent.on(self._eventID.mousedown, function (e) {
+        this._canvas_parent.on(self._eventID.mousedown, function (e) {
             e.preventDefault();
             self._viewer.focus();
             self._viewer.animate_frame();
@@ -225,7 +225,7 @@ function TMSEvents() {
         /**
          * Focus
          */
-        this._canvasParent.on(self._eventID.blur, function () {
+        this._canvas_parent.on(self._eventID.blur, function () {
             self._hasMousePressed = false;
             self._hasKeyPressed = false;
             self._viewer.stop_camera();
@@ -234,17 +234,17 @@ function TMSEvents() {
         /**
          * Mouse inside canvas
          */
-        this._canvasParent.on(self._eventID.mouseover, function () {
+        this._canvas_parent.on(self._eventID.mouseover, function () {
             self._hasMouseOver = true;
         });
-        this._canvasParent.on(self._eventID.mouseout, function () {
+        this._canvas_parent.on(self._eventID.mouseout, function () {
             self._hasMouseOver = false;
         });
 
         /**
          * Mouse press
          */
-        this._canvasParent.on(self._eventID.mousedown, function (e) {
+        this._canvas_parent.on(self._eventID.mousedown, function (e) {
             e.preventDefault();
             self._hasMousePressed = true;
         });
@@ -252,7 +252,7 @@ function TMSEvents() {
         /**
          * Mouseup
          */
-        this._canvasParent.on(self._eventID.mouseup, function (e) {
+        this._canvas_parent.on(self._eventID.mouseup, function (e) {
             e.preventDefault();
             // e.stopPropagation(); // No!
             self._hasMousePressed = false;
@@ -268,22 +268,22 @@ function TMSEvents() {
         /**
          * Left click
          */
-        this._canvasParent.on(self._eventID.click, function (e) {
+        this._canvas_parent.on(self._eventID.click, function (e) {
             e.preventDefault();
             self._viewer.objects_props.camera.movements.pan = false;
             if (self._mouseMoveDrag || self._hasMousePressed) return;
-            self._minesweeper.play(self._lastHoverFace, true, self._viewer);
+            self._minesweeper.play(self._last_hover_face, true, self._viewer);
             e.stopPropagation();
         });
 
         /**
          * Right click
          */
-        this._canvasParent.on(self._eventID.contextmenu, function (e) {
+        this._canvas_parent.on(self._eventID.contextmenu, function (e) {
             e.preventDefault();
             self._viewer.objects_props.camera.movements.rotate = false;
             if (self._mouseMoveDrag || self._hasMousePressed) return;
-            self._minesweeper.play(self._lastHoverFace, false, self._viewer);
+            self._minesweeper.play(self._last_hover_face, false, self._viewer);
             e.stopPropagation();
         });
 
@@ -296,7 +296,7 @@ function TMSEvents() {
 
             // Left click
             if (self._mouseMoveDrag && !self._viewer.objects_props.camera.movements.rotate && e.which === 1) {
-                if (is_null_undf(self._lastHoverFace)) {
+                if (is_null_undf(self._last_hover_face)) {
                     self._viewer.objects_props.camera.movements.rotate = true;
                     return;
                 }
@@ -307,7 +307,7 @@ function TMSEvents() {
             }
 
             // Right click
-            if (not_null_undf(self._lastHoverFace) && self._mouseMoveDrag && !self._viewer.objects_props.camera.movements.pan && e.which === 3) {
+            if (not_null_undf(self._last_hover_face) && self._mouseMoveDrag && !self._viewer.objects_props.camera.movements.pan && e.which === 3) {
                 setTimeout(function () {
                     self._viewer.objects_props.camera.movements.pan = true;
                 }, 120);
@@ -321,7 +321,7 @@ function TMSEvents() {
         /**
          * Press button on active canvas
          */
-        this._canvasParent.on(self._eventID.keydown, function (e) {
+        this._canvas_parent.on(self._eventID.keydown, function (e) {
             e.preventDefault(); // Cancel all default buttons
             e.stopPropagation();
 
@@ -439,7 +439,7 @@ function TMSEvents() {
         /**
          * Key release
          */
-        this._canvasParent.on(self._eventID.keyup, function (e) {
+        this._canvas_parent.on(self._eventID.keyup, function (e) {
             e.preventDefault(); // Cancel all default buttons
             e.stopPropagation();
             self._hasKeyPressed = false;
@@ -533,9 +533,9 @@ function TMSEvents() {
         /**
          * Get general dimensions
          */
-        let $offset = self._canvasParent.offset();
-        let $wh = self._canvasParent.innerHeight();
-        let $ww = self._canvasParent.innerWidth();
+        let $offset = self._canvas_parent.offset();
+        let $wh = self._canvas_parent.innerHeight();
+        let $ww = self._canvas_parent.innerWidth();
 
         /**
          * Mouse position inside window
@@ -676,16 +676,16 @@ function TMSEvents() {
      * @private
      */
     this._faceHover = function (face) {
-        if (is_null_undf(face) && is_null_undf(self._lastHoverFace)) return;
-        if (is_null_undf(face) && not_null_undf(self._lastHoverFace) || not_null_undf(face) && not_null_undf(self._lastHoverFace) && !face.equals(self._lastHoverFace)) {
-            let $mesh = self._lastHoverFace.get_mesh();
-            if (self._lastHoverFace.is_played()) {
+        if (is_null_undf(face) && is_null_undf(self._last_hover_face)) return;
+        if (is_null_undf(face) && not_null_undf(self._last_hover_face) || not_null_undf(face) && not_null_undf(self._last_hover_face) && !face.equals(self._last_hover_face)) {
+            let $mesh = self._last_hover_face.get_mesh();
+            if (self._last_hover_face.is_played()) {
                 $mesh.material.emissive = self._viewer.palette.face_unhover_played;
             } else {
                 $mesh.material.emissive = self._viewer.palette.face_unhover_unplayed;
             }
 
-            self._lastHoverFace = null;
+            self._last_hover_face = null;
             if (is_null_undf(face)) {
                 this._viewer.render();
                 return;
@@ -698,7 +698,7 @@ function TMSEvents() {
         } else {
             $mesh.material.emissive = self._viewer.palette.face_hover_unplayed;
         }
-        self._lastHoverFace = face;
+        self._last_hover_face = face;
         let center = face.get_center_coords();
         self._viewer.objects_props.camera.facetarget.x = center.x;
         self._viewer.objects_props.camera.facetarget.y = center.y;

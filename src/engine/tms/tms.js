@@ -45,13 +45,14 @@ function ThreeMineSweeper() {
      */
     this._menu = null;
 
+
     /**
      * Generator properties.
-     * @type {{facetarget: number|null, latitude: number|null, type: number, longitude: number|null, order: number|null}}
      * @private
      */
     this._generator = {
         facetarget: null,
+        fun: '',
         latitude: null,
         longitude: null,
         mines: 0,
@@ -110,13 +111,20 @@ function ThreeMineSweeper() {
      * @param {number | null=} face_target - Target face for random generators
      * @param {number | null=} latitude - Latitude
      * @param {number | null=} longitude - Longitude
+     * @param {string=} fun - Function generator
      */
-    this.set_generator = function (type, order, face_target, latitude, longitude) {
+    this.set_generator = function (type, order, face_target, latitude, longitude, fun) {
+
+        // Type
         this._generator.type = type;
-        this._generator.order = order;
+
+        // Properties
         this._generator.facetarget = face_target;
+        this._generator.fun = fun;
         this._generator.latitude = latitude;
         this._generator.longitude = longitude;
+        this._generator.order = order;
+
     };
 
     /**
@@ -174,6 +182,9 @@ function ThreeMineSweeper() {
             case 10:
                 g = new GenToroid();
                 break;
+            case 11:
+                g = new GenFunction();
+                break;
             default:
                 g = new GenEmpty();
                 break;
@@ -184,6 +195,7 @@ function ThreeMineSweeper() {
         if (not_null_undf(this._generator.facetarget)) g.set_face_target(this._generator.facetarget);
         if (not_null_undf(this._generator.latitude)) g.set_latitude(this._generator.latitude);
         if (not_null_undf(this._generator.longitude)) g.set_longitude(this._generator.longitude);
+        if (not_null_undf(this._generator.fun)) g.set_function(this._generator.fun);
         g.generate(-1, -1, -1, 1, 1, 1);
         g.set_type_id(this._generator.type);
 
@@ -228,7 +240,16 @@ function ThreeMineSweeper() {
             let camera = gen.get_camera();
 
             // Creates new minesweeper game instance
-            self._mines.new(volume, self._generator.mines, gen.get_genid(), gen.get_name(), gen.get_type_id());
+            if (!self._mines.new(volume, self._generator.mines, gen.get_genid(), gen.get_name(), gen.get_type_id())) {
+                loadingHandler(false);
+                app_dialog.confirm(lang.error_message, lang.new_game_bad_volume, {
+                    cancelText: null,
+                    confirmButtonClass: app_dialog.options.buttons.DANGER,
+                    confirmText: lang.answer_ok,
+                });
+                self.load_menu();
+                return;
+            }
 
             // Init events
             self._events.set_volume(volume);

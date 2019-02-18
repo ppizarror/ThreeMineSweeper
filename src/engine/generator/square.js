@@ -57,7 +57,7 @@ function GenSquare() {
         let v = [];
         for (let i = 0; i < lng; i += 1) { // x
             for (let j = 0; j < lat; j += 1) { // y
-                v.push(new Vertex(xi + (dx * i), yi + (dy * j), zo, 'V' + ((i * lng) + j).toString()));
+                v.push(new Vertex(xi + (dx * i), yi + (dy * j), zo, 'Vs' + ((i * lng) + j).toString()));
             }
         }
 
@@ -89,7 +89,7 @@ function GenSquare() {
         v = [];
         for (i = 0; i < lng; i += 1) { // x
             for (let j = 0; j < lat; j += 1) { // y
-                v.push(new Vertex(xi + (dx * i), yi + (dy * j), zo, 'V' + ((i * lng) + j).toString()));
+                v.push(new Vertex(xi + (dx * i), yi + (dy * j), zo, 'Vi' + ((i * lng) + j).toString()));
             }
         }
 

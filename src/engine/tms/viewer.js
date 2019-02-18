@@ -91,7 +91,7 @@ function TMSViewer() {
         cameratargetcolor: 0X0000ff,    // Color target
         griddist: 0.03,                 // Grid distance in percentage
         guicloseafterpopup: false,      // GUI closes after a popup is opened
-        guistartclosed: false,          // GUI starts closed
+        guistartclosed: true,           // GUI starts closed
         normalcolor: 0xff0000,          // Normal color
         planecolorx: 0X0000ff,          // X plane color
         planecolory: 0Xff0000,          // Y plane color
@@ -480,7 +480,7 @@ function TMSViewer() {
      * Game palette.
      */
     this.palette = {
-        contour_major: true,
+        contour_major: false,
         contour_major_color: 0x444444,
         contour_major_opacity: 1,
         contour_minor: false,
@@ -1644,7 +1644,10 @@ function TMSViewer() {
     this.toggle_gui = function () {
         self._threejs_helpers.gui = !self._threejs_helpers.gui;
         if (self._threejs_helpers.gui) {
-            app_library_manager.import_async_library(app_library_manager.lib.DATGUI, self._build_gui);
+            let $f = function () {
+                self._build_gui();
+            };
+            app_library_manager.import_async_library(app_library_manager.lib.DATGUI, $f);
         } else {
             self._destroy_gui();
         }
@@ -2549,7 +2552,7 @@ function TMSViewer() {
         face.place_image(this);
 
         // Create contour
-        if (face.is_enabled() && self.palette.contour_minor) {
+        if (face.is_enabled() && self.palette.contour_minor && face.is_planar()) {
             let objEdges = new THREE.EdgesGeometry(geom);
             let contour = this._create_contour(objEdges, this.palette.contour_minor_color);
             contour.material.opacity = this.palette.contour_minor_opacity;

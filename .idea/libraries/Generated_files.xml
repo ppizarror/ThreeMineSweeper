@@ -32,14 +32,15 @@
         <item url="file://$PROJECT_DIR$/dist/engine/generator/cube.min.js" />
         <item url="file://$PROJECT_DIR$/dist/engine/generator/cylinder.min.js" />
         <item url="file://$PROJECT_DIR$/dist/engine/generator/empty.min.js" />
+        <item url="file://$PROJECT_DIR$/dist/engine/generator/function.min.js" />
         <item url="file://$PROJECT_DIR$/dist/engine/generator/generator.min.js" />
+        <item url="file://$PROJECT_DIR$/dist/engine/generator/polyhedra.min.js" />
         <item url="file://$PROJECT_DIR$/dist/engine/generator/random_plane.min.js" />
         <item url="file://$PROJECT_DIR$/dist/engine/generator/sierpinski_cube.min.js" />
         <item url="file://$PROJECT_DIR$/dist/engine/generator/sierpinski_triangle.min.js" />
         <item url="file://$PROJECT_DIR$/dist/engine/generator/sphere.min.js" />
         <item url="file://$PROJECT_DIR$/dist/engine/generator/square.min.js" />
         <item url="file://$PROJECT_DIR$/dist/engine/generator/toroid.min.js" />
-        <item url="file://$PROJECT_DIR$/dist/engine/generator/torus.min.js" />
         <item url="file://$PROJECT_DIR$/dist/engine/geom/face.min.js" />
         <item url="file://$PROJECT_DIR$/dist/engine/geom/vertex.min.js" />
         <item url="file://$PROJECT_DIR$/dist/engine/geom/volume.min.js" />
@@ -61,6 +62,7 @@
         <item url="file://$PROJECT_DIR$/dist/ui/globals.min.js" />
         <item url="file://$PROJECT_DIR$/dist/ui/loading.min.js" />
         <item url="file://$PROJECT_DIR$/dist/ui/themes.min.js" />
+        <item url="file://$PROJECT_DIR$/lib/math.js/parser.min.js" />
         <item url="file://$PROJECT_DIR$/lib/three.js" />
         <item url="file://$PROJECT_DIR$/lib/three.js/OrbitControls.min.js" />
       </sourceFilesUrls>
@@ -96,14 +98,15 @@
       <root url="file://$PROJECT_DIR$/dist/engine/generator/cube.min.js" />
       <root url="file://$PROJECT_DIR$/dist/engine/generator/cylinder.min.js" />
       <root url="file://$PROJECT_DIR$/dist/engine/generator/empty.min.js" />
+      <root url="file://$PROJECT_DIR$/dist/engine/generator/function.min.js" />
       <root url="file://$PROJECT_DIR$/dist/engine/generator/generator.min.js" />
+      <root url="file://$PROJECT_DIR$/dist/engine/generator/polyhedra.min.js" />
       <root url="file://$PROJECT_DIR$/dist/engine/generator/random_plane.min.js" />
       <root url="file://$PROJECT_DIR$/dist/engine/generator/sierpinski_cube.min.js" />
       <root url="file://$PROJECT_DIR$/dist/engine/generator/sierpinski_triangle.min.js" />
       <root url="file://$PROJECT_DIR$/dist/engine/generator/sphere.min.js" />
       <root url="file://$PROJECT_DIR$/dist/engine/generator/square.min.js" />
       <root url="file://$PROJECT_DIR$/dist/engine/generator/toroid.min.js" />
-      <root url="file://$PROJECT_DIR$/dist/engine/generator/torus.min.js" />
       <root url="file://$PROJECT_DIR$/dist/engine/geom/face.min.js" />
       <root url="file://$PROJECT_DIR$/dist/engine/geom/vertex.min.js" />
       <root url="file://$PROJECT_DIR$/dist/engine/geom/volume.min.js" />
@@ -125,6 +128,7 @@
       <root url="file://$PROJECT_DIR$/dist/ui/globals.min.js" />
       <root url="file://$PROJECT_DIR$/dist/ui/loading.min.js" />
       <root url="file://$PROJECT_DIR$/dist/ui/themes.min.js" />
+      <root url="file://$PROJECT_DIR$/lib/math.js/parser.min.js" />
       <root url="file://$PROJECT_DIR$/lib/three.js" />
       <root url="file://$PROJECT_DIR$/lib/three.js/OrbitControls.min.js" />
     </CLASSES>

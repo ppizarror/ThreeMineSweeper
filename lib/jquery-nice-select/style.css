@@ -132,7 +132,8 @@
 	left: 0;
 	margin-left: -1px;
 	margin-top: 4px;
-	max-height: 30vh;
+	max-height: 33vh;
+	min-width: 28vh;
 	opacity: 0;
 	overflow-x: hidden;
 	padding: 0;

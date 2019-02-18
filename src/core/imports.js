@@ -55,6 +55,8 @@ function LibraryManager() {
         JQUERYTIMEAGO: 'jquery-timeago',
         JQUERYTOAST: 'jquery.toast',
         JQVMAP: 'jqvmap',
+        MATHEXPRESSIONEVALUATOR: 'math-expression-evaluator',
+        MATHPARSER: 'math-parser',
         MD5: 'md5',
         MENTIONSINPUT: 'jquery-mentions-input',
         MMENU: 'mmenu',
@@ -1085,6 +1087,20 @@ function LibraryManager() {
                 break;
 
             /**
+             * Math expression evaluator
+             */
+            case self.lib.MATHEXPRESSIONEVALUATOR:
+                this._getScript_async_callback(lib, 'lib/math.js/math-expression-evaluator.min.js', callback, params);
+                break;
+
+            /**
+             * Math parser.
+             */
+            case self.lib.MATHPARSER:
+                this._getScript_async_callback(lib, 'lib/math.js/parser.min.js', callback, params);
+                break;
+
+            /**
              * Unknown library
              */
             default:
@@ -1145,6 +1161,7 @@ function after_load_imports() {
     app_library_manager.import_async_library(app_library_manager.lib.HOVERCSS);
     app_library_manager.import_async_library(app_library_manager.lib.JQUERYCONFIRM);
     app_library_manager.import_async_library(app_library_manager.lib.JQUERYNICESELECT);
+    app_library_manager.import_async_library(app_library_manager.lib.MATHPARSER);
 }
 
 
@@ -1174,3 +1191,9 @@ var bowser;
  * Spinner - Spin.js main variable.
  */
 var Spinner;
+
+// noinspection ES6ConvertVarToLetConst
+/**
+ * Math parser.
+ */
+var Parser;

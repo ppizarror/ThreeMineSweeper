@@ -49,6 +49,13 @@ function Generator() {
     this._lng = 0;
 
     /**
+     * Function generator.
+     * @type {string}
+     * @protected
+     */
+    this._gen_fun = '';
+
+    /**
      * Generator name.
      * @type {string}
      * @private
@@ -69,14 +76,17 @@ function Generator() {
      */
     this._id = generateID();
 
+
     /**
      * Generator properties.
+     * @type {{fractal: boolean, fun: boolean, latlng: boolean, target: boolean}}
      * @protected
      */
     this._genprops = {
         fractal: false,
-        target: false,
+        fun: false,
         latlng: false,
+        target: false,
     };
 
     /**
@@ -171,6 +181,16 @@ function Generator() {
      */
     this.set_longitude = function (lng) {
         self._lng = Math.max(Math.floor(lng), 1);
+    };
+
+    /**
+     * Set geometry function.
+     *
+     * @function
+     * @param {string} fun
+     */
+    this.set_function = function (fun) {
+        self._gen_fun = fun.toString();
     };
 
     /**
@@ -277,7 +297,7 @@ function Generator() {
      * @returns {string}
      */
     this.get_genid = function () {
-        return md5(md5(self._name) + md5(self._genprops.fractal) + md5(self._genprops.latlng) + md5(self._genprops.target) + md5(self._faces_target) + md5(self._lat) + md5(self._lng) + md5(self._order));
+        return md5(md5(self._name) + md5(self._genprops.fractal) + md5(self._genprops.latlng) + md5(self._genprops.target) + md5(self._faces_target) + md5(self._lat) + md5(self._lng) + md5(self._order) + self._fun !== '' ? md5(self._gen_fun) : '');
     };
 
     /**

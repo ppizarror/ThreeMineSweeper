@@ -133,6 +133,13 @@ function Minesweeper() {
     this._reset = false;
 
     /**
+     * User is playing.
+     * @type {boolean}
+     * @private
+     */
+    this._is_playing = false;
+
+    /**
      * Object pointer.
      * @type {Minesweeper}
      */
@@ -147,11 +154,15 @@ function Minesweeper() {
      * @param {string} id - Generator id
      * @param {string} name - Generator name
      * @param {number} type - Generator type
+     * @returns {boolean} - Volume is valid
      */
     this.new = function (volume, mines, id, name, type) {
 
-        // Calculate total mines
+        // Get number of faces
         let tfaces = volume.get_total_faces(true);
+        if (tfaces === 0) return false;
+
+        // Calculate total mines
         mines = Math.max(0, Math.min(mines, tfaces - 1));
         self._generator.mines = mines;
         if (mines < 1) mines *= tfaces;
@@ -183,6 +194,7 @@ function Minesweeper() {
 
         // Change game status
         self._gameover = false;
+        self._is_playing = true;
         self._game_status.total = tfaces;
         self._game_status.played = 0;
         self._game_status.flags = 0;
@@ -192,6 +204,9 @@ function Minesweeper() {
         self._generator.id = md5(md5(id) + md5(pm));
         self._generator.name = name;
         self._generator.type_id = type;
+
+        // OK
+        return true;
 
     };
 
@@ -392,8 +407,8 @@ function Minesweeper() {
         }
 
         // Recursive call
-        if ($f.length === 0) return;
-        viewer.render();
+        if ($f.length === 0 || !self._is_playing) return; // Check if playing) return;
+        // viewer.render();
         setTimeout(function () {
             self._explotion_effect($f, viewer, call + 1);
         }, Math.floor(30 * Math.pow((call + 1), 0.20)));
@@ -426,14 +441,13 @@ function Minesweeper() {
         }
 
         // Animation ended, show dialog to restart
-        if ($f.length === 0) {
+        if ($f.length === 0 || !self._is_playing) {
             self._new_game_after_lose();
             return;
         }
 
-        // Recursive call
-        viewer.render();
-        setTimeout(function () {
+        // viewer.render();
+        setTimeout(function () { // Recursive call
             self._explotion_secondary_effect($f, viewer, call + 1);
         }, Math.floor(80 * Math.pow((call + 1), 0.10)));
 
@@ -509,6 +523,7 @@ function Minesweeper() {
         // Set events
         this._dom.menubutton.on('click', function () {
             let $loadmenu = function () {
+                self._is_playing = false;
                 app_tms.load_menu();
             };
             app_sound.play(app_sound.sound.BUTTON);
@@ -588,7 +603,7 @@ function Minesweeper() {
             confirm: function () {
                 self._check_window_size();
             },
-            confirmButtonClass: app_dialog.options.buttons.BLUE,
+            confirmButtonClass: app_dialog.options.buttons.DANGER,
             confirmText: lang.answer_ok,
             icon: 'fas fa-desktop',
             size: app_dialog.options.size.NORMAL,
@@ -634,6 +649,9 @@ function Minesweeper() {
      */
     this._request_username = function () {
 
+        // Check if playing
+        if (!self._is_playing) return;
+
         // Generate ID
         let $id = generateID();
 
@@ -642,7 +660,7 @@ function Minesweeper() {
         if (is_null_undf($lastname)) $lastname = '';
 
         // noinspection HtmlUnknownAttribute
-        app_dialog.form(lang.game_won_title, '{2}.<br><br><form action="" class="formName"><div class="form-group"><label for="{0}">{1}:</label><input type="text" class="form-control" id="{0}" minlength="4" maxlength="20" value="{4}" required aria-required="true" {3}></div></form>'.format($id, lang.game_won_name, lang.game_won_content.format(round_number(self._user.time, self._user.time < 10 ? 3 : 2)), $lastname === '' ? 'autofocus' : '', $lastname),
+        app_dialog.form(lang.game_won_title, '{2}.<br><br><form action="" class="formName"><div class="form-group"><label for="{0}">{1}:</label><input type="text" class="form-control" id="{0}" minlength="4" maxlength="20" value="{4}" required aria-required="true" placeholder="{5}" aria-placeholder="{5}" {3}></div></form>'.format($id, lang.game_won_name, lang.game_won_content.format(round_number(self._user.time, self._user.time < 10 ? 3 : 2)), $lastname === '' ? 'autofocus' : '', $lastname, lang.game_won_placeholder),
             function () {
                 let $name = self._sanitize_text($('#' + $id).val()); // Get name
                 if ($name.length >= 4 && $name.length <= 20) {
@@ -756,6 +774,7 @@ function Minesweeper() {
      * @private
      */
     this._new_game_after_win = function () {
+        if (!self._is_playing) return; // Check if playing
         setTimeout(function () {
             app_dialog.confirm(lang.game_won_title, lang.start_new_game, {
                 cancel: function () {
@@ -770,7 +789,7 @@ function Minesweeper() {
                 icon: 'fas fa-trophy',
                 size: app_dialog.options.size.SMALL,
             });
-        }, 1500);
+        }, 1000);
     };
 
     /**
@@ -780,6 +799,7 @@ function Minesweeper() {
      * @private
      */
     this._new_game_after_lose = function () {
+        if (!self._is_playing) return; // Check if playing
         setTimeout(function () {
             app_dialog.confirm(lang.game_over, lang.start_new_game, {
                 cancel: function () {
@@ -794,7 +814,7 @@ function Minesweeper() {
                 icon: 'fas fa-bomb',
                 size: app_dialog.options.size.SMALL,
             });
-        }, 1500);
+        }, 1000);
     };
 
     /**

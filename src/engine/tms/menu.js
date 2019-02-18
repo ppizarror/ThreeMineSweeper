@@ -61,6 +61,7 @@ function TMSMenu() {
         },
         7: { // Cylinder
             latlng: true,
+            lateq: false,
             from: 20,
             max: 60,
             min: 10,
@@ -68,6 +69,7 @@ function TMSMenu() {
         },
         8: { // Square
             latlng: true,
+            lateq: false,
             from: 20,
             max: 60,
             min: 10,
@@ -75,6 +77,7 @@ function TMSMenu() {
         },
         9: { // Cube
             latlng: true,
+            lateq: false,
             from: 20,
             max: 25,
             min: 10,
@@ -82,9 +85,19 @@ function TMSMenu() {
         },
         10: { // Toroid
             latlng: true,
+            lateq: false,
             from: 20,
             max: 65,
             min: 20,
+            step: 5,
+        },
+        11: { // Function
+            from: 20,
+            fun: true,
+            lateq: true,
+            latlng: true,
+            max: 60,
+            min: 10,
             step: 5,
         },
         'null': { // EmptyGenerator
@@ -107,10 +120,11 @@ function TMSMenu() {
     /**
      * Fill modes
      */
-    this._gamekeys = [3, 4, 2, 9, 6, 10, 7, 8, 5];
+    this._gamekeys = [3, 4, 2, 9, 6, 10, 7, 8, 11, 5];
     for (let i = 0; i < this._gamekeys.length; i += 1) {
         if (is_null_undf(this._games[this._gamekeys[i]])) continue;
         if (is_null_undf(this._games[this._gamekeys[i]]['fractal'])) this._games[this._gamekeys[i]]['fractal'] = false;
+        if (is_null_undf(this._games[this._gamekeys[i]]['fun'])) this._games[this._gamekeys[i]]['fun'] = false;
         if (is_null_undf(this._games[this._gamekeys[i]]['latlng'])) this._games[this._gamekeys[i]]['latlng'] = false;
         if (is_null_undf(this._games[this._gamekeys[i]]['target'])) this._games[this._gamekeys[i]]['target'] = false;
         if (is_null_undf(this._games[this._gamekeys[i]]['enabled'])) this._games[this._gamekeys[i]]['enabled'] = true;
@@ -118,10 +132,11 @@ function TMSMenu() {
 
     /**
      * Cookies ID.
-     * @type {{gen: string, mines: string, lng: string, lat: string, order: string}}
+     * @type {{gen: string, mines: string, lng: string, fun: string, lat: string, order: string, target: string}}
      * @private
      */
     this._cookies = {
+        fun: 'newgame.fun',
         gen: 'newgame.gen',
         lat: 'newgame.lat',
         lng: 'newgame.lng',
@@ -143,6 +158,7 @@ function TMSMenu() {
      *      container: JQuery<HTMLElement> | jQuery | HTMLElement,
      *      content: JQuery<HTMLElement> | jQuery | HTMLElement,
      *      footer: JQuery<HTMLElement> | jQuery | HTMLElement,
+     *      gen_fun: JQuery<HTMLElement> | jQuery | HTMLElement,
      *      gen_lat: JQuery<HTMLElement> | jQuery | HTMLElement,
      *      gen_lng: JQuery<HTMLElement> | jQuery | HTMLElement,
      *      gen_mines: JQuery<HTMLElement> | jQuery | HTMLElement
@@ -160,6 +176,7 @@ function TMSMenu() {
         container: $('#menu-container'),
         content: $('#menu-content'),
         footer: $('#menu-footer'),
+        gen_fun: null,
         gen_lat: null,
         gen_lng: null,
         gen_mines: null,
@@ -347,6 +364,21 @@ function TMSMenu() {
     };
 
     /**
+     * Get string from cookie.
+     *
+     * @function
+     * @param {string} id
+     * @param {string} other
+     * @returns {string}
+     * @private
+     */
+    this._get_cookie_string = function (id, other) {
+        let $val = sessionCookie[id];
+        if (is_null_undf($val)) return other;
+        return $val;
+    };
+
+    /**
      * Store cookie value, null values are not stored.
      *
      * @function
@@ -427,67 +459,6 @@ function TMSMenu() {
     };
 
     /**
-     * Create new game.
-     *
-     * @function
-     * @private
-     */
-    this._play = function () {
-
-        // Load game
-        let $gen = self._dom.gen_selector.val();
-        $gen = parseInt($gen, 10);
-
-        // Check generator
-        if (!self._gamekeys.includes($gen)) return;
-        let game = self._games[$gen];
-        if (is_null_undf(game)) return;
-
-        // Load options
-        let $order = null;
-        let $target = null;
-        let $lat = null;
-        let $lng = null;
-        let $mines;
-
-        if (game.fractal) {
-            $order = self._dom.gen_order.val();
-            if (is_null_undf($order)) return;
-            $order = parseInt($order, 10);
-            self._save_cookie_val(self._cookies.order, self._dom.gen_order[0].selectedIndex);
-        }
-        if (game.target) {
-            $target = self._dom.gen_target.val();
-            if (is_null_undf($target)) return;
-            $target = parseInt($target, 10);
-            self._save_cookie_val(self._cookies.target, $target);
-        }
-        if (game.latlng) {
-            $lat = self._dom.gen_lat.val();
-            $lng = self._dom.gen_lng.val();
-            if (is_null_undf($lat) || is_null_undf($lng)) return;
-            $lat = parseInt($lat, 10);
-            $lng = parseInt($lng, 10);
-            self._save_cookie_val(self._cookies.lat, $lat);
-            self._save_cookie_val(self._cookies.lng, $lng);
-        }
-        $mines = self._dom.gen_mines.val();
-        if (is_null_undf($mines)) return;
-        $mines = parseInt($mines, 10);
-        if ($mines < 0 || $mines > 100) return;
-
-        // Save to cookies
-        self._save_cookie_val(self._cookies.mines, $mines);
-
-        // Init new game
-        self.reset_menu();
-        app_tms.set_generator($gen, $order, $target, $lat, $lng);
-        app_tms.set_mines($mines * 0.01);
-        app_tms.new();
-
-    };
-
-    /**
      * Load generator options.
      *
      * @function
@@ -564,12 +535,27 @@ function TMSMenu() {
                 skin: 'round',
                 step: game.step,
             });
-            self._dom.gen_lng.ionRangeSlider({
-                from: self._get_cookie_val(self._cookies.lng, game.min, game.max, game.from, true),
-                max: game.max,
-                min: game.min,
-                skin: 'round',
-                step: game.step,
+            if (!game.lateq) {
+                self._dom.gen_lng.ionRangeSlider({
+                    from: self._get_cookie_val(self._cookies.lng, game.min, game.max, game.from, true),
+                    max: game.max,
+                    min: game.min,
+                    skin: 'round',
+                    step: game.step,
+                });
+            } else {
+                self._dom.gen_lng.remove();
+                self._dom.generator.find('.menu-generator-latlng-sep').remove(); // Hide separator
+            }
+        }
+
+        // Function
+        if (game.fun) {
+            $id = generateID();
+            self._write_input('z=f(x,y)', '<input type="text" class="form-control" id="{0}" minlength="3" maxlength="100" value="{2}" required aria-required="true" placeholder="{1}" aria-placeholder="{1}">'.format($id, lang.new_game_function_placeholder, self._get_cookie_string(self._cookies.fun, '0.1*sin(1.2*sqrt((10*x)^2 + (10*y)^2))')), self._dom.generator);
+            self._dom.gen_fun = $('#' + $id);
+            self._dom.gen_fun.on('change', function () {
+                self._check_function_popup($(this).val());
             });
         }
 
@@ -596,6 +582,78 @@ function TMSMenu() {
         // Others
         self._set_content_height();
         self._dom.gen_selector.niceSelect('update');
+
+    };
+
+    /**
+     * Create new game.
+     *
+     * @function
+     * @private
+     */
+    this._play = function () {
+
+        // Load game
+        let $gen = self._dom.gen_selector.val();
+        $gen = parseInt($gen, 10);
+
+        // Check generator
+        if (!self._gamekeys.includes($gen)) return;
+        let game = self._games[$gen];
+        if (is_null_undf(game)) return;
+
+        // Load options
+        let $fun = '';
+        let $lat = null;
+        let $lng = null;
+        let $order = null;
+        let $target = null;
+        let $mines;
+
+        if (game.fractal) {
+            $order = self._dom.gen_order.val();
+            if (is_null_undf($order)) return;
+            $order = parseInt($order, 10);
+            self._save_cookie_val(self._cookies.order, self._dom.gen_order[0].selectedIndex);
+        }
+        if (game.target) {
+            $target = self._dom.gen_target.val();
+            if (is_null_undf($target)) return;
+            $target = parseInt($target, 10);
+            self._save_cookie_val(self._cookies.target, $target);
+        }
+        if (game.latlng) {
+            $lat = self._dom.gen_lat.val();
+            if (!game.lateq) {
+                $lng = self._dom.gen_lng.val();
+            } else {
+                $lng = $lat;
+            }
+            if (is_null_undf($lat) || is_null_undf($lng)) return;
+            $lat = parseInt($lat, 10);
+            $lng = parseInt($lng, 10);
+            self._save_cookie_val(self._cookies.lat, $lat);
+            self._save_cookie_val(self._cookies.lng, $lng);
+        }
+        if (game.fun) {
+            $fun = self._dom.gen_fun.val();
+            self._save_cookie_val(self._cookies.fun, $fun);
+            if (!self._check_function_popup($fun) || $fun.length < 3 || $fun.length > 100) return;
+            self._save_cookie_val(self._cookies.fun, $fun);
+        }
+        $mines = self._dom.gen_mines.val();
+        if (is_null_undf($mines)) return;
+        $mines = parseInt($mines, 10);
+        if ($mines < 0 || $mines > 100) return;
+
+        // Save to cookies
+        self._save_cookie_val(self._cookies.mines, $mines);
+
+        // Init new game
+        self.reset_menu();
+        app_tms.set_generator($gen, $order, $target, $lat, $lng, $fun);
+        app_tms.set_mines($mines * 0.01);
+        app_tms.new();
 
     };
 
@@ -699,6 +757,45 @@ function TMSMenu() {
     this._menu_stats = function () {
         loadingHandler(true);
         app_library_manager.import_async_library([app_library_manager.lib.CHARTJS, app_library_manager.lib.JQVMAP], self._load_stats);
+    };
+
+    /**
+     * Check if string is a math function.
+     *
+     * @function
+     * @param {string} fun
+     * @returns {boolean}
+     * @private
+     */
+    this._check_if_function = function (fun) {
+        try {
+            // noinspection JSUnresolvedFunction
+            let $f = Parser.parse(fun.toLowerCase()).toJSFunction(['x', 'y']);
+            return (!isNaN(parseFloat($f(343.343, 123.457))));
+        } catch ($e) {
+        } finally {
+        }
+        return false;
+    };
+
+    /**
+     * Check function, if invalid throws popup.
+     *
+     * @function
+     * @param {string} fun
+     * @returns {boolean}
+     * @private
+     */
+    this._check_function_popup = function (fun) {
+        if (!this._check_if_function(fun)) {
+            app_dialog.confirm(lang.error_message, lang.new_game_function_bad.format('<i style="background-color: #f6f6f6;">{0}</i>'.format(fun.replace(/<(?:.|\n)*?>/gm, ''))), {
+                cancelText: null,
+                confirmButtonClass: app_dialog.options.buttons.DANGER,
+                confirmText: lang.answer_ok,
+            });
+            return false;
+        }
+        return true;
     };
 
     /**
