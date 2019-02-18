@@ -2541,7 +2541,7 @@ function TMSViewer() {
         }
 
         // Create secondary contour
-        if (self.palette.contour_major) {
+        if (self.palette.contour_major && self._volume.has_contour()) {
             let s_edges = new THREE.EdgesGeometry(geometryMerge);
             let s_material = new THREE.LineBasicMaterial({color: this.palette.contour_major_color});
             s_material.opacity = this.palette.contour_major_opacity;
@@ -2600,7 +2600,7 @@ function TMSViewer() {
         face.place_image(this);
 
         // Create contour
-        if (face.is_enabled() && self.palette.contour_minor && face.is_planar()) {
+        if (face.is_enabled() && self.palette.contour_minor && face.is_planar() && face.has_contour()) {
             let objEdges = new THREE.EdgesGeometry(geom);
             let contour = this._create_contour(objEdges, this.palette.contour_minor_color);
             contour.material.opacity = this.palette.contour_minor_opacity;

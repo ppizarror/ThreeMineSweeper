@@ -113,6 +113,13 @@ function Face(face_vertex, face_name) {
     this._mesh = null;
 
     /**
+     * Enable face contour.
+     * @type {boolean}
+     * @protected
+     */
+    this._draw_contour = true;
+
+    /**
      * Pointer to object.
      * @type {Face}
      */
@@ -1306,6 +1313,24 @@ function Face(face_vertex, face_name) {
 
     };
 
+    /**
+     * Disable face contour.
+     *
+     * @function
+     */
+    this.disable_contour = function () {
+        self._draw_contour = false;
+    };
+
+    /**
+     * Face has contour.
+     *
+     * @function
+     * @returns {boolean}
+     */
+    this.has_contour = function () {
+        return self._draw_contour;
+    };
 
     /**
      * ------------------------------------------------------------------------

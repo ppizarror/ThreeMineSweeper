@@ -101,6 +101,9 @@ function GenSphere() {
             }
         }
 
+        // Disable volume contour
+        this._volume.disable_contour();
+
     };
 
 }

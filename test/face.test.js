@@ -10,6 +10,8 @@ describe('Test face', function () {
 
         // ID test
         f.set_name('F');
+        f.disable_contour();
+        expect(f.has_contour()).toBe(false);
         expect(f.get_neighbours_strlist()).toBe('');
         expect(f.get_name()).toBe('F');
         expect(f.get_id !== ft.get_id()).toBe(true);

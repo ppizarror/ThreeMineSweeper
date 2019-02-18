@@ -99,6 +99,7 @@ function GenFunction() {
                 face.enable_uv_flip();
                 face.set_uv_rotation(-90);
                 face.set_bomb_behaviour(face.behaviour.AROUND);
+                face.disable_contour();
                 f.push(face);
                 i += 1;
             }
@@ -131,6 +132,7 @@ function GenFunction() {
                 ], 'Fi' + i.toString());
                 face.disable_face();
                 face.reverse_vertices();
+                face.disable_contour();
                 f.push(face);
                 i += 1;
             }
@@ -138,6 +140,9 @@ function GenFunction() {
 
         // Add unplayable faces to volume
         this._volume.add_face(f);
+
+        // Disable contour
+        this._volume.disable_contour();
 
     };
 

@@ -70,6 +70,13 @@ function Generator() {
     this._type_id = 0;
 
     /**
+     * Enable volume contour.
+     * @type {boolean}
+     * @protected
+     */
+    this._draw_contour = true;
+
+    /**
      * ID of the generator.
      * @type {string}
      * @protected
@@ -136,6 +143,7 @@ function Generator() {
         let _zf = Math.max(zi, zf);
         app_console.info(lang.generator_start.format(self.get_name()));
         self._generate(_xi, _yi, _zi, _xf, _yf, _zf);
+        if (!self._draw_contour) this._volume.disable_contour();
         this._volume.assemble();
         let tf = get_seconds_from(ti);
         app_console.info(lang.generator_finished.format(tf, this._volume.get_total_faces(),

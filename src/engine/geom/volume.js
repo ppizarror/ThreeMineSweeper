@@ -91,6 +91,13 @@ function Volume(volume_faces, volume_name) {
     this._add_check_vertices = true;
 
     /**
+     * Enable volume contour.
+     * @type {boolean}
+     * @protected
+     */
+    this._draw_contour = true;
+
+    /**
      * Object pointer.
      * @type {Volume}
      */
@@ -602,6 +609,25 @@ function Volume(volume_faces, volume_name) {
      */
     this.disable_vertex_check = function () {
         self._add_check_vertices = false;
+    };
+
+    /**
+     * Disable volume contour.
+     *
+     * @function
+     */
+    this.disable_contour = function () {
+        self._draw_contour = false;
+    };
+
+    /**
+     * Volume has contour.
+     *
+     * @function
+     * @returns {boolean}
+     */
+    this.has_contour = function () {
+        return self._draw_contour;
     };
 
     /**

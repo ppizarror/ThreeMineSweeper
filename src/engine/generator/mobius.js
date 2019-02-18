@@ -220,6 +220,7 @@ function GenMobius() {
                 ], 'Fs' + i.toString());
                 face.enable_uv_flip();
                 face.set_uv_rotation(-90);
+                face.disable_contour();
                 face.set_bomb_behaviour(face.behaviour.AROUND);
                 f.push(face);
                 i += 1;
@@ -237,6 +238,7 @@ function GenMobius() {
                 ], 'Fi' + i.toString());
                 face.reverse_vertices();
                 face.set_uv_rotation(-90);
+                face.disable_contour();
                 face.set_bomb_behaviour(face.behaviour.AROUND);
                 f.push(face);
                 i += 1;
@@ -245,6 +247,9 @@ function GenMobius() {
 
         // Add valid faces to volume
         this._volume.add_face(f);
+
+        // Disable volume contour
+        this._volume.disable_contour();
 
     };
 
