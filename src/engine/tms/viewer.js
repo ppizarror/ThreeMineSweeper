@@ -287,7 +287,7 @@ function TMSViewer() {
                 intensity: 1.200,
             },
             maxdistance: 2.500,                 // Maximum distance
-            maxpolarangle: Math.PI,             // Max polar angle
+            maxpolarangle: 2 * Math.PI,         // Max polar angle
             maxvelocity: {                      // Maximum velocity
                 alf: 0.006,
                 aup: 0.006,
@@ -324,7 +324,6 @@ function TMSViewer() {
             },
             near: 0.001,                        // Close plane
             pan: true,                          // Enables pan
-            panorbitcontrols: false,            // Enable OrbitControls pan
             panaddfactor: 0.4,                  // Pan add speed factor
             panaddtospeed: false,               // Add pan speed to velocity
             panfactor: 0.004,                   // Pan factor
@@ -335,7 +334,8 @@ function TMSViewer() {
             radius: 0.995,                      // Radius coefficient
             ray: null,                          // Camera collision raycaster
             raycollidedist: 0.08,               // Collide distance
-            rotatespeed: 0.060,                 // Rotation speed
+            rotatecenter: true,                 // Enables rotation around center (Ctrl+Left click)
+            rotatespeed: 0.050,                 // Rotation speed
             speedfactor: {                      // Speed factor inside outside worldsize
                 inside: 0.60,
                 outside: 0.85,
@@ -781,16 +781,17 @@ function TMSViewer() {
 
         // Set OrbitControls properties
         this._controls.autoRotate = this.objects_props.camera.autorotate;
-        this._controls.ctrlLeftPan = this.objects_props.camera.panorbitcontrols;
         this._controls.dampingFactor = this.objects_props.camera.dampingfactor;
         this._controls.enableDamping = this.objects_props.camera.damping;
         this._controls.enableKey = false;
         this._controls.enablePan = this.objects_props.camera.pan;
+        this._controls.enableRotateCenter = this.objects_props.camera.rotatecenter;
         this._controls.enableZoom = true;
         this._controls.maxDistance = this.objects_props.camera.maxdistance;
         this._controls.maxPolarAngle = this.objects_props.camera.maxpolarangle;
         this._controls.panFunction = this._move_ortho;
         this._controls.panSpeed = this.objects_props.camera.panspeed * self.worldsize.diagl;
+        this._controls.rotateCenterFunction = this._rotate_around_center;
         this._controls.rotatespeed = this.objects_props.camera.rotatespeed;
         this._controls.viewerCamera = this.objects_props.camera;
         this._controls.zoomFunction = this._move_parallel;
@@ -1453,7 +1454,19 @@ function TMSViewer() {
     };
 
     /**
-     * Rotate target.
+     * Rotate camera around center.
+     *
+     * @function
+     * @param {number} polar
+     * @param {number} azimuth
+     * @private
+     */
+    this._rotate_around_center = function (polar, azimuth) {
+        console.log(polar, azimuth);
+    };
+
+    /**
+     * Rotate target, actually disabled.
      *
      * @function
      * @param {number} polar
