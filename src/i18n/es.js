@@ -58,7 +58,7 @@ lang_db.es = {
     "gen_1": "Pirámide Básica",
     "gen_10": "Toroide",
     "gen_11": "Función z=f(x,y)",
-    "gen_12": "Möbius Strip",
+    "gen_12": "Banda de Möbius",
     "gen_2": "Fractal Cruz",
     "gen_3": "Cubo de Sierpinski",
     "gen_4": "Triángulo de Sierpinski",
