@@ -78,6 +78,7 @@ lang_db.fr = {
     "help_controls_click_hold_left": "Cliquez et maintenez enfoncé, faites pivoter la caméra autour de la position",
     "help_controls_click_hold_right": "Cliquez et maintenez enfoncé, déplacez la caméra autour de sa position",
     "help_controls_click_right": "Placez des drapeaux / points d'interrogation",
+    "help_controls_click_rotate_center": "Cliquez et maintenez appuyé, faites pivoter la caméra autour du centre",
     "help_controls_move": "Se déplacer dans la carte",
     "help_controls_move_down": "Descendre",
     "help_controls_move_up": "Monter",

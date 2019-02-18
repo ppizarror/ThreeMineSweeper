@@ -78,6 +78,7 @@ lang_db.es = {
     "help_controls_click_hold_left": "Cliquear y mantener para rotar la cámara",
     "help_controls_click_hold_right": "Cliquear y mantener para mover la cámara",
     "help_controls_click_right": "Poner banderas/signos de interrogación",
+    "help_controls_click_rotate_center": "Clickear y mantener para rotar la cámara en torno al centro",
     "help_controls_move": "Moverse a través del mapa",
     "help_controls_move_down": "Bajar",
     "help_controls_move_up": "Subir",

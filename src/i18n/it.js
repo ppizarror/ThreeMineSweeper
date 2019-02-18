@@ -78,6 +78,7 @@ lang_db.it = {
     "help_controls_click_hold_left": "Fai clic e tieni premuto, ruota la posizione della videocamera",
     "help_controls_click_hold_right": "Fai clic e tieni premuto, sposta la posizione della videocamera",
     "help_controls_click_right": "Posiziona contrassegni / punti interrogativi",
+    "help_controls_click_rotate_center": "Fai clic e tieni premuto, ruota la fotocamera attorno al centro",
     "help_controls_move": "Sposta la mappa",
     "help_controls_move_down": "Sposta giù",
     "help_controls_move_up": "Sposta su",

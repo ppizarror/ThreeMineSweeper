@@ -78,6 +78,7 @@ lang_db.ru = {
     "help_controls_click_hold_left": "Нажмите и удерживайте, поверните камеру вокруг позиции",
     "help_controls_click_hold_right": "Нажмите и удерживайте, перемещайте камеру вокруг позиции",
     "help_controls_click_right": "Поместить флаги / вопросительные знаки",
+    "help_controls_click_rotate_center": "Нажмите и удерживайте, вращайте камеру вокруг центра",
     "help_controls_move": "Двигаться по карте",
     "help_controls_move_down": "двигаться вниз",
     "help_controls_move_up": "двигаться вверх",

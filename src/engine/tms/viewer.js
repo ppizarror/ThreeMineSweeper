@@ -287,7 +287,7 @@ function TMSViewer() {
                 intensity: 1.200,
             },
             maxdistance: 2.500,                 // Maximum distance
-            maxpolarangle: 2 * Math.PI,         // Max polar angle
+            maxpolarangle: Math.PI,             // Max polar angle
             maxvelocity: {                      // Maximum velocity
                 alf: 0.006,
                 aup: 0.006,
@@ -313,6 +313,7 @@ function TMSViewer() {
                 planeforward: false,
                 right: false,
                 rotate: false,
+                rotatecenter: false,
                 zdown: false,
                 zup: false,
             },
@@ -335,6 +336,7 @@ function TMSViewer() {
             ray: null,                          // Camera collision raycaster
             raycollidedist: 0.08,               // Collide distance
             rotatecenter: true,                 // Enables rotation around center (Ctrl+Left click)
+            rotatecenterspeed: 0.300,           // Rotation around center speed
             rotatespeed: 0.050,                 // Rotation speed
             speedfactor: {                      // Speed factor inside outside worldsize
                 inside: 0.60,
@@ -791,8 +793,10 @@ function TMSViewer() {
         this._controls.maxPolarAngle = this.objects_props.camera.maxpolarangle;
         this._controls.panFunction = this._move_ortho;
         this._controls.panSpeed = this.objects_props.camera.panspeed * self.worldsize.diagl;
-        this._controls.rotateCenterFunction = this._rotate_around_center;
-        this._controls.rotatespeed = this.objects_props.camera.rotatespeed;
+        this._controls.rotateCenterAfter = this._rotate_center_after;
+        this._controls.rotateCenterInit = this._rotate_center_init;
+        this._controls.rotateCenterSpeed = this.objects_props.camera.rotatecenterspeed;
+        this._controls.rotateSpeed = this.objects_props.camera.rotatespeed;
         this._controls.viewerCamera = this.objects_props.camera;
         this._controls.zoomFunction = this._move_parallel;
 
@@ -834,8 +838,9 @@ function TMSViewer() {
      * @param {number} x
      * @param {number} y
      * @param {number} z
+     * @param {boolean=} disablefactor
      */
-    this.set_camera_pos = function (x, y, z) {
+    this.set_camera_pos = function (x, y, z, disablefactor) {
 
         // Set position
         if (x === -1 || y === -1 || z === -1) {
@@ -843,9 +848,11 @@ function TMSViewer() {
             y = this.worldsize.y;
             z = this.worldsize.z;
         }
-        x *= this.worldsize.x;
-        y *= this.worldsize.y;
-        z *= this.worldsize.z;
+        if (!disablefactor) {
+            x *= this.worldsize.x;
+            y *= this.worldsize.y;
+            z *= this.worldsize.z;
+        }
         self.objects_props.camera.initialPosition = {
             x: x,
             y: y,
@@ -858,9 +865,6 @@ function TMSViewer() {
             y: y * this.objects_props.camera.radius,
             z: z * this.objects_props.camera.radius,
         };
-        this.objects_props.camera.target.x *= this.worldsize.x;
-        this.objects_props.camera.target.y *= this.worldsize.y;
-        this.objects_props.camera.target.z *= this.worldsize.z;
         self.objects_props.camera.initialTarget = {
             x: this.objects_props.camera.target.x,
             y: this.objects_props.camera.target.y,
@@ -1111,6 +1115,9 @@ function TMSViewer() {
      * @private
      */
     this._update_camera_speed = function () {
+
+        // If camera is rotating around center returns
+        if (self.objects_props.camera.movements.rotatecenter) return;
 
         // FPS
         let fps = 1 / self._get_fps();
@@ -1454,15 +1461,30 @@ function TMSViewer() {
     };
 
     /**
-     * Rotate camera around center.
+     * Init rotate center.
      *
      * @function
-     * @param {number} polar
-     * @param {number} azimuth
      * @private
      */
-    this._rotate_around_center = function (polar, azimuth) {
-        console.log(polar, azimuth);
+    this._rotate_center_init = function () {
+        self.stop_camera();
+        self.objects_props.camera.movements.rotatecenter = true;
+        self.objects_props.camera.target.x = 0;
+        self.objects_props.camera.target.y = 0;
+        self.objects_props.camera.target.z = 0;
+        self._set_camera_target();
+    };
+
+    /**
+     * Trigger function after rotate center.
+     *
+     * @function
+     * @private
+     */
+    this._rotate_center_after = function () {
+        if (!self.objects_props.camera.movements.rotatecenter) return;
+        self.stop_camera();
+        self.set_camera_pos(self._three_camera.position.z, self._three_camera.position.x, self._three_camera.position.y);
     };
 
     /**

@@ -804,7 +804,7 @@ function TMSMenu() {
 
         self._write_htp_entry(['Keyboard_White_Mouse_Left'], lang.help_controls_click_faces);
         self._write_htp_entry(['Keyboard_White_Mouse_Left|shake-lr'], lang.help_controls_click_hold_left);
-        // self._write_htp_entry(['Keyboard_White_Mouse_Left|shake-lr', '+', 'Keyboard_White_Ctrl'], lang.help_controls_click_hold_right);
+        self._write_htp_entry(['Keyboard_White_Mouse_Left|shake-lr', '+', 'Keyboard_White_Ctrl'], lang.help_controls_click_rotate_center);
         self._write_htp_entry(['Keyboard_White_Mouse_Middle'], lang.help_controls_zoom);
         self._write_htp_entry(['Keyboard_White_Mouse_Right'], lang.help_controls_click_right);
         self._write_htp_entry(['Keyboard_White_Mouse_Right|shake-lr'], lang.help_controls_click_hold_right);

@@ -78,6 +78,7 @@ lang_db.en = {
     "help_controls_click_hold_left": "Click and hold, rotate camera around position",
     "help_controls_click_hold_right": "Click and hold, move camera around position",
     "help_controls_click_right": "Place flags/question marks",
+    "help_controls_click_rotate_center": "Click and hold, rotate camera around the center",
     "help_controls_move": "Move through the map",
     "help_controls_move_down": "Move down",
     "help_controls_move_up": "Move up",

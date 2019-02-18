@@ -78,6 +78,7 @@ lang_db.br = {
     "help_controls_click_hold_left": "Clique e segure, gire a câmera na posição",
     "help_controls_click_hold_right": "Click and hold, move camera around position",
     "help_controls_click_right": "Colocar sinalizadores / pontos de interrogação",
+    "help_controls_click_rotate_center": "Clique e segure, gire a câmera ao redor do centro",
     "help_controls_move": "Percorrer o mapa",
     "help_controls_move_down": "Mover para baixo",
     "help_controls_move_up": "Subir",

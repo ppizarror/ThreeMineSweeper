@@ -78,6 +78,7 @@ lang_db.de = {
     "help_controls_click_hold_left": "Klicken und halten, Kamera um Position drehen",
     "help_controls_click_hold_right": "Klicken und halten, Kamera um Position bewegen",
     "help_controls_click_right": "Flaggen / Fragezeichen setzen",
+    "help_controls_click_rotate_center": "Klicken und halten, Kamera um die Mitte drehen",
     "help_controls_move": "Durch die Karte gehen",
     "help_controls_move_down": "Nach unten verschieben",
     "help_controls_move_up": "Nach oben",
