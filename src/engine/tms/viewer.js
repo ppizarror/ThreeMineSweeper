@@ -405,7 +405,7 @@ function TMSViewer() {
         fog: {
             color: 0x131313,
             density: 0.00024,
-            enabled: true,
+            enabled: false,
         },
 
     };
