@@ -21,7 +21,7 @@ Menu root container
 	border-radius: 15px;
 	box-shadow: 0 0 12px rgba(0, 0, 0, 0.40);
 	color: #ffffff;
-	height: 72.5%;
+	height: 70%;
 	margin: auto;
 	max-height: 590px;
 	min-height: 430px;
@@ -29,7 +29,7 @@ Menu root container
 
 .menu-container-width {
 	max-width: 820px;
-	min-width: 550px;
+	min-width: 630px;
 	width: 70%;
 }
 
@@ -703,6 +703,7 @@ Pick function
 	float: left;
 	font-weight: 600;
 	margin-left: 2.5%;
+	padding-left: 2%;
 	width: 25%;
 }
 
@@ -710,10 +711,10 @@ Pick function
 	#menu-content .function-button {
 		font-size: 0.8rem;
 		line-height: 1.85;
-		margin-left: 3%;
+		margin-left: 4%;
 		padding-left: 0;
 		padding-right: 0;
-		width: 27%;
+		width: 23.5%;
 	}
 }
 

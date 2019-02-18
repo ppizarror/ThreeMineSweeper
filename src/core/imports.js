@@ -370,7 +370,7 @@ function LibraryManager() {
         // If loaded check anyway
         if (this.is_loaded_library(lib) || force) {
             self._loadLibrary(lib, callback, params);
-            // if (self.__initapp) app_console.consoleLogInfo(lang.library_already_downloaded.format(lib));
+            if (self._initapp) app_console.info(lang.library_already_downloaded.format(lib));
         }
 
         // If not downloaded adds to the queue
@@ -1163,7 +1163,6 @@ function after_load_imports() {
     app_library_manager.import_async_library(app_library_manager.lib.JQUERYCONFIRM);
     app_library_manager.import_async_library(app_library_manager.lib.JQUERYNICESELECT);
     app_library_manager.import_async_library(app_library_manager.lib.MATHPARSER);
-    app_library_manager.import_async_library(app_library_manager.lib.SELECT2);
 }
 
 

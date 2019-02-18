@@ -129,7 +129,7 @@ function TMSMenu() {
     /**
      * Fill modes
      */
-    this._gamekeys = [3, 4, 2, 11, 9, 6, 10, 7, 8, 5];
+    this._gamekeys = [3, 4, 2, 11, 9, 6, 7, 10, 12, 8, 5];
     for (let i = 0; i < this._gamekeys.length; i += 1) {
         if (is_null_undf(this._games[this._gamekeys[i]])) continue;
         if (is_null_undf(this._games[this._gamekeys[i]]['fractal'])) this._games[this._gamekeys[i]]['fractal'] = false;
@@ -332,7 +332,7 @@ function TMSMenu() {
         // Delete animation of main icon
         setTimeout(function () {
             $('.menu-header-icon').removeClass('slideInDown');
-            $('.menu-header-title').removeClass('fadeIn')
+            $('.menu-header-title').removeClass('fadeIn');
         }, 2500);
 
     };
@@ -571,57 +571,59 @@ function TMSMenu() {
 
             // Create function select
             $('#' + $functionpicker).on('click', function () {
+                app_library_manager.import_async_library(app_library_manager.lib.SELECT2, function () {
 
-                let $fun_examples = [
-                    ['Bug table', '0.7/log(x^2+y^2)+0.6'],
-                    ['Bumps', 'sin(5*x)*cos(5*y)/5'],
-                    ['Cone', '(x^2+y^2)^0.5'],
-                    ['Cross', '0.1-sign(sign((x*12)^2-9)-1+sign((y*12)^2-9)-1)/2'],
-                    ['Hills', '0.2*(3*exp(-(y+1)^2-x^2)*(x-1)^2-(-(x+1)^2-y^2)/3+exp(-x^2-y^2)*(10*x^3-2*x+10*y^5))'],
-                    ['Intersecting fences', '0.75/exp((x*5)^2*(y*5)^2)'],
-                    ['Letter A', '((1-sign(-x-0.9+abs(y*2)))/3*(sign(0.9-x)+1)/3)*(sign(x+0.65)+1)/2-((1-sign(-x-0.39+abs(y*2)))/3*(sign(0.9-x)+1)/3)+((1-sign(-x-0.39+abs(y*2)))/3*(sign(0.6-x)+1)/3)*(sign(x-0.35)+1)/2'],
-                    ['Letter O', '(-sign(0.2-(x^2+y^2))+sign(0.2-(x^2/3+y^2/3)))/9'],
-                    ['Letter V', 'sign(x-1+abs(y*2))/3+sign(x-0.5+abs(y*2))/3'],
-                    ['Paper plane', 'sign(x)*atan(x*80)/6*sign(-y-x+1)*sign(-y+x+1)*5-1.01'],
-                    ['Propeller', '(x^(-2)+y^(-2))^0.5'],
-                    ['Pyramid', '1-abs(x+y)-abs(y-x)'],
-                    ['Random Hill', '(random()^0.1)*(1/(x^2+y^2+0.05))'],
-                    ['Ripple', 'sin(10*(x^2+y^2))/10'],
-                    ['Roof', '1-abs(y)'],
-                    ['Saddle', 'x^2-y^2'],
-                    ['Stairs', '(sign(-0.65-x)+sign(-0.35-x)+sign(-0.05-x)+sign(0.25-x)+sign(0.55-x))/7'],
-                    ['Top hat', '(sign(0.2-(x^2+y^2))+sign(0.2-(x^2/3+y^2/3)))/3-1'],
-                    ['Triangle', '(1-sign(-x-0.51+abs(y*2)))/3*(sign(0.5-x)+1)/3'],
-                    ['Tube', '1/(15*(x^2+y^2))'],
-                    ['Windmill', 'sign(x*y)*sign(1-(x*9)^2+(y*9)^2)/9'],
+                    let $fun_examples = [
+                        ['Bug table', '0.7/log(x^2+y^2)+0.6'],
+                        ['Bumps', 'sin(5*x)*cos(5*y)/5'],
+                        ['Cone', '(x^2+y^2)^0.5'],
+                        ['Cross', '0.1-sign(sign((x*12)^2-9)-1+sign((y*12)^2-9)-1)/2'],
+                        ['Hills', '0.2*(3*exp(-(y+1)^2-x^2)*(x-1)^2-(-(x+1)^2-y^2)/3+exp(-x^2-y^2)*(10*x^3-2*x+10*y^5))'],
+                        ['Intersecting fences', '0.75/exp((x*5)^2*(y*5)^2)'],
+                        ['Letter A', '((1-sign(-x-0.9+abs(y*2)))/3*(sign(0.9-x)+1)/3)*(sign(x+0.65)+1)/2-((1-sign(-x-0.39+abs(y*2)))/3*(sign(0.9-x)+1)/3)+((1-sign(-x-0.39+abs(y*2)))/3*(sign(0.6-x)+1)/3)*(sign(x-0.35)+1)/2'],
+                        ['Letter O', '(-sign(0.2-(x^2+y^2))+sign(0.2-(x^2/3+y^2/3)))/9'],
+                        ['Letter V', 'sign(x-1+abs(y*2))/3+sign(x-0.5+abs(y*2))/3'],
+                        ['Paper plane', 'sign(x)*atan(x*80)/6*sign(-y-x+1)*sign(-y+x+1)*5-1.01'],
+                        ['Propeller', '(x^(-2)+y^(-2))^0.5'],
+                        ['Pyramid', '1-abs(x+y)-abs(y-x)'],
+                        ['Random Hill', '(random()^0.1)*(1/(x^2+y^2+0.05))'],
+                        ['Ripple', 'sin(10*(x^2+y^2))/10'],
+                        ['Roof', '1-abs(y)'],
+                        ['Saddle', 'x^2-y^2'],
+                        ['Stairs', '(sign(-0.65-x)+sign(-0.35-x)+sign(-0.05-x)+sign(0.25-x)+sign(0.55-x))/7'],
+                        ['Top hat', '(sign(0.2-(x^2+y^2))+sign(0.2-(x^2/3+y^2/3)))/3-1'],
+                        ['Triangle', '(1-sign(-x-0.51+abs(y*2)))/3*(sign(0.5-x)+1)/3'],
+                        ['Tube', '1/(15*(x^2+y^2))'],
+                        ['Windmill', 'sign(x*y)*sign(1-(x*9)^2+(y*9)^2)/9'],
 
-                ];
-                let $fun_selector = generateID();
+                    ];
+                    let $fun_selector = generateID();
 
-                app_dialog.form(lang.new_game_function_examples_title, '<form action="" class="formName"><select id="{0}" class="form-control"><option value="-1" disabled selected>{1}</option></select></form>'.format($fun_selector, lang.new_game_function_select_drop),
-                    function () {
-                        self._dom.gen_fun.val($('#' + $fun_selector).val());
-                    }, null
-                    , {
-                        cancelText: lang.dialog_form_cancel,
-                        icon: 'fas fa-superscript',
+                    app_dialog.form(lang.new_game_function_examples_title, '<form action="" class="formName"><select id="{0}" class="form-control"><option value="-1" disabled selected>{1}</option></select></form>'.format($fun_selector, lang.new_game_function_select_drop),
+                        function () {
+                            self._dom.gen_fun.val($('#' + $fun_selector).val());
+                        }, null
+                        , {
+                            cancelText: lang.dialog_form_cancel,
+                            icon: 'fas fa-superscript',
 
-                        // Triggered before opening
-                        onOpenBefore: function () {
-                            let $sel = $('#' + $fun_selector); // Get selector
-                            for (let i = 0; i < $fun_examples.length; i += 1) { // Append options
-                                $sel.append('<option value="{0}">{1}</option>'.format($fun_examples[i][1], $fun_examples[i][0]));
-                            }
-                            $sel.select2({
-                                dropdownParent: $('.jconfirm'),
-                                selectOnClose: true
-                            });
-                        },
+                            // Triggered before opening
+                            onOpenBefore: function () {
+                                let $sel = $('#' + $fun_selector); // Get selector
+                                for (let i = 0; i < $fun_examples.length; i += 1) { // Append options
+                                    $sel.append('<option value="{0}">{1}</option>'.format($fun_examples[i][1], $fun_examples[i][0]));
+                                }
+                                $sel.select2({
+                                    dropdownParent: $('.jconfirm'),
+                                    selectOnClose: true
+                                });
+                            },
 
-                        submitText: lang.dialog_form_send,
-                    }
-                );
+                            submitText: lang.dialog_form_send,
+                        }
+                    );
 
+                });
             });
 
         }

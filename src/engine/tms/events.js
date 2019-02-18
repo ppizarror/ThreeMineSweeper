@@ -144,7 +144,7 @@ function TMSEvents() {
      * @type {boolean}
      * @private
      */
-    this._altevents = true;
+    this._altevents = false;
 
     /**
      * Stores object reference.
@@ -332,31 +332,30 @@ function TMSEvents() {
             if (e.altKey && self._altevents) {
                 switch (e.which) {
                     case 49: // [1]
-                        self._viewer.reset_camera();
+                        self._viewer.toggle_gui();
                         break;
                     case 50: // [2]
-                        self._viewer.toggle_axis();
-                        break;
-                    case 51: // [3]
-                        self._viewer.toggle_camera_target();
-                        break;
-                    case 52: // [4]
                         self._viewer.toggle_fps_meter();
                         break;
-                    case 53: // [5]
+                    case 51: // [3]
                         self._viewer.toggle_grid();
                         break;
+                    case 52: // [4]
+                        self._viewer.toggle_axis();
+                        break;
+                    case 53: // [5]
+                        self._viewer.toggle_camera_target();
+                        break;
                     case 54: // [6]
-                        self._viewer.toggle_gui();
+                        self._viewer.toggle_planes();
                         break;
                     case 55: // [7]
                         self._viewer.toggle_world_limits();
                         break;
                     case 56: // [8]
-                        self._viewer.toggle_planes();
+                        self._viewer.show_renderer_info();
                         break;
                     case 57: // [9]
-                        self._viewer.show_renderer_info();
                         break;
                     default:
                         break;
