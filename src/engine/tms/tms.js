@@ -225,6 +225,7 @@ function ThreeMineSweeper() {
      */
     this.load_menu = function () {
         self.abort();
+        app_sound.stop_all();
         self._menu.main_menu();
     };
 

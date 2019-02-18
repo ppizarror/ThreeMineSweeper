@@ -338,10 +338,10 @@ function TMSEvents() {
                         self._viewer.toggle_fps_meter();
                         break;
                     case 51: // [3]
-                        self._viewer.toggle_grid();
+                        self._viewer.load_next_fps_info();
                         break;
                     case 52: // [4]
-                        self._viewer.toggle_axis();
+                        self._viewer.show_renderer_info();
                         break;
                     case 53: // [5]
                         self._viewer.toggle_camera_target();
@@ -353,9 +353,10 @@ function TMSEvents() {
                         self._viewer.toggle_world_limits();
                         break;
                     case 56: // [8]
-                        self._viewer.show_renderer_info();
+                        self._viewer.toggle_axis();
                         break;
                     case 57: // [9]
+                        self._viewer.toggle_grid();
                         break;
                     default:
                         break;

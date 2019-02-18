@@ -87,6 +87,13 @@ function TMSSound() {
     });
 
     /**
+     * Sounds played.
+     * @type {string[]}
+     * @private
+     */
+    this._played_sounds = [];
+
+    /**
      * Check sound.
      *
      * @function
@@ -110,6 +117,7 @@ function TMSSound() {
     this.play = function (sound) {
         if (!this._check_sound(sound)) return;
         ion.sound.play(sound);
+        if (!this._played_sounds.includes(sound)) this._played_sounds.push(sound);
     };
 
     /**
@@ -121,6 +129,17 @@ function TMSSound() {
     this.stop = function (sound) {
         if (!this._check_sound(sound)) return;
         ion.sound.stop(sound);
+    };
+
+    /**
+     * Stop all sounds.
+     *
+     * @function
+     */
+    this.stop_all = function () {
+        for (let i = 0; i < this._played_sounds.length; i += 1) {
+            ion.sound.stop(this._played_sounds[i]);
+        }
     };
 
     /**

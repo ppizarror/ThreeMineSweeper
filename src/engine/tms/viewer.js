@@ -96,7 +96,7 @@ function TMSViewer() {
          */
         axissize: 0.40,                 // Axis sizes
         cameratargetcolor: 0X0000ff,    // Color target
-        displayfps: true,               // Show FPS panel
+        displayfps: false,              // Show FPS panel
         griddist: 0.03,                 // Grid distance in percentage
         guicloseafterpopup: false,      // GUI closes after a popup is opened
         guistartclosed: true,           // GUI starts closed
@@ -291,10 +291,10 @@ function TMSViewer() {
             maxvelocity: {                      // Maximum velocity
                 alf: 0.006,
                 aup: 0.006,
-                f: 0.020,
-                p: 0.050,
-                x: 0.050,
-                y: 0.050,
+                f: 0.015,
+                p: 0.040,
+                x: 0.040,
+                y: 0.040,
                 z: 0.035,
             },
             minspeed: 0.0001,                   // Minimum speed
@@ -324,9 +324,10 @@ function TMSViewer() {
             },
             near: 0.001,                        // Close plane
             pan: true,                          // Enables pan
+            panorbitcontrols: false,            // Enable OrbitControls pan
             panaddfactor: 0.4,                  // Pan add speed factor
             panaddtospeed: false,               // Add pan speed to velocity
-            panfactor: 0.0001,                  // Pan factor
+            panfactor: 0.004,                   // Pan factor
             panspeed: 5.00,                     // Pan speed
             posx: 2.30,                         // Initial X position
             posy: -2.30,                        // Initial Y position
@@ -369,7 +370,7 @@ function TMSViewer() {
             zoom: 1.000,                        // Zoom factor
             zoomaddfactor: 0.5,                 // Zoom add factor
             zoomaddtospeed: true,               // Adds zoom to speed
-            zoomspeed: 0.00005,                 // Zoom speed
+            zoomspeed: 0.003,                   // Zoom speed
         },
 
         /**
@@ -488,7 +489,7 @@ function TMSViewer() {
      * Game palette.
      */
     this.palette = {
-        contour_major: false,
+        contour_major: true,
         contour_major_color: 0x444444,
         contour_major_opacity: 1,
         contour_minor: false,
@@ -777,7 +778,10 @@ function TMSViewer() {
          * --------------------------------------------------------------------
          */
         this._controls = new THREE.OrbitControls(this._three_camera, $('#game-ui')[0]);
+
+        // Set OrbitControls properties
         this._controls.autoRotate = this.objects_props.camera.autorotate;
+        this._controls.ctrlLeftPan = this.objects_props.camera.panorbitcontrols;
         this._controls.dampingFactor = this.objects_props.camera.dampingfactor;
         this._controls.enableDamping = this.objects_props.camera.damping;
         this._controls.enableKey = false;
@@ -818,7 +822,7 @@ function TMSViewer() {
             this._threejs_helpers.gui = false;
             this.toggle_gui();
         }
-        if (this._threejs_helpers.fpsmeter) this.toggle_fps_meter();
+        this.toggle_fps_meter();
 
     };
 
@@ -1108,7 +1112,7 @@ function TMSViewer() {
     this._update_camera_speed = function () {
 
         // FPS
-        let fps = (1 / 60);
+        let fps = 1 / self._get_fps();
 
         // Get acceleration based on the movements
         let $af = 0; // F/B
@@ -1253,10 +1257,23 @@ function TMSViewer() {
         self.objects_props.camera.targetspeed.y = Math.sign(self.objects_props.camera.targetspeed.y) * Math.min(Math.abs(self.objects_props.camera.targetspeed.y), self.objects_props.camera.maxvelocity.y * $inside);
         self.objects_props.camera.targetspeed.z = Math.sign(self.objects_props.camera.targetspeed.z) * Math.min(Math.abs(self.objects_props.camera.targetspeed.z), self.objects_props.camera.maxvelocity.z * $inside);
 
-        if (self._helper_instances.fpsmeter !== null) {
-            console.log(self._helper_instances.fpsmeter.stats.getFPS());
-        }
+    };
 
+    /**
+     * Get FPS.
+     *
+     * @function
+     * @returns {number}
+     * @private
+     */
+    this._get_fps = function () {
+        let measured = 60;
+        try {
+            measured = self._helper_instances.fpsmeter.stats.getFPS();
+        } catch ($e) {
+        } finally {
+        }
+        return Math.min(measured, 60);
     };
 
     /**
@@ -1355,7 +1372,8 @@ function TMSViewer() {
         // Calculate displacements
         let $vel = self.objects_props.camera.targetspeed.f;
         if (not_null_undf($f)) {
-            $vel = $f * self.objects_props.camera.zoomspeed;
+            let fps = 1 / self._get_fps();
+            $vel = $f * self.objects_props.camera.zoomspeed * fps;
             if (self.objects_props.camera.zoomaddtospeed) {
                 self.objects_props.camera.targetspeed.f += $vel * self.objects_props.camera.zoomaddfactor;
             }
@@ -1401,8 +1419,9 @@ function TMSViewer() {
 
             // Move pan
             let $vx, $vy, $vp;
-            $dx *= -self.objects_props.camera.panfactor;
-            $dy *= -self.objects_props.camera.panfactor;
+            let fps = 1 / self._get_fps();
+            $dx *= -self.objects_props.camera.panfactor * fps;
+            $dy *= -self.objects_props.camera.panfactor * fps;
             $vx = $dx * Math.cos($ang + Math.PI / 2);
             $vy = $dx * Math.sin($ang + Math.PI / 2);
             $vp = $dy;
@@ -1662,6 +1681,17 @@ function TMSViewer() {
             app_library_manager.import_async_library(app_library_manager.lib.DATGUI, $f);
         } else {
             self._destroy_gui();
+        }
+    };
+
+    /**
+     * Load next fps info.
+     *
+     * @function
+     */
+    this.load_next_fps_info = function () {
+        if (not_null_undf(self._helper_instances.fpsmeter)) {
+            self._helper_instances.fpsmeter.stats.loadNextPanel();
         }
     };
 
@@ -2038,6 +2068,7 @@ function TMSViewer() {
                     requestAnimationFrame(loop);
                 });
                 self._helper_instances.fpsmeter = {
+                    display: self._threejs_helpers.displayfps,
                     stats: stats,
                     // update: self._helpers_update.length - 1,
                 };
@@ -2046,9 +2077,8 @@ function TMSViewer() {
 
         // If created then closes
         else {
-            self._helper_instances.fpsmeter.stats.dom.remove();
-            // self._helpers_update.splice(self._helper_instances.fpsmeter.update, 1);
-            self._helper_instances.fpsmeter = null;
+            self._helper_instances.fpsmeter.display = !self._helper_instances.fpsmeter.display;
+            self._helper_instances.fpsmeter.stats.initialize();
         }
 
     };
