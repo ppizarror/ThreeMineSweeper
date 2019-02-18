@@ -116,6 +116,8 @@ lang_db.en = {
     "load_ui": "Loading UI",
     "load_view": "Loading view volume",
     "loading_async_library": "Library {0} was loaded in {1} seconds",
+    "loading_libraries_content": "Please wait for all libraries to download before playing",
+    "loading_libraries_title": "Loading",
     "loading_theme": "Loading theme <{0}>",
     "menu_about": "About",
     "menu_controls": "Controls",

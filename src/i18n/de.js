@@ -116,6 +116,8 @@ lang_db.de = {
     "load_ui": "Laden der Benutzeroberfläche",
     "load_view": "Ansichtsvolumen laden",
     "loading_async_library": "Bibliothek {0} wurde in {1} Sekunden geladen",
+    "loading_libraries_content": "Bitte warten Sie, bis alle Bibliotheken heruntergeladen sind, bevor Sie spielen",
+    "loading_libraries_title": "Laden",
     "loading_theme": "Laden des Themas <{0}>",
     "menu_about": "About",
     "menu_controls": "Steuerelemente",

@@ -540,8 +540,6 @@ function Minesweeper() {
                 return;
             }
             app_dialog.confirm(lang.leave_game_title, lang.leave_game_confirm, {
-                cancel: function () {
-                },
                 confirm: $loadmenu,
                 confirmButtonClass: app_dialog.options.buttons.BLUE,
                 icon: 'fas fa-home',
@@ -559,8 +557,6 @@ function Minesweeper() {
                 return;
             }
             app_dialog.confirm(lang.reset_game_title, lang.reset_game_confirm, {
-                cancel: function () {
-                },
                 confirm: $reset,
                 confirmButtonClass: app_dialog.options.buttons.DANGER,
                 icon: 'fas fa-exclamation-triangle',
@@ -797,7 +793,7 @@ function Minesweeper() {
                 icon: 'fas fa-trophy',
                 size: app_dialog.options.size.SMALL,
             });
-        }, 1000);
+        }, 100);
     };
 
     /**
@@ -822,7 +818,7 @@ function Minesweeper() {
                 icon: 'fas fa-bomb',
                 size: app_dialog.options.size.SMALL,
             });
-        }, 1000);
+        }, 100);
     };
 
     /**

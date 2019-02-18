@@ -35,7 +35,6 @@
         <item url="file://$PROJECT_DIR$/dist/engine/generator/function.min.js" />
         <item url="file://$PROJECT_DIR$/dist/engine/generator/generator.min.js" />
         <item url="file://$PROJECT_DIR$/dist/engine/generator/mobius.min.js" />
-        <item url="file://$PROJECT_DIR$/dist/engine/generator/moebius.min.js" />
         <item url="file://$PROJECT_DIR$/dist/engine/generator/random_plane.min.js" />
         <item url="file://$PROJECT_DIR$/dist/engine/generator/sierpinski_cube.min.js" />
         <item url="file://$PROJECT_DIR$/dist/engine/generator/sierpinski_triangle.min.js" />
@@ -64,6 +63,8 @@
         <item url="file://$PROJECT_DIR$/dist/ui/loading.min.js" />
         <item url="file://$PROJECT_DIR$/dist/ui/themes.min.js" />
         <item url="file://$PROJECT_DIR$/lib/math.js/parser.min.js" />
+        <item url="file://$PROJECT_DIR$/lib/stats.js/stats.min.js" />
+        <item url="file://$PROJECT_DIR$/lib/stats.js/stats.v12.min.js" />
         <item url="file://$PROJECT_DIR$/lib/three.js" />
         <item url="file://$PROJECT_DIR$/lib/three.js/OrbitControls.min.js" />
       </sourceFilesUrls>
@@ -102,7 +103,6 @@
       <root url="file://$PROJECT_DIR$/dist/engine/generator/function.min.js" />
       <root url="file://$PROJECT_DIR$/dist/engine/generator/generator.min.js" />
       <root url="file://$PROJECT_DIR$/dist/engine/generator/mobius.min.js" />
-      <root url="file://$PROJECT_DIR$/dist/engine/generator/moebius.min.js" />
       <root url="file://$PROJECT_DIR$/dist/engine/generator/random_plane.min.js" />
       <root url="file://$PROJECT_DIR$/dist/engine/generator/sierpinski_cube.min.js" />
       <root url="file://$PROJECT_DIR$/dist/engine/generator/sierpinski_triangle.min.js" />
@@ -131,6 +131,8 @@
       <root url="file://$PROJECT_DIR$/dist/ui/loading.min.js" />
       <root url="file://$PROJECT_DIR$/dist/ui/themes.min.js" />
       <root url="file://$PROJECT_DIR$/lib/math.js/parser.min.js" />
+      <root url="file://$PROJECT_DIR$/lib/stats.js/stats.min.js" />
+      <root url="file://$PROJECT_DIR$/lib/stats.js/stats.v12.min.js" />
       <root url="file://$PROJECT_DIR$/lib/three.js" />
       <root url="file://$PROJECT_DIR$/lib/three.js/OrbitControls.min.js" />
     </CLASSES>

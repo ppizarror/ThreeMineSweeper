@@ -116,6 +116,8 @@ lang_db.es = {
     "load_ui": "Cargando la interfaz gráfica",
     "load_view": "Cargando el volumen de visión",
     "loading_async_library": "La librería {0} se cargó en {1} segundos",
+    "loading_libraries_content": "Espera a que todas las bibliotecas se descarguen antes de jugar",
+    "loading_libraries_title": "Cargando",
     "loading_theme": "Cargando el tema <{0}>",
     "menu_about": "Acerca de",
     "menu_controls": "Controles",

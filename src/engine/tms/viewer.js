@@ -37,7 +37,14 @@ function TMSViewer() {
      * @type {JQuery | jQuery | HTMLElement | null}
      * @protected
      */
-    this._canvasParent = null;
+    this._canvas_parent = null;
+
+    /**
+     * DIV FPS.
+     * @type {JQuery | jQuery | HTMLElement}
+     * @protected
+     */
+    this._fps_parent = $('#viewer-fps');
 
     /**
      * Object pointer.
@@ -64,7 +71,7 @@ function TMSViewer() {
      * @type {boolean}
      * @private
      */
-    this._animateThread = false;
+    this._animate_thread = false;
 
     /**
      * Three.js helpers.
@@ -77,7 +84,7 @@ function TMSViewer() {
          */
         axis: false,                    // Show axis
         cameratarget: false,            // Show camera target
-        fpsmeter: false,                // Show fps
+        fpsmeter: true,                 // Show fps
         grid: false,                    // Show grid plane
         gui: false,                     // Show GUI
         normals: false,                 // Show normals
@@ -89,6 +96,7 @@ function TMSViewer() {
          */
         axissize: 0.40,                 // Axis sizes
         cameratargetcolor: 0X0000ff,    // Color target
+        displayfps: true,               // Show FPS panel
         griddist: 0.03,                 // Grid distance in percentage
         guicloseafterpopup: false,      // GUI closes after a popup is opened
         guistartclosed: true,           // GUI starts closed
@@ -106,13 +114,13 @@ function TMSViewer() {
      * @type {Array}
      * @private
      */
-    this._helpersUpdate = [];
+    this._helpers_update = [];
 
     /**
      * Helpers instances @drawHelpers.
      * @private
      */
-    this._helperInstances = {
+    this._helper_instances = {
         axis: null,
         cameratarget: null,
         fpsmeter: null,
@@ -149,7 +157,7 @@ function TMSViewer() {
      * @type {Object3D[]}
      * @private
      */
-    this._collaidableMeshes = [];
+    this._collaidable_meshes = [];
 
     // noinspection JSUnusedGlobalSymbols
     /**
@@ -413,8 +421,8 @@ function TMSViewer() {
      * @type {TextureLoader}
      * @private
      */
-    this._textureLoader = new THREE.TextureLoader();
-    self._textureLoader.setPath('resources/tiles/');
+    this._texture_loader = new THREE.TextureLoader();
+    self._texture_loader.setPath('resources/tiles/');
 
     /**
      * Store images.
@@ -430,11 +438,11 @@ function TMSViewer() {
      */
     this._load_image_file = function (image) {
         if (not_null_undf(this.images[image])) return;
-        this.images[image] = self._textureLoader.load('{0}.png'.format(image));
-        this.images[image + '_ambient'] = self._textureLoader.load('{0}_ambient.png'.format(image));
-        // this.images[image + '_displacement'] = self._textureLoader.load('{0}_displacement.png'.format(image), $f);
-        this.images[image + '_normal'] = self._textureLoader.load('{0}_normal.png'.format(image));
-        this.images[image + '_specular'] = self._textureLoader.load('{0}_specular.png'.format(image));
+        this.images[image] = self._texture_loader.load('{0}.png'.format(image));
+        this.images[image + '_ambient'] = self._texture_loader.load('{0}_ambient.png'.format(image));
+        // this.images[image + '_displacement'] = self._texture_loader.load('{0}_displacement.png'.format(image), $f);
+        this.images[image + '_normal'] = self._texture_loader.load('{0}_normal.png'.format(image));
+        this.images[image + '_specular'] = self._texture_loader.load('{0}_specular.png'.format(image));
     };
 
     /**
@@ -754,7 +762,7 @@ function TMSViewer() {
          */
         this.maindiv = $(self.id);
         this.maindiv.append(this._renderer.domElement);
-        this._canvasParent.attr('tabindex', '1');
+        this._canvas_parent.attr('tabindex', '1');
 
         /**
          * --------------------------------------------------------------------
@@ -905,8 +913,8 @@ function TMSViewer() {
         self._renderer.render(self._scene, self._three_camera);
 
         // Update helpers
-        for (let i = 0; i < self._helpersUpdate.length; i += 1) {
-            self._helpersUpdate[i].update();
+        for (let i = 0; i < self._helpers_update.length; i += 1) {
+            self._helpers_update[i].update();
         }
         if (not_null_undf(self._gui)) {
             self._guiCameraParams.posx = round_number(self._three_camera.position.z, 3);
@@ -942,7 +950,7 @@ function TMSViewer() {
      * @private
      */
     this._animation_thread = function () {
-        if (!self._animateThread) return;
+        if (!self._animate_thread) return;
         requestAnimationFrame(self._animation_thread);
         self.animate_frame();
     };
@@ -954,8 +962,8 @@ function TMSViewer() {
      * @protected
      */
     this.init_animate = function () {
-        if (self._animateThread) return;
-        self._animateThread = true;
+        if (self._animate_thread) return;
+        self._animate_thread = true;
         this._animation_thread();
     };
 
@@ -966,8 +974,8 @@ function TMSViewer() {
      * @protected
      */
     this.stop_animate = function () {
-        if (!self._animateThread) return;
-        self._animateThread = false;
+        if (!self._animate_thread) return;
+        self._animate_thread = false;
     };
 
     /**
@@ -1053,7 +1061,7 @@ function TMSViewer() {
             /**
              * Collides with volume
              */
-            let collisions = ray.intersectObjects(self._collaidableMeshes, false);
+            let collisions = ray.intersectObjects(self._collaidable_meshes, false);
             let collides = (collisions.length > 0 && collisions[0].distance < self.objects_props.camera.raycollidedist);
             if (collides) return self.stop_camera();
 
@@ -1244,6 +1252,10 @@ function TMSViewer() {
         self.objects_props.camera.targetspeed.x = Math.sign(self.objects_props.camera.targetspeed.x) * Math.min(Math.abs(self.objects_props.camera.targetspeed.x), self.objects_props.camera.maxvelocity.x * $inside);
         self.objects_props.camera.targetspeed.y = Math.sign(self.objects_props.camera.targetspeed.y) * Math.min(Math.abs(self.objects_props.camera.targetspeed.y), self.objects_props.camera.maxvelocity.y * $inside);
         self.objects_props.camera.targetspeed.z = Math.sign(self.objects_props.camera.targetspeed.z) * Math.min(Math.abs(self.objects_props.camera.targetspeed.z), self.objects_props.camera.maxvelocity.z * $inside);
+
+        if (self._helper_instances.fpsmeter !== null) {
+            console.log(self._helper_instances.fpsmeter.stats.getFPS());
+        }
 
     };
 
@@ -1519,7 +1531,7 @@ function TMSViewer() {
      * @function
      */
     this.focus = function () {
-        self._canvasParent.trigger('focus');
+        self._canvas_parent.trigger('focus');
     };
 
     /**
@@ -2015,22 +2027,28 @@ function TMSViewer() {
     this.toggle_fps_meter = function () {
 
         // If not created
-        if (is_null_undf(self._helperInstances.fpsmeter)) {
+        if (is_null_undf(self._helper_instances.fpsmeter)) {
             app_library_manager.import_async_library(app_library_manager.lib.STATS, function () {
                 let stats = new Stats();
-                self._canvasParent.append(stats.dom);
+                stats.display = self._threejs_helpers.displayfps;
+                stats.initialize();
+                self._fps_parent.append(stats.domElement);
                 requestAnimationFrame(function loop() {
                     stats.update();
                     requestAnimationFrame(loop);
                 });
-                self._helperInstances.fpsmeter = stats;
+                self._helper_instances.fpsmeter = {
+                    stats: stats,
+                    // update: self._helpers_update.length - 1,
+                };
             });
         }
 
         // If created then closes
         else {
-            self._helperInstances.fpsmeter.dom.remove();
-            self._helperInstances.fpsmeter = null;
+            self._helper_instances.fpsmeter.stats.dom.remove();
+            // self._helpers_update.splice(self._helper_instances.fpsmeter.update, 1);
+            self._helper_instances.fpsmeter = null;
         }
 
     };
@@ -2052,18 +2070,18 @@ function TMSViewer() {
          * --------------------------------------------------------------------
          */
         if (this._threejs_helpers.axis) {
-            if (is_null_undf(this._helperInstances.axis)) {
+            if (is_null_undf(this._helper_instances.axis)) {
                 let $helpersize = Math.min(self.worldsize.x, self.worldsize.y, self.worldsize.z) * self._threejs_helpers.axissize;
                 helper = new THREE.AxesHelper($helpersize);
                 self._add_mesh_to_scene(helper, this._globals.helper, false);
                 // noinspection JSValidateTypes
-                this._helperInstances.axis = helper;
+                this._helper_instances.axis = helper;
             }
         } else { // Deletes helper if initialized
-            if (not_null_undf(this._helperInstances.axis)) {
-                self._scene.remove(this._helperInstances.axis);
+            if (not_null_undf(this._helper_instances.axis)) {
+                self._scene.remove(this._helper_instances.axis);
             }
-            this._helperInstances.axis = null;
+            this._helper_instances.axis = null;
         }
 
 
@@ -2073,7 +2091,7 @@ function TMSViewer() {
          * --------------------------------------------------------------------
          */
         if (this._threejs_helpers.planes) {
-            if (is_null_undf(this._helperInstances.planes)) {
+            if (is_null_undf(this._helper_instances.planes)) {
                 let $planes = [];
 
                 // Colors
@@ -2145,16 +2163,16 @@ function TMSViewer() {
                 $planes.push(plane);
 
                 // noinspection JSValidateTypes
-                this._helperInstances.planes = $planes;
+                this._helper_instances.planes = $planes;
             }
         } else { // Deletes helper if initialized
-            if (not_null_undf(this._helperInstances.planes)) {
-                let $planes = this._helperInstances.planes;
+            if (not_null_undf(this._helper_instances.planes)) {
+                let $planes = this._helper_instances.planes;
                 for (let i = 0; i < $planes.length; i += 1) {
                     this._scene.remove($planes[i]);
                 }
             }
-            this._helperInstances.planes = null;
+            this._helper_instances.planes = null;
         }
 
         /**
@@ -2163,7 +2181,7 @@ function TMSViewer() {
          * --------------------------------------------------------------------
          */
         if (this._threejs_helpers.grid) {
-            if (is_null_undf(this._helperInstances.grid)) {
+            if (is_null_undf(this._helper_instances.grid)) {
                 let $mapsize = 2 * Math.max(this.worldsize.x, this.worldsize.y);
                 let $griddist = Math.floor(2 / this._threejs_helpers.griddist);
                 helper = new THREE.GridHelper($mapsize, $griddist);
@@ -2172,13 +2190,13 @@ function TMSViewer() {
                 helper.material.transparent = true;
                 self._add_mesh_to_scene(helper, this._globals.helper, false);
                 // noinspection JSValidateTypes
-                this._helperInstances.grid = helper;
+                this._helper_instances.grid = helper;
             }
         } else { // Deletes helper if initialized
-            if (not_null_undf(this._helperInstances.grid)) {
-                this._scene.remove(this._helperInstances.grid);
+            if (not_null_undf(this._helper_instances.grid)) {
+                this._scene.remove(this._helper_instances.grid);
             }
-            this._helperInstances.grid = null;
+            this._helper_instances.grid = null;
         }
 
         /**
@@ -2187,7 +2205,7 @@ function TMSViewer() {
          * --------------------------------------------------------------------
          */
         if (this._threejs_helpers.worldlimits) {
-            if (is_null_undf(this._helperInstances.worldlimits)) {
+            if (is_null_undf(this._helper_instances.worldlimits)) {
                 let material = new THREE.MeshBasicMaterial({
                     color: self._threejs_helpers.worldlimitscolor,
                     opacity: self._threejs_helpers.planeopacity
@@ -2234,13 +2252,13 @@ function TMSViewer() {
                 cube.position.y = 0;
                 self._add_mesh_to_scene(cube, this._globals.helper, false);
                 // noinspection JSValidateTypes
-                this._helperInstances.worldlimits = cube;
+                this._helper_instances.worldlimits = cube;
             }
         } else { // Deletes helper if initialized
-            if (not_null_undf(this._helperInstances.worldlimits)) {
-                this._scene.remove(this._helperInstances.worldlimits);
+            if (not_null_undf(this._helper_instances.worldlimits)) {
+                this._scene.remove(this._helper_instances.worldlimits);
             }
-            this._helperInstances.worldlimits = null;
+            this._helper_instances.worldlimits = null;
         }
 
         /**
@@ -2249,7 +2267,7 @@ function TMSViewer() {
          * --------------------------------------------------------------------
          */
         if (this._threejs_helpers.cameratarget) {
-            if (is_null_undf(this._helperInstances.cameratarget)) {
+            if (is_null_undf(this._helper_instances.cameratarget)) {
                 let sphereGeometry = new THREE.SphereGeometry(this.objects_props.camera.raycollidedist, 16, 8);
                 let wireframeMaterial = new THREE.MeshBasicMaterial(
                     {
@@ -2266,22 +2284,22 @@ function TMSViewer() {
                 };
                 $update();
                 self._add_mesh_to_scene(mesh, this._globals.helper, false);
-                this._helpersUpdate.push({
+                this._helpers_update.push({
                     update: $update,
                 });
 
                 // noinspection JSValidateTypes
-                this._helperInstances.cameratarget = {
+                this._helper_instances.cameratarget = {
                     obj: mesh,
-                    update: this._helpersUpdate.length - 1,
+                    update: this._helpers_update.length - 1,
                 };
             }
         } else { // Deletes helper if initialized
-            if (not_null_undf(this._helperInstances.cameratarget)) {
-                this._helpersUpdate.splice(this._helperInstances.cameratarget.update, 1);
-                this._scene.remove(this._helperInstances.cameratarget.obj);
+            if (not_null_undf(this._helper_instances.cameratarget)) {
+                this._helpers_update.splice(this._helper_instances.cameratarget.update, 1);
+                this._scene.remove(this._helper_instances.cameratarget.obj);
             }
-            this._helperInstances.cameratarget = null;
+            this._helper_instances.cameratarget = null;
         }
 
     };
@@ -2350,7 +2368,7 @@ function TMSViewer() {
      * @private
      */
     this._add_to_collidable = function (mesh) {
-        this._collaidableMeshes.push(mesh);
+        this._collaidable_meshes.push(mesh);
     };
 
     /**
@@ -2363,9 +2381,9 @@ function TMSViewer() {
     this._remove_mesh_from_scene = function (mesh) {
         if (is_null_undf(mesh)) return;
         self._scene.remove(mesh);
-        for (let i = 0; i < self._collaidableMeshes.length; i += 1) {
-            if (self._collaidableMeshes[i] === mesh) {
-                self._collaidableMeshes.splice(i, 1);
+        for (let i = 0; i < self._collaidable_meshes.length; i += 1) {
+            if (self._collaidable_meshes[i] === mesh) {
+                self._collaidable_meshes.splice(i, 1);
                 break;
             }
         }
@@ -2378,7 +2396,7 @@ function TMSViewer() {
      * @returns {JQuery | jQuery | HTMLElement}
      */
     this.get_canvas_parent = function () {
-        return this._canvasParent;
+        return this._canvas_parent;
     };
 
     /**
@@ -2579,7 +2597,7 @@ function TMSViewer() {
      */
     this.init = function (parentElement) {
         self.id = parentElement;
-        self._canvasParent = $(parentElement);
+        self._canvas_parent = $(parentElement);
         self._init_three();
         self._init_world_objects();
         self._init_tooltip();

@@ -95,7 +95,7 @@ function GenFunction() {
                     v[(lat * j) + fi + 1],
                     v[(lat * (j + 1)) + fi + 1],
                     v[(lat * (j + 1)) + fi]
-                ], 'F' + i.toString());
+                ], 'Fs' + i.toString());
                 face.enable_uv_flip();
                 face.set_uv_rotation(-90);
                 face.set_bomb_behaviour(face.behaviour.AROUND);
@@ -128,7 +128,7 @@ function GenFunction() {
                     v[(lat * j) + fi + 1],
                     v[(lat * (j + 1)) + fi + 1],
                     v[(lat * (j + 1)) + fi]
-                ], 'F' + i.toString());
+                ], 'Fi' + i.toString());
                 face.disable_face();
                 face.reverse_vertices();
                 f.push(face);

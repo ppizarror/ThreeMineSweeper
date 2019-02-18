@@ -97,7 +97,7 @@ function LibraryManager() {
      * @type {{}}
      * @private
      */
-    this._importedLibraries = {};
+    this._imported_libraries = {};
 
     /**
      * Store imported libraries.
@@ -107,7 +107,7 @@ function LibraryManager() {
      *     'libraryName3': true         // Loaded library
      * @private
      */
-    this._importLibQueue = [];
+    this._import_lib_queue = [];
 
     /**
      * Object pointer.
@@ -127,20 +127,20 @@ function LibraryManager() {
      * Init load time.
      * @private
      */
-    this._startTime = null;
+    this._start_time = null;
 
     /**
      * Library time execution.
      * @private
      */
-    this._importTime = {};
+    this._import_time = {};
 
     /**
      * Query load time.
      * @type {number}
      * @private
      */
-    this._queryTime = 0.0;
+    this._query_time = 0.0;
 
     /**
      * Application is initialized.
@@ -153,7 +153,7 @@ function LibraryManager() {
      * Map that contain the data of each thread that waits the load of the library.
      * @private
      */
-    this._waitingThreadData = {};
+    this._waiting_thread_data = {};
 
     /**
      * Enable application holdReady.
@@ -197,10 +197,10 @@ function LibraryManager() {
     this.get_imported_libraries = function ($log) {
 
         // Get imported libraries
-        let $k = Object.keys(this._importedLibraries);
+        let $k = Object.keys(this._imported_libraries);
         let $imp = '';
         for (let i = 0; i < $k.length; i += 1) {
-            if (this._importedLibraries[$k[i]]) {
+            if (this._imported_libraries[$k[i]]) {
                 $imp += $k[i];
                 if (i < $k.length - 1) {
                     $imp += ', '
@@ -211,7 +211,7 @@ function LibraryManager() {
         // Message on console
         if ($imp !== '' && $log) {
             try {
-                app_console.info(lang.imported_dynamically_libs.format($imp, round_number(this._queryTime, 3)));
+                app_console.info(lang.imported_dynamically_libs.format($imp, round_number(this._query_time, 3)));
             } catch ($e) {
             } finally {
             }
@@ -230,10 +230,10 @@ function LibraryManager() {
      * @returns {boolean} - Status
      */
     this.is_loaded_library = function ($lib) {
-        if (Object.keys(this._importedLibraries).indexOf($lib) === -1) {
+        if (Object.keys(this._imported_libraries).indexOf($lib) === -1) {
             return false;
         }
-        return this._importedLibraries[$lib];
+        return this._imported_libraries[$lib];
     };
 
     /**
@@ -243,15 +243,18 @@ function LibraryManager() {
      * @returns {boolean} - Status
      */
     this.is_all_loaded_libraries = function () {
-        if (Object.keys(this._importLibQueue).length === 0) {
+        if (Object.keys(self._import_lib_queue).length === 0) {
             if (this._holdReady) {
                 // noinspection JSDeprecatedSymbols
                 $.holdReady(false);
             }
-            self._queryTime = get_seconds_from(this._startTime);
-            return true;
+            self._query_time = get_seconds_from(self._start_time);
         }
-        return false;
+        let $k = Object.keys(self._imported_libraries);
+        for (let i = 0; i < $k.length; i += 1) {
+            if (!self._imported_libraries[$k[i]]) return false;
+        }
+        return true;
     };
 
     /**
@@ -295,13 +298,13 @@ function LibraryManager() {
                 } else {
                     callback();
                 }
-                self._importedLibraries[name] = true;
+                self._imported_libraries[name] = true;
                 self._remove_lib_from_queue(name);
 
                 // Print message
-                if (not_null_undf(self._importTime[name])) {
-                    app_console.info(lang.loading_async_library.format(name, get_seconds_from(self._importTime[name])));
-                    delete self._importTime[name];
+                if (not_null_undf(self._import_time[name])) {
+                    app_console.info(lang.loading_async_library.format(name, get_seconds_from(self._import_time[name])));
+                    delete self._import_time[name];
                 }
 
                 // Returns ok status
@@ -310,7 +313,7 @@ function LibraryManager() {
             };
 
             // If library already downloaded
-            if (self._importedLibraries[name]) {
+            if (self._imported_libraries[name]) {
                 $f_funct();
                 return true;
             }
@@ -377,10 +380,10 @@ function LibraryManager() {
         else {
 
             // If not in queue it's added
-            let $k = Object.keys(self._importLibQueue);
+            let $k = Object.keys(self._import_lib_queue);
             if ($k.indexOf(lib) === -1) {
                 self.add_lib_to_queue(lib);
-                self._importTime[lib] = new Date();
+                self._import_time[lib] = new Date();
                 try {
                     self._loadLibrary(lib, callback, params);
                     return true;
@@ -416,7 +419,7 @@ function LibraryManager() {
 
         // Create thread id and the data
         let $dataid = generateID();
-        self._waitingThreadData[$dataid] = {
+        self._waiting_thread_data[$dataid] = {
             callback: callback,
             id: $dataid,
             params: params,
@@ -426,19 +429,19 @@ function LibraryManager() {
         // Function that checks the library was loaded
         let $f = function () {
             if (self.is_loaded_library(lib)) {
-                let data = self._waitingThreadData[$dataid];
+                let data = self._waiting_thread_data[$dataid];
                 clearInterval(data.threadid);
                 if (data.params !== undefined) {
                     data.callback(data.params);
                 } else {
                     data.callback();
                 }
-                delete self._waitingThreadData[$dataid];
+                delete self._waiting_thread_data[$dataid];
             }
         };
 
         // Creates the thread
-        self._waitingThreadData[$dataid].threadid = setInterval($f, cfg_module_async_wait);
+        self._waiting_thread_data[$dataid].threadid = setInterval($f, cfg_module_async_wait);
 
     };
 
@@ -464,8 +467,8 @@ function LibraryManager() {
      * @param {string} path - File path
      */
     this.load_css_lib = function (lib, path) {
-        if (self._importedLibraries[lib + '.css']) return;
-        self._importedLibraries[lib + '.css'] = true;
+        if (self._imported_libraries[lib + '.css']) return;
+        self._imported_libraries[lib + '.css'] = true;
         $('head').append('<link rel="stylesheet" type="text/css" href="' + path + '" media="screen">');
     };
 
@@ -478,10 +481,10 @@ function LibraryManager() {
 
         // If application is loaded throw an exception
         if (self._initapp) throw 'LibraryManager::import_all_libraries The application has been initizlied, the libraries could not been downloaded';
-        self._startTime = new Date(); // Set init tiem
+        self._start_time = new Date(); // Set init tiem
 
         // Check all queuqed libraries
-        let $klibs = Object.keys(this._importLibQueue);
+        let $klibs = Object.keys(this._import_lib_queue);
         if ($klibs.length === 0) {
             return;
         }
@@ -505,9 +508,9 @@ function LibraryManager() {
      * @param {string} lib - Library name
      */
     this.add_lib_to_queue = function (lib) {
-        let $k = Object.keys(this._importLibQueue);
+        let $k = Object.keys(this._import_lib_queue);
         if ($k.indexOf(lib) !== -1) return;
-        self._importLibQueue[lib] = false; // Set library as not loaded
+        self._import_lib_queue[lib] = false; // Set library as not loaded
     };
 
     /**
@@ -518,11 +521,11 @@ function LibraryManager() {
      * @private
      */
     this._remove_lib_from_queue = function (lib) {
-        let $k = Object.keys(this._importLibQueue);
+        let $k = Object.keys(this._import_lib_queue);
         if ($k.indexOf(lib) === -1) {
             return;
         }
-        delete this._importLibQueue[lib];
+        delete this._import_lib_queue[lib];
         this.is_all_loaded_libraries(); // Check all libraries are loaded
     };
 
@@ -1141,6 +1144,7 @@ const app_library_manager = new LibraryManager();
  */
 app_library_manager.add_lib_to_queue(app_library_manager.lib.EASYTIMER);
 app_library_manager.add_lib_to_queue(app_library_manager.lib.IONRANGESLIDER);
+app_library_manager.add_lib_to_queue(app_library_manager.lib.JQUERYCONFIRM);
 app_library_manager.add_lib_to_queue(app_library_manager.lib.MD5);
 app_library_manager.add_lib_to_queue(app_library_manager.lib.NOTIFICATIONJS);
 app_library_manager.add_lib_to_queue(app_library_manager.lib.RIPPLER);
@@ -1160,9 +1164,7 @@ function after_load_imports() {
     app_library_manager.import_async_library(app_library_manager.lib.EARCUT);
     app_library_manager.import_async_library(app_library_manager.lib.FONTAWESOME);
     app_library_manager.import_async_library(app_library_manager.lib.HOVERCSS);
-    app_library_manager.import_async_library(app_library_manager.lib.JQUERYCONFIRM);
     app_library_manager.import_async_library(app_library_manager.lib.JQUERYNICESELECT);
-    app_library_manager.import_async_library(app_library_manager.lib.MATHPARSER);
 }
 
 

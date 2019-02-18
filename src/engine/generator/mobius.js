@@ -69,6 +69,17 @@ function GenMobius() {
         let $x, $y, $z; // Coords
         let $u, $v; // Follow the strip
 
+        // Generators
+        let moeb_x = function (_u, _v) {
+            return ((1 + ((_v / 2) * Math.cos(_u / 2))) * Math.cos(_u));
+        };
+        let moeb_y = function (_u, _v) {
+            return ((1 + ((_v / 2) * Math.cos(_u / 2))) * Math.sin(_u));
+        };
+        let moeb_z = function (_u, _v) {
+            return ((_v / 2) * Math.sin(_u / 2));
+        };
+
         // Calculate max and min
         let $mm = {
             origin_p: { // +
@@ -114,9 +125,9 @@ function GenMobius() {
             $u = i * du;
             for (let j = 0; j < lat; j += 1) { // v
                 $v = -r + (dv * j);
-                $x = xo + ((1 + (($v / 2) * Math.cos($u / 2))) * Math.cos($u));
-                $y = yo + ((1 + (($v / 2) * Math.cos($u / 2))) * Math.sin($u));
-                $z = zo + (($v / 2) * Math.sin($u / 2));
+                $x = xo + moeb_x($u, $v);
+                $y = yo + moeb_y($u, $v);
+                $z = zo + moeb_z($u, $v);
                 if ($x >= xo) {
                     $mm.origin_p.x.max = Math.max($mm.origin_p.x.max, $x);
                     $mm.origin_p.x.min = Math.min($mm.origin_p.x.min, $x);
@@ -142,21 +153,28 @@ function GenMobius() {
         }
 
         // Calculate factors
-        $mm.origin_p.factor.x = Math.min(1, lx / (2 * Math.abs($mm.origin_p.x.max - $mm.origin_p.x.min)));
-        $mm.origin_p.factor.y = Math.min(1, ly / (2 * Math.abs($mm.origin_p.y.max - $mm.origin_p.y.min)));
-        $mm.origin_p.factor.z = Math.min(1, lz / (2 * Math.abs($mm.origin_p.z.max - $mm.origin_p.z.min)));
-        $mm.origin_n.factor.x = Math.min(1, lx / (2 * Math.abs($mm.origin_n.x.max - $mm.origin_n.x.min)));
-        $mm.origin_n.factor.y = Math.min(1, ly / (2 * Math.abs($mm.origin_n.y.max - $mm.origin_n.y.min)));
-        $mm.origin_n.factor.z = Math.min(1, lz / (2 * Math.abs($mm.origin_n.z.max - $mm.origin_n.z.min)));
+        $mm.origin_p.factor.x = Math.min($mm.origin_p.factor.x,
+            lx / (2 * Math.abs($mm.origin_p.x.max - $mm.origin_p.x.min)));
+        $mm.origin_p.factor.y = Math.min($mm.origin_p.factor.y,
+            ly / (2 * Math.abs($mm.origin_p.y.max - $mm.origin_p.y.min)));
+        $mm.origin_p.factor.z = Math.min($mm.origin_p.factor.z,
+            lz / (2 * Math.abs($mm.origin_p.z.max - $mm.origin_p.z.min)));
+        $mm.origin_n.factor.x = Math.min($mm.origin_n.factor.x,
+            lx / (2 * Math.abs($mm.origin_n.x.max - $mm.origin_n.x.min)));
+        $mm.origin_n.factor.y = Math.min($mm.origin_n.factor.y,
+            ly / (2 * Math.abs($mm.origin_n.y.max - $mm.origin_n.y.min)));
+        $mm.origin_n.factor.z = Math.min($mm.origin_n.factor.z,
+            lz / (2 * Math.abs($mm.origin_n.z.max - $mm.origin_n.z.min)));
 
+        // First strip
         let $fx, $fy, $fz;
         for (let i = 0; i < lng; i += 1) { // u
             $u = i * du;
             for (let j = 0; j < lat; j += 1) { // v
                 $v = -r + (dv * j);
-                $x = ((1 + (($v / 2) * Math.cos($u / 2))) * Math.cos($u));
-                $y = ((1 + (($v / 2) * Math.cos($u / 2))) * Math.sin($u));
-                $z = (($v / 2) * Math.sin($u / 2));
+                $x = moeb_x($u, $v);
+                $y = moeb_y($u, $v);
+                $z = moeb_z($u, $v);
                 $fx = $x >= xo ? $mm.origin_p.factor.x : $mm.origin_n.factor.x;
                 $fy = $y >= yo ? $mm.origin_p.factor.y : $mm.origin_n.factor.y;
                 $fz = $z >= zo ? $mm.origin_p.factor.z : $mm.origin_n.factor.z;
@@ -173,9 +191,9 @@ function GenMobius() {
             $u = i * du;
             for (let j = 0; j < lat; j += 1) { // v
                 $v = -r + (dv * j);
-                $x = ((1 + (($v / 2) * Math.cos($u / 2))) * Math.cos($u));
-                $y = ((1 + (($v / 2) * Math.cos($u / 2))) * Math.sin($u));
-                $z = ((($v / 2) * Math.sin($u / 2)) - (0.005 * (i === 0 ? 0 : 1)));
+                $x = moeb_x($u, $v);
+                $y = moeb_y($u, $v);
+                $z = moeb_z($u, $v) - (0.005 * ((i === 0 || i === lng - 1) ? 0 : 1));
                 $fx = $x >= xo ? $mm.origin_p.factor.x : $mm.origin_n.factor.x;
                 $fy = $y >= yo ? $mm.origin_p.factor.y : $mm.origin_n.factor.y;
                 $fz = $z >= zo ? $mm.origin_p.factor.z : $mm.origin_n.factor.z;
@@ -199,7 +217,7 @@ function GenMobius() {
                     v[(lat * j) + fi + 1],
                     v[(lat * (j + 1)) + fi + 1],
                     v[(lat * (j + 1)) + fi]
-                ], 'F' + i.toString());
+                ], 'Fs' + i.toString());
                 face.enable_uv_flip();
                 face.set_uv_rotation(-90);
                 face.set_bomb_behaviour(face.behaviour.AROUND);
@@ -216,7 +234,7 @@ function GenMobius() {
                     v[$half + (lat * j) + fi + 1],
                     v[$half + (lat * (j + 1)) + fi + 1],
                     v[$half + (lat * (j + 1)) + fi]
-                ], 'F' + i.toString());
+                ], 'Fi' + i.toString());
                 face.reverse_vertices();
                 face.set_uv_rotation(-90);
                 face.set_bomb_behaviour(face.behaviour.AROUND);

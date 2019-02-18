@@ -18,6 +18,19 @@ License MIT
 	z-index: 10;
 }
 
+#viewer-fps {
+	bottom: 0;
+	opacity: 0.8;
+	padding-bottom: 0.5%;
+	position: fixed;
+	width: 100%;
+}
+
+#viewer-fps .stats-panel {
+	display: inline-block;
+	margin: auto;
+}
+
 /**
 -------------------------------------------------------------------------------
 Tooltip
@@ -38,7 +51,7 @@ Tooltip
 	position: absolute;
 }
 
-@media screen and (max-width: 576px) {
+@media screen and (max-width: 800px) {
 	.viewer-tooltip {
 		font-size: 0.75rem;
 		font-weight: 300;

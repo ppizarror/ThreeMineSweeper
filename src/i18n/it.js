@@ -116,6 +116,8 @@ lang_db.it = {
     "load_ui": "Caricamento dell'interfaccia utente",
     "load_view": "Caricamento volume vista",
     "loading_async_library": "La libreria {0} è stata caricata in {1} secondi",
+    "loading_libraries_content": "Attendi il download di tutte le librerie prima di riprodurle",
+    "loading_libraries_title": "Caricamento",
     "loading_theme": "Caricamento tema <{0}>",
     "menu_about": "Informazioni",
     "menu_controls": "Controlli",

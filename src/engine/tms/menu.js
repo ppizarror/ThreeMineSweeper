@@ -414,12 +414,33 @@ function TMSMenu() {
     };
 
     /**
+     * Wait for libraries.
+     *
+     * @function
+     * @returns {boolean}
+     * @private
+     */
+    this._wait_libraries = function () {
+        if (app_library_manager.is_all_loaded_libraries()) return false;
+        app_dialog.confirm(lang.loading_libraries_title, lang.loading_libraries_content, {
+            cancelText: null,
+            confirmButtonClass: app_dialog.options.buttons.BLUE,
+            confirmText: lang.answer_ok,
+            icon: 'fa fa-spinner fa-spin fa-fw',
+        });
+        return true;
+    };
+
+    /**
      * Create new game menu.
      *
      * @function
      * @private
      */
     this._menu_new = function () {
+
+        // Check libraries
+        if (self._wait_libraries()) return;
 
         // Wipe content
         self._wipe_content();
@@ -561,6 +582,7 @@ function TMSMenu() {
 
         // Function
         if (game.fun) {
+            app_library_manager.import_async_library(app_library_manager.lib.MATHPARSER);
             $id = generateID();
             let $functionpicker = generateID();
             self._write_input('z=f(x,y)', '<input type="text" class="form-control function-input" id="{0}" minlength="3" maxlength="200" value="{2}" required aria-required="true" placeholder="{1}" aria-placeholder="{1}"><button class="btn function-button" id="{3}">{4}</button>'.format($id, lang.new_game_function_placeholder, self._get_cookie_string(self._cookies.fun, '0.1*sin(1.2*sqrt((10*x)^2+(10*y)^2))'), $functionpicker, lang.new_game_function_button), self._dom.generator);
@@ -734,6 +756,9 @@ function TMSMenu() {
      */
     this._menu_htp = function () {
 
+        // Check libraries
+        if (self._wait_libraries()) return;
+
         // Wipe content
         self._wipe_content();
         self._write_menuback(lang.menu_how_to_play);
@@ -765,6 +790,9 @@ function TMSMenu() {
      * @private
      */
     this._menu_controls = function () {
+
+        // Check libraries
+        if (self._wait_libraries()) return;
 
         // Wipe content
         self._wipe_content();
@@ -824,6 +852,7 @@ function TMSMenu() {
      * @private
      */
     this._menu_stats = function () {
+        if (self._wait_libraries()) return;
         loadingHandler(true);
         app_library_manager.import_async_library([app_library_manager.lib.CHARTJS, app_library_manager.lib.JQVMAP], self._load_stats);
     };
@@ -1100,6 +1129,9 @@ function TMSMenu() {
      * @private
      */
     this._menu_about = function () {
+
+        // Check libraries
+        if (self._wait_libraries()) return;
 
         // Wipe content
         self._wipe_content();

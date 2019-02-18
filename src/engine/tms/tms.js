@@ -234,6 +234,7 @@ function ThreeMineSweeper() {
      * @function
      */
     this.new = function () {
+        self.abort();
         loadingHandler(true);
         setTimeout(function () {
 
