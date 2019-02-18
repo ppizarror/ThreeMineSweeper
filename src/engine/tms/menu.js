@@ -427,6 +427,7 @@ function TMSMenu() {
             confirmButtonClass: app_dialog.options.buttons.BLUE,
             confirmText: lang.answer_ok,
             icon: 'fa fa-spinner fa-spin fa-fw',
+            size: app_dialog.options.size.SMALL,
         });
         return true;
     };
@@ -643,6 +644,7 @@ function TMSMenu() {
                                 });
                             },
 
+                            size: app_dialog.options.size.SMALL,
                             submitText: lang.dialog_form_send,
                         }
                     );
