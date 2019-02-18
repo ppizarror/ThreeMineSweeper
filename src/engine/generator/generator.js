@@ -70,19 +70,11 @@ function Generator() {
     this._type_id = 0;
 
     /**
-     * Enable volume contour.
-     * @type {boolean}
-     * @protected
-     */
-    this._draw_contour = true;
-
-    /**
      * ID of the generator.
      * @type {string}
      * @protected
      */
     this._id = generateID();
-
 
     /**
      * Generator properties.
@@ -143,7 +135,6 @@ function Generator() {
         let _zf = Math.max(zi, zf);
         app_console.info(lang.generator_start.format(self.get_name()));
         self._generate(_xi, _yi, _zi, _xf, _yf, _zf);
-        if (!self._draw_contour) this._volume.disable_contour();
         this._volume.assemble();
         let tf = get_seconds_from(ti);
         app_console.info(lang.generator_finished.format(tf, this._volume.get_total_faces(),
@@ -305,7 +296,7 @@ function Generator() {
      * @returns {string}
      */
     this.get_genid = function () {
-        return md5(md5(self._name) + md5(self._genprops.fractal) + md5(self._genprops.latlng) + md5(self._genprops.target) + md5(self._faces_target) + md5(self._lat) + md5(self._lng) + md5(self._order) + self._fun !== '' ? md5(self._gen_fun) : '');
+        return md5(md5(self._name) + md5(self._genprops.fractal) + md5(self._genprops.latlng) + md5(self._genprops.target) + md5(self._faces_target) + md5(self._lat) + md5(self._lng) + md5(self._order) + self._gen_fun !== '' ? md5(self._gen_fun) : '');
     };
 
     /**

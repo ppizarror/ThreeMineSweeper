@@ -793,7 +793,7 @@ function Minesweeper() {
                 icon: 'fas fa-trophy',
                 size: app_dialog.options.size.SMALL,
             });
-        }, 100);
+        }, 400);
     };
 
     /**
@@ -818,7 +818,7 @@ function Minesweeper() {
                 icon: 'fas fa-bomb',
                 size: app_dialog.options.size.SMALL,
             });
-        }, 100);
+        }, 400);
     };
 
     /**
