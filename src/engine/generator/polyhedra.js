@@ -38,7 +38,7 @@ function GenPolyhedra() {
     this._generate = function (xi, yi, zi, xf, yf, zf) {
 
         // Place camera
-        this._set_camera_position(0, 0, 2);
+        this._set_camera_position(0, 0, 2.5);
 
         // Load polyhedron
         let poly = POLYHEDRA[this._item];

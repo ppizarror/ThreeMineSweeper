@@ -633,7 +633,7 @@ function TMSMenu() {
                     ];
                     let $fun_selector = generateID();
 
-                    app_dialog.form(lang.new_game_function_examples_title, '<form action="" class="formName"><select id="{0}" class="form-control"><option value="-1" disabled selected>{1}</option></select></form>'.format($fun_selector, lang.new_game_function_select_drop),
+                    app_dialog.form(lang.new_game_function_examples_title, '<form action="" class="formName"><select id="{0}"><option value="-1" disabled selected>{1}</option></select></form>'.format($fun_selector, lang.new_game_function_select_drop),
                         function () {
                             self._dom.gen_fun.val($('#' + $fun_selector).val());
                         }, null
@@ -670,7 +670,7 @@ function TMSMenu() {
 
                 // Create selector
                 let $itemid = generateID();
-                let $iteminput = self._write_input(lang.new_game_gen_item, '<select id="{0}" class="form-control"><option value="-1" disabled selected>{1}</option></select>'.format($itemid, lang.new_game_gen_select_item), self._dom.generator);
+                let $iteminput = self._write_input(lang.new_game_gen_item, '<select id="{0}"><option value="-1" disabled selected>{1}</option></select>'.format($itemid, lang.new_game_gen_select_item), self._dom.generator);
                 self._dom.gen_item = $('#' + $itemid);
 
                 // Write content to selector
@@ -780,6 +780,7 @@ function TMSMenu() {
         }
         if (game.item && not_null_undf(self._dom.gen_item)) {
             $item = self._dom.gen_item.val();
+            if (is_null_undf($item) || $item === '-1') return;
         }
         $mines = self._dom.gen_mines.val();
         if (is_null_undf($mines)) return;

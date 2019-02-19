@@ -781,8 +781,6 @@ function Minesweeper() {
         if (!self._is_playing) return; // Check if playing
         setTimeout(function () {
             app_dialog.confirm(lang.game_won_title, lang.start_new_game, {
-                cancel: function () {
-                },
                 confirm: function () {
                     self._reset = true;
                     app_tms.new();
@@ -806,8 +804,6 @@ function Minesweeper() {
         if (!self._is_playing) return; // Check if playing
         setTimeout(function () {
             app_dialog.confirm(lang.game_over, lang.start_new_game, {
-                cancel: function () {
-                },
                 confirm: function () {
                     self._reset = true;
                     app_tms.new();
