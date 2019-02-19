@@ -17,7 +17,7 @@ module.exports = function (config) {
         files: [
 
             // Init application
-            'init.js',
+            'src/init.js',
 
             // Load libraries
             'lib/jquery/jquery-3.3.1.js',
