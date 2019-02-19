@@ -120,8 +120,12 @@ function TMSSound() {
      */
     this.play = function (sound) {
         if (!this._check_sound(sound)) return;
-        ion.sound.play(sound);
-        if (!this._played_sounds.includes(sound)) this._played_sounds.push(sound);
+        try {
+            ion.sound.play(sound);
+            if (!this._played_sounds.includes(sound)) this._played_sounds.push(sound);
+        } catch ($e) {
+        } finally {
+        }
     };
 
     /**
@@ -132,7 +136,11 @@ function TMSSound() {
      */
     this.stop = function (sound) {
         if (!this._check_sound(sound)) return;
-        ion.sound.stop(sound);
+        try {
+            ion.sound.stop(sound);
+        } catch ($e) {
+        } finally {
+        }
     };
 
     /**
@@ -142,7 +150,7 @@ function TMSSound() {
      */
     this.stop_all = function () {
         for (let i = 0; i < this._played_sounds.length; i += 1) {
-            ion.sound.stop(this._played_sounds[i]);
+            this.stop(this._played_sounds[i]);
         }
     };
 
@@ -154,7 +162,11 @@ function TMSSound() {
      */
     this.pause = function (sound) {
         if (!this._check_sound(sound)) return;
-        ion.sound.pause(sound);
+        try {
+            ion.sound.pause(sound);
+        } catch ($e) {
+        } finally {
+        }
     };
 }
 
