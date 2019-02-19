@@ -70,6 +70,7 @@ function GenFunction() {
             }
         }
         let $lz = Math.abs($zmax - $zmin); // Real value
+        if ($lz === 0) return;
         let $zf = Math.min(1, lz / $lz); // Conversion factor
         let $dz = (($zmax + $zmin) / 2) - zo;
 

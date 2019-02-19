@@ -608,7 +608,6 @@ function TMSMenu() {
                 app_library_manager.import_async_library(app_library_manager.lib.SELECT2, function () {
 
                     let $fun_examples = [
-                        ['Bug table', '0.7/log(x^2+y^2)+0.6'],
                         ['Bumps', 'sin(5*x)*cos(5*y)/5'],
                         ['Cone', '(x^2+y^2)^0.5'],
                         ['Cross', '0.1-sign(sign((x*12)^2-9)-1+sign((y*12)^2-9)-1)/2'],
@@ -617,7 +616,7 @@ function TMSMenu() {
                         ['Letter A', '((1-sign(-x-0.9+abs(y*2)))/3*(sign(0.9-x)+1)/3)*(sign(x+0.65)+1)/2-((1-sign(-x-0.39+abs(y*2)))/3*(sign(0.9-x)+1)/3)+((1-sign(-x-0.39+abs(y*2)))/3*(sign(0.6-x)+1)/3)*(sign(x-0.35)+1)/2'],
                         ['Letter O', '(-sign(0.2-(x^2+y^2))+sign(0.2-(x^2/3+y^2/3)))/9'],
                         ['Letter V', 'sign(x-1+abs(y*2))/3+sign(x-0.5+abs(y*2))/3'],
-                        ['Paper plane', 'sign(x)*atan(x*80)/6*sign(-y-x+1)*sign(-y+x+1)*5-1.01'],
+                        ['Paper plane', 'sign(x)*atan(x*80)/6*sign(-y-x+1)*sign(-y+x+1)-1.01'],
                         ['Propeller', '(x^(-2)+y^(-2))^0.5'],
                         ['Pyramid', '1-abs(x+y)-abs(y-x)'],
                         ['Random Hill', '(random()^0.1)*(1/(x^2+y^2+0.05))'],
@@ -627,13 +626,11 @@ function TMSMenu() {
                         ['Stairs', '(sign(-0.65-x)+sign(-0.35-x)+sign(-0.05-x)+sign(0.25-x)+sign(0.55-x))/7'],
                         ['Top hat', '(sign(0.2-(x^2+y^2))+sign(0.2-(x^2/3+y^2/3)))/3-1'],
                         ['Triangle', '(1-sign(-x-0.51+abs(y*2)))/3*(sign(0.5-x)+1)/3'],
-                        ['Tube', '1/(15*(x^2+y^2))'],
                         ['Windmill', 'sign(x*y)*sign(1-(x*9)^2+(y*9)^2)/9'],
-
                     ];
                     let $fun_selector = generateID();
 
-                    app_dialog.form(lang.new_game_function_examples_title, '<form action="" class="formName"><select id="{0}"><option value="-1" disabled selected>{1}</option></select></form>'.format($fun_selector, lang.new_game_function_select_drop),
+                    app_dialog.form(lang.new_game_function_examples_title, '<form action="" class="formName"><select id="{0}" class="form-control"><option value="-1" disabled selected>{1}</option></select></form>'.format($fun_selector, lang.new_game_function_select_drop),
                         function () {
                             self._dom.gen_fun.val($('#' + $fun_selector).val());
                         }, null
