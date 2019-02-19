@@ -170,6 +170,7 @@ function GenPolyhedra() {
             face.enable_uv_flip();
             face.set_uv_rotation(-90);
             face.set_bomb_behaviour(face.behaviour.AROUND);
+            face.disable_contour();
             f.push(face);
             i += 1;
         }

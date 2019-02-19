@@ -140,6 +140,7 @@ lang_db.br = {
     "new_game_function_placeholder": "Escreva uma função (x,y)",
     "new_game_function_select_drop": "Escolha uma função z=f(x,y)",
     "new_game_gen_item": "Item",
+    "new_game_gen_select_item": "Selecione um item",
     "new_game_generator": "Generator",
     "new_game_generator_select": "Selecione um gerador",
     "new_game_latlng": "Latitude / Longitude",
