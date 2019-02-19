@@ -53,6 +53,7 @@ function ThreeMineSweeper() {
     this._generator = {
         facetarget: null,
         fun: '',
+        item: '',
         latitude: null,
         longitude: null,
         mines: 0,
@@ -107,13 +108,14 @@ function ThreeMineSweeper() {
      *
      * @function
      * @param {number} type - Generator type
-     * @param {number | null=} order - Generator order
-     * @param {number | null=} face_target - Target face for random generators
-     * @param {number | null=} latitude - Latitude
-     * @param {number | null=} longitude - Longitude
-     * @param {string=} fun - Function generator
+     * @param {number | null} order - Generator order
+     * @param {number | null} face_target - Target face for random generators
+     * @param {number | null} latitude - Latitude
+     * @param {number | null} longitude - Longitude
+     * @param {string | null} fun - Function generator
+     * @param {string | null} item - Selected item
      */
-    this.set_generator = function (type, order, face_target, latitude, longitude, fun) {
+    this.set_generator = function (type, order, face_target, latitude, longitude, fun, item) {
 
         // Type
         this._generator.type = type;
@@ -121,6 +123,7 @@ function ThreeMineSweeper() {
         // Properties
         this._generator.facetarget = face_target;
         this._generator.fun = fun;
+        this._generator.item = item;
         this._generator.latitude = latitude;
         this._generator.longitude = longitude;
         this._generator.order = order;
@@ -188,17 +191,23 @@ function ThreeMineSweeper() {
             case 12:
                 g = new GenMobius();
                 break;
+            case 13:
+                g = new GenPolyhedra();
+                break;
             default:
                 g = new GenEmpty();
                 break;
         }
 
         // Set generator properties
-        if (not_null_undf(this._generator.order)) g.set_order(this._generator.order);
         if (not_null_undf(this._generator.facetarget)) g.set_face_target(this._generator.facetarget);
+        if (not_null_undf(this._generator.fun)) g.set_function(this._generator.fun);
+        if (not_null_undf(this._generator.item)) g.set_item(this._generator.item);
         if (not_null_undf(this._generator.latitude)) g.set_latitude(this._generator.latitude);
         if (not_null_undf(this._generator.longitude)) g.set_longitude(this._generator.longitude);
-        if (not_null_undf(this._generator.fun)) g.set_function(this._generator.fun);
+        if (not_null_undf(this._generator.order)) g.set_order(this._generator.order);
+
+        // Generate figure
         g.generate(-1, -1, -1, 1, 1, 1);
         g.set_type_id(this._generator.type);
 

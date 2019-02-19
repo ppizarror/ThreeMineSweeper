@@ -52,6 +52,7 @@ module.exports = function (config) {
             'src/core/url.js',
 
             'src/engine/geom/face.js',
+            'src/engine/geom/polyhedra.js',
             'src/engine/geom/vertex.js',
             'src/engine/geom/volume.js',
 
@@ -64,6 +65,7 @@ module.exports = function (config) {
             'src/engine/generator/empty.js',
             'src/engine/generator/function.js',
             'src/engine/generator/mobius.js',
+            'src/engine/generator/polyhedra.js',
             'src/engine/generator/random_plane.js',
             'src/engine/generator/sierpinski_cube.js',
             'src/engine/generator/sierpinski_triangle.js',

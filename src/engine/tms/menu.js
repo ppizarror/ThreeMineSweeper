@@ -109,6 +109,9 @@ function TMSMenu() {
             min: 20,
             step: 5,
         },
+        13: { // Polyhedra
+            item: true,
+        },
         'null': { // EmptyGenerator
             enabled: false,
         },
@@ -129,14 +132,17 @@ function TMSMenu() {
     /**
      * Fill modes
      */
-    this._gamekeys = [3, 4, 2, 11, 9, 6, 7, 10, 12, 8, 5];
+    this._gamekeys = [3, 4, 2, 11, 9, 6, 7, 10, 12, 13, 8, 5];
     for (let i = 0; i < this._gamekeys.length; i += 1) {
         if (is_null_undf(this._games[this._gamekeys[i]])) continue;
+
+        // Extend properties
+        if (is_null_undf(this._games[this._gamekeys[i]]['enabled'])) this._games[this._gamekeys[i]]['enabled'] = true;
         if (is_null_undf(this._games[this._gamekeys[i]]['fractal'])) this._games[this._gamekeys[i]]['fractal'] = false;
         if (is_null_undf(this._games[this._gamekeys[i]]['fun'])) this._games[this._gamekeys[i]]['fun'] = false;
+        if (is_null_undf(this._games[this._gamekeys[i]]['item'])) this._games[this._gamekeys[i]]['item'] = false;
         if (is_null_undf(this._games[this._gamekeys[i]]['latlng'])) this._games[this._gamekeys[i]]['latlng'] = false;
         if (is_null_undf(this._games[this._gamekeys[i]]['target'])) this._games[this._gamekeys[i]]['target'] = false;
-        if (is_null_undf(this._games[this._gamekeys[i]]['enabled'])) this._games[this._gamekeys[i]]['enabled'] = true;
     }
 
     /**
@@ -163,11 +169,13 @@ function TMSMenu() {
 
     /**
      * Dom objects.
-     * @type {{
+     * @type {
+     *    {
      *      container: JQuery<HTMLElement> | jQuery | HTMLElement,
      *      content: JQuery<HTMLElement> | jQuery | HTMLElement,
      *      footer: JQuery<HTMLElement> | jQuery | HTMLElement,
      *      gen_fun: JQuery<HTMLElement> | jQuery | HTMLElement,
+     *      gen_item: JQuery<HTMLElement> | jQuery | HTMLElement,
      *      gen_lat: JQuery<HTMLElement> | jQuery | HTMLElement,
      *      gen_lng: JQuery<HTMLElement> | jQuery | HTMLElement,
      *      gen_mines: JQuery<HTMLElement> | jQuery | HTMLElement
@@ -178,7 +186,8 @@ function TMSMenu() {
      *      menu: JQuery<HTMLElement> | jQuery | HTMLElement,
      *      playbutton: JQuery<HTMLElement> | jQuery | HTMLElement,
      *      subheader: JQuery<HTMLElement> | jQuery | HTMLElement,
-     * }}
+     *    }
+     * }
      * @private
      */
     this._dom = {
@@ -186,6 +195,7 @@ function TMSMenu() {
         content: $('#menu-content'),
         footer: $('#menu-footer'),
         gen_fun: null,
+        gen_item: null,
         gen_lat: null,
         gen_lng: null,
         gen_mines: null,
@@ -494,7 +504,7 @@ function TMSMenu() {
      * Load generator options.
      *
      * @function
-     * @param {number} option
+     * @param {string} option
      * @private
      */
     this._load_generator_options = function (option) {
@@ -639,7 +649,7 @@ function TMSMenu() {
                                 }
                                 $('.jconfirm-content').css('overflow', 'hidden');
                                 $sel.select2({
-                                    dropdownAutoWidth: true,
+                                    // dropdownAutoWidth: true,
                                     dropdownParent: $('.jconfirm'),
                                     selectOnClose: true,
                                 });
@@ -652,7 +662,35 @@ function TMSMenu() {
 
                 });
             });
+        }
 
+        // Item
+        if (game.item) {
+            app_library_manager.import_async_library(app_library_manager.lib.SELECT2, function () {
+
+                // Create selector
+                let $itemid = generateID();
+                let $iteminput = self._write_input(lang.new_game_gen_item, '<select id="{0}" class="form-control"><option value="-1" disabled selected>{1}</option></select>'.format($itemid, lang.new_game_gen_select_item), self._dom.generator);
+                self._dom.gen_item = $('#' + $itemid);
+
+                // Write content to selector
+                if (option === '13') { // Polyhedra
+                    let $polyhedrak = Object.keys(POLYHEDRA);
+                    for (let i = 0; i < $polyhedrak.length; i += 1) {
+                        self._dom.gen_item.append('<option value="{0}">{1}</option>'.format($polyhedrak[i], POLYHEDRA[$polyhedrak[i]].name));
+                    }
+                    self._dom.gen_item.select2({
+                        containerCssClass: 'menu-input-select2',
+                        selectOnClose: true,
+                    });
+                }
+                // Invalid generator
+                else {
+                    self._dom.gen_item = null;
+                    $iteminput.remove();
+                }
+
+            });
         }
 
         // Write mines
@@ -700,10 +738,13 @@ function TMSMenu() {
 
         // Load options
         let $fun = '';
+        let $item = null;
         let $lat = null;
         let $lng = null;
         let $order = null;
         let $target = null;
+
+        // Number of mines
         let $mines;
 
         if (game.fractal) {
@@ -737,6 +778,9 @@ function TMSMenu() {
             if (!self._check_function_popup($fun) || $fun.length < 3 || $fun.length > 200) return;
             self._save_cookie_val(self._cookies.fun, $fun);
         }
+        if (game.item && not_null_undf(self._dom.gen_item)) {
+            $item = self._dom.gen_item.val();
+        }
         $mines = self._dom.gen_mines.val();
         if (is_null_undf($mines)) return;
         $mines = parseInt($mines, 10);
@@ -747,7 +791,7 @@ function TMSMenu() {
 
         // Init new game
         self.reset_menu();
-        app_tms.set_generator($gen, $order, $target, $lat, $lng, $fun);
+        app_tms.set_generator($gen, $order, $target, $lat, $lng, $fun, $item);
         app_tms.set_mines($mines * 0.01);
         app_tms.new();
 
@@ -1197,11 +1241,14 @@ function TMSMenu() {
      * @param {string | HTMLElement} label
      * @param {string | HTMLElement} selector
      * @param {JQuery<HTMLElement> | jQuery | HTMLElement=} container
+     * @returns {JQuery<HTMLElement> | jQuery | HTMLElement}
      * @private
      */
     this._write_input = function (label, selector, container) {
         if (is_null_undf(container)) container = self._dom.content;
-        container.append('<div class="menu-content-input"><div class="menu-content-input-child menu-content-input-label ">{0}</div><div class="menu-content-input-child menu-content-input-content">{1}</div></div>'.format(label, selector));
+        let $id = generateID();
+        container.append('<div class="menu-content-input" id="{2}"><div class="menu-content-input-child menu-content-input-label ">{0}</div><div class="menu-content-input-child menu-content-input-content">{1}</div></div>'.format(label, selector, $id));
+        return $('#' + $id);
     };
 
     /**

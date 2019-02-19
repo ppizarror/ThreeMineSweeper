@@ -15,10 +15,10 @@
 function Generator() {
 
     /**
-     * Object pointer.
-     * @type {Generator}
+     * ------------------------------------------------------------------------
+     * Generator properties
+     * ------------------------------------------------------------------------
      */
-    let self = this;
 
     /**
      * Order of recursive fractal generators.
@@ -56,6 +56,13 @@ function Generator() {
     this._gen_fun = '';
 
     /**
+     * Selected item.
+     * @type {string}
+     * @protected
+     */
+    this._item = '';
+
+    /**
      * Generator name.
      * @type {string}
      * @private
@@ -69,6 +76,13 @@ function Generator() {
      */
     this._type_id = 0;
 
+
+    /**
+     * ------------------------------------------------------------------------
+     * Generator internals
+     * ------------------------------------------------------------------------
+     */
+
     /**
      * ID of the generator.
      * @type {string}
@@ -78,12 +92,13 @@ function Generator() {
 
     /**
      * Generator properties.
-     * @type {{fractal: boolean, fun: boolean, latlng: boolean, target: boolean}}
+     * @type {{fractal: boolean, fun: boolean, item: boolean, latlng: boolean, target: boolean}}
      * @protected
      */
     this._genprops = {
         fractal: false,
         fun: false,
+        item: false,
         latlng: false,
         target: false,
     };
@@ -105,6 +120,19 @@ function Generator() {
         y: -1,
         z: -1,
     };
+
+    /**
+     * Object pointer.
+     * @type {Generator}
+     */
+    let self = this;
+
+
+    /**
+     * ------------------------------------------------------------------------
+     * Generator methods
+     * ------------------------------------------------------------------------
+     */
 
     /**
      * Generate element, space volume goes from (xi,yi,zi) to (xf,yf,zf).
@@ -190,6 +218,16 @@ function Generator() {
      */
     this.set_function = function (fun) {
         self._gen_fun = fun.toString();
+    };
+
+    /**
+     * Set generator item.
+     *
+     * @function
+     * @param {string} item
+     */
+    this.set_item = function (item) {
+        self._item = item;
     };
 
     /**
@@ -296,7 +334,7 @@ function Generator() {
      * @returns {string}
      */
     this.get_genid = function () {
-        return md5(md5(self._name) + md5(self._genprops.fractal) + md5(self._genprops.latlng) + md5(self._genprops.target) + md5(self._faces_target) + md5(self._lat) + md5(self._lng) + md5(self._order) + self._gen_fun !== '' ? md5(self._gen_fun) : '');
+        return md5(md5(self._name) + md5(self._genprops.fractal) + md5(self._genprops.latlng) + md5(self._genprops.target) + md5(self._faces_target) + md5(self._lat) + md5(self._lng) + md5(self._order) + (self._gen_fun !== '' ? md5(self._gen_fun) : '') + (self._item !== '' ? md5(self._item) : ''));
     };
 
     /**
