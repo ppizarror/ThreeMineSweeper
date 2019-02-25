@@ -87,7 +87,7 @@ const cfg_cookie_expire_days = 14;
  * @type {string}
  * @const
  */
-const cfg_cookie_session_id = 'A3435bSr1';
+const cfg_cookie_session_id = 'b3435bSr1';
 
 /**
  * Only local cookies.
