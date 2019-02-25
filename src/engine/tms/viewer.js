@@ -275,9 +275,10 @@ function TMSViewer() {
             dampingfactor: 0.10,                // Camera damping factor
             facerotate: false,                  // Face rotation
             facetarget: {                       // Target face
-                x: null,
-                y: null,
-                z: null,
+                nullface: false,
+                x: 0,
+                y: 0,
+                z: 0,
             },
             far: 9.000,                         // Far plane
             light: {                            // Light color on the camera
@@ -305,7 +306,6 @@ function TMSViewer() {
                 angleright: false,
                 angleup: false,
                 backward: false,
-                facerotate: false,
                 forward: false,
                 left: false,
                 pan: false,
@@ -871,6 +871,14 @@ function TMSViewer() {
             z: this.objects_props.camera.target.z,
         };
 
+        // Stop camera
+        this.stop_camera();
+
+        // Reset face target
+        this.objects_props.camera.facetarget.x = 0;
+        this.objects_props.camera.facetarget.y = 0;
+        this.objects_props.camera.facetarget.z = 0;
+
         // Place camera
         this._place_camera();
 
@@ -1310,6 +1318,7 @@ function TMSViewer() {
         for (let i = 0; i < $vel.length; i += 1) {
             self.objects_props.camera.targetspeed[$vel[i]] = 0;
         }
+        self.objects_props.camera.facetarget.nullface = false;
         return false;
     };
 
@@ -1417,12 +1426,6 @@ function TMSViewer() {
         // Handles pan
         if (not_null_undf($dx) && not_null_undf($dy)) {
 
-            // If Ctrl then rotates
-            if (self.objects_props.camera.facerotate && self.objects_props.camera.movements.facerotate) {
-                self._move_face_rotate($dx * 0.001, $dy * 0.001);
-                return;
-            }
-
             if (!self.objects_props.camera.movements.pan) return;
 
             // Move pan
@@ -1468,10 +1471,13 @@ function TMSViewer() {
      */
     this._rotate_center_init = function () {
         self.stop_camera();
+        let fx = self.objects_props.camera.facetarget.x; // Face position
+        let fy = self.objects_props.camera.facetarget.y;
+        let fz = self.objects_props.camera.facetarget.z;
         self.objects_props.camera.movements.rotatecenter = true;
-        self.objects_props.camera.target.x = 0;
-        self.objects_props.camera.target.y = 0;
-        self.objects_props.camera.target.z = 0;
+        self.objects_props.camera.target.x = fx;
+        self.objects_props.camera.target.y = fy;
+        self.objects_props.camera.target.z = fz;
         self._set_camera_target();
     };
 
@@ -1484,77 +1490,7 @@ function TMSViewer() {
     this._rotate_center_after = function () {
         if (!self.objects_props.camera.movements.rotatecenter) return;
         self.stop_camera();
-        self.set_camera_pos(self._three_camera.position.z, self._three_camera.position.x, self._three_camera.position.y);
-    };
-
-    /**
-     * Rotate target, actually disabled.
-     *
-     * @function
-     * @param {number} polar
-     * @param {number} azimuth
-     * @private
-     */
-    this._move_face_rotate = function (polar, azimuth) {
-
-        // If not valid face
-        if (is_null_undf(self.objects_props.camera.facetarget.x) || is_null_undf(self.objects_props.camera.facetarget.y) || is_null_undf(self.objects_props.camera.facetarget.z) || self.camera_is_moving()) {
-            self.objects_props.camera.movements.facerotate = false;
-            return;
-        }
-
-        // Get radius
-        let r = self._dist_camera_xyz(self.objects_props.camera.facetarget.x, self.objects_props.camera.facetarget.y, self.objects_props.camera.facetarget.z);
-
-        // Face position
-        let fx = self.objects_props.camera.facetarget.x;
-        let fy = self.objects_props.camera.facetarget.y;
-        let fz = self.objects_props.camera.facetarget.z;
-
-        // Camera position
-        let px = self._three_camera.position.z;
-        let py = self._three_camera.position.x;
-        let pz = self._three_camera.position.y;
-
-        // Calculate angles
-        let phi = Math.atan((py - fy) / Math.abs((px - fx + MIN_TOL)));
-        let theta = Math.PI / 2 - Math.atan((pz - fz) / Math.sqrt(Math.pow(px - fx, 2) + Math.pow(py - fy, 2) + MIN_TOL));
-
-        // Actual position, https://en.wikipedia.org/wiki/Spherical_coordinate_system
-        let $x = r * Math.cos(phi) * Math.sin(theta);
-        let $y = r * Math.sin(phi) * Math.sin(theta);
-        let $z = r * Math.cos(theta);
-
-        theta += azimuth;
-        phi += polar;
-
-        let $nx = r * Math.cos(phi) * Math.sin(theta);
-        let $ny = r * Math.sin(phi) * Math.sin(theta);
-        let $nz = r * Math.cos(theta);
-
-        // Update angle
-        self._controls.rotateLeft(0.01 * polar);
-        self._controls.rotateUp(0.01 * azimuth);
-
-        // Update position
-        self._update_camera_target('x', ($nx - $x), false);
-        self._update_camera_target('y', ($ny - $y), false);
-        self._update_camera_target('z', $nz - $z, true);
-
-    };
-
-    /**
-     * Return distance to camera position.
-     *
-     * @function
-     * @param {number} x
-     * @param {number} y
-     * @param {number} z
-     * @returns {number}
-     * @private
-     */
-    this._dist_camera_xyz = function (x, y, z) {
-        return Math.sqrt(Math.pow(x - self._three_camera.position.z, 2) + Math.pow(y - self._three_camera.position.x, 2) + Math.pow(z - self._three_camera.position.y, 2));
+        self.set_camera_pos(self._three_camera.position.z, self._three_camera.position.x, self._three_camera.position.y); // TODO: Fix angles
     };
 
     /**

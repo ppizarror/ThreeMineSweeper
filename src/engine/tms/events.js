@@ -418,11 +418,7 @@ function TMSEvents() {
                     self._viewer.objects_props.camera.movements.zdown = true;
                     break;
                 case 17: // [CTRL]
-                    if (self._viewer.objects_props.camera.facerotate) {
-                        self._viewer.objects_props.camera.movements.facerotate = true;
-                        return; // Disables hover
-                    }
-                    break;
+                    return; // Disables hover
                 default: // Ignore other inputs
                     break;
             }
@@ -495,10 +491,9 @@ function TMSEvents() {
                     self._viewer.objects_props.camera.movements.zdown = false;
                     break;
                 case 17: // [CTRL]
-                    self._viewer.objects_props.camera.movements.facerotate = false;
-                    self._viewer.objects_props.camera.facetarget.x = null;
-                    self._viewer.objects_props.camera.facetarget.y = null;
-                    self._viewer.objects_props.camera.facetarget.z = null;
+                    self._viewer.objects_props.camera.facetarget.x = 0;
+                    self._viewer.objects_props.camera.facetarget.y = 0;
+                    self._viewer.objects_props.camera.facetarget.z = 0;
                     break;
                 default: // Ignore other inputs
                     break;
@@ -686,6 +681,10 @@ function TMSEvents() {
             }
 
             self._last_hover_face = null;
+            self._viewer.objects_props.camera.facetarget.nullface = true;
+            self._viewer.objects_props.camera.facetarget.x = 0;
+            self._viewer.objects_props.camera.facetarget.y = 0;
+            self._viewer.objects_props.camera.facetarget.z = 0;
             if (is_null_undf(face)) {
                 this._viewer.render();
                 return;
