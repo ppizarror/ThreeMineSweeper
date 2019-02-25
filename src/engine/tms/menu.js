@@ -102,12 +102,12 @@ function TMSMenu() {
             step: 5,
         },
         12: { // Möbius
-            from: 20,
+            from: [10, 45],
             lateq: false,
             latlng: true,
-            max: 65,
-            min: 20,
-            step: 5,
+            max: [15, 70],
+            min: [5, 20],
+            step: [1, 5],
         },
         13: { // Polyhedra
             item: true,
@@ -571,20 +571,62 @@ function TMSMenu() {
             self._write_input(lang.new_game_latlng, '<div class="menu-generator-latlng"><input id="{0}" /><div class="menu-generator-latlng-sep"></div><input id="{1}" /></div>'.format($id, $id2), self._dom.generator);
             self._dom.gen_lat = $('#' + $id);
             self._dom.gen_lng = $('#' + $id2);
+
+            // Get from lat/lng
+            let $fromlat, $fromlng;
+            if (game.from instanceof Array && game.from.length === 2) {
+                $fromlat = game.from[0];
+                $fromlng = game.from[1];
+            } else {
+                $fromlat = game.from;
+                $fromlng = game.from;
+            }
+
+            // Get max lat/lng
+            let $maxlat, $maxlng;
+            if (game.max instanceof Array && game.max.length === 2) {
+                $maxlat = game.max[0];
+                $maxlng = game.max[1];
+            } else {
+                $maxlat = game.max;
+                $maxlng = game.max;
+            }
+
+            // Get min lat/lng
+            let $minlat, $minlng;
+            if (game.min instanceof Array && game.min.length === 2) {
+                $minlat = game.min[0];
+                $minlng = game.min[1];
+            } else {
+                $minlat = game.min;
+                $minlng = game.min;
+            }
+
+            // Get step lat/lng
+            let $steplat, $steplng;
+            if (game.step instanceof Array && game.step.length === 2) {
+                $steplat = game.step[0];
+                $steplng = game.step[1];
+            } else {
+                $steplat = game.step;
+                $steplng = game.step;
+            }
+
+            // Write sliders
             self._dom.gen_lat.ionRangeSlider({
-                from: self._get_cookie_val(self._cookies.lat, game.min, game.max, game.from, true),
-                max: game.max,
-                min: game.min,
+                from: self._get_cookie_val(self._cookies.lat, $minlat, $maxlat, $fromlat, true),
+                max: $maxlat,
+                min: $minlat,
                 skin: 'round',
-                step: game.step,
+                step: $steplat,
             });
             if (!game.lateq) {
                 self._dom.gen_lng.ionRangeSlider({
-                    from: self._get_cookie_val(self._cookies.lng, game.min, game.max, game.from, true),
-                    max: game.max,
-                    min: game.min,
+                    from: self._get_cookie_val(self._cookies.lng, $minlng, $maxlng, $fromlng, true),
+                    max: $maxlng,
+                    min: $minlng,
                     skin: 'round',
-                    step: game.step,
+                    step: $steplng,
                 });
             } else {
                 self._dom.gen_lng.remove();
