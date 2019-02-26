@@ -166,6 +166,13 @@ const cfg_always_show_err_notification = true;
  */
 const cfg_notification_timeout = 10000;
 
+/**
+ * Popup after close app.
+ * @type {boolean}
+ * @const
+ */
+const cfg_reload_alert_onclose = false;
+
 
 /**
  * ----------------------------------------------------------------------------

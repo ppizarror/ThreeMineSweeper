@@ -90,7 +90,7 @@ function ThreeMineSweeper() {
         self._events.initEvents();
 
         // Set window events
-        if (!cfg_verbose) {
+        if (!cfg_verbose && cfg_reload_alert_onclose) {
             setTimeout(function () {
                 window.onbeforeunload = function () {
                     return lang.reload_alert;
