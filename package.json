@@ -9,10 +9,10 @@
   },
   "dependencies": {
     "jest": "^23.6.0",
-    "stylelint-config-standard": "^18.2.0"
+    "stylelint-config-standard": "^18.3.0"
   },
   "devDependencies": {
-    "jquery": "^3.3.1",
+    "jquery": "^3.4.1",
     "jquery-confirm": "^3.3.4",
     "karma": "^3.1.4",
     "karma-chrome-launcher": "^2.2.0",
