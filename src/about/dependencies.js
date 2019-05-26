@@ -13,7 +13,7 @@ aboutinfo.dependencies = {
     "amaranJS": "0.5.4",                    // https://github.com/hakanersu/AmaranJS
     "animate.css": "3.7.0",                 // https://github.com/daneden/animate.css
     "bootstrap": "4.2.1",                   // https://github.com/twbs/bootstrap
-    "chart.js": "2.7.3",                    // https://github.com/chartjs/Chart.js
+    "chart.js": "2.8.0",                    // https://github.com/chartjs/Chart.js
     "dat.gui": "0.7.2",                     // https://github.com/dataarts/dat.gui/releases
     "delaunator": "3.0.2",                  // https://github.com/mapbox/delaunator
     "earcut": "2.1.4",                      // https://github.com/mapbox/earcut
