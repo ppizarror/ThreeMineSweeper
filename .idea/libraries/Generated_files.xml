@@ -65,6 +65,7 @@
         <item url="file://$PROJECT_DIR$/dist/ui/globals.min.js" />
         <item url="file://$PROJECT_DIR$/dist/ui/loading.min.js" />
         <item url="file://$PROJECT_DIR$/dist/ui/themes.min.js" />
+        <item url="file://$PROJECT_DIR$/lib/jquery/jquery-3.4.1.min.js" />
         <item url="file://$PROJECT_DIR$/lib/math.js/parser.min.js" />
         <item url="file://$PROJECT_DIR$/lib/stats.js/stats.min.js" />
         <item url="file://$PROJECT_DIR$/lib/three.js" />
@@ -135,6 +136,7 @@
       <root url="file://$PROJECT_DIR$/dist/ui/globals.min.js" />
       <root url="file://$PROJECT_DIR$/dist/ui/loading.min.js" />
       <root url="file://$PROJECT_DIR$/dist/ui/themes.min.js" />
+      <root url="file://$PROJECT_DIR$/lib/jquery/jquery-3.4.1.min.js" />
       <root url="file://$PROJECT_DIR$/lib/math.js/parser.min.js" />
       <root url="file://$PROJECT_DIR$/lib/stats.js/stats.min.js" />
       <root url="file://$PROJECT_DIR$/lib/three.js" />
