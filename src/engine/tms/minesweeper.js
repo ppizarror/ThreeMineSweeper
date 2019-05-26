@@ -339,6 +339,9 @@ function Minesweeper() {
 
             // Explotion effect
             this._set_text_color('#ff1111');
+            setTimeout(function () {
+                self._new_game_after_lose();
+            }, 1450); // Popup must be synchronized with ending sound
             this._explotion_effect([face], viewer, 0);
             app_sound.play(app_sound.sound.GAMEOVER);
             setTimeout(function () {
@@ -400,6 +403,9 @@ function Minesweeper() {
      */
     this._explotion_effect = function (face, viewer, call) {
 
+        // If reset returns
+        if (self._reset) return;
+
         // Objective faces
         let $f = [];
         let $f_id = [];
@@ -434,6 +440,9 @@ function Minesweeper() {
      */
     this._explotion_secondary_effect = function (face, viewer, call) {
 
+        // If reset returns
+        if (self._reset) return;
+
         // Objective faces
         let $f = [];
         let $f_id = [];
@@ -446,12 +455,6 @@ function Minesweeper() {
                     $f_id.push($ff[j].get_id());
                 }
             }
-        }
-
-        // Animation ended, show dialog to restart
-        if ($f.length === 0 || !self._is_playing) {
-            self._new_game_after_lose();
-            return;
         }
 
         // viewer.render();
