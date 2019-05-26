@@ -9,7 +9,7 @@ This directory contains the libraries used by TMS (31 in total):
 | amaranJS | 0.5.4 | <a href="https://github.com/hakanersu/AmaranJS">github.com/hakanersu/AmaranJS</a> |
 | animate.css | 3.7.0 | <a href="https://github.com/daneden/animate.css">github.com/daneden/animate.css</a> |
 | bootstrap | 4.2.1 | <a href="https://github.com/twbs/bootstrap">github.com/twbs/bootstrap</a> |
-| chart.js | 2.7.3 | <a href="https://github.com/chartjs/Chart.js">github.com/chartjs/Chart.js</a> |
+| chart.js | 2.8.0 | <a href="https://github.com/chartjs/Chart.js">github.com/chartjs/Chart.js</a> |
 | dat.gui | 0.7.2 | <a href="https://github.com/dataarts/dat.gui/releases">github.com/dataarts/dat.gui/releases</a> |
 | delaunator | 3.0.2 | <a href="https://github.com/mapbox/delaunator">github.com/mapbox/delaunator</a> |
 | earcut | 2.1.4 | <a href="https://github.com/mapbox/earcut">github.com/mapbox/earcut</a> |
@@ -18,7 +18,7 @@ This directory contains the libraries used by TMS (31 in total):
 | hover | 2.3.1 | <a href="https://github.com/IanLunn/Hover">github.com/IanLunn/Hover</a> |
 | ion.rangeSlider | 2.3.0 | <a href="https://github.com/IonDen/ion.rangeSlider">github.com/IonDen/ion.rangeSlider</a> |
 | ion.sound | 3.0.7 | <a href="https://github.com/IonDen/ion.sound">github.com/IonDen/ion.sound</a> |
-| jquery | 3.3.1 | <a href="https://github.com/jquery/jquery">github.com/jquery/jquery</a> |
+| jquery | 3.4.1 | <a href="https://github.com/jquery/jquery">github.com/jquery/jquery</a> |
 | jquery-confirm | 3.3.4 | <a href="https://github.com/craftpip/jquery-confirm">github.com/craftpip/jquery-confirm</a> |
 | jquery-dateFormat | 1.0.2 | <a href="https://github.com/phstc/jquery-dateFormat">github.com/phstc/jquery-dateFormat</a> |
 | jquery-nice-select | 1.1.0 | <a href="https://github.com/hernansartorio/jquery-nice-select">github.com/hernansartorio/jquery-nice-select</a> |
