@@ -38,7 +38,7 @@ aboutinfo.dependencies = {
     "rippler": "0.1.1",                     // https://github.com/blivesta/rippler
     "spin.js": "4.0.0",                     // https://github.com/fgnass/spin.js
     "stats.js": "r17",                      // https://github.com/mrdoob/stats.js
-    "three.js": "r104",                     // https://github.com/mrdoob/three.js
+    "three.js": "r105",                     // https://github.com/mrdoob/three.js
     "toastr": "2.1.4",                      // https://github.com/CodeSeven/toastr
     "tooltipster": "4.2.6",                 // https://github.com/iamceege/tooltipster
 };
