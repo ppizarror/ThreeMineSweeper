@@ -10,6 +10,6 @@
  * Version.
  */
 aboutinfo.v = {
-    "date": "26/05/2019",
+    "date": "05/26/2019",
     "version": "1.7.0",
 };
