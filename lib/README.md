@@ -34,6 +34,6 @@ This directory contains the libraries used by TMS (31 in total):
 | rippler | 0.1.1 | <a href="https://github.com/blivesta/rippler">github.com/blivesta/rippler</a> |
 | spin.js | 4.0.0 | <a href="https://github.com/fgnass/spin.js">github.com/fgnass/spin.js</a> |
 | stats.js | r17 | <a href="https://github.com/mrdoob/stats.js">github.com/mrdoob/stats.js</a> |
-| three.js | r105 | <a href="https://github.com/mrdoob/three.js">github.com/mrdoob/three.js</a> |
+| three.js | r107 | <a href="https://github.com/mrdoob/three.js">github.com/mrdoob/three.js</a> |
 | toastr | 2.1.4 | <a href="https://github.com/CodeSeven/toastr">github.com/CodeSeven/toastr</a> |
 | tooltipster | 4.2.6 | <a href="https://github.com/iamceege/tooltipster">github.com/iamceege/tooltipster</a> |
