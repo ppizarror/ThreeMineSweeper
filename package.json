@@ -8,13 +8,13 @@
     "test": "test"
   },
   "dependencies": {
-    "jest": "^23.6.0",
+    "jest": "^25.0.0",
     "stylelint-config-standard": "^18.3.0"
   },
   "devDependencies": {
     "jquery": "^3.4.1",
     "jquery-confirm": "^3.3.4",
-    "karma": "^3.1.4",
+    "karma": "^4.2.0",
     "karma-chrome-launcher": "^2.2.0",
     "karma-coverage": "^1.1.2",
     "karma-firefox-launcher": "^1.1.0",
