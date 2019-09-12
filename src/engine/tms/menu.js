@@ -1,3 +1,4 @@
+/* eslint-disable object-curly-spacing */
 /**
  MENU
  Game menu.
@@ -994,7 +995,7 @@ function TMSMenu() {
      */
     this._load_stats = function () {
 
-        // noinspection JSUnresolvedFunction
+        // noinspection JSUnresolvedFunction,JSCheckFunctionSignatures
         /**
          * Create query
          * @type {JQuery.jqXHR}

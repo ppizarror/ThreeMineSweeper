@@ -731,7 +731,7 @@ function Minesweeper() {
      */
     this._push_server = function () {
 
-        // noinspection JSUnresolvedFunction
+        // noinspection JSUnresolvedFunction,JSCheckFunctionSignatures
         /**
          * Create query
          * @type {JQuery.jqXHR}
@@ -828,7 +828,7 @@ function Minesweeper() {
      */
     this._get_score = function () {
 
-        // noinspection JSUnresolvedFunction
+        // noinspection JSUnresolvedFunction,JSCheckFunctionSignatures
         /**
          * Create query
          * @type {JQuery.jqXHR}

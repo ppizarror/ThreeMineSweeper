@@ -1,3 +1,4 @@
+/* eslint-disable object-curly-spacing */
 /**
  VIEWER
  Implements Three.js viewer.
@@ -774,6 +775,7 @@ function TMSViewer() {
          */
         this._scene.add(this._three_camera);
 
+        // noinspection JSUnresolvedFunction
         /**
          * --------------------------------------------------------------------
          * Create controls
@@ -2505,6 +2507,7 @@ function TMSViewer() {
         // Adds normal helper
         if (this._threejs_helpers.normals) {
             let nh_size = Math.min(this.worldsize.x, this.worldsize.x, this.worldsize.z) * 0.1;
+            // noinspection JSDeprecatedSymbols
             let helper = new THREE.FaceNormalsHelper(self._volume_meshes.volume, nh_size,
                 this._threejs_helpers.normalcolor, 1);
             self._volume_meshes.helper = helper;

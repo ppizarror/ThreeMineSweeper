@@ -22,5 +22,7 @@
     <orderEntry type="library" name="dbip" level="application" />
     <orderEntry type="library" name="@types/select2" level="application" />
     <orderEntry type="library" name="wallpaper-db" level="application" />
+    <orderEntry type="library" name="@types/jquery" level="application" />
+    <orderEntry type="library" name="three" level="application" />
   </component>
 </module>

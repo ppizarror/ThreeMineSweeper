@@ -392,6 +392,7 @@ function AppDialog() {
 
             // If null returns
             if (is_null_undf($cnt)) return;
+            // noinspection JSUnresolvedFunction,JSObjectNullOrUndefined
             let $form = $cnt.find('form');
             $form.on('submit', function (e) {
                 e.preventDefault();
