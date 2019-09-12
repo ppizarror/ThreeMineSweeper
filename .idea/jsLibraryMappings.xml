@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="JavaScriptLibraryMappings">
-    <file url="PROJECT" libraries="{@types/delaunator, @types/earcut, @types/jquery, @types/karma, @types/karma-jasmine, @types/select2, @types/three, @types/tooltipster, dbip}" />
-    <excludedPredefinedLibrary name="ThreeMineSweeper/node_modules" />
+    <file url="PROJECT" libraries="{wallpaper-db}" />
   </component>
 </project>

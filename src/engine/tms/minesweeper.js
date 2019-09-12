@@ -709,6 +709,7 @@ function Minesweeper() {
     this._submit_score = function (name) {
         app_library_manager.import_async_library(app_library_manager.lib.DBIP, function () {
             self._user.name = name;
+            // noinspection JSUnresolvedVariable,JSUnresolvedFunction
             let location = dbip.getVisitorInfo();
             location.then(info => {
                 // noinspection JSUnresolvedVariable

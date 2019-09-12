@@ -14,7 +14,7 @@
         <array />
       </option>
       <option name="outputFromStdout" value="true" />
-      <option name="program" value="google-closure-compiler" />
+      <option name="program" value="$ProjectFileDir$/dev/closure-compiler-v20190819.jar" />
       <option name="runOnExternalChanges" value="true" />
       <option name="scopeName" value="Source-closure" />
       <option name="trackOnlyRoot" value="true" />
