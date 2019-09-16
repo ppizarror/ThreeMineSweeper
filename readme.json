@@ -2,12 +2,12 @@
   "PROJECT": {
     "NAME": "ThreeMineSweeper",
     "ICON": {
-      "IMAGE": "https://ppizarror.com/ThreeMineSweeper/resources/favicon/android-chrome-512x512.png",
+      "IMAGE": "https://github.ppizarror.com/ThreeMineSweeper/resources/favicon/android-chrome-512x512.png",
       "ALT": "ThreeMineSweeper",
       "WIDTH": 200,
       "HEIGHT": 200
     },
-    "URL": "https://ppizarror.com/ThreeMineSweeper/",
+    "URL": "https://github.ppizarror.com/ThreeMineSweeper/",
     "URL_TITLE": "ThreeMineSweeper"
   },
   "AUTHOR": {
@@ -23,12 +23,12 @@
   "DESCRIPTION": "TMS is an experimental 3D minesweeper capable to render advanced geometric minesweeper maps",
   "BADGES": {
     "0": {
-      "IMAGE": "https://ppizarror.com/badges/author.svg",
+      "IMAGE": "https://res.ppizarror.com/badges/author.svg",
       "HREF": "https://ppizarror.com",
       "ALT": "@ppizarror"
     },
     "1": {
-      "IMAGE": "https://ppizarror.com/badges/licensemit.svg",
+      "IMAGE": "https://res.ppizarror.com/badges/licensemit.svg",
       "HREF": "https://opensource.org/licenses/MIT/",
       "ALT": "License MIT"
     },
