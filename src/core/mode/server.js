@@ -19,7 +19,7 @@ const cfg_verbose = false;
  * @type {string}
  * @const
  */
-const cfg_href_score = 'https://ppizarror.000webhostapp.com/tms/score.php';
+const cfg_href_score = 'https://tms.ppizarror.com/score.php';
 
 /*
  * ----------------------------------------------------------------------------

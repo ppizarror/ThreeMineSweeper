@@ -74,7 +74,7 @@
         <array />
       </option>
       <option name="outputFromStdout" value="true" />
-      <option name="program" value="yuicompressor" />
+      <option name="program" value="$USER_HOME$/AppData/Roaming/npm/node_modules/yuicompressor/build/yuicompressor-2.4.8.jar" />
       <option name="runOnExternalChanges" value="true" />
       <option name="scopeName" value="Source-compressor" />
       <option name="trackOnlyRoot" value="true" />
