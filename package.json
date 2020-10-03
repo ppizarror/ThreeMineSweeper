@@ -12,7 +12,7 @@
     "stylelint-config-standard": "^18.3.0"
   },
   "devDependencies": {
-    "jquery": "^3.4.1",
+    "jquery": "^3.5.0",
     "jquery-confirm": "^3.3.4",
     "karma": "^4.2.0",
     "karma-chrome-launcher": "^2.2.0",
