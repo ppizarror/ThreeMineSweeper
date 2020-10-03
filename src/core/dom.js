@@ -67,7 +67,9 @@ function get_element_width(elem) {
  * @param {object} e - Scrollwheel event
  */
 function stop_wheel_event(e) {
-    if (!e) e = window.event; // IE7, IE8, Chrome, Safari
+    if (!e) { // noinspection JSDeprecatedSymbols
+        e = window.event;
+    } // IE7, IE8, Chrome, Safari
     if (e.preventDefault) e.preventDefault(); // Chrome, Safari, Firefox
     e.returnValue = false; // IE7, IE8
 }

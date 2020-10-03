@@ -361,6 +361,7 @@ function Volume(volume_faces, volume_name) {
      */
     this._get_vertices_last_added = function () {
         let v = [];
+        // noinspection JSMismatchedCollectionQueryUpdate
         let v_id = [];
         for (let i = 0; i < self._last_added_faces.length; i += 1) {
             let fv = self._last_added_faces[i].get_vertices();
@@ -412,8 +413,9 @@ function Volume(volume_faces, volume_name) {
      */
     this._check_faces = function () {
 
-        // Faces to be deleted
-        let delete_id = [];
+
+        // noinspection JSMismatchedCollectionQueryUpdate
+        let delete_id = []; // Faces to be deleted
         let faces = this._get_faces_around_last_added();
 
         // Look for repeated faces

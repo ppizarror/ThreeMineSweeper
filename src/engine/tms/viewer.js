@@ -1675,6 +1675,7 @@ function TMSViewer() {
      */
     this.show_renderer_info = function () {
         let $info = self._renderer.info;
+        // noinspection JSDeprecatedSymbols,JSUnresolvedFunction
         app_dialog.text('memory.<b>geometries</b>: {0}<br>memory.<b>textures</b>: {1}<br>render.<b>calls</b>: {2}<br>render.<b>frame</b>: {3}<br>render.<b>lines</b>: {4}<br>render.<b>points</b>: {5}<br>render.<b>triangles</b>: {6}<br>camera.<b>azimuth</b>: {7}<br>camera.<b>polar</b>: {8}'.format($info.memory.geometries.toLocaleString(), $info.memory.textures.toLocaleString(), $info.render.calls.toLocaleString(), $info.render.frame.toLocaleString(), $info.render.lines.toLocaleString(), $info.render.points.toLocaleString(), $info.render.triangles.toLocaleString(), round_number(self._controls.getAzimuthalAngle(), 3), round_number(self._controls.getPolarAngle(), 3)), lang.viewer_renderer_info);
     };
 
