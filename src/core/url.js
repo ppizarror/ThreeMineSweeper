@@ -15,7 +15,7 @@
  * @returns {string | null}
  */
 $.urlParam = function (name) {
-    let results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+    let results = new RegExp('[?&]' + name + '=([^&#]*)').exec(window.location.href);
     if (results === null) {
         return null;
     }
