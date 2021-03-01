@@ -443,10 +443,14 @@ function TMSViewer() {
     this._load_image_file = function (image) {
         if (not_null_undf(this.images[image])) return;
         this.images[image] = self._texture_loader.load('{0}.png'.format(image));
+        this.images[image].encoding = THREE.sRGBEncoding;
         this.images[image + '_ambient'] = self._texture_loader.load('{0}_ambient.png'.format(image));
+        this.images[image + '_ambient'].encoding = THREE.sRGBEncoding;
         // this.images[image + '_displacement'] = self._texture_loader.load('{0}_displacement.png'.format(image), $f);
         this.images[image + '_normal'] = self._texture_loader.load('{0}_normal.png'.format(image));
+        this.images[image + '_normal'].encoding = THREE.sRGBEncoding;
         this.images[image + '_specular'] = self._texture_loader.load('{0}_specular.png'.format(image));
+        this.images[image + '_specular'].encoding = THREE.sRGBEncoding;
     };
 
     /**
@@ -734,8 +738,7 @@ function TMSViewer() {
          */
         this._renderer.shadowMap.enabled = true;
         this._renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-        this._renderer.gammaInput = true;
-        this._renderer.gammaOutput = true;
+        this._renderer.outputEncoding = THREE.sRGBEncoding;
 
         /**
          * --------------------------------------------------------------------

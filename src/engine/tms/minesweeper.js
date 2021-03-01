@@ -886,7 +886,7 @@ function Minesweeper() {
         if (not_null_undf(score)) {
             let w = 0; // Effective writes
             for (let i = 0; i < score.length; i += 1) {
-                if (self._write_user_scoreboard(score[i].user, i + 1, score[i].country, score[i].date, score[i].time)) w += 1;
+                if (self._write_user_scoreboard(score[i].user, (i + 1).toString(), score[i].country, score[i].date, score[i].time)) w += 1;
             }
             if (w === 0) self._dom.scoreboard_content.html('<div class="game-scoreboard-empty">{0} <i class="fas fa-smile-wink"></i></div>'.format(lang.scoreboard_empty, self._get_scoreboard_height()));
             self._center_scoreboard();

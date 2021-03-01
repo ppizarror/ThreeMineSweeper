@@ -330,6 +330,7 @@ function TMSEvents() {
 
             // Check Alt+key events
             if (e.altKey && self._altevents) {
+                // noinspection JSDeprecatedSymbols
                 switch (e.which) {
                     case 49: // [1]
                         self._viewer.toggle_gui();

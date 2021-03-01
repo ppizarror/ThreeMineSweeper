@@ -16,12 +16,12 @@
       <option name="outputFromStdout" value="true" />
       <option name="program" value="$ProjectFileDir$/dev/closure-compiler-v20190819.jar" />
       <option name="runOnExternalChanges" value="true" />
-      <option name="scopeName" value="Source-closure" />
+      <option name="scopeName" value="Closure scope" />
       <option name="trackOnlyRoot" value="true" />
       <option name="workingDir" value="$FileDir$" />
       <envs />
     </TaskOptions>
-    <TaskOptions isEnabled="false">
+    <TaskOptions isEnabled="true">
       <option name="arguments" value="" />
       <option name="checkSyntaxErrors" value="true" />
       <option name="description" />
@@ -36,12 +36,12 @@
       <option name="outputFromStdout" value="true" />
       <option name="program" value="yuicompressor" />
       <option name="runOnExternalChanges" value="false" />
-      <option name="scopeName" value="Source-stylesheets" />
+      <option name="scopeName" value="CSS" />
       <option name="trackOnlyRoot" value="true" />
       <option name="workingDir" value="$FileDir$" />
       <envs />
     </TaskOptions>
-    <TaskOptions isEnabled="true">
+    <TaskOptions isEnabled="false">
       <option name="arguments" value="--compilation_level SIMPLE_OPTIMIZATIONS --js $FileName$ --rewrite_polyfills=false" />
       <option name="checkSyntaxErrors" value="true" />
       <option name="description" />
@@ -61,7 +61,7 @@
       <option name="workingDir" value="$FileDir$" />
       <envs />
     </TaskOptions>
-    <TaskOptions isEnabled="true">
+    <TaskOptions isEnabled="false">
       <option name="arguments" value="$FileName$" />
       <option name="checkSyntaxErrors" value="true" />
       <option name="description" />
