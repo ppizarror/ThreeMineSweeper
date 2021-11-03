@@ -1,4 +1,6 @@
 /* eslint-disable object-curly-spacing */
+// noinspection JSCheckFunctionSignatures
+
 /**
  MENU
  Game menu.
@@ -170,25 +172,26 @@ function TMSMenu() {
 
     /**
      * Dom objects.
-     * @type {
-     *    {
+     * @type {{
      *      container: JQuery<HTMLElement> | jQuery | HTMLElement,
-     *      content: JQuery<HTMLElement> | jQuery | HTMLElement,
-     *      footer: JQuery<HTMLElement> | jQuery | HTMLElement,
-     *      gen_fun: JQuery<HTMLElement> | jQuery | HTMLElement,
-     *      gen_item: JQuery<HTMLElement> | jQuery | HTMLElement,
-     *      gen_lat: JQuery<HTMLElement> | jQuery | HTMLElement,
      *      gen_lng: JQuery<HTMLElement> | jQuery | HTMLElement,
-     *      gen_mines: JQuery<HTMLElement> | jQuery | HTMLElement
-     *      gen_order: JQuery<HTMLElement> | jQuery | HTMLElement,
-     *      gen_target: JQuery<HTMLElement> | jQuery | HTMLElement,
-     *      generator: JQuery<HTMLElement> | jQuery | HTMLElement,
-     *      header: JQuery<HTMLElement> | jQuery | HTMLElement,
-     *      menu: JQuery<HTMLElement> | jQuery | HTMLElement,
      *      playbutton: JQuery<HTMLElement> | jQuery | HTMLElement,
+     *      github: JQuery<HTMLElement> | jQuery | HTMLElement,
+     *      gen_selector: JQuery<HTMLElement> | jQuery | HTMLElement,
+     *      footer: JQuery<HTMLElement> | jQuery | HTMLElement,
+     *      gen_order: JQuery<HTMLElement> | jQuery | HTMLElement,
+     *      gen_fun: JQuery<HTMLElement> | jQuery | HTMLElement,
+     *      gen_lat: JQuery<HTMLElement> | jQuery | HTMLElement,
+     *      generator: JQuery<HTMLElement> | jQuery | HTMLElement,
+     *      gen_mines: JQuery<HTMLElement> | jQuery | HTMLElement,
+     *      menu: JQuery<HTMLElement> | jQuery | HTMLElement,
+     *      gen_item: JQuery<HTMLElement> | jQuery | HTMLElement,
+     *      content: JQuery<HTMLElement> | jQuery | HTMLElement,
+     *      mines: JQuery<HTMLElement> | jQuery | HTMLElement,
      *      subheader: JQuery<HTMLElement> | jQuery | HTMLElement,
-     *    }
-     * }
+     *      header: JQuery<HTMLElement> | jQuery | HTMLElement,
+     *      gen_target: JQuery<HTMLElement> | jQuery | HTMLElement
+     *  }}
      * @private
      */
     this._dom = {

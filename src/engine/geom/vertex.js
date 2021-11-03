@@ -1,3 +1,5 @@
+// noinspection JSUnresolvedFunction
+
 /**
  VERTEX
  Geometric vertex definition.

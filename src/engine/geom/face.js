@@ -1,3 +1,5 @@
+// noinspection JSUnresolvedFunction,JSUndefinedPropertyAssignment
+
 /**
  FACE
  Geometric face definition.

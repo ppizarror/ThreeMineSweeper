@@ -61,13 +61,12 @@ function TMSEvents() {
 
     /**
      * Event IDs.
-     * @type {{windowmousemove: string, mouseover: string, wheel: string, contextmenu: string, mouseout: string, mouseup: string, mousewheel: string, blur: string, keyup: string, click: string, keydown: string, mousedown: string}}
+     * @type {{windowmousemove: string, mouseover: string, wheel: string, mouseout: string, mouseup: string, mousewheel: string, blur: string, keyup: string, click: string, keydown: string, mousedown: string}}
      * @private
      */
     this._eventID = {
         blur: 'blur.canvas',
         click: 'click.canvas',
-        contextmenu: 'contextmenu.canvas',
         keydown: 'keydown.canvas',
         keyup: 'keyup.canvas',
         mousedown: 'mousedown.canvas',
@@ -250,22 +249,6 @@ function TMSEvents() {
         });
 
         /**
-         * Mouseup
-         */
-        this._canvas_parent.on(self._eventID.mouseup, function (e) {
-            e.preventDefault();
-            // e.stopPropagation(); // No!
-            self._hasMousePressed = false;
-            self._mouseMoveDrag = false;
-            if (e.which === 1) {
-                self._viewer.objects_props.camera.movements.rotate = false;
-            }
-            if (e.which === 3) {
-                self._viewer.objects_props.camera.movements.pan = false;
-            }
-        });
-
-        /**
          * Left click
          */
         this._canvas_parent.on(self._eventID.click, function (e) {
@@ -277,14 +260,28 @@ function TMSEvents() {
         });
 
         /**
-         * Right click
+         * Mouse release
          */
-        this._canvas_parent.on(self._eventID.contextmenu, function (e) {
+        this._canvas_parent.on(self._eventID.mouseup, function (e) {
             e.preventDefault();
-            self._viewer.objects_props.camera.movements.rotate = false;
-            if (self._mouseMoveDrag || self._hasMousePressed) return;
-            self._minesweeper.play(self._last_hover_face, false, self._viewer);
-            e.stopPropagation();
+            // e.stopPropagation(); // No!
+            self._hasMousePressed = false;
+            self._mouseMoveDrag = false;
+
+            let rightClick = function () {
+                self._viewer.objects_props.camera.movements.rotate = false;
+                if (self._mouseMoveDrag || self._hasMousePressed) return;
+                self._minesweeper.play(self._last_hover_face, false, self._viewer);
+                e.stopPropagation();
+                self._viewer.objects_props.camera.movements.pan = false;
+            }
+
+            if (e.which === 1) {
+                self._viewer.objects_props.camera.movements.rotate = false;
+            }
+            if (e.which === 3) {
+                rightClick();
+            }
         });
 
         /**
@@ -428,7 +425,7 @@ function TMSEvents() {
             self._faceHover(null);
 
             // Enables independent movement
-            self._viewer.objects_props.camera.movements.pan = true;
+            self._viewer.objects_props.camera.movements.pan = false;
             self._viewer.objects_props.camera.movements.rotate = true;
 
         });
@@ -558,10 +555,12 @@ function TMSEvents() {
         self._mouse.x = (($x / $ww) * 2) - 1;
         self._mouse.y = (-($y / $wh) * 2) + 1;
 
+        // noinspection JSUnresolvedFunction
         /**
          * Apply raycast
          */
         self._raycaster.setFromCamera(self._mouse, self._three_camera);
+        // noinspection JSUnresolvedFunction
         let intersects = self._raycaster.intersectObjects(self._scene.children, false);
 
         /**

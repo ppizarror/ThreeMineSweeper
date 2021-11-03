@@ -1,3 +1,5 @@
+// noinspection JSCheckFunctionSignatures
+
 /**
  MINESWEEPER
  Creates minesweeper game from volume.
@@ -914,7 +916,7 @@ function Minesweeper() {
         self._last_downloaded_score = '';
         self._dom.scoreboard_content.empty();
         self._dom.scoreboard_title.html(lang.scoreboard_title);
-        let $mines = '';
+        let $mines;
         if (self._generator.mines < 1) {
             $mines = round_number(self._generator.mines * 100, 2).toString() + '%';
         } else {

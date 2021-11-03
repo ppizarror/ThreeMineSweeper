@@ -1,4 +1,6 @@
 /* eslint-disable object-curly-spacing */
+// noinspection JSUnresolvedFunction,JSCheckFunctionSignatures,JSUndefinedPropertyAssignment
+
 /**
  VIEWER
  Implements Three.js viewer.
