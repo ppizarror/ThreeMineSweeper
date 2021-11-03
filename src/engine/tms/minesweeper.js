@@ -540,7 +540,7 @@ function Minesweeper() {
                 app_tms.load_menu();
             };
             app_sound.play(app_sound.sound.BUTTON);
-            if (self._game_status.played === 0) { // || self._gameover
+            if (self._game_status.played === 0 || self._gameover) {
                 $loadmenu();
                 return;
             }

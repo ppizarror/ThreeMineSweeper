@@ -105,7 +105,7 @@ function TMSMenu() {
             step: 5,
         },
         12: { // Möbius
-            from: [10, 45],
+            from: [11, 45],
             lateq: false,
             latlng: true,
             max: [15, 70],
@@ -135,7 +135,7 @@ function TMSMenu() {
     /**
      * Fill modes
      */
-    this._gamekeys = [3, 4, 2, 11, 9, 6, 7, 10, 12, 13, 8, 5];
+    this._gamekeys = [3, 4, 2, 8, 11, 9, 6, 7, 10, 12, 13, 5]; // The order within the menu
     for (let i = 0; i < this._gamekeys.length; i += 1) {
         if (is_null_undf(this._games[this._gamekeys[i]])) continue;
 
