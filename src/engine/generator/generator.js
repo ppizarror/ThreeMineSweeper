@@ -231,7 +231,7 @@ function Generator() {
     };
 
     /**
-     * Apply order limit.
+     * Apply fractal order limit (recursive depth).
      *
      * @function
      * @param {number} max_order

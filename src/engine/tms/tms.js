@@ -1,6 +1,6 @@
 /**
- MINESWEEPER
- Creates minesweeper game from volume.
+ TMS
+ Inits all the objects and controls the game status.
 
  @author Pablo Pizarro R. @ppizarror.com
  @license MIT
