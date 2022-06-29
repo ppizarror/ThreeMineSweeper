@@ -35,9 +35,7 @@ Loading layer
 }
 
 #LoadingDivLayer.LoadingDivLayerClass .LoadingForeground .LoadingBox {
-	-moz-border-radius: 8px;
-	-webkit-border-radius: 8px;
-	background: rgba(0, 0, 0, 0.85);
+	background: rgb(0 0 0 / 85%);
 	border-radius: 8px;
 	height: 75px !important;
 	line-height: 69px;

@@ -13,19 +13,19 @@ Generic container
 -------------------------------------------------------------------------------
  */
 .game-container {
-	background-image: linear-gradient(0deg, #182684 0%, #85c6f8 100%);
-	bottom: 0;
-	float: right;
-	height: 100%;
-	min-height: 520px;
-	min-width: 640px;
-	outline: none;
-	padding: 0;
-	position: absolute;
-	right: 0;
-	text-align: center;
-	top: 0;
-	width: 100%;
+    background-image: linear-gradient(0deg, #182684 0%, #85c6f8 100%);
+    bottom: 0;
+    float: right;
+    height: 100%;
+    min-height: 520px;
+    min-width: 640px;
+    outline: none;
+    padding: 0;
+    position: absolute;
+    right: 0;
+    text-align: center;
+    top: 0;
+    width: 100%;
 }
 
 /**
@@ -34,12 +34,12 @@ Base ui container
 -------------------------------------------------------------------------------
  */
 #game-ui {
-	display: flex;
-	height: 100%;
-	min-height: 480px;
-	min-width: 640px;
-	position: absolute;
-	width: 100%;
+    display: flex;
+    height: 100%;
+    min-height: 480px;
+    min-width: 640px;
+    position: absolute;
+    width: 100%;
 }
 
 /**
@@ -48,46 +48,46 @@ Left column, contains buttons
 -------------------------------------------------------------------------------
  */
 .game-ui-left-column {
-	width: 33.333%;
+    width: 33.333%;
 }
 
 .game-ui-left-column #game-ui-button-menu {
-	background-color: #000000;
-	color: #ffffff;
-	float: left;
-	font-weight: 400;
-	left: 0;
-	margin-left: 1%;
-	margin-top: 1%;
+    background-color: #000000;
+    color: #ffffff;
+    float: left;
+    font-weight: 400;
+    left: 0;
+    margin-left: 1%;
+    margin-top: 1%;
 }
 
 .game-ui-left-column #game-ui-button-reset {
-	bottom: 0;
-	margin-bottom: 1%;
-	margin-left: 1%;
+    bottom: 0;
+    margin-bottom: 1%;
+    margin-left: 1%;
 }
 
 .game-ui-left-column .game-ui-button {
-	box-shadow: 0 0 7px rgba(0, 0, 0, 0.4);
-	display: flex;
-	font-size: 1.2rem;
-	opacity: 0.7;
-	position: absolute;
+    box-shadow: 0 0 7px rgb(0 0 0 / 40%);
+    display: flex;
+    font-size: 1.2rem;
+    opacity: 0.7;
+    position: absolute;
 }
 
 .game-ui-left-column .game-ui-button .fas {
-	line-height: inherit !important;
-	padding-right: 10px;
+    line-height: inherit !important;
+    padding-right: 10px;
 }
 
 .game-ui-left-column .game-ui-button:hover {
-	opacity: 1.0;
+    opacity: 1.0;
 }
 
 @media screen and (max-width: 800px) {
-	.game-ui-left-column .game-ui-button {
-		font-size: 1rem;
-	}
+    .game-ui-left-column .game-ui-button {
+        font-size: 1rem;
+    }
 }
 
 /**
@@ -96,27 +96,27 @@ Middle column, contains timer
 -------------------------------------------------------------------------------
  */
 .game-ui-middle-column {
-	width: 33.333%;
+    width: 33.333%;
 }
 
 /**
 Counter
  */
 .game-ui-middle-column #game-time-counter {
-	color: #ffffff;
-	cursor: default;
-	font-size: 3rem;
-	font-weight: 400;
-	text-align: center;
-	text-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
-	width: 100%;
+    color: #ffffff;
+    cursor: default;
+    font-size: 3rem;
+    font-weight: 400;
+    text-align: center;
+    text-shadow: 0 0 10px rgb(0 0 0 / 40%);
+    width: 100%;
 }
 
 @media screen and (max-width: 800px) {
-	.game-ui-middle-column #game-time-counter {
-		font-size: 2.5rem;
-		margin-top: -1.5%;
-	}
+    .game-ui-middle-column #game-time-counter {
+        font-size: 2.5rem;
+        margin-top: -1.5%;
+    }
 }
 
 /**
@@ -125,272 +125,269 @@ Right column, contains game information
 -------------------------------------------------------------------------------
  */
 .game-ui-right-column {
-	padding-top: 1.15%;
-	width: 33.333%;
+    padding-top: 1.15%;
+    width: 33.333%;
 }
 
 @media screen and (max-width: 800px) {
-	.game-ui-right-column .game-ui-right-column {
-		padding-top: 1%;
-	}
+    .game-ui-right-column .game-ui-right-column {
+        padding-top: 1%;
+    }
 }
 
 /**
 Tile info
  */
 .game-ui-right-column .game-ui-tilesinfo {
-	color: #ffffff;
-	display: inline-block;
-	float: left;
-	font-size: 2rem;
-	font-weight: 400;
-	margin: 0 1% 1% 0;
-	padding-bottom: 1%;
-	padding-right: 1.6%;
-	text-align: right;
-	text-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+    color: #ffffff;
+    font-size: 2rem;
+    font-weight: 400;
+    margin: 0 1% 1% 0;
+    padding-bottom: 4%;
+    padding-right: 1.6%;
+    text-align: right;
+    text-shadow: 0 0 15px rgb(0 0 0 / 50%);
 }
 
 @media screen and (max-width: 800px) {
-	.game-ui-right-column .game-ui-tilesinfo {
-		font-size: 1.5rem;
-		padding-bottom: 1.5%;
-	}
+    .game-ui-right-column .game-ui-tilesinfo {
+        font-size: 1.5rem;
+        padding-bottom: 1.5%;
+    }
 }
 
 .game-ui-right-column .game-ui-tilesinfo img {
-	display: inline-block;
-	margin-left: 5%;
-	margin-top: -2%;
-	min-width: 27px;
-	width: 10%;
+    display: inline-block;
+    margin-left: 5%;
+    margin-top: -2%;
+    min-width: 27px;
+    width: 10%;
 }
 
 .game-ui-right-column .game-ui-tilesinfo.tile-shadow img {
-	-webkit-filter: drop-shadow(0 0 4px rgba(0, 0, 0, 0.55));
-	filter: drop-shadow(0 0 4px rgba(0, 0, 0, 0.55));
+    filter: drop-shadow(0 0 4px rgb(0 0 0 / 55%));
 }
 
 /**
 Scoreboard
  */
 .game-ui-right-column #game-scoreboard-container {
-	background-color: rgba(16, 16, 16, 0.70);
-	border-radius: 10px;
-	bottom: 0;
-	box-shadow: 0 0 10px rgba(0, 0, 0, 0.49);
-	color: #ffffff;
-	display: inline-block;
-	float: right;
-	font-size: 1rem;
-	font-weight: 300;
-	height: 50%;
-	margin-bottom: 1%;
-	margin-right: 1%;
-	max-width: 240px;
-	position: fixed;
-	right: 0;
-	text-align: left;
-	width: 69%;
+    background-color: rgb(16 16 16 / 70%);
+    border-radius: 10px;
+    bottom: 0;
+    box-shadow: 0 0 10px rgb(0 0 0 / 49%);
+    color: #ffffff;
+    display: inline-block;
+    float: right;
+    font-size: 1rem;
+    font-weight: 300;
+    height: 50%;
+    margin-bottom: 1%;
+    margin-right: 1%;
+    max-width: 240px;
+    position: fixed;
+    right: 0;
+    text-align: left;
+    width: 69%;
 }
 
 /**
 Header, contains title of the bookmarks
  */
 .game-ui-right-column #game-scoreboard-header {
-	background-color: rgba(0, 0, 0, 0.73);
-	border-top-left-radius: 10px;
-	border-top-right-radius: 10px;
-	font-weight: 600;
-	padding: 5px 5px 10px 10px;
+    background-color: rgb(0 0 0 / 73%);
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    font-weight: 600;
+    padding: 5px 5px 10px 10px;
 }
 
 .game-ui-right-column #game-scoreboard-title {
-	font-size: 1.5rem;
+    font-size: 1.5rem;
 }
 
 .game-ui-right-column #game-scoreboard-name {
-	font-size: 1.1rem;
-	margin-top: -5px;
+    font-size: 1.1rem;
+    margin-top: -5px;
 }
 
 @media screen and (max-width: 800px) {
-	.game-ui-right-column #game-scoreboard-header {
-		padding: 4px 4px 4px 10px;
-	}
+    .game-ui-right-column #game-scoreboard-header {
+        padding: 4px 4px 4px 10px;
+    }
 
-	.game-ui-right-column #game-scoreboard-title {
-		font-size: 1.1rem;
-	}
+    .game-ui-right-column #game-scoreboard-title {
+        font-size: 1.1rem;
+    }
 
-	.game-ui-right-column #game-scoreboard-name {
-		font-size: 0.9rem;
-		margin-top: -2px;
-	}
+    .game-ui-right-column #game-scoreboard-name {
+        font-size: 0.9rem;
+        margin-top: -2px;
+    }
 }
 
 .game-ui-right-column #game-scoreboard-content {
-	overflow-x: hidden;
-	overflow-y: auto;
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 
 .game-ui-right-column #game-scoreboard-content::-webkit-scrollbar-track {
-	/* -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3); */
-	/* border-radius: 0 0 10px 10px; */
-	border-radius: 10px;
+    /* -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3); */
+    /* border-radius: 0 0 10px 10px; */
+    border-radius: 10px;
 }
 
 .game-ui-right-column #game-scoreboard-content::-webkit-scrollbar {
-	width: 10px;
+    width: 10px;
 }
 
 .game-ui-right-column #game-scoreboard-content::-webkit-scrollbar-thumb {
-	/* -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3); */
-	/* border-radius: 0 0 10px 10px; */
-	background-color: #474747;
-	border-radius: 10px;
+    /* -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3); */
+    /* border-radius: 0 0 10px 10px; */
+    background-color: #474747;
+    border-radius: 10px;
 }
 
 /**
 Boomark entry
  */
 .game-ui-right-column #game-scoreboard-content .game-scoreboard-entry {
-	border-bottom: 1px solid rgba(97, 97, 97, 0.55);
-	display: flex;
-	padding-bottom: 3px;
-	width: 100%;
+    border-bottom: 1px solid rgb(97 97 97 / 55%);
+    display: flex;
+    padding-bottom: 3px;
+    width: 100%;
 }
 
 .game-ui-right-column #game-scoreboard-content .game-scoreboard-entry:hover {
-	background-color: rgba(68, 68, 68, 0.25);
+    background-color: rgb(68 68 68 / 25%);
 }
 
 .game-ui-right-column #game-scoreboard-content .game-scoreboard-entry:last-child {
-	border-bottom: none;
+    border-bottom: none;
 }
 
 @media screen and (max-width: 800px) {
-	.game-ui-right-column #game-scoreboard-content .game-scoreboard-entry {
-		padding-bottom: 0;
-	}
+    .game-ui-right-column #game-scoreboard-content .game-scoreboard-entry {
+        padding-bottom: 0;
+    }
 }
 
 .game-ui-right-column #game-scoreboard-content .game-scoreboard-user {
-	float: left;
-	overflow-x: hidden;
-	padding-left: 10px;
-	width: 70%;
+    float: left;
+    overflow-x: hidden;
+    padding-left: 10px;
+    width: 70%;
 }
 
 .game-ui-right-column #game-scoreboard-content .game-scoreboard-username {
-	font-size: 1.1rem;
-	font-weight: 400;
-	overflow-x: hidden;
-	overflow-y: hidden;
-	text-overflow: ellipsis;
-	white-space: nowrap;
-	word-break: break-word;
-	word-spacing: inherit;
+    font-size: 1.1rem;
+    font-weight: 400;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    word-break: break-word;
+    word-spacing: inherit;
 }
 
 @media screen and (max-width: 800px) {
-	.game-ui-right-column #game-scoreboard-content .game-scoreboard-username {
-		font-size: 1rem;
-	}
+    .game-ui-right-column #game-scoreboard-content .game-scoreboard-username {
+        font-size: 1rem;
+    }
 }
 
 /**
 Bookmark user data
  */
 .game-ui-right-column #game-scoreboard-content .game-scoreboard-userdata {
-	display: flex;
+    display: flex;
 }
 
 .game-ui-right-column #game-scoreboard-content .game-scoreboard-userdata .game-scoreboard-userdata-position {
-	padding-right: 10px;
-	font-weight: 400;
-	font-size: 0.9rem;
+    padding-right: 10px;
+    font-weight: 400;
+    font-size: 0.9rem;
 }
 
 .game-ui-right-column #game-scoreboard-content .game-scoreboard-userdata .game-scoreboard-userdata-img img {
-	box-shadow: 0 0 5px rgba(0, 0, 0, 0.34);
-	display: inline-block;
-	filter: grayscale(0.5);
-	height: 0.85rem;
-	margin-left: 10px;
-	margin-top: -0.4rem;
-	width: 1.3rem;
+    box-shadow: 0 0 5px rgb(0 0 0 / 34%);
+    display: inline-block;
+    filter: grayscale(0.5);
+    height: 0.85rem;
+    margin-left: 10px;
+    margin-top: -0.4rem;
+    width: 1.3rem;
 }
 
 .game-ui-right-column #game-scoreboard-content .game-scoreboard-userdata .game-scoreboard-userdata-date {
-	font-size: 0.9rem;
-	color: #cfcfcf;
+    font-size: 0.9rem;
+    color: #cfcfcf;
 }
 
 .game-ui-right-column #game-scoreboard-content .game-scoreboard-userdata .game-scoreboard-userdata-img-null {
-	width: 1.8rem;
+    width: 1.8rem;
 }
 
 @media screen and (max-width: 800px) {
-	.game-ui-right-column #game-scoreboard-content .game-scoreboard-userdata .game-scoreboard-userdata-position {
-		padding-right: 5px;
-		font-size: 0.8rem;
-	}
+    .game-ui-right-column #game-scoreboard-content .game-scoreboard-userdata .game-scoreboard-userdata-position {
+        padding-right: 5px;
+        font-size: 0.8rem;
+    }
 
-	.game-ui-right-column #game-scoreboard-content .game-scoreboard-userdata .game-scoreboard-userdata-img img {
-		margin-left: 5px;
-		margin-top: -0.6rem;
-	}
+    .game-ui-right-column #game-scoreboard-content .game-scoreboard-userdata .game-scoreboard-userdata-img img {
+        margin-left: 5px;
+        margin-top: -0.6rem;
+    }
 
-	.game-ui-right-column #game-scoreboard-content .game-scoreboard-userdata .game-scoreboard-userdata-date {
-		font-size: 0.7rem;
-		padding-top: 0.05rem;
-	}
+    .game-ui-right-column #game-scoreboard-content .game-scoreboard-userdata .game-scoreboard-userdata-date {
+        font-size: 0.7rem;
+        padding-top: 0.05rem;
+    }
 
-	.game-ui-right-column #game-scoreboard-content .game-scoreboard-userdata .game-scoreboard-userdata-img-null {
-		width: 2.0rem;
-	}
+    .game-ui-right-column #game-scoreboard-content .game-scoreboard-userdata .game-scoreboard-userdata-img-null {
+        width: 2.0rem;
+    }
 }
 
 /**
 Time
  */
 .game-ui-right-column #game-scoreboard-content .game-scoreboard-time {
-	float: left;
-	font-weight: 400;
-	padding-right: 10px;
-	padding-top: 13px;
-	text-align: right;
-	width: 30%;
+    float: left;
+    font-weight: 400;
+    padding-right: 10px;
+    padding-top: 13px;
+    text-align: right;
+    width: 30%;
 }
 
 @media screen and (max-width: 800px) {
-	.game-ui-right-column #game-scoreboard-content .game-scoreboard-time {
-		font-size: 0.9rem;
-		padding-right: 5px;
-		padding-top: 10px;
-	}
+    .game-ui-right-column #game-scoreboard-content .game-scoreboard-time {
+        font-size: 0.9rem;
+        padding-right: 5px;
+        padding-top: 10px;
+    }
 }
 
 /**
 Loading panel
  */
 .game-ui-right-column #game-scoreboard-content .game-scoreboard-loading {
-	height: 100%;
-	text-align: center;
-	width: 100%;
+    height: 100%;
+    text-align: center;
+    width: 100%;
 }
 
 .game-ui-right-column #game-scoreboard-content .game-scoreboard-loading i {
-	color: #929292;
-	font-size: 1.7rem;
+    color: #929292;
+    font-size: 1.7rem;
 }
 
 /**
 Scoreboard empty
  */
 .game-ui-right-column #game-scoreboard-content .game-scoreboard-empty {
-	color: #a7a7a7;
-	font-size: 0.9rem;
-	text-align: center;
+    color: #a7a7a7;
+    font-size: 0.9rem;
+    text-align: center;
 }
