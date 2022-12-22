@@ -979,7 +979,7 @@ function TMSMenu() {
      */
     this._check_function_popup = function (fun) {
         if (!this._check_if_function(fun)) {
-            app_dialog.confirm(lang.error_message, lang.new_game_function_bad.format('<i style="background-color: #f6f6f6;">{0}</i>'.format(fun.replace(/<(?:.|\n)*?>/gm, ''))), { // lgtm [js/incomplete-multi-character-sanitization]
+            app_dialog.confirm(lang.error_message, lang.new_game_function_bad.format('<i style="background-color: #f6f6f6;">{0}</i>'.format(fun.replace(/<(?:.|\n)*?>/gm, ''))), {
                 cancelText: null,
                 confirmButtonClass: app_dialog.options.buttons.DANGER,
                 confirmText: lang.answer_ok,
