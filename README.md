@@ -29,6 +29,6 @@
   <img src="https://github.ppizarror.com/ThreeMineSweeper/resources/web/game-4.png" alt="Sierpinski cube generator" width="60%" />
 </p>
 
-
 ## Author
-<a href="https://ppizarror.com" title="ppizarror">Pablo Pizarro R.</a> | 2019
+
+[Pablo Pizarro R.](https://ppizarror.com) | 2019
