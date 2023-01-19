@@ -7,7 +7,7 @@ module.exports = function (config) {
     config.set({
 
         // base path that will be used to resolve all patterns (eg. files, exclude)
-        basePath: '',
+        basePath: '.',
 
         // frameworks to use
         // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
@@ -20,9 +20,11 @@ module.exports = function (config) {
             'src/init.js',
 
             // Load libraries
-            'lib/jquery/jquery-3.3.1.js',
+            'lib/jquery/jquery-3.4.1.js',
             'lib/jscookie/js.cookie-2.2.0.js',
+            'lib/pace/pace.min.js',
             'lib/jquery-dateFormat/jquery-dateFormat.min.js',
+            'lib/ion.sound/ion.sound.min.js',
             'lib/spin/spin.js',
 
             // Load application
@@ -122,7 +124,7 @@ module.exports = function (config) {
 
         // Continuous Integration mode
         // if true, Karma captures browsers, runs the tests and exits
-        singleRun: false,
+        singleRun: true,
 
         // Concurrency level
         // how many browser should be started simultaneous

@@ -7,22 +7,9 @@
     "lib": "lib",
     "test": "test"
   },
-  "dependencies": {
-    "jest": "^25.0.0",
-    "stylelint-config-standard": "^18.3.0"
-  },
-  "devDependencies": {
-    "jquery": "^3.5.0",
-    "jquery-confirm": "^3.3.4",
-    "karma": "^4.2.0",
-    "karma-chrome-launcher": "^2.2.0",
-    "karma-coverage": "^1.1.2",
-    "karma-firefox-launcher": "^1.1.0",
-    "karma-jasmine": "^2.0.1",
-    "karma-opera-launcher": "^1.0.0"
-  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "lint:js": "eslint src/ --ext .js,.jsx,.ts,.tsx",
+    "lint": "npm run lint:js"
   },
   "repository": {
     "type": "git",
@@ -39,5 +26,11 @@
   "bugs": {
     "url": "https://github.com/ppizarror/ThreeMineSweeper/issues"
   },
-  "homepage": "https://github.com/ppizarror/ThreeMineSweeper#readme"
+  "homepage": "https://github.ppizarror.com/ThreeMineSweeper",
+  "dependencies": {
+    "eslint": "^8.32.0",
+    "karma": "^6.4.1",
+    "karma-chrome-launcher": "^3.1.1",
+    "karma-jasmine": "^5.1.0"
+  }
 }
