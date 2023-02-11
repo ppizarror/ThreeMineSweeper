@@ -14,7 +14,7 @@ describe('Test face', function () {
         expect(f.has_contour()).toBe(false);
         expect(f.get_neighbours_strlist()).toBe('');
         expect(f.get_name()).toBe('F');
-        expect(f.get_id !== ft.get_id()).toBe(true);
+        expect(f.get_id() !== ft.get_id()).toBe(true);
 
         // Test vertices cannot be added twice
         expect(f.add_vertex(v1)).toBe(true);

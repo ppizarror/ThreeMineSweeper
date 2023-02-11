@@ -322,6 +322,9 @@ function LibraryManager() {
                 return true;
             }
 
+            // noinspection HttpUrlsUsage
+            if (window.__karma__ && !(path.includes('http://') || path.includes('https://'))) path = 'base/' + path;
+
             // noinspection JSIgnoredPromiseFromCall
             $.getScript(path, $f_funct).fail(function ($e) { // Get script
                 self._throw_fatal_error(name, path);
@@ -474,6 +477,8 @@ function LibraryManager() {
     this.load_css_lib = function (lib, path) {
         if (self._imported_libraries[lib + '.css']) return;
         self._imported_libraries[lib + '.css'] = true;
+        // noinspection HttpUrlsUsage
+        if (window.__karma__ && !(path.includes('http://') || path.includes('https://'))) path = 'base/' + path;
         $('head').append('<link rel="stylesheet" type="text/css" href="' + path + '" media="screen">');
     };
 

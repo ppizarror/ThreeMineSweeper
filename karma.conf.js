@@ -7,7 +7,7 @@ module.exports = function (config) {
     config.set({
 
         // base path that will be used to resolve all patterns (eg. files, exclude)
-        basePath: '',
+        basePath: '.',
 
         // frameworks to use
         // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
@@ -26,7 +26,6 @@ module.exports = function (config) {
             'lib/jscookie/js.cookie-2.2.0.js',
             'lib/spin/spin.js',
             'lib/three.js/three.min.js',
-
             {
                 pattern: 'lib/**',
                 served: true,
@@ -40,6 +39,12 @@ module.exports = function (config) {
             'src/about/version.js',
 
             'src/i18n/lang.js',
+            {
+                pattern: 'dist/i18n/*.js',
+                served: true,
+                included: false,
+            },
+            'src/i18n/en.js',
             'src/core/globals.js',
             'src/core/mode/test.js',
             'src/core/mode/local.js',
@@ -104,7 +109,7 @@ module.exports = function (config) {
 
         // Allow karma to retrieve from lib/
         proxies: {
-            '/lib/': '/base/lib/'
+            '/lib': '/base/lib/'
         },
 
         // preprocess matching files before serving them to the browser
