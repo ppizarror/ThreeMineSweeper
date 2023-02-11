@@ -30,9 +30,9 @@
   "homepage": "https://github.ppizarror.com/ThreeMineSweeper",
   "dependencies": {
     "eslint": "^8.32.0",
-    "karma": "^4.4.1",
+    "karma": "^6.4.1",
     "karma-chrome-launcher": "^3.1.1",
-    "karma-coverage": "^1.1.2",
-    "karma-jasmine": "^4.0.2"
+    "karma-coverage": "^2.2.0",
+    "karma-jasmine": "^5.1.0"
   }
 }
