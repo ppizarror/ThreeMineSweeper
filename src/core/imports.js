@@ -266,9 +266,13 @@ function LibraryManager() {
      * @private
      */
     this._throw_fatal_error = function (msg, path) {
-        app_dialog.error(lang.import_fatal_error_title,
-            lang.import_fatal_error_content.format('<b>{0}</b>'.format(msg), '<i>{0}</i>'.format(path)));
-        NotificationJS.error(lang.import_fatal_error_title);
+        if (!is_null_undf(lang)) {
+            app_dialog.error(lang.import_fatal_error_title,
+                lang.import_fatal_error_content.format('<b>{0}</b>'.format(msg), '<i>{0}</i>'.format(path)));
+            NotificationJS.error(lang.import_fatal_error_title);
+        } else {
+            console.error('Cannot import {0} script'.format(path));
+        }
     };
 
     /**
@@ -319,8 +323,9 @@ function LibraryManager() {
             }
 
             // noinspection JSIgnoredPromiseFromCall
-            $.getScript(path, $f_funct).fail(function () { // Get script
+            $.getScript(path, $f_funct).fail(function ($e) { // Get script
                 self._throw_fatal_error(name, path);
+                console.error($e);
             });
 
         } catch ($e) {

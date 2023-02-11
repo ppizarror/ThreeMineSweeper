@@ -7,7 +7,7 @@ module.exports = function (config) {
     config.set({
 
         // base path that will be used to resolve all patterns (eg. files, exclude)
-        basePath: '.',
+        basePath: '',
 
         // frameworks to use
         // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
@@ -19,13 +19,19 @@ module.exports = function (config) {
             // Init application
             'src/init.js',
 
-            // Load libraries
+            // Libraries
             'lib/jquery/jquery-3.4.1.js',
-            'lib/jscookie/js.cookie-2.2.0.js',
-            'lib/pace/pace.min.js',
-            'lib/jquery-dateFormat/jquery-dateFormat.min.js',
             'lib/ion.sound/ion.sound.min.js',
+            'lib/jquery-dateFormat/jquery-dateFormat.min.js',
+            'lib/jscookie/js.cookie-2.2.0.js',
             'lib/spin/spin.js',
+            'lib/three.js/three.min.js',
+
+            {
+                pattern: 'lib/**',
+                served: true,
+                included: false,
+            },
 
             // Load application
             'src/about/about.js',
@@ -95,6 +101,11 @@ module.exports = function (config) {
 
         // list of files / patterns to exclude
         exclude: [],
+
+        // Allow karma to retrieve from lib/
+        proxies: {
+            '/lib/': '/base/lib/'
+        },
 
         // preprocess matching files before serving them to the browser
         // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
