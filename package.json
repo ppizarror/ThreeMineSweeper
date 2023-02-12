@@ -10,7 +10,7 @@
   "scripts": {
     "lint:js": "eslint src/ --ext .js,.jsx,.ts,.tsx",
     "lint": "npm run lint:js",
-    "test": "cd ./node_modules/karma/bin/ && karma start ../../../karma.conf.js"
+    "test": "karma start karma.conf.js"
   },
   "repository": {
     "type": "git",
