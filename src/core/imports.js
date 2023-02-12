@@ -490,7 +490,7 @@ function LibraryManager() {
     this.import_all_libraries = function () {
 
         // If application is loaded throw an exception
-        if (self._initapp) throw 'LibraryManager::import_all_libraries The application has been initizlied, the libraries could not been downloaded';
+        if (self._initapp) throw 'LibraryManager::import_all_libraries The application has been initialized, the libraries could not been downloaded';
         self._start_time = new Date(); // Set init tiem
 
         // Check all queuqed libraries
