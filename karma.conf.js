@@ -101,7 +101,7 @@ module.exports = function (config) {
             'src/app.js',
 
             // Load tests
-            'test/**/**.js',
+            'test/**',
         ],
 
         // list of files / patterns to exclude
