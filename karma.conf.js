@@ -1,7 +1,6 @@
 /* eslint-disable */
 // Karma configuration
 
-// noinspection JSUnresolvedVariable
 module.exports = function (config) {
     // Read index file to detect scripts
     // noinspection NodeCoreCodingAssistance
@@ -35,56 +34,53 @@ module.exports = function (config) {
         files.push(path);
     });
 
-    // noinspection JSUnresolvedVariable
     config.set({
 
-        // base path that will be used to resolve all patterns (eg. files, exclude)
+        // Base path that will be used to resolve all patterns (eg. files, exclude)
         basePath: '.',
 
-        // frameworks to use
-        // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
+        // Will be used as the hostname when launching browsers
+        hostname: '127.0.0.1',
+
+        // Frameworks to use: https://npmjs.org/browse/keyword/karma-adapter
         frameworks: ['jasmine'],
 
-        // list of files / patterns to load in the browser
+        // List of files / patterns to load in the browser
         files: files.concat([
             'test/**/*.js',
         ]),
 
-        // list of files / patterns to exclude
+        // List of files / patterns to exclude
         exclude: [],
 
-        // preprocess matching files before serving them to the browser
-        // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
+        // Preprocess matching files before serving them to the browser
         preprocessors: {},
 
-        // test results reporter to use
-        // possible values: 'dots', 'progress'
-        // available reporters: https://npmjs.org/browse/keyword/karma-reporter
+        // Test results reporter to use; possible values: 'dots', 'progress'
         reporters: ['progress'],
 
-        // web server port
+        // Web server port
         port: 9876,
 
-        // enable / disable colors in the output (reporters and logs)
+        // Enable / disable colors in the output (reporters and logs)
         colors: true,
 
-        // level of logging
-        // possible values: config.LOG_DISABLE || config.LOG_ERROR || config.LOG_WARN || config.LOG_INFO || config.LOG_DEBUG
+        // Level of logging (LOG_DISABLE, LOG_ERROR, LOG_WARN, config.LOG_INFO, config.LOG_DEBUG)
         logLevel: config.LOG_DEBUG,
 
-        // enable / disable watching file and executing tests whenever any file changes
+        // Enable / disable watching file and executing tests whenever any file changes
         autoWatch: true,
 
-        // start these browsers
-        // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
+        // Start these browsers: https://npmjs.org/browse/keyword/karma-launcher
         browsers: ['ChromeHeadless'],
 
-        // Continuous Integration mode
-        // if true, Karma captures browsers, runs the tests and exits
+        // Browser timeout before disconecting (ms)
+        browserNoActivityTimeout: 24 * 60 * 60 * 1000,
+
+        // Continuous Integration mode; if true, Karma captures browsers, runs the tests and exits
         singleRun: true,
 
-        // Concurrency level
-        // how many browser should be started simultaneous
+        // Concurrency level; how many browser should be started simultaneous
         concurrency: Infinity,
 
     });
