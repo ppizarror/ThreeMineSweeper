@@ -3,6 +3,38 @@
 
 // noinspection JSUnresolvedVariable
 module.exports = function (config) {
+    // Read index file to detect scripts
+    // noinspection NodeCoreCodingAssistance
+    /** @type {string} */ let index = require('fs').readFileSync('index.html', 'utf8');
+    /** @type {string[]|{pattern: boolean, served: boolean, included: boolean}[]} */ let files = [];
+    let src_regex = /<script.*?src="(.*?)"/;
+
+    // Add served
+    files.push({
+        pattern: 'dist/i18n/*.js',
+        served: true,
+        included: false,
+    });
+
+    // Retrieve files from HTML
+    index.split('\n').forEach((ln) => {
+        ln = ln.trim();
+        /** @type {string|string[]} */ let path = src_regex.exec(ln);
+        if (path === null) return;
+        path = path[1].split('?v=')[0];
+        if (path.substring(0, 5) === 'dist/') { // Move from dist to src
+            path = `src/${path.substring(5).replace('.min.js', '.js')}`;
+        }
+        if (path === 'src/about/about.js') {
+            files.push({
+                pattern: 'lib/**',
+                served: true,
+                included: false,
+            });
+        }
+        files.push(path);
+    });
+
     // noinspection JSUnresolvedVariable
     config.set({
 
@@ -14,103 +46,12 @@ module.exports = function (config) {
         frameworks: ['jasmine'],
 
         // list of files / patterns to load in the browser
-        files: [
-
-            // Init application
-            'src/init.js',
-
-            // Libraries
-            'lib/jquery/jquery-3.4.1.js',
-            'lib/ion.sound/ion.sound.min.js',
-            'lib/jquery-dateFormat/jquery-dateFormat.min.js',
-            'lib/jscookie/js.cookie-2.2.0.js',
-            'lib/spin/spin.js',
-            'lib/three.js/three.min.js',
-            {
-                pattern: 'lib/**',
-                served: true,
-                included: false,
-            },
-
-            // Load application
-            'src/about/about.js',
-            'src/about/author.js',
-            'src/about/dependencies.js',
-            'src/about/version.js',
-
-            'src/i18n/lang.js',
-            {
-                pattern: 'dist/i18n/*.js',
-                served: true,
-                included: false,
-            },
-            'src/i18n/en.js',
-            'src/core/globals.js',
-            'src/core/mode/test.js',
-            'src/core/mode/local.js',
-            'src/core/date.js',
-            'src/config.js',
-
-            'src/core/imports.js',
-            'src/core/errors.js',
-            'src/core/color.js',
-            'src/core/console.js',
-            'src/core/country.js',
-            'src/core/dom.js',
-            'src/core/hash.js',
-            'src/core/logic.js',
-            'src/core/math.js',
-            'src/core/polyfills.js',
-            'src/core/session.js',
-            'src/core/url.js',
-
-            'src/engine/geom/face.js',
-            'src/engine/geom/polyhedra.js',
-            'src/engine/geom/vertex.js',
-            'src/engine/geom/volume.js',
-
-            'src/engine/generator/generator.js',
-            'src/engine/generator/basic_cube.js',
-            'src/engine/generator/basic_pyramid.js',
-            'src/engine/generator/cross_fractal.js',
-            'src/engine/generator/cube.js',
-            'src/engine/generator/cylinder.js',
-            'src/engine/generator/empty.js',
-            'src/engine/generator/function.js',
-            'src/engine/generator/mobius.js',
-            'src/engine/generator/polyhedra.js',
-            'src/engine/generator/random_plane.js',
-            'src/engine/generator/sierpinski_cube.js',
-            'src/engine/generator/sierpinski_triangle.js',
-            'src/engine/generator/sphere.js',
-            'src/engine/generator/square.js',
-            'src/engine/generator/toroid.js',
-
-            'src/engine/tms/events.js',
-            'src/engine/tms/menu.js',
-            'src/engine/tms/minesweeper.js',
-            'src/engine/tms/sounds.js',
-            'src/engine/tms/tms.js',
-            'src/engine/tms/viewer.js',
-
-            'src/ui/globals.js',
-            'src/ui/dialogs.js',
-            'src/ui/themes.js',
-            'src/ui/loading.js',
-
-            'src/app.js',
-
-            // Load tests
-            'test/**',
-        ],
+        files: files.concat([
+            'test/**/*.js',
+        ]),
 
         // list of files / patterns to exclude
         exclude: [],
-
-        // Allow karma to retrieve from lib/
-        proxies: {
-            '/lib': '/base/lib/'
-        },
 
         // preprocess matching files before serving them to the browser
         // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
