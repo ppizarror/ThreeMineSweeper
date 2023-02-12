@@ -7,7 +7,6 @@
  */
 "use strict";
 
-// noinspection JSCheckFunctionSignatures
 /**
  * Get DOM objects.
  * @global
@@ -35,7 +34,6 @@ $(function () {
  */
 function get_element_height(elem) {
     try {
-        // noinspection JSValidateTypes
         return elem.outerHeight();
     } catch (e) {
         return -1;
@@ -52,7 +50,6 @@ function get_element_height(elem) {
  */
 function get_element_width(elem) {
     try {
-        // noinspection JSValidateTypes
         return elem.outerWidth();
     } catch (e) {
         return -1;

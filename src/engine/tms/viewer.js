@@ -780,7 +780,6 @@ function TMSViewer() {
          */
         this._scene.add(this._three_camera);
 
-        // noinspection JSUnresolvedFunction
         /**
          * --------------------------------------------------------------------
          * Create controls
@@ -921,7 +920,6 @@ function TMSViewer() {
      * @private
      */
     this._set_camera_target = function () {
-        // noinspection JSSuspiciousNameCombination
         self._controls.target.set(self.objects_props.camera.target.y, self.objects_props.camera.target.z, self.objects_props.camera.target.x);
         self._controls.update();
     };
@@ -1072,16 +1070,12 @@ function TMSViewer() {
             if (axis === 'x') position.z += val;
             if (axis === 'y') position.x += val;
             if (axis === 'z') position.y += val;
-            let direction = {
+            ray.set(position, {
                 x: position.x - self._three_camera.position.x,
                 y: position.y - self._three_camera.position.y,
                 z: position.z - self._three_camera.position.z,
-            };
+            });
 
-            // noinspection JSCheckFunctionSignatures
-            ray.set(position, direction);
-
-            // noinspection JSUnresolvedFunction
             /**
              * Collides with volume
              */
@@ -1846,7 +1840,6 @@ function TMSViewer() {
         lightfolder.add(this._guiLightParam, 'posx', -self.worldsize.diagl, self.worldsize.diagl).onChange(function (val) {
             self._light.position.z = val;
             self.render();
-            // noinspection JSSuspiciousNameCombination
             self._guiLightParam.rotatexy = (180 * Math.atan2(self._light.position.x, self._light.position.z) / Math.PI + 360) % 360;
         }).listen();
         lightfolder.add(this._guiLightParam, 'posy', -self.worldsize.diagl, self.worldsize.diagl).onChange(function (val) {
@@ -1864,7 +1857,6 @@ function TMSViewer() {
 
             // Calculate angles
             let angxy, angxyz;
-            // noinspection JSSuspiciousNameCombination
             angxy = Math.atan2(self._light.position.x, self._light.position.z);
             angxyz = Math.asin(self._light.position.y / $ract);
 
@@ -1877,7 +1869,6 @@ function TMSViewer() {
             $y = $e * Math.sin(angxy);
             $z = $e * Math.tan(angxyz);
 
-            // noinspection JSSuspiciousNameCombination
             self._light.position.x = $y;
             self._light.position.y = $z;
             self._light.position.z = $x;
@@ -1899,7 +1890,6 @@ function TMSViewer() {
             posx = self._light.position.x;
             posy = self._light.position.z;
 
-            // noinspection JSSuspiciousNameCombination
             let r = Math.sqrt(Math.pow(posx, 2) + Math.pow(posy, 2)); // Radius
 
             // Update position
@@ -2083,7 +2073,6 @@ function TMSViewer() {
                 let $helpersize = Math.min(self.worldsize.x, self.worldsize.y, self.worldsize.z) * self._threejs_helpers.axissize;
                 helper = new THREE.AxesHelper($helpersize);
                 self._add_mesh_to_scene(helper, this._globals.helper, false);
-                // noinspection JSValidateTypes
                 this._helper_instances.axis = helper;
             }
         } else { // Deletes helper if initialized
@@ -2170,8 +2159,6 @@ function TMSViewer() {
                 plane.position.y = 0;
                 self._add_mesh_to_scene(plane, this._globals.helper, false);
                 $planes.push(plane);
-
-                // noinspection JSValidateTypes
                 this._helper_instances.planes = $planes;
             }
         } else { // Deletes helper if initialized
@@ -2198,7 +2185,6 @@ function TMSViewer() {
                 helper.material.opacity = 0.5;
                 helper.material.transparent = true;
                 self._add_mesh_to_scene(helper, this._globals.helper, false);
-                // noinspection JSValidateTypes
                 this._helper_instances.grid = helper;
             }
         } else { // Deletes helper if initialized
@@ -2260,7 +2246,6 @@ function TMSViewer() {
                 let cube = new THREE.Mesh(geometry, material);
                 cube.position.y = 0;
                 self._add_mesh_to_scene(cube, this._globals.helper, false);
-                // noinspection JSValidateTypes
                 this._helper_instances.worldlimits = cube;
             }
         } else { // Deletes helper if initialized
@@ -2286,7 +2271,6 @@ function TMSViewer() {
                     });
                 let mesh = new THREE.Mesh(sphereGeometry, wireframeMaterial);
                 let $update = function () {
-                    // noinspection JSSuspiciousNameCombination
                     mesh.position.x = self.objects_props.camera.target.y;
                     mesh.position.y = self.objects_props.camera.target.z;
                     mesh.position.z = self.objects_props.camera.target.x;
@@ -2297,7 +2281,6 @@ function TMSViewer() {
                     update: $update,
                 });
 
-                // noinspection JSValidateTypes
                 this._helper_instances.cameratarget = {
                     obj: mesh,
                     update: this._helpers_update.length - 1,
@@ -2320,7 +2303,7 @@ function TMSViewer() {
      * @param {number} x
      * @param {number} y
      * @param {number} z
-     * @returns {Vector3}
+     * @returns {THREE.Vector3}
      * @private
      */
     this._new_three_point = function (x, y, z) {
@@ -2513,7 +2496,6 @@ function TMSViewer() {
         // Adds normal helper
         if (this._threejs_helpers.normals) {
             let nh_size = Math.min(this.worldsize.x, this.worldsize.x, this.worldsize.z) * 0.1;
-            // noinspection JSDeprecatedSymbols
             let helper = new THREE.FaceNormalsHelper(self._volume_meshes.volume, nh_size,
                 this._threejs_helpers.normalcolor, 1);
             self._volume_meshes.helper = helper;

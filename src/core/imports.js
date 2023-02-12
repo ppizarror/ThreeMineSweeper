@@ -180,10 +180,7 @@ function LibraryManager() {
      * @function
      */
     this.disable_hold_ready = function () {
-        if (this._holdReady) {
-            // noinspection JSDeprecatedSymbols
-            $.holdReady(false);
-        }
+        if (this._holdReady) $.holdReady(false);
         self._holdReady = false;
     };
 
@@ -244,10 +241,7 @@ function LibraryManager() {
      */
     this.is_all_loaded_libraries = function () {
         if (Object.keys(self._import_lib_queue).length === 0) {
-            if (this._holdReady) {
-                // noinspection JSDeprecatedSymbols
-                $.holdReady(false);
-            }
+            if (this._holdReady) $.holdReady(false);
             self._query_time = get_seconds_from(self._start_time);
         }
         let $k = Object.keys(self._imported_libraries);
@@ -324,8 +318,6 @@ function LibraryManager() {
 
             // noinspection HttpUrlsUsage
             if (window.__karma__ && !(path.includes('http://') || path.includes('https://'))) path = 'base/' + path;
-
-            // noinspection JSIgnoredPromiseFromCall
             $.getScript(path, $f_funct).fail(function ($e) { // Get script
                 self._throw_fatal_error(name, path);
                 console.error($e);
@@ -498,10 +490,7 @@ function LibraryManager() {
         if ($klibs.length === 0) {
             return;
         }
-        if (this._holdReady) { // Stop readyState
-            // noinspection JSDeprecatedSymbols
-            $.holdReady(true);
-        }
+        if (this._holdReady) $.holdReady(true);
 
         let lib;
         for (let i = 0; i < $klibs.length; i += 1) {

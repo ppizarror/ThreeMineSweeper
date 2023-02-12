@@ -1,5 +1,3 @@
-// noinspection JSCheckFunctionSignatures
-
 /**
  MINESWEEPER
  Creates minesweeper game from volume.
@@ -47,7 +45,7 @@ function Minesweeper() {
 
     /**
      * Game status.
-     * @type {{total: number, played: number}}
+     * @type {{flags: number, mines: number, played: number, questions: number, total: number}}
      * @private
      */
     this._game_status = {
@@ -733,10 +731,9 @@ function Minesweeper() {
      */
     this._push_server = function () {
 
-        // noinspection JSUnresolvedFunction,JSCheckFunctionSignatures
         /**
          * Create query
-         * @type {JQuery.jqXHR}
+         * @type {jQuery|*}
          */
         let $query = $.ajax({
             crossOrigin: cfg_ajax_cors,
@@ -830,10 +827,9 @@ function Minesweeper() {
      */
     this._get_score = function () {
 
-        // noinspection JSUnresolvedFunction,JSCheckFunctionSignatures
         /**
          * Create query
-         * @type {JQuery.jqXHR}
+         * @type {jQuery|*}
          */
         let $query = $.ajax({
             crossOrigin: cfg_ajax_cors,
@@ -877,7 +873,7 @@ function Minesweeper() {
      * Write server score.
      *
      * @function
-     * @param {object} score
+     * @param {{user: string, country: string, date: string, time: string}[]} score
      * @private
      */
     this._write_scores = function (score) {

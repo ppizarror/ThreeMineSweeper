@@ -610,7 +610,6 @@ function AppDialog() {
         /**
          * If last popup has the same md5 tne returns
          */
-        // noinspection JSValidateTypes
         if (not_null_undf(this._last.object) && this._last.md5 === $md5 && !this._last.object.isClosed()) {
             app_console.info(lang.dialog_last_closed_equal_opened);
             self.close_last();
@@ -626,9 +625,7 @@ function AppDialog() {
          * Saves last popup
          */
         this._last.md5 = $md5;
-        // noinspection JSValidateTypes
         this._last.$options = $options;
-        // noinspection JSUnresolvedVariable
         this._last.object = $confirm;
 
     };

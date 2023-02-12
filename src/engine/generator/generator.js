@@ -134,6 +134,7 @@ function Generator() {
      * ------------------------------------------------------------------------
      */
 
+    // noinspection JSUnusedLocalSymbols
     /**
      * Generate element, space volume goes from (xi,yi,zi) to (xf,yf,zf).
      *

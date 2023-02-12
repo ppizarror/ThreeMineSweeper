@@ -21,7 +21,6 @@ function GenBasicCube() {
     Generator.call(this);
     this._set_name('BasicCube');
 
-    // noinspection JSUnusedGlobalSymbols
     /**
      * Generate element, space volume goes from (xi,yi,zi) to (xf,yf,zf).
      *

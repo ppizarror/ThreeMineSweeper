@@ -23,7 +23,6 @@ function GenCrossFractal() {
     this._genprops.fractal = true;
     this._set_name('CrossFractal');
 
-    // noinspection JSUnusedGlobalSymbols
     /**
      * Generate element, space volume goes from (xi,yi,zi) to (xf,yf,zf).
      *

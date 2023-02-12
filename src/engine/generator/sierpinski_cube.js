@@ -23,7 +23,6 @@ function GenSierpinskiCube() {
     this._genprops.fractal = true;
     this._set_name('SierpinskiCube');
 
-    // noinspection JSUnusedGlobalSymbols
     /**
      * Generate element, space volume goes from (xi,yi,zi) to (xf,yf,zf).
      *

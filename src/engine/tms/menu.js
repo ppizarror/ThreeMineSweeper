@@ -122,7 +122,7 @@ function TMSMenu() {
 
     /**
      * Configure mines.
-     * @type {{min: number, max: number, step: number}}
+     * @type {{from: number, min: number, max: number, step: number}}
      * @private
      */
     this._mines = {
@@ -927,11 +927,9 @@ function TMSMenu() {
                 continue;
             }
             $key = keys[i].split('|');
-            if ($key.length === 1) {
-                // noinspection HtmlUnknownTarget
+            if ($key.length === 1) { // noinspection HtmlUnknownTarget
                 $keys += '<img src="resources/keys/{0}.png" class="hvr-grow" alt="" />'.format(keys[i]);
-            } else {
-                // noinspection HtmlUnknownTarget
+            } else { // noinspection HtmlUnknownTarget
                 $keys += '<img src="resources/keys/{0}.png" class="hvr-grow {1}" alt="" />'.format($key[0].replaceAll(',', ' '), $key[1]);
             }
         }
@@ -998,10 +996,9 @@ function TMSMenu() {
      */
     this._load_stats = function () {
 
-        // noinspection JSUnresolvedFunction,JSCheckFunctionSignatures
         /**
          * Create query
-         * @type {JQuery.jqXHR}
+         * @type {jQuery|*}
          */
         let $query = $.ajax({
             crossOrigin: cfg_ajax_cors,

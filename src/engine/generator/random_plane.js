@@ -23,7 +23,6 @@ function GenRandomPlane() {
     this._genprops.target = true;
     this._set_name('RandomPlane');
 
-    // noinspection JSUnusedGlobalSymbols
     /**
      * Generate element, space volume goes from (xi,yi,zi) to (xf,yf,zf).
      *

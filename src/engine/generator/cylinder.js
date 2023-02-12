@@ -23,7 +23,6 @@ function GenCylinder() {
     this._genprops.latlng = true;
     this._set_name('Cylinder');
 
-    // noinspection JSUnusedGlobalSymbols
     /**
      * Generate element, space volume goes from (xi,yi,zi) to (xf,yf,zf).
      *

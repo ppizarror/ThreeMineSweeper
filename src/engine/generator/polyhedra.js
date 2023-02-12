@@ -23,7 +23,6 @@ function GenPolyhedra() {
     this._genprops.item = true;
     this._set_name('Polyhedra');
 
-    // noinspection JSUnusedGlobalSymbols
     /**
      * Generate element, space volume goes from (xi,yi,zi) to (xf,yf,zf).
      *

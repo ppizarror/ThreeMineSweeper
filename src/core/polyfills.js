@@ -112,6 +112,7 @@ if (!String.prototype.format) {
     };
 }
 
+// noinspection JSValidateTypes
 /**
  * Replace all.
  *

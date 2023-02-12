@@ -95,14 +95,14 @@ function Face(face_vertex, face_name) {
 
     /**
      * UV texture rotation center.
-     * @type {Vector2}
+     * @type {THREE.Vector2}
      * @private
      */
     this._uv_center = new THREE.Vector2(0.5, 0.5);
 
     /**
      * UV texture translate coordinates.
-     * @type {Vector2}
+     * @type {THREE.Vector2}
      * @private
      */
     this._uv_traslate = new THREE.Vector2(0, 0);
@@ -327,7 +327,7 @@ function Face(face_vertex, face_name) {
      * @param {Vertex} v1
      * @param {Vertex} v2
      * @param {Vertex} v3
-     * @returns {Vector3}
+     * @returns {THREE.Vector3}
      * @private
      */
     this._normal = function (v1, v2, v3) {
@@ -355,7 +355,7 @@ function Face(face_vertex, face_name) {
      * Return plane normal.
      *
      * @function
-     * @returns {Vector3|null}
+     * @returns {THREE.Vector3|null}
      */
     this.get_normal = function () {
         for (let i = 0; i < this._vertex.length; i += 1) {
@@ -530,9 +530,7 @@ function Face(face_vertex, face_name) {
             for (let j = 0; j < f.length; j += 1) {
 
                 // If face is different than the current one
-                if (f[j].equals(this)) { // noinspection UnnecessaryContinueJS
-                    continue;
-                }
+                if (f[j].equals(this)) continue;
 
                 // Get previous or next vertex exists in same face
                 if (this.has_vertex(v.next(f[j])) || this.has_vertex(v.prev(f[j]))) {
@@ -579,9 +577,7 @@ function Face(face_vertex, face_name) {
             for (let j = 0; j < f.length; j += 1) {
 
                 // If face is different than the current one
-                if (f[j].equals(this)) { // noinspection UnnecessaryContinueJS
-                    continue;
-                }
+                if (f[j].equals(this)) continue;
 
                 // Stores neighbour face
                 if (!n_id.includes(f[j].get_id())) {
@@ -809,7 +805,6 @@ function Face(face_vertex, face_name) {
             let vab = new THREE.Vector3().copy(vb).sub(va);
             let vac = new THREE.Vector3().copy(vc).sub(va);
             let vcross = new THREE.Vector3().copy(vab).cross(vac);
-            // noinspection JSSuspiciousNameCombination
             vcross.set(Math.abs(vcross.x), Math.abs(vcross.y), Math.abs(vcross.z));
             let majorAxis = vcross.x > vcross.y ? (vcross.x > vcross.z ? 'x' : vcross.y > vcross.z ? 'y' : vcross.y > vcross.z) : vcross.y > vcross.z ? 'y' : 'z';
             // Take the other two axis from the largest axis

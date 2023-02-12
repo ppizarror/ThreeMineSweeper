@@ -412,8 +412,6 @@ function Volume(volume_faces, volume_name) {
      * @private
      */
     this._check_faces = function () {
-
-
         // noinspection JSMismatchedCollectionQueryUpdate
         let delete_id = []; // Faces to be deleted
         let faces = this._get_faces_around_last_added();
@@ -427,9 +425,7 @@ function Volume(volume_faces, volume_name) {
             fi = self._last_added_faces[i];
             for (let j = 0; j < faces.length; j += 1) {
                 fj = faces[j];
-                if (fi.equals(fj)) { // noinspection UnnecessaryContinueJS
-                    continue;
-                }
+                if (fi.equals(fj)) continue;
                 if (fj.has_vertex(fi.get_vertices())) {
                     delete_id.pushUnique(fj.get_id());
                     delete_id.pushUnique(fi.get_id());

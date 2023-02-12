@@ -34,7 +34,6 @@ function GenCube() {
         YZ: 'yz'
     };
 
-    // noinspection JSUnusedGlobalSymbols
     /**
      * Generate element, space volume goes from (xi,yi,zi) to (xf,yf,zf).
      *

@@ -555,12 +555,10 @@ function TMSEvents() {
         self._mouse.x = (($x / $ww) * 2) - 1;
         self._mouse.y = (-($y / $wh) * 2) + 1;
 
-        // noinspection JSUnresolvedFunction
         /**
          * Apply raycast
          */
         self._raycaster.setFromCamera(self._mouse, self._three_camera);
-        // noinspection JSUnresolvedFunction
         let intersects = self._raycaster.intersectObjects(self._scene.children, false);
 
         /**

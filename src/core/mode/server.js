@@ -20,22 +20,3 @@ const cfg_verbose = false;
  * @const
  */
 const cfg_href_score = 'https://tms.ppizarror.com/score.php';
-
-/*
- * ----------------------------------------------------------------------------
- * Disables console
- * ----------------------------------------------------------------------------
-(function () {
-    try {
-        if (!window.console) { // noinspection JSValidateTypes
-        }
-        let methods = ['log', 'degug', 'warn', 'info', 'dir', 'dirxml', 'trace', 'profile'];
-        for (let i = 0; i < methods.length; i += 1) {
-            console[methods[i]] = function () {
-            };
-        }
-    } catch ($e) {
-    } finally {
-    }
-})();
-*/

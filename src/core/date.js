@@ -45,7 +45,6 @@ function date_format(date, format) {
     for (let i = 0; i < Math.min(6, $splitted.length); i += 1) {
         $newstrdate += $splitted[i] + ' ';
     }
-    // noinspection JSUnresolvedVariable
     return $.format.date($newstrdate, format);
 }
 

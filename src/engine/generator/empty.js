@@ -21,7 +21,7 @@ function GenEmpty() {
     Generator.call(this);
     this._set_name('Empty');
 
-    // noinspection JSUnusedLocalSymbols, JSUnusedGlobalSymbols
+    // noinspection JSUnusedLocalSymbols
     /**
      * Generate element, space volume goes from (xi,yi,zi) to (xf,yf,zf).
      *

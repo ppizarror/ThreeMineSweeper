@@ -21,7 +21,6 @@ function GenBasicPyramid() {
     Generator.call(this);
     this._set_name('BasicPyramid');
 
-    // noinspection JSUnusedGlobalSymbols
     /**
      * Generate element, space volume goes from (xi,yi,zi) to (xf,yf,zf).
      *

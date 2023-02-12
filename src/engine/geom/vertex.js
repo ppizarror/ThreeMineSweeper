@@ -1,5 +1,3 @@
-// noinspection JSUnresolvedFunction
-
 /**
  VERTEX
  Geometric vertex definition.
@@ -59,7 +57,7 @@ function Vertex(x, y, z, vertex_name) {
 
     /**
      * Position of the vertex.
-     * @type {Vector3}
+     * @type {THREE.Vector3}
      * @private
      */
     this._position = new THREE.Vector3(x, y, z);
@@ -204,7 +202,7 @@ function Vertex(x, y, z, vertex_name) {
      *
      * @function
      * @param {boolean=} apply_z - Apply Z conversion
-     * @returns {Vector3}
+     * @returns {THREE.Vector3}
      */
     this.get_pos = function (apply_z) {
         if (apply_z) {
@@ -423,7 +421,6 @@ function Vertex(x, y, z, vertex_name) {
         let y3 = (x1 * z2) - (x2 * z1);
         let z3 = (x1 * y2) - (x2 * y1);
 
-        // noinspection JSSuspiciousNameCombination
         let a = Math.sqrt(Math.pow(x3, 2) + Math.pow(y3, 2) + Math.pow(z3, 2));
         return a * 0.5;
 
