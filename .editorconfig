@@ -5,22 +5,15 @@ root = true
 
 # Unix-style newlines
 [*]
+charset = utf-8
 end_of_line = lf
 insert_final_newline = false
 
-# Set default charset
-[*.{js, py}]
-charset = utf-8
-
 # Configure languages
-[*.py]
-indent_style = space
+[*.{js, py}]
 indent_size = 4
-
-[src/**.js]
 indent_style = space
-indent_size = 4
 
-[{*.json, .travis.yml}]
+[{*.json, *.yml}]
 indent_size = 2
 indent_style = space
