@@ -1,9 +1,10 @@
 /* eslint-disable */
 // Karma configuration
 
+// noinspection JSUnresolvedVariable
 module.exports = function (config) {
     // Read index file to detect scripts
-    // noinspection NodeCoreCodingAssistance
+    // noinspection JSUnresolvedFunction,NodeCoreCodingAssistance
     /** @type {string} */ let index = require('fs').readFileSync('index.html', 'utf8');
     /** @type {string[]|{pattern: boolean, served: boolean, included: boolean}[]} */ let files = [];
     let src_regex = /<script.*?src="(.*?)"/;
@@ -34,6 +35,7 @@ module.exports = function (config) {
         files.push(path);
     });
 
+    // noinspection JSUnresolvedVariable
     config.set({
 
         // Base path that will be used to resolve all patterns (eg. files, exclude)

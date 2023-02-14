@@ -169,6 +169,7 @@ function FullPageLoadingSpinner() {
                 'left': String(posX) + 'px',
             });
             $loadinglayer.find('.LoadingBackground').css('height', String(hh) + 'px');
+            // noinspection JSValidateTypes
             $loadinglayer.fadeIn(350, function () {
                 if (not_null_undf(callback)) callback();
             });
