@@ -53,11 +53,13 @@ module.exports = function (config) {
         // List of files / patterns to exclude
         exclude: [],
 
-        // Preprocess matching files before serving them to the browser
-        preprocessors: {},
-
         // Test results reporter to use; possible values: 'dots', 'progress'
-        reporters: ['progress'],
+        reporters: ['progress', 'coverage'],
+
+        // Preprocess matching files before serving them to the browser
+        preprocessors: {
+            'src/**/*.js': ['coverage']
+        },
 
         // Web server port
         port: 9876,
