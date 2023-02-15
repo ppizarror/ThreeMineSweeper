@@ -1,3 +1,4 @@
+// noinspection JSUnresolvedVariable
 module.exports = {
     "env": {
         "browser": true,
