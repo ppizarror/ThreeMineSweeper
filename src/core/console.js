@@ -41,9 +41,8 @@ function AppConsole() {
     /**
      * Object pointer.
      * @type {AppConsole}
-     * @private
      */
-    let self = this;
+    const self = this;
 
     /**
      * Apply format message.

@@ -65,7 +65,7 @@ function ThreeMineSweeper() {
      * Stores object reference.
      * @type {ThreeMineSweeper}
      */
-    let self = this;
+    const self = this;
 
     /**
      * Init platform.

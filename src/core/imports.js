@@ -112,9 +112,8 @@ function LibraryManager() {
     /**
      * Object pointer.
      * @type {LibraryManager}
-     * @private
      */
-    let self = this;
+    const self = this;
 
     /**
      * Enabls holdReady status.

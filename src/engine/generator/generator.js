@@ -125,7 +125,7 @@ function Generator() {
      * Object pointer.
      * @type {Generator}
      */
-    let self = this;
+    const self = this;
 
 
     /**

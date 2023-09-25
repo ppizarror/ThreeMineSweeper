@@ -54,9 +54,8 @@ function FullPageLoadingSpinner() {
     /**
      * Object pointer.
      * @type {FullPageLoadingSpinner}
-     * @private
      */
-    let self = this;
+    const self = this;
 
     /**
      * Show spinner.

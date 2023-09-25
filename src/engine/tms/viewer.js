@@ -53,7 +53,7 @@ function TMSViewer() {
      * Object pointer.
      * @type {TMSViewer}
      */
-    let self = this;
+    const self = this;
 
     /**
      * GUI ID.

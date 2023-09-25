@@ -53,7 +53,7 @@ function Vertex(x, y, z, vertex_name) {
      * Pointer to object.
      * @type {Vertex}
      */
-    let self = this;
+    const self = this;
 
     /**
      * Position of the vertex.

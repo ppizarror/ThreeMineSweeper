@@ -99,9 +99,8 @@ function AppDialog() {
     /**
      * Object pointer.
      * @type {AppDialog}
-     * @private
      */
-    let self = this;
+    const self = this;
 
     /**
      * Text dialog and close button (confirmButton).

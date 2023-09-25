@@ -143,7 +143,7 @@ function Minesweeper() {
      * Object pointer.
      * @type {Minesweeper}
      */
-    let self = this;
+    const self = this;
 
     /**
      * Apply minesweeper rules to volume.

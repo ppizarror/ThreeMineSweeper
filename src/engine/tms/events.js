@@ -149,7 +149,7 @@ function TMSEvents() {
      * Stores object reference.
      * @type {TMSEvents}
      */
-    let self = this;
+    const self = this;
 
 
     /**

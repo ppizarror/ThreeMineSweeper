@@ -219,7 +219,7 @@ function TMSMenu() {
      * Object pointer.
      * @type {TMSMenu}
      */
-    let self = this;
+    const self = this;
 
     /**
      * Init menu.

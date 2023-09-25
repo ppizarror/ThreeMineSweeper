@@ -125,7 +125,7 @@ function Face(face_vertex, face_name) {
      * Pointer to object.
      * @type {Face}
      */
-    let self = this;
+    const self = this;
 
     /**
      * Return object ID.

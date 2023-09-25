@@ -101,7 +101,7 @@ function Volume(volume_faces, volume_name) {
      * Object pointer.
      * @type {Volume}
      */
-    let self = this;
+    const self = this;
 
     /**
      * Return object ID.
