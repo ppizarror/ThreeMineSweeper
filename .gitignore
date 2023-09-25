@@ -1,4 +1,8 @@
+# IDE
 .idea
+.vscode/
+
+# Other
 node_modules/
 server/
 test.html
