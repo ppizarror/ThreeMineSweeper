@@ -19,4 +19,4 @@ const cfg_verbose = false;
  * @type {string}
  * @const
  */
-const cfg_href_score = 'https://tms.ppizarror.com/score.php';
+const cfg_href_score = 'https://ppizarror.com/projects/tms/score.php';
