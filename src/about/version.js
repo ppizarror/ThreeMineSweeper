@@ -10,6 +10,6 @@
  * Version.
  */
 aboutinfo.v = {
-    "date": "02/11/2023", // MM-DD-AAAA
-    "version": "1.7.0",
+    "date": "01/09/2026", // MM-DD-AAAA
+    "version": "1.7.1",
 };

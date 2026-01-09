@@ -59,7 +59,7 @@ function GenRandomPlane() {
             vertices.push(new Vertex(x, y, z, 'V-' + (i + 1).toString()));
         }
 
-        // Triangulate
+        // noinspection JSUnresolvedReference
         let delaunay = Delaunator.from(v);
         let triangles = delaunay.triangles;
         let faces = [];

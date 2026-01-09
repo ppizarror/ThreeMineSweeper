@@ -1,5 +1,5 @@
 /* eslint-disable object-curly-spacing */
-// noinspection JSCheckFunctionSignatures
+// noinspection JSCheckFunctionSignatures,JSUnresolvedReference
 
 /**
  MENU
@@ -1076,6 +1076,7 @@ function TMSMenu() {
         self._add_title(lang.menu_stats_scoreboard_distribution);
         let $mapid = generateID();
         self._write_text('<div id="{0}" class="menu-stats-map"></div>'.format($mapid));
+        // noinspection JSUnresolvedReference,JSUnusedGlobalSymbols
         $('#' + $mapid).vectorMap({
             color: '#ffffff',
             enableZoom: true,

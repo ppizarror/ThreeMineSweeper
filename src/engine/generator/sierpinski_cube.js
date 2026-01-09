@@ -110,7 +110,7 @@ function GenSierpinskiCube() {
             f5.enable_uv_flip();
             f5.set_uv_rotation(270);
 
-            // Set behaviour
+            // Set behavior
             let f = [f1, f2, f3, f4, f5, f6];
             for (let i = 0; i < f.length; i += 1) {
                 f[i].set_bomb_behaviour(f1.behaviour.AROUND);

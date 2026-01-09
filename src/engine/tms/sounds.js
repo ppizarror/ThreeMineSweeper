@@ -1,3 +1,5 @@
+// noinspection JSUnresolvedReference
+
 /**
  SOUNDS
  Game sounds.

@@ -81,6 +81,7 @@ function AppDialog() {
     /**
      * Stores last popup content.
      * @private
+     * @type {{destroyed: boolean, md5: string, object: JQuery, options: Object|null}}
      */
     this._last = {
         destroyed: true,
@@ -121,7 +122,7 @@ function AppDialog() {
         /**
          * Build parameters
          */
-        let $defaults = {
+        const $defaults = {
             close: null,
             closeButtonClass: this.options.buttons.DEFAULT,
             closeText: lang.close_message,
@@ -185,18 +186,6 @@ function AppDialog() {
      */
     this.warning = function (title, content, options) {
         this._ewsio_type(title, content, this.options.type.WARNING, this.options.icons.WARNING, this.options.buttons.WARNING, options);
-    };
-
-    /**
-     * Success dialog.
-     *
-     * @function
-     * @param {string} title
-     * @param {string} content
-     * @param {object=} options
-     */
-    this.success = function (title, content, options) {
-        this._ewsio_type(title, content, this.options.type.SUCCESS, this.options.icons.SUCCESS, this.options.buttons.SUCCESS, options);
     };
 
     /**
@@ -303,7 +292,7 @@ function AppDialog() {
 
     /**
      * Form dialog, requires two functions that are triggered one the form has been submitted
-     * (submit) or cancelled (cancel).
+     * (submit) or canceled (cancel).
      *
      * @function
      * @param {string} title
@@ -609,6 +598,7 @@ function AppDialog() {
         /**
          * If last popup has the same md5 tne returns
          */
+        // noinspection JSUnresolvedReference
         if (not_null_undf(this._last.object) && this._last.md5 === $md5 && !this._last.object.isClosed()) {
             app_console.info(lang.dialog_last_closed_equal_opened);
             self.close_last();

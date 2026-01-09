@@ -84,13 +84,6 @@ function Generator() {
      */
 
     /**
-     * ID of the generator.
-     * @type {string}
-     * @protected
-     */
-    this._id = generateID();
-
-    /**
      * Generator properties.
      * @type {{fractal: boolean, fun: boolean, item: boolean, latlng: boolean, target: boolean}}
      * @protected

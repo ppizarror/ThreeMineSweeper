@@ -56,6 +56,7 @@ function Minesweeper() {
         total: 0,
     };
 
+    // noinspection JSUnresolvedReference
     /**
      * Timer.
      * @private
@@ -524,6 +525,7 @@ function Minesweeper() {
         this._timer.timer.reset();
         this._timer.timer.start();
         this._timer.timer.addEventListener('secondsUpdated', function () {
+            // noinspection JSUnresolvedReference
             self._timer.dom.html(self._timer.timer.getTimeValues().toString());
         });
 
@@ -643,9 +645,9 @@ function Minesweeper() {
 
         // Update
         self._dom.facecount.html('{0}/{1} ({2}%)'.format(self._game_status.played, self._game_status.total, $played));
-        self._dom.flagcount.html(self._game_status.flags);
-        self._dom.minecount.html(self._game_status.mines);
-        self._dom.questioncount.html(self._game_status.questions);
+        self._dom.flagcount.html(self._game_status.flags.toString());
+        self._dom.minecount.html(self._game_status.mines.toString());
+        self._dom.questioncount.html(self._game_status.questions.toString());
     };
 
     /**
@@ -731,6 +733,7 @@ function Minesweeper() {
      */
     this._push_server = function () {
 
+        // noinspection JSCheckFunctionSignatures
         /**
          * Create query
          * @type {jQuery|*}
@@ -827,6 +830,7 @@ function Minesweeper() {
      */
     this._get_score = function () {
 
+        // noinspection JSCheckFunctionSignatures
         /**
          * Create query
          * @type {jQuery|*}

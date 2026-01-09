@@ -334,8 +334,9 @@ function Volume(volume_faces, volume_name) {
         }
     };
 
+    // noinspection JSUnusedGlobalSymbols
     /**
-     * Translate vertex.
+     * Translate volume.
      *
      * @function
      * @param {number=} tx - X coordinate

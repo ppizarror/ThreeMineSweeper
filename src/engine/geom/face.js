@@ -66,7 +66,7 @@ function Face(face_vertex, face_name) {
     this._assembled = false;
 
     /**
-     * Stores face neighbours.
+     * Stores face neighbors.
      * @type {Face[] | null}
      * @private
      */
@@ -109,7 +109,7 @@ function Face(face_vertex, face_name) {
 
     /**
      * Stores three.js mesh object.
-     * @type {Mesh | null}
+     * @type {THREE.Mesh}
      * @private
      */
     this._mesh = null;
@@ -506,7 +506,7 @@ function Face(face_vertex, face_name) {
     };
 
     /**
-     * Return face neighbours.
+     * Return face neighbors.
      *
      * @function
      * @returns {Face[]}
@@ -514,7 +514,7 @@ function Face(face_vertex, face_name) {
     this.get_neighbours = function () {
         /* eslint-disable no-continue */
 
-        // Neighbours list
+        // Neighbors list
         let n = [];
         let n_id = []; // Stores ID
 
@@ -529,13 +529,13 @@ function Face(face_vertex, face_name) {
             let f = v.get_faces();
             for (let j = 0; j < f.length; j += 1) {
 
-                // If face is different than the current one
+                // If face is different from the current one
                 if (f[j].equals(this)) continue;
 
                 // Get previous or next vertex exists in same face
                 if (this.has_vertex(v.next(f[j])) || this.has_vertex(v.prev(f[j]))) {
 
-                    // Stores neighbour face
+                    // Stores neighbor face
                     if (!n_id.includes(f[j].get_id())) {
                         n.push(f[j]);
                         n_id.push(f[j].get_id());
@@ -561,7 +561,7 @@ function Face(face_vertex, face_name) {
     this.get_faces_around = function () {
         /* eslint-disable no-continue */
 
-        // Neighbours list
+        // Neighbors list
         let n = [];
         let n_id = []; // Stores ID
 
@@ -576,10 +576,10 @@ function Face(face_vertex, face_name) {
             let f = v.get_faces();
             for (let j = 0; j < f.length; j += 1) {
 
-                // If face is different than the current one
+                // If face is different from the current one
                 if (f[j].equals(this)) continue;
 
-                // Stores neighbour face
+                // Stores neighbor face
                 if (!n_id.includes(f[j].get_id())) {
                     n.push(f[j]);
                     n_id.push(f[j].get_id());
@@ -594,7 +594,7 @@ function Face(face_vertex, face_name) {
     };
 
     /**
-     * Return neighbours as a string list.
+     * Return neighbors as a string list.
      *
      * @function
      * @returns {string}
@@ -623,11 +623,11 @@ function Face(face_vertex, face_name) {
     };
 
     /**
-     * Check if face if neighbour.
+     * Check if face if neighbor.
      *
      * @function
      * @param {Face|Face[]} face
-     * @param {boolean=} strict - Only the defined faces can be neighbours
+     * @param {boolean=} strict - Only the defined faces can be neighbors
      * @returns {boolean}
      */
     this.is_neighbour = function (face, strict) {
@@ -647,7 +647,7 @@ function Face(face_vertex, face_name) {
     };
 
     /**
-     * Get total number of neighbours.
+     * Get total number of neighbors.
      *
      * @function
      * @returns {number}
@@ -963,7 +963,7 @@ function Face(face_vertex, face_name) {
      * Set three.js mesh object.
      *
      * @function
-     * @param {Mesh} mesh
+     * @param {THREE.Mesh} mesh
      */
     this.set_mesh = function (mesh) {
         self._mesh = mesh;
@@ -973,7 +973,7 @@ function Face(face_vertex, face_name) {
      * Get three.js mesh object.
      *
      * @function
-     * @returns {Mesh}
+     * @returns {THREE.Mesh}
      */
     this.get_mesh = function () {
         return this._mesh;
@@ -1024,7 +1024,7 @@ function Face(face_vertex, face_name) {
     };
 
     /**
-     * Face bomb behaviour.
+     * Face bomb behavior.
      * @type {number}
      * @private
      */
@@ -1074,7 +1074,7 @@ function Face(face_vertex, face_name) {
     };
 
     /**
-     * Bomb count behaviour.
+     * Bomb count behavior.
      *
      * @function
      * @param {number} mode
@@ -1084,7 +1084,7 @@ function Face(face_vertex, face_name) {
     };
 
     /**
-     * Get neighbours bombs.
+     * Get neighbors bombs.
      *
      * @function
      * @returns {number}
