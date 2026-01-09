@@ -34,5 +34,10 @@
     "karma-chrome-launcher": "^3.1.1",
     "karma-coverage": "^2.2.0",
     "karma-jasmine": "^5.1.0"
+  },
+  "devDependencies": {
+    "@types/jquery": "^3.5.32",
+    "@types/three": "^0.125.0",
+    "google-closure-compiler": "^20260106.0.0"
   }
 }

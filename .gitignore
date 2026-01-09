@@ -3,6 +3,7 @@
 .vscode/
 
 # Other
+lib/@types/
 node_modules/
 server/
 test.html
