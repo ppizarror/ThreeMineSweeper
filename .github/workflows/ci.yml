@@ -20,6 +20,7 @@ jobs:
     needs: test
     uses: ppizarror/workflow-actions/.github/workflows/codeql.yml@master
     with:
+      autobuild: none
       language: javascript
 
   eslint:
