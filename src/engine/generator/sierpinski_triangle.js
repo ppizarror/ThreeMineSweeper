@@ -7,6 +7,7 @@
  */
 "use strict";
 
+// noinspection JSClosureCompilerSyntax
 /**
  * Fractal sierpiski triangular pyramid.
  *
@@ -14,7 +15,6 @@
  * @extends {Generator}
  */
 function GenSierpinskiTriangle() {
-    /* eslint-disable no-extra-parens */
 
     /**
      * Inherit class.

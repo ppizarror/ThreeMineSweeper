@@ -7,6 +7,7 @@
  */
 "use strict";
 
+// noinspection JSClosureCompilerSyntax
 /**
  * 3D Toroid.
  *
@@ -14,7 +15,6 @@
  * @extends {Generator}
  */
 function GenToroid() {
-    /* eslint-disable no-extra-parens */
 
     /**
      * Inherit class.
@@ -81,7 +81,7 @@ function GenToroid() {
                     v[(i * lat) + j],
                     v[(((i + 1) * lat) + j) % v.length],
                     v[(((i + 1) * lat) + ((j + 1) % lat)) % v.length],
-                    v[(i * lat) + ((j + 1) % lat)]
+                    v[(i * lat) + ((j + 1) % lat)],
                 ], 'F-{0}'.format(k));
                 face.reverse_vertices();
                 face.enable_uv_flip();

@@ -7,6 +7,7 @@
  */
 "use strict";
 
+// noinspection JSClosureCompilerSyntax
 /**
  * Moebius strip.
  *
@@ -14,7 +15,6 @@
  * @extends {Generator}
  */
 function GenMobius() {
-    /* eslint-disable no-extra-parens */
 
     /**
      * Inherit class.
@@ -215,7 +215,7 @@ function GenMobius() {
                     v[(lat * j) + fi],
                     v[(lat * j) + fi + 1],
                     v[(lat * (j + 1)) + fi + 1],
-                    v[(lat * (j + 1)) + fi]
+                    v[(lat * (j + 1)) + fi],
                 ], 'Fs' + i.toString());
                 face.enable_uv_flip();
                 face.set_uv_rotation(-90);
@@ -233,7 +233,7 @@ function GenMobius() {
                     v[$half + (lat * j) + fi],
                     v[$half + (lat * j) + fi + 1],
                     v[$half + (lat * (j + 1)) + fi + 1],
-                    v[$half + (lat * (j + 1)) + fi]
+                    v[$half + (lat * (j + 1)) + fi],
                 ], 'Fi' + i.toString());
                 face.reverse_vertices();
                 face.set_uv_rotation(-90);

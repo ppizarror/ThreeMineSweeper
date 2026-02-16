@@ -19,10 +19,7 @@
  */
 function Face(face_vertex, face_name) {
     /* eslint-disable arrow-parens */
-    /* eslint-disable newline-per-chained-call */
-    /* eslint-disable no-extra-parens */
     /* eslint-disable no-mixed-operators */
-    /* eslint-disable no-nested-ternary */
 
     /**
      * ------------------------------------------------------------------------
@@ -278,7 +275,6 @@ function Face(face_vertex, face_name) {
             let i0 = this._vertex[i % this._vertex.length];
             let i1 = this._vertex[(i + 1) % this._vertex.length];
             let i2 = this._vertex[(i + 2) % this._vertex.length];
-            // eslint-disable-next-line no-continue
             if (i0.collinear(i1, i2)) continue;
             if (!i0.ccw(i1, i2)) return false;
         }
@@ -292,7 +288,6 @@ function Face(face_vertex, face_name) {
      * @returns {boolean}
      */
     this.is_planar = function () {
-
         // If face has less than three vertices then it's not planar
         if (this._vertex.length < 3) return false;
 
@@ -308,7 +303,6 @@ function Face(face_vertex, face_name) {
             let i0 = this._vertex[i % this._vertex.length];
             let i1 = this._vertex[(i + 1) % this._vertex.length];
             let i2 = this._vertex[(i + 2) % this._vertex.length];
-            // eslint-disable-next-line no-continue
             if (i0.collinear(i1, i2)) continue;
             n = this._normal(i0, i1, i2);
             n.normalize();
@@ -317,7 +311,6 @@ function Face(face_vertex, face_name) {
             }
         }
         return true;
-
     };
 
     /**
@@ -331,7 +324,6 @@ function Face(face_vertex, face_name) {
      * @private
      */
     this._normal = function (v1, v2, v3) {
-
         // Compute vectors
         let a1 = v2.get_x() - v1.get_x();
         let a2 = v2.get_y() - v1.get_y();
@@ -348,7 +340,6 @@ function Face(face_vertex, face_name) {
 
         // Return new vector
         return new THREE.Vector3(nx, -ny, nz);
-
     };
 
     /**
@@ -362,7 +353,6 @@ function Face(face_vertex, face_name) {
             let i0 = this._vertex[i % this._vertex.length];
             let i1 = this._vertex[(i + 1) % this._vertex.length];
             let i2 = this._vertex[(i + 2) % this._vertex.length];
-            // eslint-disable-next-line no-continue
             if (i0.collinear(i1, i2)) continue;
             return this._normal(i0, i1, i2);
         }
@@ -512,8 +502,6 @@ function Face(face_vertex, face_name) {
      * @returns {Face[]}
      */
     this.get_neighbours = function () {
-        /* eslint-disable no-continue */
-
         // Neighbors list
         let n = [];
         let n_id = []; // Stores ID
@@ -523,7 +511,6 @@ function Face(face_vertex, face_name) {
          * that share 2 vertices with the same face
          */
         for (let i = 0; i < this._vertex.length; i += 1) {
-
             // Get faces of the vertex
             let v = this._vertex[i];
             let f = v.get_faces();
@@ -540,16 +527,12 @@ function Face(face_vertex, face_name) {
                         n.push(f[j]);
                         n_id.push(f[j].get_id());
                     }
-
                 }
-
             }
-
         }
 
         // Return face list
         return n;
-
     };
 
     /**
@@ -559,8 +542,6 @@ function Face(face_vertex, face_name) {
      * @returns {Face[]}
      */
     this.get_faces_around = function () {
-        /* eslint-disable no-continue */
-
         // Neighbors list
         let n = [];
         let n_id = []; // Stores ID
@@ -570,7 +551,6 @@ function Face(face_vertex, face_name) {
          * that share 1 vertex with the face
          */
         for (let i = 0; i < this._vertex.length; i += 1) {
-
             // Get faces of the vertex
             let v = this._vertex[i];
             let f = v.get_faces();
@@ -584,9 +564,7 @@ function Face(face_vertex, face_name) {
                     n.push(f[j]);
                     n_id.push(f[j].get_id());
                 }
-
             }
-
         }
 
         // Return face list
@@ -692,7 +670,7 @@ function Face(face_vertex, face_name) {
     this.get_threejs_points = function (apply_z) {
         let p = [];
         for (let i = 0; i < this.length(); i += 1) {
-            p.push(this._vertex[i].get_pos(apply_z))
+            p.push(this._vertex[i].get_pos(apply_z));
         }
         return p;
     };
@@ -704,7 +682,6 @@ function Face(face_vertex, face_name) {
      * @returns {Geometry}
      */
     this.generate_geometry = function () {
-
         // Generate new Geometry
         let geom = new THREE.Geometry();
         let normal = this.get_normal();
@@ -725,7 +702,7 @@ function Face(face_vertex, face_name) {
             let quaternion = new THREE.Quaternion().setFromUnitVectors(normal, normalZ);
             let quaternionBack = new THREE.Quaternion().setFromUnitVectors(normalZ, normal);
             points.forEach(p => {
-                p.applyQuaternion(quaternion)
+                p.applyQuaternion(quaternion);
             });
             let $x, $y, $z;
             let $minx = 0;
@@ -752,7 +729,7 @@ function Face(face_vertex, face_name) {
                 coords[i] /= max_coord;
             }
             points.forEach(p => {
-                p.applyQuaternion(quaternionBack)
+                p.applyQuaternion(quaternionBack);
             });
             triangles = earcut(coords, null, 3);
             ntriang = triangles.length / 3;

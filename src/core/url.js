@@ -28,5 +28,6 @@ $.urlParam = function (name) {
  * @function
  */
 function delete_url_params() {
+    // noinspection JSCheckFunctionSignatures
     window.history.replaceState(null, null, window.location.pathname);
 }

@@ -7,6 +7,7 @@
  */
 "use strict";
 
+// noinspection JSClosureCompilerSyntax
 /**
  * Basic cube, 8 vertices and 6 faces.
  *

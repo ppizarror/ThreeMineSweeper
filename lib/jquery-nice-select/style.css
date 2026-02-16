@@ -118,7 +118,6 @@
 	min-height: 34px;
 }
 
-/* noinspection Stylelint */
 .nice-select .list {
 	-ms-transform-origin: 50% 0;
 	-ms-transform: scale(0.75) translateY(-21px);

@@ -199,7 +199,7 @@ function LibraryManager() {
             if (this._imported_libraries[$k[i]]) {
                 $imp += $k[i];
                 if (i < $k.length - 1) {
-                    $imp += ', '
+                    $imp += ', ';
                 }
             }
         }
@@ -291,7 +291,7 @@ function LibraryManager() {
 
                 // Execute function
                 if (params !== undefined) {
-                    callback(params)
+                    callback(params);
                 } else {
                     callback();
                 }
@@ -363,7 +363,7 @@ function LibraryManager() {
                             $newlib = $newlib[0];
                         }
                         self.import_async_library($newlib, $callback, force, $params);
-                    }
+                    };
                 };
                 callback = $newcallback($newlib, callback, params);
             }
@@ -455,7 +455,7 @@ function LibraryManager() {
      */
     this._getScript_async = function (name, path) {
         return this._getScript_async_callback(name, path, function () {
-        })
+        });
     };
 
     /**
@@ -576,16 +576,15 @@ function LibraryManager() {
              * Three.js
              */
             case self.lib.THREEJS:
-                this._getScript_async_callback(lib, 'lib/three.js/three.min.js',
-                    function ($e) {
-                        // self.add_lib_to_queue(self.lib.TJSPROJECTOR);
-                        self.add_lib_to_queue(self.lib.ORBITCONTROLS);
-                        // self._getScript_async(self.lib.TJSPROJECTOR, 'lib/three.js/Projector.min.js');
-                        self._getScript_async_callback(self.lib.ORBITCONTROLS, 'lib/three.js/OrbitControls.min.js', $e.c, $e.p);
-                    }, {
-                        c: callback,
-                        p: params,
-                    });
+                this._getScript_async_callback(lib, 'lib/three.js/three.min.js', function ($e) {
+                    // self.add_lib_to_queue(self.lib.TJSPROJECTOR);
+                    self.add_lib_to_queue(self.lib.ORBITCONTROLS);
+                    // self._getScript_async(self.lib.TJSPROJECTOR, 'lib/three.js/Projector.min.js');
+                    self._getScript_async_callback(self.lib.ORBITCONTROLS, 'lib/three.js/OrbitControls.min.js', $e.c, $e.p);
+                }, {
+                    c: callback,
+                    p: params,
+                });
                 break;
 
             /**
@@ -615,26 +614,25 @@ function LibraryManager() {
              */
             case self.lib.FORMVALIDATOR:
                 self.load_css_lib(lib, 'lib/formvalidator/theme-default.min.css');
-                this._getScript_async_callback(lib, 'lib/formvalidator/jquery.form-validator.min.js',
-                    function ($e) {
-                        // Carga el idioma
-                        self.add_lib_to_queue(self.lib.FORMVALIDATORLANG);
-                        switch (cfg_lang) {
-                            case 'es':
-                                self._getScript_async_callback(self.lib.FORMVALIDATORLANG, 'lib/formvalidator/lang/es.min.js', $e.c, $e.p);
-                                break;
-                            case 'en':
-                                break;
-                            case 'fr':
-                                self._getScript_async_callback(self.lib.FORMVALIDATORLANG, 'lib/formvalidator/lang/fr.min.js', $e.c, $e.p);
-                                break;
-                            default:
-                                break;
-                        }
-                    }, {
-                        c: callback,
-                        p: params,
-                    });
+                this._getScript_async_callback(lib, 'lib/formvalidator/jquery.form-validator.min.js', function ($e) {
+                    // Carga el idioma
+                    self.add_lib_to_queue(self.lib.FORMVALIDATORLANG);
+                    switch (cfg_lang) {
+                        case 'es':
+                            self._getScript_async_callback(self.lib.FORMVALIDATORLANG, 'lib/formvalidator/lang/es.min.js', $e.c, $e.p);
+                            break;
+                        case 'en':
+                            break;
+                        case 'fr':
+                            self._getScript_async_callback(self.lib.FORMVALIDATORLANG, 'lib/formvalidator/lang/fr.min.js', $e.c, $e.p);
+                            break;
+                        default:
+                            break;
+                    }
+                }, {
+                    c: callback,
+                    p: params,
+                });
                 break;
 
             /**
@@ -649,14 +647,13 @@ function LibraryManager() {
              */
             case self.lib.DATATABLES:
                 self.load_css_lib(lib, 'lib/dataTables/dataTables.bootstrap4.min.css');
-                this._getScript_async_callback(lib, 'lib/dataTables/jquery.dataTables.min.js',
-                    function ($e) {
-                        self.add_lib_to_queue(self.lib.DATATABLESBT4);
-                        self._getScript_async_callback(self.lib.DATATABLESBT4, 'lib/dataTables/dataTables.bootstrap4.min.js', $e.c, $e.p);
-                    }, {
-                        c: callback,
-                        p: params,
-                    });
+                this._getScript_async_callback(lib, 'lib/dataTables/jquery.dataTables.min.js', function ($e) {
+                    self.add_lib_to_queue(self.lib.DATATABLESBT4);
+                    self._getScript_async_callback(self.lib.DATATABLESBT4, 'lib/dataTables/dataTables.bootstrap4.min.js', $e.c, $e.p);
+                }, {
+                    c: callback,
+                    p: params,
+                });
                 break;
 
             /**
@@ -778,14 +775,13 @@ function LibraryManager() {
              */
             case self.lib.MMENU:
                 self.load_css_lib(lib, 'lib/mmenu/jquery.mmenu.all.css');
-                this._getScript_async_callback(lib, 'lib/mmenu/jquery.mmenu.all.js',
-                    function ($e) {
-                        self.add_lib_to_queue(self.lib.HAMMER);
-                        self._getScript_async_callback(self.lib.HAMMER, 'lib/hammer/hammer.min.js', $e.c, $e.p);
-                    }, {
-                        c: callback,
-                        p: params,
-                    });
+                this._getScript_async_callback(lib, 'lib/mmenu/jquery.mmenu.all.js', function ($e) {
+                    self.add_lib_to_queue(self.lib.HAMMER);
+                    self._getScript_async_callback(self.lib.HAMMER, 'lib/hammer/hammer.min.js', $e.c, $e.p);
+                }, {
+                    c: callback,
+                    p: params,
+                });
                 break;
 
             /**
@@ -838,17 +834,16 @@ function LibraryManager() {
             case self.lib.MENTIONSINPUT:
                 self.load_css_lib(lib, 'lib/jquery-mentions-input/jquery.mentionsInput.min.css');
                 self.add_lib_to_queue(self.lib.UNDERSCORE);
-                self._getScript_async_callback(self.lib.UNDERSCORE, 'lib/underscore/underscore-min.js',
-                    function ($e) {
-                        self.add_lib_to_queue('jquery.events.input');
-                        self.add_lib_to_queue('jquery.elastic');
-                        self._getScript_async('jquery.events.input', 'lib/jquery-mentions-input/jquery.events.input.min.js');
-                        self._getScript_async('jquery.elastic', 'lib/jquery-mentions-input/jquery.elastic.min.js');
-                        self._getScript_async_callback(lib, 'lib/jquery-mentions-input/jquery.mentionsInput.min.js', $e.c, $e.p);
-                    }, {
-                        c: callback,
-                        p: params,
-                    });
+                self._getScript_async_callback(self.lib.UNDERSCORE, 'lib/underscore/underscore-min.js', function ($e) {
+                    self.add_lib_to_queue('jquery.events.input');
+                    self.add_lib_to_queue('jquery.elastic');
+                    self._getScript_async('jquery.events.input', 'lib/jquery-mentions-input/jquery.events.input.min.js');
+                    self._getScript_async('jquery.elastic', 'lib/jquery-mentions-input/jquery.elastic.min.js');
+                    self._getScript_async_callback(lib, 'lib/jquery-mentions-input/jquery.mentionsInput.min.js', $e.c, $e.p);
+                }, {
+                    c: callback,
+                    p: params,
+                });
                 break;
 
             /**
@@ -868,32 +863,31 @@ function LibraryManager() {
                     'lib/tinymce/plugins/mention/rte-content.css');
                 self.add_lib_to_queue('jquery.tinymce');
                 this._getScript_async('jquery.tinymce', 'lib/tinymce/jquery.tinymce.min.js');
-                this._getScript_async_callback(lib, 'lib/tinymce/tinymce.min.js',
-                    function ($e) {
-                        self.add_lib_to_queue('tinymce-lang');
-                        switch (cfg_lang) {
-                            case 'es':
-                                self._getScript_async_callback('tinymce-lang', 'lib/tinymce/langs/es.js', $e.c, $e.p);
-                                break;
-                            case 'en':
-                                self._getScript_async_callback('tinymce-lang', 'lib/tinymce/langs/en_GB.js', $e.c, $e.p);
-                                break;
-                            case 'fr':
-                                self._getScript_async_callback('tinymce-lang', 'lib/tinymce/langs/fr_FR.js', $e.c, $e.p);
-                                break;
-                            case 'br':
-                                self._getScript_async_callback('tinymce-lang', 'lib/tinymce/langs/br_BR.js', $e.c, $e.p);
-                                break;
-                            case 'ru':
-                                self._getScript_async_callback('tinymce-lang', 'lib/tinymce/langs/ru_RU.js', $e.c, $e.p);
-                                break;
-                            default:
-                                break;
-                        }
-                    }, {
-                        c: callback,
-                        p: params,
-                    });
+                this._getScript_async_callback(lib, 'lib/tinymce/tinymce.min.js', function ($e) {
+                    self.add_lib_to_queue('tinymce-lang');
+                    switch (cfg_lang) {
+                        case 'es':
+                            self._getScript_async_callback('tinymce-lang', 'lib/tinymce/langs/es.js', $e.c, $e.p);
+                            break;
+                        case 'en':
+                            self._getScript_async_callback('tinymce-lang', 'lib/tinymce/langs/en_GB.js', $e.c, $e.p);
+                            break;
+                        case 'fr':
+                            self._getScript_async_callback('tinymce-lang', 'lib/tinymce/langs/fr_FR.js', $e.c, $e.p);
+                            break;
+                        case 'br':
+                            self._getScript_async_callback('tinymce-lang', 'lib/tinymce/langs/br_BR.js', $e.c, $e.p);
+                            break;
+                        case 'ru':
+                            self._getScript_async_callback('tinymce-lang', 'lib/tinymce/langs/ru_RU.js', $e.c, $e.p);
+                            break;
+                        default:
+                            break;
+                    }
+                }, {
+                    c: callback,
+                    p: params,
+                });
                 break;
 
             /**
@@ -937,32 +931,31 @@ function LibraryManager() {
              * Jquery-timeago
              */
             case self.lib.JQUERYTIMEAGO:
-                this._getScript_async_callback(lib, 'lib/jquery-timeago/jquery.timeago.min.js',
-                    function ($e) {
-                        self.add_lib_to_queue('jquery-timeago-locale');
-                        switch (cfg_lang) {
-                            case 'es':
-                                self._getScript_async_callback('jquery-timeago-locale', 'lib/jquery-timeago/locales/jquery.timeago.es.min.js', $e.c, $e.p);
-                                break;
-                            case 'en':
-                                self._getScript_async_callback('jquery-timeago-locale', 'lib/jquery-timeago/locales/jquery.timeago.en.min.js', $e.c, $e.p);
-                                break;
-                            case 'fr':
-                                self._getScript_async_callback('jquery-timeago-locale', 'lib/jquery-timeago/locales/jquery.timeago.fr.min.js', $e.c, $e.p);
-                                break;
-                            case 'de':
-                                self._getScript_async_callback('jquery-timeago-locale', 'lib/jquery-timeago/locales/jquery.timeago.de.min.js', $e.c, $e.p);
-                                break;
-                            case 'ru':
-                                self._getScript_async_callback('jquery-timeago-locale', 'lib/jquery-timeago/locales/jquery.timeago.fr.min.js', $e.c, $e.p);
-                                break;
-                            default:
-                                break;
-                        }
-                    }, {
-                        c: callback,
-                        p: params,
-                    });
+                this._getScript_async_callback(lib, 'lib/jquery-timeago/jquery.timeago.min.js', function ($e) {
+                    self.add_lib_to_queue('jquery-timeago-locale');
+                    switch (cfg_lang) {
+                        case 'es':
+                            self._getScript_async_callback('jquery-timeago-locale', 'lib/jquery-timeago/locales/jquery.timeago.es.min.js', $e.c, $e.p);
+                            break;
+                        case 'en':
+                            self._getScript_async_callback('jquery-timeago-locale', 'lib/jquery-timeago/locales/jquery.timeago.en.min.js', $e.c, $e.p);
+                            break;
+                        case 'fr':
+                            self._getScript_async_callback('jquery-timeago-locale', 'lib/jquery-timeago/locales/jquery.timeago.fr.min.js', $e.c, $e.p);
+                            break;
+                        case 'de':
+                            self._getScript_async_callback('jquery-timeago-locale', 'lib/jquery-timeago/locales/jquery.timeago.de.min.js', $e.c, $e.p);
+                            break;
+                        case 'ru':
+                            self._getScript_async_callback('jquery-timeago-locale', 'lib/jquery-timeago/locales/jquery.timeago.fr.min.js', $e.c, $e.p);
+                            break;
+                        default:
+                            break;
+                    }
+                }, {
+                    c: callback,
+                    p: params,
+                });
                 break;
 
             /**
@@ -991,15 +984,14 @@ function LibraryManager() {
              * Filesaver.js
              */
             case self.lib.FILESAVERJS:
-                this._getScript_async_callback(lib, 'lib/filesaver/FileSaver.js',
-                    function ($e) {
-                        self._getScript_async('canvas-toBlob', 'lib/filesaver/canvas-toBlob.js');
-                        self.add_lib_to_queue('Blob.js');
-                        self._getScript_async_callback('Blob.js', 'lib/filesaver/Blob.js', $e.c, $e.p);
-                    }, {
-                        c: callback,
-                        p: params,
-                    });
+                this._getScript_async_callback(lib, 'lib/filesaver/FileSaver.js', function ($e) {
+                    self._getScript_async('canvas-toBlob', 'lib/filesaver/canvas-toBlob.js');
+                    self.add_lib_to_queue('Blob.js');
+                    self._getScript_async_callback('Blob.js', 'lib/filesaver/Blob.js', $e.c, $e.p);
+                }, {
+                    c: callback,
+                    p: params,
+                });
                 break;
 
             /**
@@ -1063,13 +1055,12 @@ function LibraryManager() {
              */
             case self.lib.JQVMAP:
                 self.load_css_lib(lib, 'lib/jqvmap/jqvmap.min.css');
-                this._getScript_async_callback(lib, 'lib/jqvmap/jquery.vmap.min.js',
-                    function ($e) {
-                        self._getScript_async_callback('jqvmap.world', 'lib/jqvmap/maps/jquery.vmap.world.js', $e.c, $e.p);
-                    }, {
-                        c: callback,
-                        p: params,
-                    });
+                this._getScript_async_callback(lib, 'lib/jqvmap/jquery.vmap.min.js', function ($e) {
+                    self._getScript_async_callback('jqvmap.world', 'lib/jqvmap/maps/jquery.vmap.world.js', $e.c, $e.p);
+                }, {
+                    c: callback,
+                    p: params,
+                });
                 break;
 
             /**

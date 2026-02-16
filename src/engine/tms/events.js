@@ -14,8 +14,6 @@
  * @constructor
  */
 function TMSEvents() {
-    /* eslint-disable new-cap */
-    /* eslint-disable no-extra-parens */
     /* eslint-disable no-mixed-operators */
 
     /**
@@ -274,7 +272,7 @@ function TMSEvents() {
                 self._minesweeper.play(self._last_hover_face, false, self._viewer);
                 e.stopPropagation();
                 self._viewer.objects_props.camera.movements.pan = false;
-            }
+            };
 
             if (e.which === 1) {
                 self._viewer.objects_props.camera.movements.rotate = false;

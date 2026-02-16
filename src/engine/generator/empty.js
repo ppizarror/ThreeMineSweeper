@@ -7,6 +7,7 @@
  */
 "use strict";
 
+// noinspection JSClosureCompilerSyntax
 /**
  * This generator does nothing.
  *

@@ -7,6 +7,7 @@
  */
 "use strict";
 
+// noinspection JSClosureCompilerSyntax
 /**
  * Polyhedra generator.
  *
@@ -14,7 +15,6 @@
  * @extends {Generator}
  */
 function GenPolyhedra() {
-    /* eslint-disable no-extra-parens */
 
     /**
      * Inherit class.

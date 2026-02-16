@@ -8,8 +8,8 @@
     "test": "test"
   },
   "scripts": {
-    "lint:js": "eslint src/ --ext .js,.jsx,.ts,.tsx",
     "lint": "npm run lint:js",
+    "lint:js": "eslint src/ --ext .js,.jsx,.ts,.tsx",
     "test": "karma start karma.conf.js"
   },
   "repository": {
@@ -29,7 +29,7 @@
   },
   "homepage": "https://github.ppizarror.com/ThreeMineSweeper",
   "dependencies": {
-    "eslint": "^8.32.0",
+    "eslint": "^9.26.0",
     "karma": "^6.4.1",
     "karma-chrome-launcher": "^3.1.1",
     "karma-coverage": "^2.2.0",

@@ -227,7 +227,6 @@ Footer
     }
 }
 
-/* noinspection Stylelint */
 #menu-footer .menu-footer-item.menu-footer-item-other a,
 #menu-footer .menu-footer-item.menu-footer-item-other a:visited {
     color: #868686;
@@ -301,7 +300,6 @@ Menu back
     }
 }
 
-/* noinspection Stylelint */
 #menu-subheader .menu-menuback-button .btn {
     background-color: rgba(155, 155, 155, 0.37);
     color: #ffffff;
@@ -624,13 +622,11 @@ Menu about
     padding-right: 0.5rem;
 }
 
-/* noinspection Stylelint */
 #menu-content .menu-about a,
 #menu-content .menu-about a:visited {
     color: #4a56ff;
 }
 
-/* noinspection Stylelint */
 #menu-content .menu-about a:hover {
     color: #0091ff;
     text-decoration: none;

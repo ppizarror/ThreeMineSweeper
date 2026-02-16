@@ -7,6 +7,7 @@
  */
 "use strict";
 
+// noinspection JSClosureCompilerSyntax
 /**
  * Fractal sierpinksi cube.
  *
@@ -14,7 +15,6 @@
  * @extends {Generator}
  */
 function GenSierpinskiCube() {
-    /* eslint-disable no-extra-parens */
 
     /**
      * Inherit class.

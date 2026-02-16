@@ -7,6 +7,7 @@
  */
 "use strict";
 
+// noinspection JSClosureCompilerSyntax
 /**
  * Sphere.
  *
@@ -14,7 +15,6 @@
  * @extends {Generator}
  */
 function GenSphere() {
-    /* eslint-disable no-extra-parens */
 
     /**
      * Inherit class.

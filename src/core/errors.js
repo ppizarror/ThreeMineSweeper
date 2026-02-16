@@ -43,7 +43,7 @@ function AppError() {
         },
         "errorThemeApply": {
             "code": 4,
-        }
+        },
     };
 
     /**

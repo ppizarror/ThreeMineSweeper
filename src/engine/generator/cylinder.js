@@ -7,6 +7,7 @@
  */
 "use strict";
 
+// noinspection JSClosureCompilerSyntax
 /**
  * Cylinder.
  *
@@ -14,7 +15,6 @@
  * @extends {Generator}
  */
 function GenCylinder() {
-    /* eslint-disable no-extra-parens */
 
     /**
      * Inherit class.

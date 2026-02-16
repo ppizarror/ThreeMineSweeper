@@ -266,7 +266,7 @@ function get_locale_date_string() {
         'en-SG': 'd/M/yyyy',
         'ug-CN': 'yyyy-M-d',
         'sr-Cyrl-BA': 'd.M.yyyy',
-        'es-US': 'M/d/yyyy'
+        'es-US': 'M/d/yyyy',
     };
 
     return formats[navigator.language] || 'dd/MM/yyyy';

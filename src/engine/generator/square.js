@@ -7,6 +7,7 @@
  */
 "use strict";
 
+// noinspection JSClosureCompilerSyntax
 /**
  * Square plane.
  *
@@ -14,7 +15,6 @@
  * @extends {Generator}
  */
 function GenSquare() {
-    /* eslint-disable no-extra-parens */
 
     /**
      * Inherit class.
@@ -70,7 +70,7 @@ function GenSquare() {
                     v[(lat * j) + fi],
                     v[(lat * j) + fi + 1],
                     v[(lat * (j + 1)) + fi + 1],
-                    v[(lat * (j + 1)) + fi]
+                    v[(lat * (j + 1)) + fi],
                 ], 'F' + i.toString());
                 face.enable_uv_flip();
                 face.set_uv_rotation(-90);
@@ -101,7 +101,7 @@ function GenSquare() {
                     v[(lat * j) + fi],
                     v[(lat * j) + fi + 1],
                     v[(lat * (j + 1)) + fi + 1],
-                    v[(lat * (j + 1)) + fi]
+                    v[(lat * (j + 1)) + fi],
                 ], 'F' + i.toString());
                 face.disable_face();
                 face.reverse_vertices();

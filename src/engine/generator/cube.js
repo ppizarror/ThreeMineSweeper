@@ -7,6 +7,7 @@
  */
 "use strict";
 
+// noinspection JSClosureCompilerSyntax
 /**
  * 3D Cube.
  *
@@ -14,7 +15,6 @@
  * @extends {Generator}
  */
 function GenCube() {
-    /* eslint-disable no-extra-parens */
 
     /**
      * Inherit class.
@@ -31,7 +31,7 @@ function GenCube() {
     this._planes = {
         XY: 'xy',
         XZ: 'xz',
-        YZ: 'yz'
+        YZ: 'yz',
     };
 
     /**
@@ -118,7 +118,7 @@ function GenCube() {
                     v[(lat * j) + fi],
                     v[(lat * j) + fi + 1],
                     v[(lat * (j + 1)) + fi + 1],
-                    v[(lat * (j + 1)) + fi]
+                    v[(lat * (j + 1)) + fi],
                 ], 'F' + planename + '-' + i.toString());
                 if (flip) face.enable_uv_flip();
                 if (reverse) face.reverse_vertices();

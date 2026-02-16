@@ -18,8 +18,6 @@
  * @param {string=} vertex_name - Vertex name
  */
 function Vertex(x, y, z, vertex_name) {
-    /* eslint-disable new-cap */
-    /* eslint-disable no-extra-parens */
 
     /**
      * If x, y, z not defined then fill by zero

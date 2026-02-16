@@ -1,4 +1,3 @@
-/* eslint-disable object-curly-spacing */
 // noinspection JSCheckFunctionSignatures,JSUnresolvedReference
 
 /**
@@ -17,11 +16,6 @@
  * @constructor
  */
 function TMSMenu() {
-    /* eslint-disable array-bracket-newline */
-    /* eslint-disable arrow-parens */
-    /* eslint-disable new-cap */
-    /* eslint-disable no-continue */
-    /* eslint-disable no-extra-parens */
 
     /**
      * Get game modes.
@@ -678,11 +672,10 @@ function TMSMenu() {
                     ];
                     let $fun_selector = generateID();
 
-                    app_dialog.form(lang.new_game_function_examples_title, '<form action="" class="formName"><select id="{0}" class="form-control"><option value="-1" disabled selected>{1}</option></select></form>'.format($fun_selector, lang.new_game_function_select_drop),
-                        function () {
+                    app_dialog.form(lang.new_game_function_examples_title, '<form action="" class="formName"><select id="{0}" class="form-control"><option value="-1" disabled selected>{1}</option></select></form>'.format($fun_selector,
+                            lang.new_game_function_select_drop), function () {
                             self._dom.gen_fun.val($('#' + $fun_selector).val());
-                        }, null
-                        , {
+                        }, null, {
                             cancelText: lang.dialog_form_cancel,
                             icon: 'fas fa-superscript',
 
@@ -702,7 +695,7 @@ function TMSMenu() {
 
                             size: app_dialog.options.size.SMALL,
                             submitText: lang.dialog_form_send,
-                        }
+                        },
                     );
 
                 });
@@ -1124,10 +1117,10 @@ function TMSMenu() {
                     datasets: [
                         {
                             data: generator_games,
-                            backgroundColor: generator_colors
-                        }
+                            backgroundColor: generator_colors,
+                        },
                     ],
-                    labels: generator_names
+                    labels: generator_names,
                 },
                 options: {
                     legend: {
@@ -1137,10 +1130,10 @@ function TMSMenu() {
                     title: {
                         display: true,
                         fontSize: 14,
-                        text: lang.stat_chart_games
+                        text: lang.stat_chart_games,
                     },
                 },
-            }
+            },
         );
 
         // eslint-disable-next-line no-new
@@ -1150,10 +1143,10 @@ function TMSMenu() {
                     datasets: [
                         {
                             data: generator_sc,
-                            backgroundColor: generator_colors
-                        }
+                            backgroundColor: generator_colors,
+                        },
                     ],
-                    labels: generator_names
+                    labels: generator_names,
                 },
                 options: {
                     legend: {
@@ -1163,10 +1156,10 @@ function TMSMenu() {
                     title: {
                         display: true,
                         fontSize: 14,
-                        text: lang.stat_chart_scoreboard
+                        text: lang.stat_chart_scoreboard,
                     },
                 },
-            }
+            },
         );
 
         // Apply button effect

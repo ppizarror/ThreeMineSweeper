@@ -17,8 +17,6 @@
  */
 function Volume(volume_faces, volume_name) {
     /* eslint-disable max-depth */
-    /* eslint-disable new-cap */
-    /* eslint-disable no-continue */
 
     /**
      * ID of the volume.

@@ -88,7 +88,7 @@ function FullPageLoadingSpinner() {
             clearTimeout(self._threadChange);
             self._threadChange = -1;
         }
-        self._load_fullpage_spinner(false)
+        self._load_fullpage_spinner(false);
     };
 
     /**

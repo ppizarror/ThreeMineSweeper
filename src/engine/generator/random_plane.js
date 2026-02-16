@@ -7,6 +7,7 @@
  */
 "use strict";
 
+// noinspection JSClosureCompilerSyntax
 /**
  * Random plane.
  *
@@ -14,7 +15,6 @@
  * @extends {Generator}
  */
 function GenRandomPlane() {
-    /* eslint-disable no-extra-parens */
 
     /**
      * Inherit class.

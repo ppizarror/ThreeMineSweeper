@@ -16,10 +16,6 @@
  * @constructor
  */
 function TMSSound() {
-    /* eslint-disable arrow-parens */
-    /* eslint-disable new-cap */
-    /* eslint-disable no-continue */
-    /* eslint-disable no-extra-parens */
 
     /**
      * Avaiable sounds.
@@ -86,7 +82,7 @@ function TMSSound() {
                 name: this.sound.WRONG,
                 preload: false,
                 volume: 0.4,
-            }
+            },
         ],
         multiplay: true,
         path: 'resources/sounds/',

@@ -279,7 +279,7 @@ function AppDialog() {
             closeIcon: false,
             draggable: false,
             escapeCancelKey: false,
-            size: this.options.size.SMALL
+            size: this.options.size.SMALL,
         };
         options = $.extend($defaults, options);
 

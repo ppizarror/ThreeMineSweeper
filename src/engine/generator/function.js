@@ -7,6 +7,7 @@
  */
 "use strict";
 
+// noinspection JSClosureCompilerSyntax
 /**
  * Square mesh, applies function z = f(x,y)
  *
@@ -14,7 +15,6 @@
  * @extends {Generator}
  */
 function GenFunction() {
-    /* eslint-disable no-extra-parens */
 
     /**
      * Inherit class.
@@ -94,7 +94,7 @@ function GenFunction() {
                     v[(lat * j) + fi],
                     v[(lat * j) + fi + 1],
                     v[(lat * (j + 1)) + fi + 1],
-                    v[(lat * (j + 1)) + fi]
+                    v[(lat * (j + 1)) + fi],
                 ], 'Fs' + i.toString());
                 face.enable_uv_flip();
                 face.set_uv_rotation(-90);
@@ -128,7 +128,7 @@ function GenFunction() {
                     v[(lat * j) + fi],
                     v[(lat * j) + fi + 1],
                     v[(lat * (j + 1)) + fi + 1],
-                    v[(lat * (j + 1)) + fi]
+                    v[(lat * (j + 1)) + fi],
                 ], 'Fi' + i.toString());
                 face.disable_face();
                 face.reverse_vertices();

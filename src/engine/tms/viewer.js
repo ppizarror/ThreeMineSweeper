@@ -1,4 +1,3 @@
-/* eslint-disable object-curly-spacing */
 // noinspection JSUnresolvedFunction,JSCheckFunctionSignatures,JSUndefinedPropertyAssignment
 
 /**
@@ -17,9 +16,6 @@
  * @constructor
  */
 function TMSViewer() {
-    /* eslint-disable arrow-parens */
-    /* eslint-disable newline-per-chained-call */
-    /* eslint-disable no-extra-parens */
     /* eslint-disable no-mixed-operators */
 
     /**
@@ -213,7 +209,7 @@ function TMSViewer() {
                         }
                         return '';
 
-                    }
+                    },
                 },
 
                 // Mesh group, takes object
@@ -245,7 +241,7 @@ function TMSViewer() {
 
                     },
                     __ignored: [this._globals.plane, this._globals.contour, this._globals.helper],
-                }
+                },
             },
             modes: [],                          // Update modes
             tooltipClass: 'viewer-tooltip',     // Tooltip class
@@ -473,7 +469,7 @@ function TMSViewer() {
         self._textures_loaded = true;
         let _$textures = [
             'bomb', 'disabled', 'flag', 'question', 'tile_0', 'tile_1', 'tile_2',
-            'tile_3', 'tile_4', 'tile_5', 'tile_6', 'tile_7', 'tile_8', 'unopened'
+            'tile_3', 'tile_4', 'tile_5', 'tile_6', 'tile_7', 'tile_8', 'unopened',
         ];
         for (let i = 0; i < _$textures.length; i += 1) {
             self._load_image_file(_$textures[i]);
@@ -1912,7 +1908,7 @@ function TMSViewer() {
             maxpolarangle: self._controls.maxPolarAngle,
             posx: self._three_camera.position.z,
             posy: self._three_camera.position.x,
-            posz: self._three_camera.position.y
+            posz: self._three_camera.position.y,
         };
         camerafolder.add(self._guiCameraParams, 'fov', 1, 179).onChange(function (val) {
             self._three_camera.fov = val;
@@ -2083,7 +2079,7 @@ function TMSViewer() {
                     self._new_three_point(self.worldsize.x, 0, -self.worldsize.z),
                     self._new_three_point(-self.worldsize.x, 0, -self.worldsize.z),
                     self._new_three_point(-self.worldsize.x, 0, self.worldsize.z),
-                    self._new_three_point(self.worldsize.x, 0, self.worldsize.z)
+                    self._new_three_point(self.worldsize.x, 0, self.worldsize.z),
                 );
                 geometry.faces.push(new THREE.Face3(0, 1, 2));
                 geometry.faces.push(new THREE.Face3(0, 2, 3));
@@ -2098,7 +2094,7 @@ function TMSViewer() {
                     self._new_three_point(0, -self.worldsize.y, -self.worldsize.z),
                     self._new_three_point(0, self.worldsize.y, -self.worldsize.z),
                     self._new_three_point(0, self.worldsize.y, self.worldsize.z),
-                    self._new_three_point(0, -self.worldsize.y, self.worldsize.z)
+                    self._new_three_point(0, -self.worldsize.y, self.worldsize.z),
                 );
                 geometry.faces.push(new THREE.Face3(0, 1, 2));
                 geometry.faces.push(new THREE.Face3(0, 2, 3));
@@ -2113,7 +2109,7 @@ function TMSViewer() {
                     self._new_three_point(self.worldsize.x, self.worldsize.y, 0),
                     self._new_three_point(-self.worldsize.x, self.worldsize.y, 0),
                     self._new_three_point(-self.worldsize.x, -self.worldsize.y, 0),
-                    self._new_three_point(self.worldsize.x, -self.worldsize.y, 0)
+                    self._new_three_point(self.worldsize.x, -self.worldsize.y, 0),
                 );
                 geometry.faces.push(new THREE.Face3(0, 1, 2));
                 geometry.faces.push(new THREE.Face3(0, 2, 3));
@@ -2165,7 +2161,7 @@ function TMSViewer() {
             if (is_null_undf(self._helper_instances.worldlimits)) {
                 let material = new THREE.MeshBasicMaterial({
                     color: self._threejs_helpers.worldlimitscolor,
-                    opacity: self._threejs_helpers.planeopacity
+                    opacity: self._threejs_helpers.planeopacity,
                 });
                 material.wireframe = true;
                 material.aoMapIntensity = 0.5;
@@ -2199,7 +2195,7 @@ function TMSViewer() {
                     self._new_three_point(self.worldsize.x, -self.worldsize.y, self.worldsize.z),
                     self._new_three_point(self.worldsize.x, self.worldsize.y, self.worldsize.z),
                     self._new_three_point(-self.worldsize.x, self.worldsize.y, self.worldsize.z),
-                    self._new_three_point(-self.worldsize.x, -self.worldsize.y, self.worldsize.z)
+                    self._new_three_point(-self.worldsize.x, -self.worldsize.y, self.worldsize.z),
                 );
                 for (let j = 0; j <= 4; j += 1) {
                     geometry.faces.push(new THREE.Face3(4 * j, 4 * j + 1, 4 * j + 2));
@@ -2452,8 +2448,7 @@ function TMSViewer() {
         // Adds normal helper
         if (self._threejs_helpers.normals) {
             let nh_size = Math.min(self.worldsize.x, self.worldsize.x, self.worldsize.z) * 0.1;
-            let helper = new THREE.FaceNormalsHelper(self._volume_meshes.volume, nh_size,
-                self._threejs_helpers.normalcolor, 1);
+            let helper = new THREE.FaceNormalsHelper(self._volume_meshes.volume, nh_size, self._threejs_helpers.normalcolor, 1);
             self._volume_meshes.helper = helper;
             self._add_mesh_to_scene(helper, self._globals.normals, false);
         }

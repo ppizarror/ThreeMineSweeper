@@ -7,6 +7,7 @@
  */
 "use strict";
 
+// noinspection JSClosureCompilerSyntax
 /**
  * Cross fractal cube.
  *
@@ -14,7 +15,6 @@
  * @extends {Generator}
  */
 function GenCrossFractal() {
-    /* eslint-disable no-extra-parens */
 
     /**
      * Inherit class.

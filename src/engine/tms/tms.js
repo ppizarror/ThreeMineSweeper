@@ -14,8 +14,6 @@
  * @constructor
  */
 function ThreeMineSweeper() {
-    /* eslint-disable new-cap */
-    /* eslint-disable no-extra-parens */
 
     /**
      * Stores events.
@@ -94,7 +92,7 @@ function ThreeMineSweeper() {
             setTimeout(function () {
                 window.onbeforeunload = function () {
                     return lang.reload_alert;
-                }
+                };
             }, 500);
         }
 

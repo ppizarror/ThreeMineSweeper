@@ -15,9 +15,6 @@
  */
 function Minesweeper() {
     /* eslint-disable arrow-parens */
-    /* eslint-disable new-cap */
-    /* eslint-disable no-continue */
-    /* eslint-disable no-extra-parens */
 
     /**
      * Stores volume reference.
@@ -669,20 +666,18 @@ function Minesweeper() {
         if (is_null_undf($lastname)) $lastname = '';
 
         // noinspection HtmlUnknownAttribute
-        app_dialog.form(lang.game_won_title, '{2}.<br><br><form action="" class="formName"><div class="form-group"><label for="{0}">{1}:</label><input type="text" class="form-control" id="{0}" minlength="4" maxlength="20" value="{4}" required aria-required="true" placeholder="{5}" aria-placeholder="{5}" {3}></div></form>'.format($id, lang.game_won_name, lang.game_won_content.format(round_number(self._user.time, self._user.time < 10 ? 3 : 2)), $lastname === '' ? 'autofocus' : '', $lastname, lang.game_won_placeholder),
-            function () {
+        app_dialog.form(lang.game_won_title, '{2}.<br><br><form action="" class="formName"><div class="form-group"><label for="{0}">{1}:</label><input type="text" class="form-control" id="{0}" minlength="4" maxlength="20" value="{4}" required aria-required="true" placeholder="{5}" aria-placeholder="{5}" {3}></div></form>'.format($id, lang.game_won_name, lang.game_won_content.format(round_number(self._user.time, self._user.time < 10 ? 3 : 2)), $lastname === '' ? 'autofocus' : '', $lastname, lang.game_won_placeholder), function () {
                 let $name = self._sanitize_text($('#' + $id).val()); // Get name
                 if ($name.length >= 4 && $name.length <= 20) {
                     sessionCookie.username = $name;
                     update_session_cookie();
                     self._submit_score($name);
                 }
-            }, self._new_game_after_win
-            , {
+            }, self._new_game_after_win, {
                 cancelText: lang.dialog_form_cancel,
                 icon: 'fas fa-trophy',
                 submitText: lang.dialog_form_send,
-            }
+            },
         );
 
     };
@@ -908,7 +903,7 @@ function Minesweeper() {
 
         // If reset
         self._dom.scoreboard_content.animate({
-            scrollTop: 0
+            scrollTop: 0,
         }, 400);
         if (self._reset) return;
 

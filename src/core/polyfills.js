@@ -56,10 +56,11 @@ if (Math.sign === undefined) {
  */
 if (!('name' in Function.prototype)) {
     /* eslint no-extend-native:"off" */
+    // noinspection JSCheckFunctionSignatures
     Object.defineProperty(Function.prototype, 'name', {
         get: function () {
             return this.toString().match(/^\s*function\s*([^(\s]*)/)[1];
-        }
+        },
     });
 }
 
