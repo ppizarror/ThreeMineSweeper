@@ -8,10 +8,11 @@
     "test": "test"
   },
   "scripts": {
-    "lint": "npm run lint:js",
+    "lint": "pnpm run lint:js",
     "lint:js": "eslint src/ --ext .js,.jsx,.ts,.tsx",
     "test": "karma start karma.conf.js"
   },
+  "packageManager": "pnpm@11.1.1",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ppizarror/ThreeMineSweeper.git"
@@ -32,7 +33,7 @@
     "@types/jquery": "^3.5.32",
     "@types/three": "^0.125.0",
     "eslint": "^9.26.0",
-    "google-closure-compiler": "^20260106.0.0",
+    "google-closure-compiler": "^20260511.0.0",
     "karma": "^6.4.1",
     "karma-chrome-launcher": "^3.1.1",
     "karma-coverage": "^2.2.0",
