@@ -14,14 +14,12 @@ on:
 
 jobs:
   test:
-    uses: ppizarror/workflow-actions/.github/workflows/test_js.yml@master
+    uses: ppizarror/workflow-actions/.github/workflows/npmrun.yml@master
+    with:
+      action: test, lint
 
   codeql:
     needs: test
     uses: ppizarror/workflow-actions/.github/workflows/codeql.yml@master
     with:
       language: javascript
-
-  eslint:
-    needs: test
-    uses: ppizarror/workflow-actions/.github/workflows/eslint.yml@master
