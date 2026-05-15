@@ -44,6 +44,14 @@ module.exports = function (config) {
         // Will be used as the hostname when launching browsers
         hostname: '127.0.0.1',
 
+        // Explicitly register plugins (pnpm does not flat-hoist node_modules,
+        // so karma's default 'karma-*' auto-discovery fails to find them)
+        plugins: [
+            require('karma-jasmine'),
+            require('karma-chrome-launcher'),
+            require('karma-coverage'),
+        ],
+
         // Frameworks to use: https://npmjs.org/browse/keyword/karma-adapter
         frameworks: ['jasmine'],
 

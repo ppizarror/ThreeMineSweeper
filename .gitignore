@@ -3,6 +3,7 @@
 .vscode/
 
 # Other
+coverage/
 lib/@types/
 node_modules/
 server/
