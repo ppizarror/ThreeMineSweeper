@@ -22,7 +22,7 @@
 </p>
 
 <p align="center">
-  <img src="https://github.ppizarror.com/ThreeMineSweeper/resources/web/game-3.png" alt="Game pictures" width="60%" />
+  <img src="https://github.ppizarror.com/ThreeMineSweeper/resources/web/game-3.png" alt="In-Game pictures" width="60%" />
 </p>
 
 <p align="center">
