@@ -28,7 +28,7 @@
   "bugs": {
     "url": "https://github.com/ppizarror/ThreeMineSweeper/issues"
   },
-  "homepage": "https://github.ppizarror.com/ThreeMineSweeper",
+  "homepage": "https://ppizarror.github.io/ThreeMineSweeper",
   "devDependencies": {
     "@types/jquery": "^3.5.32",
     "@types/three": "^0.125.0",
